@@ -88,6 +88,16 @@ const hasMultipleTeams = metadata && metadata.teamsCount > 1;
 
 // Always have links in the new system
 const hasLinks = true;
+
+const formattedLastUpdated = metadata?.lastUpdated
+  ? new Date(metadata.lastUpdated).toLocaleString('no-NO', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  : null;
 ---
 
 <!DOCTYPE html>
@@ -104,10 +114,11 @@ const hasLinks = true;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-      background: linear-gradient(135deg, #1a1a1a 0%, #0d4d2d 100%);
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: radial-gradient(circle at top, #031a10 0%, #020b05 60%, #010503 100%);
       min-height: 100vh;
-      padding: 2rem 1rem;
+      padding: 2.5rem 1rem;
+      color: #f6fff8;
     }
 
     main {
@@ -118,23 +129,45 @@ const hasLinks = true;
       padding: 2rem;
     }
 
-    h1 {
-      color: #10b981;
-      margin-bottom: 2rem;
-      text-align: center;
-      font-size: 2.5rem;
-      font-weight: 700;
-      text-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+    .page-header {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .page-header img {
+      width: 72px;
+      height: 72px;
+      border-radius: 16px;
+      padding: 0.5rem;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: 0 15px 35px rgba(10, 200, 130, 0.25);
+    }
+
+    .page-header h1 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: #f6fff8;
+      line-height: 1.1;
+    }
+
+    .page-header span {
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      font-size: 0.85rem;
+      color: #a7c0b3;
+      display: block;
     }
 
     .table-container {
       overflow-x: auto;
       margin-top: 1rem;
-      background: linear-gradient(135deg, #1a1a1a 0%, #0d4d2d 100%);
-      border-radius: 1rem;
-      padding: 1.5rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.1);
-      border: 2px solid rgba(16, 185, 129, 0.2);
+      background: rgba(7, 21, 14, 0.9);
+      border-radius: 1.25rem;
+      padding: 1.75rem;
+      box-shadow: 0 25px 55px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(16, 185, 129, 0.15);
     }
 
     .card-container {
@@ -142,12 +175,12 @@ const hasLinks = true;
     }
 
     .match-card {
-      background: linear-gradient(135deg, #1a1a1a 0%, #0d4d2d 100%);
-      border-radius: 1rem;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(16, 185, 129, 0.1);
-      border: 2px solid rgba(16, 185, 129, 0.2);
+      background: rgba(6, 17, 11, 0.9);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+      border: 1px solid rgba(16, 185, 129, 0.2);
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
@@ -168,9 +201,8 @@ const hasLinks = true;
     .card-date-time {
       display: flex;
       flex-direction: column;
-      font-weight: 700;
-      color: #10b981;
-      text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+      font-weight: 600;
+      color: #0fd18a;
     }
 
     .card-date {
@@ -179,7 +211,7 @@ const hasLinks = true;
 
     .card-time {
       font-size: 0.9rem;
-      color: #34d399;
+      color: #82ffd2;
     }
 
     .card-team-indicator {
@@ -188,10 +220,10 @@ const hasLinks = true;
       gap: 0.5rem;
       font-size: 0.85rem;
       font-weight: 600;
-      color: #e5e7eb;
-      background: rgba(16, 185, 129, 0.1);
-      padding: 0.25rem 0.75rem;
-      border-radius: 1rem;
+      color: #f6fff8;
+      background: rgba(16, 185, 129, 0.18);
+      padding: 0.35rem 0.9rem;
+      border-radius: 999px;
     }
 
     .card-team-dot {
@@ -213,7 +245,7 @@ const hasLinks = true;
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 0.5rem;
-      color: #e5e7eb;
+      color: #f6fff8;
     }
 
     .card-teams a,
@@ -226,53 +258,51 @@ const hasLinks = true;
     }
 
     .card-teams a {
-      color: #10b981;
-      text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+      color: #6ff3c5;
     }
 
     .card-teams a:hover {
-      color: #34d399;
+      color: white;
     }
 
     .card-score {
       text-align: center;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: 700;
-      color: #10b981;
-      margin: 0.5rem 0;
-      text-shadow: 0 0 12px rgba(16, 185, 129, 0.4);
-      letter-spacing: 0.1em;
+      color: #f6fff8;
+      margin: 0.65rem 0;
+      letter-spacing: 0.15em;
     }
 
     .card-info {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
+      gap: 0.8rem;
       font-size: 0.85rem;
-      margin-top: 0.75rem;
-      padding-top: 0.75rem;
-      border-top: 1px solid rgba(16, 185, 129, 0.2);
+      margin-top: 0.9rem;
+      padding-top: 0.9rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .card-info-item {
       display: flex;
       flex-direction: column;
-      background: rgba(16, 185, 129, 0.05);
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      border: 1px solid rgba(16, 185, 129, 0.1);
+      background: rgba(255, 255, 255, 0.04);
+      padding: 0.65rem;
+      border-radius: 0.65rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
     }
 
     .card-info-label {
       font-size: 0.7rem;
       text-transform: uppercase;
-      color: #10b981;
+      color: #7aecc4;
       margin-bottom: 0.25rem;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.08em;
     }
 
     .card-info-value {
-      color: #e5e7eb;
+      color: #f6fff8;
       font-weight: 600;
     }
 
@@ -285,35 +315,35 @@ const hasLinks = true;
     .card-link {
       flex: 1;
       text-align: center;
-      padding: 0.75rem 1rem;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      padding: 0.85rem 1rem;
+      background: linear-gradient(135deg, #10b981 0%, #0b7a55 100%);
       color: white;
-      border-radius: 0.75rem;
+      border-radius: 0.85rem;
       font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      letter-spacing: 0.05em;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+      letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .card-link:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
       color: white;
       text-decoration: none;
     }
 
     .card-tournament {
-      margin-top: 0.75rem;
-      font-size: 0.8rem;
-      color: #9ca3af;
+      margin-top: 0.9rem;
+      font-size: 0.85rem;
+      color: #c1d7cc;
       text-align: center;
     }
 
     .card-tournament a {
-      color: #34d399;
+      color: #6ff3c5;
       font-weight: 500;
     }
 
@@ -383,10 +413,9 @@ const hasLinks = true;
 
     .last-updated {
       text-align: center;
-      color: #9ca3af;
-      font-size: 0.875rem;
-      margin-top: 1rem;
-      padding: 0.5rem;
+      color: #a7c0b3;
+      font-size: 0.95rem;
+      margin-top: 1.75rem;
     }
 
     td:nth-child(1) {
@@ -419,7 +448,6 @@ const hasLinks = true;
       color: #10b981;
       text-decoration: none;
       transition: color 0.2s;
-      text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
     }
 
     a:hover {
@@ -503,7 +531,13 @@ const hasLinks = true;
 </head>
 <body>
   <main>
-    <h1>Terminliste{hasMultipleTeams ? ' - Alle lag' : ' - Fjellhammer'}</h1>
+    <header class="page-header">
+      <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="72" height="72" loading="lazy" />
+      <div>
+        <span>Fjellhammer IL</span>
+        <h1>Terminliste{hasMultipleTeams ? ' • Alle lag' : ''}</h1>
+      </div>
+    </header>
 
 {matches.length > 0 ? (
       <>
@@ -652,16 +686,10 @@ const hasLinks = true;
           ))}
         </div>
 
-        {metadata && (
+        {formattedLastUpdated && (
           <div class="last-updated">
-            Sist oppdatert: {new Date(metadata.lastUpdated).toLocaleString('no-NO', {
-              day: '2-digit',
-              month: '2-digit',
-              year: 'numeric',
-              hour: '2-digit',
-              minute: '2-digit'
-            })}
-            {hasMultipleTeams && ` • ${metadata.teamsCount} lag • ${metadata.matchesCount} kamper`}
+            Sist oppdatert: {formattedLastUpdated}
+            {hasMultipleTeams && ` • ${metadata?.teamsCount ?? matches.length} lag • ${metadata?.matchesCount ?? matches.length} kamper`}
           </div>
         )}
       </>
