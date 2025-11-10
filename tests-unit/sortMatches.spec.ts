@@ -1,8 +1,8 @@
-import { test, expect } from '@playwright/test';
+import { describe, expect, it } from 'vitest';
 import { sortMatchesByDate } from '../src/utils/date.utils.js';
 
-test.describe('sortMatchesByDate', () => {
-  test('sorts matches by date ascending', () => {
+describe('sortMatchesByDate', () => {
+  it('sorts matches by date ascending', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
@@ -16,7 +16,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted[2].Dato).toBe('14.11.2025');
   });
 
-  test('sorts matches by time when dates are equal', () => {
+  it('sorts matches by time when dates are equal', () => {
     const matches = [
       { Dato: '14.09.2025', Tid: '18:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
@@ -30,7 +30,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted[2].Tid).toBe('18:00');
   });
 
-  test('handles mixed dates and times', () => {
+  it('handles mixed dates and times', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '18:00' },
@@ -48,7 +48,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted[3].Dato).toBe('14.11.2025');
   });
 
-  test('handles empty date or time', () => {
+  it('handles empty date or time', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '' },
       { Dato: '', Tid: '10:00' },
@@ -62,7 +62,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted[2].Dato).toBe('14.11.2025');
   });
 
-  test('does not mutate original array', () => {
+  it('does not mutate original array', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
@@ -74,14 +74,14 @@ test.describe('sortMatchesByDate', () => {
     expect(matches).toEqual(original);
   });
 
-  test('handles empty array', () => {
+  it('handles empty array', () => {
     const matches: any[] = [];
     const sorted = sortMatchesByDate(matches);
 
     expect(sorted).toEqual([]);
   });
 
-  test('handles single match', () => {
+  it('handles single match', () => {
     const matches = [
       { Dato: '14.09.2025', Tid: '10:00' },
     ];
@@ -91,7 +91,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted).toEqual(matches);
   });
 
-  test('preserves all match properties', () => {
+  it('preserves all match properties', () => {
     const matches = [
       {
         Dato: '14.11.2025',
@@ -119,7 +119,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted[1].Kampnr).toBe('123');
   });
 
-  test('handles real-world dates spanning multiple months', () => {
+  it('handles real-world dates spanning multiple months', () => {
     const matches = [
       { Dato: '05.12.2025', Tid: '18:50' },
       { Dato: '23.11.2025', Tid: '15:50' },
@@ -139,7 +139,7 @@ test.describe('sortMatchesByDate', () => {
     expect(sorted[5].Dato).toBe('05.12.2025');
   });
 
-  test('handles dates across different years', () => {
+  it('handles dates across different years', () => {
     const matches = [
       { Dato: '14.01.2026', Tid: '10:00' },
       { Dato: '14.12.2025', Tid: '10:00' },

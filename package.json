@@ -9,7 +9,9 @@
     "build:fresh": "npm run refresh && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "test": "playwright test",
+    "test": "npm run test:unit && npm run test:e2e",
+    "test:e2e": "playwright test",
+    "test:unit": "vitest run",
     "test:ui": "playwright test --ui",
     "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts"
   },
@@ -19,6 +21,8 @@
   },
   "devDependencies": {
     "@playwright/test": "^1.48.2",
-    "typescript": "^5.7.2"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.7.2",
+    "vitest": "^3.2.4"
   }
 }

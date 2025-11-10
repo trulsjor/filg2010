@@ -100,7 +100,7 @@ npm run preview
 
 ## Testing
 
-Prosjektet bruker TDD (Test-Driven Development) med Playwright.
+Prosjektet bruker TDD (Test-Driven Development) med en todelt teststrategi: Vitest for rene hjelpefunksjoner og Playwright for ende-til-ende og scraping.
 
 ### Kjør alle tester
 
@@ -108,16 +108,28 @@ Prosjektet bruker TDD (Test-Driven Development) med Playwright.
 npm test
 ```
 
+### Kjør kun enhetstester (Vitest)
+
+```bash
+npm run test:unit
+```
+
 ### Kjør kun data-tester
 
 ```bash
-npm test -- --project=data-tests
+npm run test:e2e -- --project=data-tests
 ```
 
 ### Kjør kun UI-tester
 
 ```bash
-npm test -- --project=ui-tests
+npm run test:e2e -- --project=ui-tests
+```
+
+### Kjør kun Playwright-suite
+
+```bash
+npm run test:e2e
 ```
 
 ### Åpne Playwright UI

@@ -86,8 +86,8 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [ ] Legg inn throttling/backoff når `page.goto` feiler og bekreft med tester som simulerer nettfeil.
 
 ### Steg 14: Teststrategi
-- [ ] Flytt rene hjelpefunksjonstester (dato/sortering m.m.) fra Playwright til en lettvekts testrunner (Vitest/Jest) og oppdater scripts.
-- [ ] Behold Playwright kun for ende-til-ende og scraping, oppdater dokumentasjon og sørg for at begge testløpene kjøres i CI.
+- [x] Flytt rene hjelpefunksjonstester (dato/sortering m.m.) fra Playwright til en lettvekts testrunner (Vitest/Jest) og oppdater scripts.
+- [x] Behold Playwright kun for ende-til-ende og scraping, oppdater dokumentasjon og sørg for at begge testløpene kjøres i CI.
 
 ## Teknologier
 - **Frontend**: Astro + TypeScript
