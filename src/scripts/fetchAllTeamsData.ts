@@ -245,6 +245,7 @@ export async function fetchAllTeamsData(): Promise<void> {
         return {
           Lag: team.name,
           ...row,
+          Kampnr: kampnr, // Use trimmed kampnr
           'Kamp URL': links?.kampUrl || '',
           'Hjemmelag URL': links?.hjemmelagUrl || '',
           'Bortelag URL': links?.bortelagUrl || '',
