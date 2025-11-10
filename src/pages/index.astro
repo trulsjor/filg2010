@@ -203,6 +203,15 @@ if (fs.existsSync(pathToRead)) {
       color: #e5e7eb;
     }
 
+    .card-teams a,
+    .card-teams span {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      display: inline-block;
+    }
+
     .card-teams a {
       color: #10b981;
       text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
@@ -380,6 +389,10 @@ if (fs.existsSync(pathToRead)) {
     td:nth-child(4), td:nth-child(5) {
       font-weight: 500;
       color: #e5e7eb;
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     td:nth-child(6) {
