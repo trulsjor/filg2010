@@ -11,12 +11,12 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [x] Installer Playwright for E2E testing
 - [x] Sett opp Playwright-konfigurasjon
 
-### Steg 2: Data-henting og konvertering
-- [ ] Lag script som henter Excel-fil fra handball.no API
-- [ ] Skriv test for at Excel-fil kan lastes ned
-- [ ] Implementer konvertering fra Excel til CSV
-- [ ] Skriv test for at CSV-fil inneholder forventet data
-- [ ] Lagre CSV-fil lokalt i `data/` mappe
+### Steg 2: Data-henting og konvertering ✓
+- [x] Lag script som henter Excel-fil fra handball.no API
+- [x] Skriv test for at Excel-fil kan lastes ned
+- [x] Implementer konvertering fra Excel til CSV
+- [x] Skriv test for at CSV-fil inneholder forventet data
+- [x] Lagre CSV-fil lokalt i `data/` mappe
 
 ### Steg 3: Data-visning
 - [ ] Les CSV-data i Astro-komponenten

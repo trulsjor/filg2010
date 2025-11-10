@@ -13,13 +13,14 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
+      name: 'data-tests',
+      testMatch: '**/fetchData.spec.ts',
+    },
+    {
+      name: 'ui-tests',
+      testIgnore: '**/fetchData.spec.ts',
       use: { ...devices['Desktop Chrome'] },
+      dependencies: ['data-tests'],
     },
   ],
-  webServer: {
-    command: 'npm run dev',
-    url: 'http://localhost:4321',
-    reuseExistingServer: !process.env.CI,
-  },
 });
