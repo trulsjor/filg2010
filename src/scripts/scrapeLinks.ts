@@ -84,8 +84,8 @@ export async function scrapeMatchLinks(): Promise<MatchLink[]> {
             if (href.includes('kampoppgjoer') || href.includes('/kamp/')) {
               kampUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`;
             }
-            // Tournament links
-            else if (href.includes('turnering') || href.includes('/serie/')) {
+            // Tournament links (check for turnid= or /turnering/)
+            else if (href.includes('turnid=') || href.includes('/turnering/')) {
               turneringUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`;
             }
             // Team links

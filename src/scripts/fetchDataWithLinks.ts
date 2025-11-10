@@ -2,6 +2,7 @@ import * as XLSX from 'xlsx';
 import * as fs from 'fs';
 import * as path from 'path';
 import { scrapeMatchLinks } from './scrapeLinks';
+import { scrapeTournamentLinks } from './scrapeTournamentLinks';
 
 const API_URL = 'https://www.handball.no/AjaxData/TerminlisteLag?id=531500&seasonId=201060';
 const DATA_DIR = path.join(process.cwd(), 'data');
@@ -45,6 +46,10 @@ export async function fetchAndConvertDataWithLinks(): Promise<void> {
       }
     });
 
+    // Step 2b: Scrape tournament links
+    console.log('\nStep 2b: Scraping tournament links...');
+    const tournamentMap = await scrapeTournamentLinks();
+
     console.log(`\nStep 3: Combining data with links...`);
 
     // Add links to the data
@@ -52,12 +57,16 @@ export async function fetchAndConvertDataWithLinks(): Promise<void> {
       const kampnr = String(row.Kampnr || '').trim();
       const links = linkMap.get(kampnr);
 
+      // Get tournament URL by matching tournament name
+      const turneringNavn = String(row.Turnering || '').trim();
+      const turneringUrl = tournamentMap.get(turneringNavn) || '';
+
       return {
         ...row,
         'Kamp URL': links?.kampUrl || '',
         'Hjemmelag URL': links?.hjemmelagUrl || '',
         'Bortelag URL': links?.bortelagUrl || '',
-        'Turnering URL': links?.turneringUrl || '',
+        'Turnering URL': turneringUrl,
       };
     });
 
