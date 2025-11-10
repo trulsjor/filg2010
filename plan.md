@@ -42,6 +42,28 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [x] Skriv tester for lenke-funksjonalitet
 - [x] Verifiser at alle lenker fungerer
 
+### Steg 7: Dynamisk konfigurasjon og multi-lag støtte
+- [ ] Lag config.json for lag-konfigurasjon
+  - Lag 1: Fjellhammer (lagid=531500, seasonId=201060)
+  - Lag 2: Nytt lag (lagid=812498)
+- [ ] Refaktorer scripts til å bruke config i stedet for hardkodede verdier
+- [ ] Oppdater fetchDataWithLinks til å håndtere flere lag
+- [ ] Kombiner data fra begge lag i én CSV/visning
+- [ ] Legg til visuell indikator for hvilket lag hver kamp tilhører
+
+### Steg 8: Automatisk data-oppdatering
+- [ ] Implementer build-time fetching (kjør fetchDataWithLinks ved build)
+- [ ] Legg til timestamp for når data sist ble hentet
+- [ ] Vis "Sist oppdatert" på nettsiden
+- [ ] Oppdater package.json scripts for automatisk refresh
+
+### Steg 9: Testing og verifisering av ny funksjonalitet
+- [ ] Skriv tester for multi-lag støtte
+- [ ] Test at begge lag vises korrekt
+- [ ] Verifiser at timestamps vises
+- [ ] Test build-time fetching
+- [ ] Oppdater dokumentasjon (README)
+
 ## Teknologier
 - **Frontend**: Astro + TypeScript
 - **Data**: handball.no API (Excel-format)
