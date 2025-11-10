@@ -240,8 +240,21 @@ export async function fetchAllTeamsData(): Promise<void> {
       const timeA = a.Tid || '';
       const timeB = b.Tid || '';
 
+      // Convert DD.MM.YYYY to YYYY-MM-DD for proper sorting
+      const convertDate = (dateStr: string) => {
+        if (!dateStr) return '';
+        const parts = dateStr.split('.');
+        if (parts.length === 3) {
+          return `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
+        }
+        return dateStr;
+      };
+
+      const sortableDateA = convertDate(dateA);
+      const sortableDateB = convertDate(dateB);
+
       // First compare dates
-      const dateCompare = dateA.localeCompare(dateB);
+      const dateCompare = sortableDateA.localeCompare(sortableDateB);
       if (dateCompare !== 0) return dateCompare;
 
       // If dates are equal, compare times
