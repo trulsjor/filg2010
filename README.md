@@ -8,7 +8,7 @@ En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag (b�
 - 🔗 **Klikkbare lenker** - Lenker til kamper, lag og turneringer
 - 🎨 **Visuell lagindikator** - Fargekodet per lag
 - ⏰ **Timestamp** - Se når data sist ble oppdatert
-- 🔄 **Automatisk oppdatering** - Data hentes automatisk ved build
+- 🔄 **Smart oppdatering** - Data hentes kun når nødvendig
 - 📱 **Responsivt design** - Tabell på desktop, kort-layout på mobil
 - 📅 **Smart sortering** - Kamper sortert etter dato og klokkeslett
 - ✅ **Testet** - 8 Playwright E2E-tester
@@ -40,13 +40,13 @@ Lag-konfigurasjonen ligger i `config.json`:
       "name": "Fjellhammer",
       "lagid": "531500",
       "seasonId": "201060",
-      "color": "#667eea"
+      "color": "#fbbf24"
     },
     {
       "name": "Fjellhammer 2",
       "lagid": "812498",
       "seasonId": "201060",
-      "color": "#f59e0b"
+      "color": "#059669"
     }
   ]
 }
@@ -71,15 +71,26 @@ Nettsiden er nå tilgjengelig på `http://localhost:4321`
 
 ### Bygg for produksjon
 
+**Standard bygg (bruker eksisterende data)**
 ```bash
 npm run build
 ```
 
-**Viktig**: `npm run build` henter automatisk ferske data før bygget starter! Hvis du vil bygge uten å hente nye data:
-
+**Bygg med ferske data**
 ```bash
-npm run build:no-refresh
+npm run build:fresh
 ```
+
+**Når trenger du å hente ny data?**
+- ✅ **Nye kamper** - Når det har kommet nye kamper i terminlisten
+- ✅ **Oppdaterte resultater** - Når kamper er spilt og resultatene er klare
+- ✅ **Endringer i kampdetaljer** - Tid, bane eller andre kampinfo endret
+
+**Når trenger du IKKE å hente ny data?**
+- ❌ **CSS/design-endringer** - Kun kosmetiske endringer
+- ❌ **Fargeendringer** - Lagfarger leses dynamisk fra `config.json`
+- ❌ **Kode-refaktorering** - Intern kodestruktur
+- ❌ **Nye tester** - Testing påvirker ikke dataene
 
 ### Forhåndsvisning av produksjonsbygg
 
@@ -119,8 +130,7 @@ npm run test:ui
 
 ```
 terminliste/
-├── config.json                       # ⚙️  Lag-konfigurasjon
-├── prebuild.js                       # 🔄 Prebuild script (data-refresh)
+├── config.json                       # ⚙️  Lag-konfigurasjon (inkl. lagfarger)
 ├── src/
 │   ├── pages/
 │   │   └── index.astro               # 🏠 Hovedside med terminliste

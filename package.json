@@ -5,9 +5,8 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "prebuild": "node prebuild.js",
-    "build": "npm run prebuild && astro check && astro build",
-    "build:no-refresh": "astro check && astro build",
+    "build": "astro check && astro build",
+    "build:fresh": "npm run refresh && astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright test",
