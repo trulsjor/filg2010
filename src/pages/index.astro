@@ -58,54 +58,36 @@ const getTeamColor = (teamName?: string): string => {
   return teamColors.get(teamName) || '#10b981';
 };
 
-// Try to read multi-team CSV first, then single-team CSVs
-const multiTeamCsvPath = path.join(process.cwd(), 'data', 'terminliste-alle-lag.csv');
-const singleTeamCsvPath = path.join(process.cwd(), 'data', 'terminliste-med-lenker.csv');
-const fallbackCsvPath = path.join(process.cwd(), 'data', 'terminliste.csv');
+// Load match data from JSON
+const dataPath = path.join(process.cwd(), 'data', 'terminliste.json');
 
 let matches: Match[] = [];
 let metadata: Metadata | null = null;
-let hasMultipleTeams = false;
 
-// Try to load metadata
+// Load metadata
 const metadataPath = path.join(process.cwd(), 'data', 'metadata.json');
 if (fs.existsSync(metadataPath)) {
   try {
     metadata = JSON.parse(fs.readFileSync(metadataPath, 'utf-8'));
-  } catch (e) {}
-}
-
-// Determine which CSV to read
-let pathToRead = fallbackCsvPath;
-if (fs.existsSync(multiTeamCsvPath)) {
-  pathToRead = multiTeamCsvPath;
-  hasMultipleTeams = true;
-} else if (fs.existsSync(singleTeamCsvPath)) {
-  pathToRead = singleTeamCsvPath;
-}
-
-const hasLinks = fs.existsSync(singleTeamCsvPath) || hasMultipleTeams;
-
-if (fs.existsSync(pathToRead)) {
-  const csvContent = fs.readFileSync(pathToRead, 'utf-8');
-  const lines = csvContent.trim().split('\n');
-
-  if (lines.length > 1) {
-    const headers = lines[0].split(',');
-
-    // Parse CSV rows
-    for (let i = 1; i < lines.length; i++) {
-      const values = lines[i].split(',');
-      const match: any = {};
-
-      headers.forEach((header, index) => {
-        match[header] = values[index] || '';
-      });
-
-      matches.push(match as Match);
-    }
+  } catch (e) {
+    console.error('Error reading metadata.json:', e);
   }
 }
+
+// Load matches
+if (fs.existsSync(dataPath)) {
+  try {
+    matches = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+  } catch (e) {
+    console.error('Error reading terminliste.json:', e);
+  }
+}
+
+// Check if we have multiple teams
+const hasMultipleTeams = metadata && metadata.teamsCount > 1;
+
+// Always have links in the new system
+const hasLinks = true;
 ---
 
 <!DOCTYPE html>

@@ -5,7 +5,7 @@ import { chromium } from 'playwright';
 
 const CONFIG_PATH = path.join(process.cwd(), 'config.json');
 const DATA_DIR = path.join(process.cwd(), 'data');
-const COMBINED_CSV_PATH = path.join(DATA_DIR, 'terminliste-alle-lag.csv');
+const COMBINED_JSON_PATH = path.join(DATA_DIR, 'terminliste.json');
 const METADATA_PATH = path.join(DATA_DIR, 'metadata.json');
 
 interface Team {
@@ -260,10 +260,8 @@ export async function fetchAllTeamsData(): Promise<void> {
       return timeA.localeCompare(timeB);
     });
 
-    // Convert to CSV
-    const worksheet = XLSX.utils.json_to_sheet(allMatches);
-    const csv = XLSX.utils.sheet_to_csv(worksheet);
-    fs.writeFileSync(COMBINED_CSV_PATH, csv, 'utf-8');
+    // Save as JSON
+    fs.writeFileSync(COMBINED_JSON_PATH, JSON.stringify(allMatches, null, 2), 'utf-8');
 
     // Save metadata
     const metadata = {
@@ -276,7 +274,7 @@ export async function fetchAllTeamsData(): Promise<void> {
     console.log('=== Summary ===');
     console.log(`Total matches: ${allMatches.length}`);
     console.log(`Teams: ${teams.map(t => t.name).join(', ')}`);
-    console.log(`Saved to: ${COMBINED_CSV_PATH}`);
+    console.log(`Saved to: ${COMBINED_JSON_PATH}`);
     console.log(`Last updated: ${metadata.lastUpdated}`);
 
   } catch (error) {
