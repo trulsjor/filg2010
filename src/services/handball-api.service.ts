@@ -1,17 +1,18 @@
 import * as XLSX from 'xlsx';
 import type { Team } from '../types/index.js';
-import { buildApiUrl } from '../utils/url.utils.js';
+import { HandballUrlService } from './handball-url.service.js';
 
 /**
  * Service for interacting with handball.no API
  */
 export class HandballApiService {
+  private urlService = new HandballUrlService();
   /**
    * Fetches team schedule data from handball.no API
    * @returns Array of match objects from Excel file
    */
   async fetchTeamSchedule(team: Team): Promise<any[]> {
-    const apiUrl = buildApiUrl(team.lagid, team.seasonId);
+    const apiUrl = this.urlService.buildApiUrl(team.lagid, team.seasonId);
 
     try {
       const response = await fetch(apiUrl);

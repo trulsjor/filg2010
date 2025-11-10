@@ -1,6 +1,6 @@
 import { chromium, type Page } from 'playwright';
 import type { Team, MatchLink } from '../types/index.js';
-import { buildTeamUrl } from '../utils/url.utils.js';
+import { HandballUrlService } from './handball-url.service.js';
 
 const COOKIE_ACCEPT_TEXT = 'AKSEPTER';
 const COOKIE_TIMEOUT = 5000;
@@ -10,6 +10,7 @@ const KAMPNR_REGEX = /^\d{9,}/;
  * Service for scraping handball.no website
  */
 export class ScraperService {
+  private urlService = new HandballUrlService();
   /**
    * Handles cookie banner if present
    */
@@ -30,7 +31,7 @@ export class ScraperService {
 
     try {
       const page = await browser.newPage();
-      const url = buildTeamUrl(lagid);
+      const url = this.urlService.buildTeamUrl(lagid);
 
       await page.goto(url, { waitUntil: 'networkidle' });
       await this.handleCookieBanner(page);
@@ -125,7 +126,7 @@ export class ScraperService {
 
     try {
       for (const team of teams) {
-        const url = buildTeamUrl(team.lagid);
+        const url = this.urlService.buildTeamUrl(team.lagid);
         const page = await browser.newPage();
 
         await page.goto(url, { waitUntil: 'networkidle' });
