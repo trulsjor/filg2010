@@ -89,6 +89,41 @@ const hasMultipleTeams = metadata && metadata.teamsCount > 1;
 // Always have links in the new system
 const hasLinks = true;
 
+const buildMatchDate = (match?: Match) => {
+  if (!match) return null;
+  const [day, month, year] = (match.Dato || '').split('.');
+  if (!day || !month || !year) return null;
+  const [hour, minute] = (match.Tid || '00:00').split(':');
+  const date = new Date(
+    Number(year),
+    Number(month) - 1,
+    Number(day),
+    Number(hour) || 0,
+    Number(minute) || 0
+  );
+  return isNaN(date.getTime()) ? null : date;
+};
+
+const normalizeMatchId = (value?: string | number | null) => String(value ?? '').trim();
+
+const now = new Date();
+const nextMatch = matches.find((match) => {
+  const date = buildMatchDate(match);
+  return date && date >= now;
+}) || matches[0];
+const nextMatchDate = buildMatchDate(nextMatch);
+const nextMatchDateLabel = nextMatchDate
+  ? nextMatchDate.toLocaleString('no-NO', {
+      weekday: 'short',
+      day: '2-digit',
+      month: 'short',
+      hour: '2-digit',
+      minute: '2-digit',
+    })
+  : null;
+const nextMatchScore = nextMatch && nextMatch['H-B'] && nextMatch['H-B'] !== '-' ? nextMatch['H-B'] : null;
+const nextMatchId = normalizeMatchId(nextMatch?.Kampnr);
+
 const formattedLastUpdated = metadata?.lastUpdated
   ? new Date(metadata.lastUpdated).toLocaleString('no-NO', {
       day: '2-digit',
@@ -158,6 +193,125 @@ const formattedLastUpdated = metadata?.lastUpdated
       font-size: 0.85rem;
       color: #a7c0b3;
       display: block;
+    }
+
+    .next-match {
+      background: rgba(5, 16, 11, 0.95);
+      border: 1px solid rgba(16, 185, 129, 0.2);
+      border-radius: 1.25rem;
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.45);
+    }
+
+    .next-match-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .next-match-badge {
+      background: rgba(16, 185, 129, 0.2);
+      color: #6ff3c5;
+      text-transform: uppercase;
+      letter-spacing: 0.25em;
+      font-size: 0.75rem;
+      padding: 0.4rem 0.8rem;
+      border-radius: 999px;
+    }
+
+    .next-match-date {
+      color: #d4f7e8;
+      font-weight: 600;
+    }
+
+    .next-match-team-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.75rem;
+    }
+
+    .next-match-team-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.2);
+    }
+
+    .next-match-teams {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 600;
+      color: #f6fff8;
+      gap: 1rem;
+    }
+
+    .next-match-teams span {
+      color: #7aecc4;
+      font-weight: 400;
+    }
+
+    .next-match-score {
+      text-align: center;
+      font-size: 1.75rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      margin: 0.75rem 0;
+    }
+
+    .next-match-meta {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1rem;
+    }
+
+    .next-match-meta div {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.04);
+      border-radius: 0.75rem;
+      padding: 0.75rem 1rem;
+      font-size: 0.9rem;
+    }
+
+    .next-match-meta span {
+      display: block;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: #89bda7;
+      margin-bottom: 0.25rem;
+    }
+
+    .next-match-link {
+      margin-top: 1rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: white;
+      background: linear-gradient(135deg, #10b981 0%, #0b7a55 100%);
+      padding: 0.85rem 1.5rem;
+      border-radius: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      box-shadow: 0 6px 20px rgba(16, 185, 129, 0.5);
+      text-decoration: none;
+    }
+
+    .next-match-link:hover {
+      transform: translateY(-1px);
+      color: white;
+      text-decoration: none;
     }
 
     .table-container {
@@ -539,6 +693,54 @@ const formattedLastUpdated = metadata?.lastUpdated
       </div>
     </header>
 
+    {nextMatch && (
+      <section class="next-match">
+        <div class="next-match-top">
+          <span class="next-match-badge">Neste kamp</span>
+          {nextMatchDateLabel && <span class="next-match-date">{nextMatchDateLabel}</span>}
+        </div>
+        {hasMultipleTeams && nextMatch?.Lag && (
+          <div class="next-match-team-tag">
+            <span
+              class="next-match-team-dot"
+              style={`background-color: ${getTeamColor(nextMatch.Lag)}`}
+            ></span>
+            {nextMatch.Lag}
+          </div>
+        )}
+        <div class="next-match-teams">
+          <span>
+            {nextMatch?.Hjemmelag}
+          </span>
+          <span>vs</span>
+          <span>
+            {nextMatch?.Bortelag}
+          </span>
+        </div>
+        {nextMatchScore && <div class="next-match-score">{nextMatchScore}</div>}
+        <div class="next-match-meta">
+          <div>
+            <span>Bane</span>
+            {nextMatch?.Bane || '-'}
+          </div>
+          <div>
+            <span>Turnering</span>
+            {nextMatch?.Turnering || '-'}
+          </div>
+        </div>
+        {nextMatch?.['Kamp URL'] && (
+          <a
+            href={nextMatch['Kamp URL']}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="next-match-link"
+          >
+            Se kampdetaljer
+          </a>
+        )}
+      </section>
+    )}
+
 {matches.length > 0 ? (
       <>
         <div class="table-container">
@@ -615,7 +817,10 @@ const formattedLastUpdated = metadata?.lastUpdated
 
         <div class="card-container">
           {matches.map((match) => (
-            <div class="match-card">
+            <div
+              class="match-card"
+              id={nextMatchId && nextMatchId === String(match.Kampnr || '').trim() ? 'next-match-card' : undefined}
+            >
               <div class="card-header">
                 <div class="card-date-time">
                   <span class="card-date">{match.Dato}</span>
@@ -697,5 +902,15 @@ const formattedLastUpdated = metadata?.lastUpdated
       <p>Ingen kamper funnet. Kjør data-henting først.</p>
     )}
   </main>
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', () => {
+      const prefersCards = window.matchMedia('(max-width: 900px)').matches;
+      if (!prefersCards) return;
+      const nextCard = document.getElementById('next-match-card');
+      if (nextCard) {
+        nextCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  </script>
 </body>
 </html>
