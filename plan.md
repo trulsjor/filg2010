@@ -5,11 +5,11 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 
 ## Steg-for-steg implementering med TDD
 
-### Steg 1: Oppsett
-- [ ] Sett opp Astro-prosjekt med TypeScript
-- [ ] Installer `xlsx` for Excel-parsing
-- [ ] Installer Playwright for E2E testing
-- [ ] Sett opp Playwright-konfigurasjon
+### Steg 1: Oppsett ✓
+- [x] Sett opp Astro-prosjekt med TypeScript
+- [x] Installer `xlsx` for Excel-parsing
+- [x] Installer Playwright for E2E testing
+- [x] Sett opp Playwright-konfigurasjon
 
 ### Steg 2: Data-henting og konvertering
 - [ ] Lag script som henter Excel-fil fra handball.no API
