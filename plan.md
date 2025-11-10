@@ -1,0 +1,42 @@
+# Implementeringsplan - Terminliste-nettside
+
+## Mål
+Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente data fra handball.no API.
+
+## Steg-for-steg implementering med TDD
+
+### Steg 1: Oppsett
+- [ ] Sett opp Astro-prosjekt med TypeScript
+- [ ] Installer `xlsx` for Excel-parsing
+- [ ] Installer Playwright for E2E testing
+- [ ] Sett opp Playwright-konfigurasjon
+
+### Steg 2: Data-henting og konvertering
+- [ ] Lag script som henter Excel-fil fra handball.no API
+- [ ] Skriv test for at Excel-fil kan lastes ned
+- [ ] Implementer konvertering fra Excel til CSV
+- [ ] Skriv test for at CSV-fil inneholder forventet data
+- [ ] Lagre CSV-fil lokalt i `data/` mappe
+
+### Steg 3: Data-visning
+- [ ] Les CSV-data i Astro-komponenten
+- [ ] Skriv Playwright-test for at siden viser terminliste
+- [ ] Implementer visning av terminliste i tabell
+- [ ] Test at alle kamper vises på siden
+
+### Steg 4: Styling
+- [ ] Style tabellen med CSS
+- [ ] Gjør design responsivt
+- [ ] Test at siden ser bra ut i forskjellige størrelser
+
+### Steg 5: Verifisering
+- [ ] Kjør alle Playwright-tester
+- [ ] Verifiser at data oppdateres korrekt
+- [ ] Sjekk at alt fungerer end-to-end
+
+## Teknologier
+- **Frontend**: Astro + TypeScript
+- **Data**: handball.no API (Excel-format)
+- **Parsing**: xlsx npm-pakke
+- **Testing**: Playwright
+- **Lagring**: CSV-fil
