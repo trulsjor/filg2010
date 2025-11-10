@@ -154,10 +154,19 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     .page-header {
+      position: sticky;
+      top: 1rem;
+      z-index: 20;
       display: flex;
       align-items: center;
       gap: 1.25rem;
       margin-bottom: 2.5rem;
+      padding: 1rem 1.5rem;
+      border-radius: 1.25rem;
+      background: rgba(5, 17, 11, 0.92);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
     }
 
     .page-header img {
