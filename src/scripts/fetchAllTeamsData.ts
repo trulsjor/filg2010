@@ -1,288 +1,132 @@
-import * as XLSX from 'xlsx';
-import * as fs from 'fs';
-import * as path from 'path';
-import { chromium } from 'playwright';
+/**
+ * Main script for fetching handball schedule data
+ *
+ * This script orchestrates the data fetching process:
+ * 1. Loads team configuration
+ * 2. Scrapes tournament links
+ * 3. Fetches schedule data from API
+ * 4. Scrapes match links
+ * 5. Combines and sorts all data
+ * 6. Saves to JSON files
+ */
 
-const CONFIG_PATH = path.join(process.cwd(), 'config.json');
-const DATA_DIR = path.join(process.cwd(), 'data');
-const COMBINED_JSON_PATH = path.join(DATA_DIR, 'terminliste.json');
-const METADATA_PATH = path.join(DATA_DIR, 'metadata.json');
+import type { Team, Match, MatchLink } from '../types/index.js';
+import { ScraperService } from '../services/scraper.service.js';
+import { HandballApiService } from '../services/handball-api.service.js';
+import { FileService } from '../services/file.service.js';
+import { sortMatchesByDate } from '../utils/date.utils.js';
 
-interface Team {
-  name: string;
-  lagid: string;
-  seasonId: string;
-  color: string;
-}
+// Re-export for backwards compatibility with tests
+export { convertDateForSorting, sortMatchesByDate as sortMatches } from '../utils/date.utils.js';
 
-interface MatchLink {
-  kampnr: string;
-  kampUrl?: string;
-  hjemmelagUrl?: string;
-  bortelagUrl?: string;
-}
-
-// Exported helper functions for testing
-export function convertDateForSorting(dateStr: string): string {
-  if (!dateStr) return '';
-  const parts = dateStr.split('.');
-  if (parts.length === 3) {
-    return `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
-  }
-  return dateStr;
-}
-
-export function sortMatches(matches: any[]): any[] {
-  return [...matches].sort((a, b) => {
-    const dateA = a.Dato || '';
-    const dateB = b.Dato || '';
-    const timeA = a.Tid || '';
-    const timeB = b.Tid || '';
-
-    const sortableDateA = convertDateForSorting(dateA);
-    const sortableDateB = convertDateForSorting(dateB);
-
-    // First compare dates
-    const dateCompare = sortableDateA.localeCompare(sortableDateB);
-    if (dateCompare !== 0) return dateCompare;
-
-    // If dates are equal, compare times
-    return timeA.localeCompare(timeB);
-  });
-}
-
-async function scrapeLinksForTeam(lagid: string): Promise<Map<string, MatchLink>> {
-  const browser = await chromium.launch({ headless: true });
-  const page = await browser.newPage();
-
-  try {
-    const url = `https://www.handball.no/system/kamper/lag/?lagid=${lagid}#allmatches`;
-    console.log(`  Navigating to ${url}...`);
-    await page.goto(url, { waitUntil: 'networkidle' });
-
-    // Handle cookie banner
-    try {
-      await page.click('text=AKSEPTER', { timeout: 5000 });
-      await page.waitForTimeout(1000);
-    } catch (e) {}
-
-    const matchLinks = await page.evaluate(() => {
-      const links: MatchLink[] = [];
-      const rows = document.querySelectorAll('tr');
-
-      rows.forEach((row) => {
-        const cells = row.querySelectorAll('td');
-        if (cells.length === 0) return;
-
-        let kampnr = '';
-        let kampUrl = '';
-        let hjemmelagUrl = '';
-        let bortelagUrl = '';
-
-        cells.forEach((cell) => {
-          const text = cell.textContent?.trim() || '';
-
-          // Look for kampnr (9+ digits)
-          if (/^\d{9,}/.test(text)) {
-            kampnr = text.trim();
-          }
-
-          const cellLinks = cell.querySelectorAll('a');
-          cellLinks.forEach((link) => {
-            const href = link.getAttribute('href');
-            if (!href) return;
-
-            if (href.includes('kampoppgjoer') || href.includes('/kamp/')) {
-              kampUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`;
-            } else if (href.includes('lagid=') || href.includes('/lag/')) {
-              const url = href.startsWith('http') ? href : `https://www.handball.no${href}`;
-              if (!hjemmelagUrl) {
-                hjemmelagUrl = url;
-              } else if (!bortelagUrl) {
-                bortelagUrl = url;
-              }
-            }
-          });
-        });
-
-        if (kampnr) {
-          links.push({ kampnr, kampUrl: kampUrl || undefined, hjemmelagUrl: hjemmelagUrl || undefined, bortelagUrl: bortelagUrl || undefined });
-        }
-      });
-
-      return links;
-    });
-
-    await browser.close();
-
-    const linkMap = new Map<string, MatchLink>();
-    matchLinks.forEach(link => {
-      const kampnr = link.kampnr.trim();
-      if (!linkMap.has(kampnr)) {
-        linkMap.set(kampnr, link);
-      }
-    });
-
-    return linkMap;
-  } catch (error) {
-    await browser.close();
-    throw error;
-  }
-}
-
-async function scrapeTournamentLinksForAllTeams(teams: Team[]): Promise<Map<string, string>> {
-  console.log('  Scraping tournament links from all team pages...');
-  const browser = await chromium.launch({ headless: true });
-  const tournamentMap = new Map<string, string>();
-
-  try {
-    for (const team of teams) {
-      const url = `https://www.handball.no/system/kamper/lag/?lagid=${team.lagid}#allmatches`;
-      console.log(`    - ${team.name} (${team.lagid})`);
-
-      const page = await browser.newPage();
-      await page.goto(url, { waitUntil: 'networkidle' });
-
-      try {
-        await page.click('text=AKSEPTER', { timeout: 5000 });
-        await page.waitForTimeout(1000);
-      } catch (e) {}
-
-      const tournamentLinks = await page.evaluate(() => {
-        const links: { name: string; url: string }[] = [];
-        const anchors = document.querySelectorAll('a[href*="turnid="]');
-
-        anchors.forEach((anchor) => {
-          const href = anchor.getAttribute('href');
-          const text = anchor.textContent?.trim() || '';
-
-          if (href && text) {
-            const url = href.startsWith('http') ? href : `https://www.handball.no${href}`;
-            links.push({ name: text, url });
-          }
-        });
-
-        return links;
-      });
-
-      // Add to map (deduplicated by tournament name)
-      tournamentLinks.forEach(t => {
-        if (!tournamentMap.has(t.name)) {
-          tournamentMap.set(t.name, t.url);
-        }
-      });
-
-      await page.close();
-    }
-
-    await browser.close();
-
-    console.log(`    Found ${tournamentMap.size} unique tournaments`);
-
-    return tournamentMap;
-  } catch (error) {
-    await browser.close();
-    throw error;
-  }
-}
-
+/**
+ * Main data fetching orchestrator
+ */
 export async function fetchAllTeamsData(): Promise<void> {
+  // Initialize services
+  const fileService = new FileService();
+  const scraperService = new ScraperService();
+  const apiService = new HandballApiService();
+
   try {
     console.log('=== Fetching data for all teams ===\n');
 
-    // Load config
-    const config = JSON.parse(fs.readFileSync(CONFIG_PATH, 'utf-8'));
+    // Load configuration
+    const config = fileService.loadConfig();
     const teams: Team[] = config.teams;
-
     console.log(`Found ${teams.length} teams in config\n`);
 
     // Ensure data directory exists
-    if (!fs.existsSync(DATA_DIR)) {
-      fs.mkdirSync(DATA_DIR, { recursive: true });
-    }
+    fileService.ensureDataDirectory();
 
-    // Scrape tournament links from all team pages
+    // Step 1: Scrape tournament links
     console.log('Step 1: Scraping tournament links from all team pages...');
-    const tournamentMap = await scrapeTournamentLinksForAllTeams(teams);
-    console.log();
+    console.log('  Scraping tournament links from all team pages...');
+    teams.forEach(team => {
+      console.log(`    - ${team.name} (${team.lagid})`);
+    });
 
-    const allMatches: any[] = [];
+    const tournamentMap = await scraperService.scrapeTournamentLinks(teams);
+    console.log(`    Found ${tournamentMap.size} unique tournaments\n`);
 
-    // Fetch data for each team
+    // Step 2: Fetch data for each team
+    const allMatches: Match[] = [];
+
     for (const team of teams) {
       console.log(`Step 2: Fetching data for ${team.name} (lagid=${team.lagid})...`);
 
-      // Fetch Excel data
-      const apiUrl = `https://www.handball.no/AjaxData/TerminlisteLag?id=${team.lagid}&seasonId=${team.seasonId}`;
+      // Fetch Excel data from API
       console.log(`  Fetching Excel from API...`);
-      const response = await fetch(apiUrl);
-      if (!response.ok) {
-        console.error(`  Failed to fetch data for ${team.name}: ${response.statusText}`);
-        continue;
-      }
-
-      const arrayBuffer = await response.arrayBuffer();
-      const buffer = Buffer.from(arrayBuffer);
-      const workbook = XLSX.read(buffer, { type: 'buffer' });
-      const sheetName = workbook.SheetNames[0];
-      const worksheet = workbook.Sheets[sheetName];
-      const jsonData = XLSX.utils.sheet_to_json(worksheet);
-
+      const jsonData = await apiService.fetchTeamSchedule(team);
       console.log(`  Loaded ${jsonData.length} matches from Excel`);
 
-      // Scrape links for this team
+      // Scrape match links
       console.log(`  Scraping match links...`);
-      const linkMap = await scrapeLinksForTeam(team.lagid);
+      const linkMap = await scraperService.scrapeMatchLinks(team.lagid);
       console.log(`  Found ${linkMap.size} match links`);
 
-      // Combine data with links
-      const enhancedData = jsonData.map((row: any) => {
-        const kampnr = String(row.Kampnr || '').trim();
-        const links = linkMap.get(kampnr);
-        const turneringNavn = String(row.Turnering || '').trim();
-        const turneringUrl = tournamentMap.get(turneringNavn) || '';
+      // Combine data with scraped links
+      const enhancedMatches = enhanceMatchesWithLinks(
+        jsonData,
+        team,
+        linkMap,
+        tournamentMap
+      );
 
-        return {
-          Lag: team.name,
-          ...row,
-          Kampnr: kampnr, // Use trimmed kampnr
-          'Kamp URL': links?.kampUrl || '',
-          'Hjemmelag URL': links?.hjemmelagUrl || '',
-          'Bortelag URL': links?.bortelagUrl || '',
-          'Turnering URL': turneringUrl,
-        };
-      });
-
-      allMatches.push(...enhancedData);
-      console.log(`  Added ${enhancedData.length} matches for ${team.name}\n`);
+      allMatches.push(...enhancedMatches);
+      console.log(`  Added ${enhancedMatches.length} matches for ${team.name}\n`);
     }
 
-    // Sort all matches by date and time
-    const sortedMatches = sortMatches(allMatches);
-    allMatches.length = 0;
-    allMatches.push(...sortedMatches);
+    // Step 3: Sort all matches
+    const sortedMatches = sortMatchesByDate(allMatches);
 
-    // Save as JSON
-    fs.writeFileSync(COMBINED_JSON_PATH, JSON.stringify(allMatches, null, 2), 'utf-8');
+    // Step 4: Save to files
+    fileService.saveMatches(sortedMatches);
 
-    // Save metadata
     const metadata = {
       lastUpdated: new Date().toISOString(),
       teamsCount: teams.length,
-      matchesCount: allMatches.length,
+      matchesCount: sortedMatches.length,
     };
-    fs.writeFileSync(METADATA_PATH, JSON.stringify(metadata, null, 2), 'utf-8');
+    fileService.saveMetadata(metadata);
 
+    // Summary
     console.log('=== Summary ===');
-    console.log(`Total matches: ${allMatches.length}`);
-    console.log(`Teams: ${teams.map(t => t.name).join(', ')}`);
-    console.log(`Saved to: ${COMBINED_JSON_PATH}`);
+    console.log(`Total matches: ${sortedMatches.length}`);
+    console.log(`Teams: ${teams.map((t) => t.name).join(', ')}`);
+    console.log(`Saved to: ${fileService.getMatchesPath()}`);
     console.log(`Last updated: ${metadata.lastUpdated}`);
-
   } catch (error) {
     console.error('Error fetching all teams data:', error);
     throw error;
   }
+}
+
+/**
+ * Enhances match data with scraped links
+ */
+function enhanceMatchesWithLinks(
+  matches: any[],
+  team: Team,
+  linkMap: Map<string, MatchLink>,
+  tournamentMap: Map<string, string>
+): Match[] {
+  return matches.map((row: any) => {
+    const kampnr = String(row.Kampnr || '').trim();
+    const links = linkMap.get(kampnr);
+    const turneringNavn = String(row.Turnering || '').trim();
+    const turneringUrl = tournamentMap.get(turneringNavn) || '';
+
+    return {
+      Lag: team.name,
+      ...row,
+      Kampnr: kampnr,
+      'Kamp URL': links?.kampUrl || '',
+      'Hjemmelag URL': links?.hjemmelagUrl || '',
+      'Bortelag URL': links?.bortelagUrl || '',
+      'Turnering URL': turneringUrl,
+    };
+  });
 }
 
 // Run if executed directly

@@ -1,5 +1,5 @@
 import { test, expect } from '@playwright/test';
-import { convertDateForSorting, sortMatches } from '../src/scripts/fetchAllTeamsData';
+import { convertDateForSorting, sortMatchesByDate as sortMatches } from '../src/utils/date.utils';
 
 test.describe('convertDateForSorting', () => {
   test('should convert DD.MM.YYYY to YYYY-MM-DD', () => {
