@@ -1,0 +1,53 @@
+[
+  {
+    "Lag": "Fjellhammer",
+    "Dato": "14.09.2025",
+    "Tid": "10:00",
+    "Kampnr": "41031502001         ",
+    "Hjemmelag": "Fjellhammer",
+    "Bortelag": "Testlaget",
+    "H-B": "25-20",
+    "Bane": "Fjellhamar Arena 1",
+    "Tilskuere": 50,
+    "Arrangør": "Fjellhammer Idrettslag",
+    "Turnering": "Regionserien Gutter 15 - avd 32",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=1234567",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=999999",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+  },
+  {
+    "Lag": "Fjellhammer 2",
+    "Dato": "15.09.2025",
+    "Tid": "14:00",
+    "Kampnr": "41031504002         ",
+    "Hjemmelag": "Testlaget 2",
+    "Bortelag": "Fjellhammer 2",
+    "H-B": "18-30",
+    "Bane": "Test Arena",
+    "Tilskuere": 30,
+    "Arrangør": "Test Idrettslag",
+    "Turnering": "Regionserien Gutter 15 - avd 42",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=1234568",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=999998",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=812498",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440240"
+  },
+  {
+    "Lag": "Fjellhammer",
+    "Dato": "20.09.2025",
+    "Tid": "18:00",
+    "Kampnr": "41031502003         ",
+    "Hjemmelag": "Bortelaget",
+    "Bortelag": "Fjellhammer",
+    "H-B": "",
+    "Bane": "Bortebane 1",
+    "Tilskuere": "",
+    "Arrangør": "Borte Idrettslag",
+    "Turnering": "Regionserien Gutter 15 - avd 32",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=1234569",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=999997",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+  }
+]
