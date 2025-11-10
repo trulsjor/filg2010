@@ -1,0 +1,180 @@
+import { test, expect } from '@playwright/test';
+import { convertDateForSorting, sortMatches } from '../src/scripts/fetchAllTeamsData';
+
+test.describe('convertDateForSorting', () => {
+  test('should convert DD.MM.YYYY to YYYY-MM-DD', () => {
+    expect(convertDateForSorting('14.09.2025')).toBe('2025-09-14');
+    expect(convertDateForSorting('01.01.2025')).toBe('2025-01-01');
+    expect(convertDateForSorting('31.12.2025')).toBe('2025-12-31');
+  });
+
+  test('should handle empty string', () => {
+    expect(convertDateForSorting('')).toBe('');
+  });
+
+  test('should handle invalid date format', () => {
+    expect(convertDateForSorting('invalid')).toBe('invalid');
+    expect(convertDateForSorting('14-09-2025')).toBe('14-09-2025');
+    expect(convertDateForSorting('14/09/2025')).toBe('14/09/2025');
+  });
+
+  test('should handle partial dates', () => {
+    expect(convertDateForSorting('14.09')).toBe('14.09');
+    expect(convertDateForSorting('2025')).toBe('2025');
+  });
+});
+
+test.describe('sortMatches', () => {
+  test('should sort matches by date ascending', () => {
+    const matches = [
+      { Dato: '14.11.2025', Tid: '10:00' },
+      { Dato: '14.09.2025', Tid: '10:00' },
+      { Dato: '14.10.2025', Tid: '10:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted[0].Dato).toBe('14.09.2025');
+    expect(sorted[1].Dato).toBe('14.10.2025');
+    expect(sorted[2].Dato).toBe('14.11.2025');
+  });
+
+  test('should sort matches by time when dates are equal', () => {
+    const matches = [
+      { Dato: '14.09.2025', Tid: '18:00' },
+      { Dato: '14.09.2025', Tid: '10:00' },
+      { Dato: '14.09.2025', Tid: '14:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted[0].Tid).toBe('10:00');
+    expect(sorted[1].Tid).toBe('14:00');
+    expect(sorted[2].Tid).toBe('18:00');
+  });
+
+  test('should handle mixed dates and times', () => {
+    const matches = [
+      { Dato: '14.11.2025', Tid: '10:00' },
+      { Dato: '14.09.2025', Tid: '18:00' },
+      { Dato: '14.09.2025', Tid: '10:00' },
+      { Dato: '14.10.2025', Tid: '14:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted[0].Dato).toBe('14.09.2025');
+    expect(sorted[0].Tid).toBe('10:00');
+    expect(sorted[1].Dato).toBe('14.09.2025');
+    expect(sorted[1].Tid).toBe('18:00');
+    expect(sorted[2].Dato).toBe('14.10.2025');
+    expect(sorted[3].Dato).toBe('14.11.2025');
+  });
+
+  test('should handle empty date or time', () => {
+    const matches = [
+      { Dato: '14.11.2025', Tid: '' },
+      { Dato: '', Tid: '10:00' },
+      { Dato: '14.09.2025', Tid: '10:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    // Matches with empty dates should go first
+    expect(sorted[0].Dato).toBe('');
+    // Then sorted by date
+    expect(sorted[1].Dato).toBe('14.09.2025');
+    expect(sorted[2].Dato).toBe('14.11.2025');
+  });
+
+  test('should not mutate original array', () => {
+    const matches = [
+      { Dato: '14.11.2025', Tid: '10:00' },
+      { Dato: '14.09.2025', Tid: '10:00' },
+    ];
+
+    const original = [...matches];
+    sortMatches(matches);
+
+    expect(matches).toEqual(original);
+  });
+
+  test('should handle empty array', () => {
+    const matches: any[] = [];
+    const sorted = sortMatches(matches);
+
+    expect(sorted).toEqual([]);
+  });
+
+  test('should handle single match', () => {
+    const matches = [
+      { Dato: '14.09.2025', Tid: '10:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted).toEqual(matches);
+  });
+
+  test('should preserve all match properties', () => {
+    const matches = [
+      {
+        Dato: '14.11.2025',
+        Tid: '10:00',
+        Kampnr: '123',
+        Hjemmelag: 'Team A',
+        Bortelag: 'Team B',
+        'H-B': '10-5',
+      },
+      {
+        Dato: '14.09.2025',
+        Tid: '10:00',
+        Kampnr: '456',
+        Hjemmelag: 'Team C',
+        Bortelag: 'Team D',
+        'H-B': '20-15',
+      },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted[0].Kampnr).toBe('456');
+    expect(sorted[0].Hjemmelag).toBe('Team C');
+    expect(sorted[0]['H-B']).toBe('20-15');
+    expect(sorted[1].Kampnr).toBe('123');
+  });
+
+  test('should handle real-world dates spanning multiple months', () => {
+    const matches = [
+      { Dato: '05.12.2025', Tid: '18:50' },
+      { Dato: '23.11.2025', Tid: '15:50' },
+      { Dato: '16.11.2025', Tid: '18:45' },
+      { Dato: '15.11.2025', Tid: '14:25' },
+      { Dato: '09.11.2025', Tid: '12:30' },
+      { Dato: '14.09.2025', Tid: '10:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted[0].Dato).toBe('14.09.2025');
+    expect(sorted[1].Dato).toBe('09.11.2025');
+    expect(sorted[2].Dato).toBe('15.11.2025');
+    expect(sorted[3].Dato).toBe('16.11.2025');
+    expect(sorted[4].Dato).toBe('23.11.2025');
+    expect(sorted[5].Dato).toBe('05.12.2025');
+  });
+
+  test('should handle dates with different year', () => {
+    const matches = [
+      { Dato: '14.01.2026', Tid: '10:00' },
+      { Dato: '14.12.2025', Tid: '10:00' },
+      { Dato: '14.11.2024', Tid: '10:00' },
+    ];
+
+    const sorted = sortMatches(matches);
+
+    expect(sorted[0].Dato).toBe('14.11.2024');
+    expect(sorted[1].Dato).toBe('14.12.2025');
+    expect(sorted[2].Dato).toBe('14.01.2026');
+  });
+});

@@ -22,6 +22,35 @@ interface MatchLink {
   bortelagUrl?: string;
 }
 
+// Exported helper functions for testing
+export function convertDateForSorting(dateStr: string): string {
+  if (!dateStr) return '';
+  const parts = dateStr.split('.');
+  if (parts.length === 3) {
+    return `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
+  }
+  return dateStr;
+}
+
+export function sortMatches(matches: any[]): any[] {
+  return [...matches].sort((a, b) => {
+    const dateA = a.Dato || '';
+    const dateB = b.Dato || '';
+    const timeA = a.Tid || '';
+    const timeB = b.Tid || '';
+
+    const sortableDateA = convertDateForSorting(dateA);
+    const sortableDateB = convertDateForSorting(dateB);
+
+    // First compare dates
+    const dateCompare = sortableDateA.localeCompare(sortableDateB);
+    if (dateCompare !== 0) return dateCompare;
+
+    // If dates are equal, compare times
+    return timeA.localeCompare(timeB);
+  });
+}
+
 async function scrapeLinksForTeam(lagid: string): Promise<Map<string, MatchLink>> {
   const browser = await chromium.launch({ headless: true });
   const page = await browser.newPage();
@@ -233,32 +262,9 @@ export async function fetchAllTeamsData(): Promise<void> {
     }
 
     // Sort all matches by date and time
-    allMatches.sort((a, b) => {
-      const dateA = a.Dato || '';
-      const dateB = b.Dato || '';
-      const timeA = a.Tid || '';
-      const timeB = b.Tid || '';
-
-      // Convert DD.MM.YYYY to YYYY-MM-DD for proper sorting
-      const convertDate = (dateStr: string) => {
-        if (!dateStr) return '';
-        const parts = dateStr.split('.');
-        if (parts.length === 3) {
-          return `${parts[2]}-${parts[1]}-${parts[0]}`; // YYYY-MM-DD
-        }
-        return dateStr;
-      };
-
-      const sortableDateA = convertDate(dateA);
-      const sortableDateB = convertDate(dateB);
-
-      // First compare dates
-      const dateCompare = sortableDateA.localeCompare(sortableDateB);
-      if (dateCompare !== 0) return dateCompare;
-
-      // If dates are equal, compare times
-      return timeA.localeCompare(timeB);
-    });
+    const sortedMatches = sortMatches(allMatches);
+    allMatches.length = 0;
+    allMatches.push(...sortedMatches);
 
     // Save as JSON
     fs.writeFileSync(COMBINED_JSON_PATH, JSON.stringify(allMatches, null, 2), 'utf-8');
