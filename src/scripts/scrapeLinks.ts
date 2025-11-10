@@ -67,8 +67,8 @@ export async function scrapeMatchLinks(): Promise<MatchLink[]> {
         cells.forEach((cell, index) => {
           const text = cell.textContent?.trim() || '';
 
-          // Look for kampnr (usually a long number)
-          if (/^\d{10,}/.test(text)) {
+          // Look for kampnr (usually a long number, 9+ digits)
+          if (/^\d{9,}/.test(text)) {
             kampnr = text.trim();
           }
 

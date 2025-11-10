@@ -46,9 +46,19 @@ export async function fetchAndConvertDataWithLinks(): Promise<void> {
       }
     });
 
-    // Step 2b: Scrape tournament links
-    console.log('\nStep 2b: Scraping tournament links...');
-    const tournamentMap = await scrapeTournamentLinks();
+    // Step 2b: Scrape tournament links (or use cached)
+    console.log('\nStep 2b: Getting tournament links...');
+    let tournamentMap: Map<string, string>;
+
+    const tournamentCachePath = path.join(DATA_DIR, 'turneringlenker.json');
+    if (fs.existsSync(tournamentCachePath)) {
+      console.log('Using cached tournament links');
+      const cached = JSON.parse(fs.readFileSync(tournamentCachePath, 'utf-8'));
+      tournamentMap = new Map(cached.map((t: any) => [t.name, t.url]));
+    } else {
+      console.log('Scraping tournament links...');
+      tournamentMap = await scrapeTournamentLinks();
+    }
 
     console.log(`\nStep 3: Combining data with links...`);
 
