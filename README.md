@@ -150,6 +150,8 @@ terminliste/
 └── README.md                         # 📖 Denne filen
 ```
 
+For bidragsrutiner og agentinstruksjoner, se `AGENTS.md`.
+
 ## Datakilder
 
 Terminlisten hentes fra:

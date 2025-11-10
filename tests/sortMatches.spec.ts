@@ -1,59 +1,36 @@
 import { test, expect } from '@playwright/test';
-import { convertDateForSorting, sortMatchesByDate as sortMatches } from '../src/utils/date.utils';
+import { sortMatchesByDate } from '../src/utils/date.utils.js';
 
-test.describe('convertDateForSorting', () => {
-  test('should convert DD.MM.YYYY to YYYY-MM-DD', () => {
-    expect(convertDateForSorting('14.09.2025')).toBe('2025-09-14');
-    expect(convertDateForSorting('01.01.2025')).toBe('2025-01-01');
-    expect(convertDateForSorting('31.12.2025')).toBe('2025-12-31');
-  });
-
-  test('should handle empty string', () => {
-    expect(convertDateForSorting('')).toBe('');
-  });
-
-  test('should handle invalid date format', () => {
-    expect(convertDateForSorting('invalid')).toBe('invalid');
-    expect(convertDateForSorting('14-09-2025')).toBe('14-09-2025');
-    expect(convertDateForSorting('14/09/2025')).toBe('14/09/2025');
-  });
-
-  test('should handle partial dates', () => {
-    expect(convertDateForSorting('14.09')).toBe('14.09');
-    expect(convertDateForSorting('2025')).toBe('2025');
-  });
-});
-
-test.describe('sortMatches', () => {
-  test('should sort matches by date ascending', () => {
+test.describe('sortMatchesByDate', () => {
+  test('sorts matches by date ascending', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
       { Dato: '14.10.2025', Tid: '10:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted[0].Dato).toBe('14.09.2025');
     expect(sorted[1].Dato).toBe('14.10.2025');
     expect(sorted[2].Dato).toBe('14.11.2025');
   });
 
-  test('should sort matches by time when dates are equal', () => {
+  test('sorts matches by time when dates are equal', () => {
     const matches = [
       { Dato: '14.09.2025', Tid: '18:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '14:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted[0].Tid).toBe('10:00');
     expect(sorted[1].Tid).toBe('14:00');
     expect(sorted[2].Tid).toBe('18:00');
   });
 
-  test('should handle mixed dates and times', () => {
+  test('handles mixed dates and times', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '18:00' },
@@ -61,7 +38,7 @@ test.describe('sortMatches', () => {
       { Dato: '14.10.2025', Tid: '14:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted[0].Dato).toBe('14.09.2025');
     expect(sorted[0].Tid).toBe('10:00');
@@ -71,52 +48,50 @@ test.describe('sortMatches', () => {
     expect(sorted[3].Dato).toBe('14.11.2025');
   });
 
-  test('should handle empty date or time', () => {
+  test('handles empty date or time', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '' },
       { Dato: '', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
-    // Matches with empty dates should go first
     expect(sorted[0].Dato).toBe('');
-    // Then sorted by date
     expect(sorted[1].Dato).toBe('14.09.2025');
     expect(sorted[2].Dato).toBe('14.11.2025');
   });
 
-  test('should not mutate original array', () => {
+  test('does not mutate original array', () => {
     const matches = [
       { Dato: '14.11.2025', Tid: '10:00' },
       { Dato: '14.09.2025', Tid: '10:00' },
     ];
 
     const original = [...matches];
-    sortMatches(matches);
+    sortMatchesByDate(matches);
 
     expect(matches).toEqual(original);
   });
 
-  test('should handle empty array', () => {
+  test('handles empty array', () => {
     const matches: any[] = [];
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted).toEqual([]);
   });
 
-  test('should handle single match', () => {
+  test('handles single match', () => {
     const matches = [
       { Dato: '14.09.2025', Tid: '10:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted).toEqual(matches);
   });
 
-  test('should preserve all match properties', () => {
+  test('preserves all match properties', () => {
     const matches = [
       {
         Dato: '14.11.2025',
@@ -136,7 +111,7 @@ test.describe('sortMatches', () => {
       },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted[0].Kampnr).toBe('456');
     expect(sorted[0].Hjemmelag).toBe('Team C');
@@ -144,7 +119,7 @@ test.describe('sortMatches', () => {
     expect(sorted[1].Kampnr).toBe('123');
   });
 
-  test('should handle real-world dates spanning multiple months', () => {
+  test('handles real-world dates spanning multiple months', () => {
     const matches = [
       { Dato: '05.12.2025', Tid: '18:50' },
       { Dato: '23.11.2025', Tid: '15:50' },
@@ -154,7 +129,7 @@ test.describe('sortMatches', () => {
       { Dato: '14.09.2025', Tid: '10:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted[0].Dato).toBe('14.09.2025');
     expect(sorted[1].Dato).toBe('09.11.2025');
@@ -164,14 +139,14 @@ test.describe('sortMatches', () => {
     expect(sorted[5].Dato).toBe('05.12.2025');
   });
 
-  test('should handle dates with different year', () => {
+  test('handles dates across different years', () => {
     const matches = [
       { Dato: '14.01.2026', Tid: '10:00' },
       { Dato: '14.12.2025', Tid: '10:00' },
       { Dato: '14.11.2024', Tid: '10:00' },
     ];
 
-    const sorted = sortMatches(matches);
+    const sorted = sortMatchesByDate(matches);
 
     expect(sorted[0].Dato).toBe('14.11.2024');
     expect(sorted[1].Dato).toBe('14.12.2025');

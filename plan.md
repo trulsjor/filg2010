@@ -71,6 +71,24 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [x] Test på ulike skjermstørrelser med Playwright
 - [x] Oppdater dokumentasjon
 
+### Steg 11: Robust data-pipeline (TDD)
+- [x] Refaktorer `fetchAllTeamsData` til modulære funksjoner med enhetstester som dekker kontrollflyten før implementasjon.
+- [ ] Innfør parallellisering med begrenset concurrency og delvis feilhandtering for scraping/API-kall, verifisert gjennom nye tester.
+- [ ] Legg til tidsavbrudd og retry/backoff-logikk i `HandballApiService` og dekk det med tester som simulerer mislykkede kall.
+
+### Steg 12: Typing og validering (TDD)
+- [ ] Definer `RawMatchRow`-type og normaliseringsfunksjoner testet med fixtures før bruk i pipeline.
+- [ ] Valider `config.json` og `metadata.json` via skjema (f.eks. Zod) med tester som viser at ugyldige filer avvises.
+- [ ] Implementer atomiske skrivinger i `FileService` (midlertidig fil + rename) og skriv tester som bekrefter at delvise writes ikke korrupt data.
+
+### Steg 13: Scraper-optimalisering (TDD)
+- [ ] Gjenbruk Playwright-browser og -context på tvers av scraping-funksjoner; skriv tester/mocks som verifiserer at ressursene lukkes trygt selv ved feil.
+- [ ] Legg inn throttling/backoff når `page.goto` feiler og bekreft med tester som simulerer nettfeil.
+
+### Steg 14: Teststrategi
+- [ ] Flytt rene hjelpefunksjonstester (dato/sortering m.m.) fra Playwright til en lettvekts testrunner (Vitest/Jest) og oppdater scripts.
+- [ ] Behold Playwright kun for ende-til-ende og scraping, oppdater dokumentasjon og sørg for at begge testløpene kjøres i CI.
+
 ## Teknologier
 - **Frontend**: Astro + TypeScript
 - **Data**: handball.no API (Excel-format)
