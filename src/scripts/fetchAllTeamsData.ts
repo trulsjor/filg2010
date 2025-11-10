@@ -220,7 +220,6 @@ export async function fetchAllTeamsData(): Promise<void> {
 
         return {
           Lag: team.name,
-          'Lag Farge': team.color,
           ...row,
           'Kamp URL': links?.kampUrl || '',
           'Hjemmelag URL': links?.hjemmelagUrl || '',
