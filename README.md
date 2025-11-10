@@ -21,11 +21,17 @@ npm install
 
 Før du kan kjøre nettsiden, må du hente dataene fra handball.no:
 
+**Alternativ 1: Kun Excel-data (uten lenker)**
 ```bash
 node --loader tsx src/scripts/fetchData.ts
 ```
 
-Dette laster ned Excel-filen fra handball.no API og konverterer den til CSV-format i `data/terminliste.csv`.
+**Alternativ 2: Med lenker til kamper og lag (anbefalt)**
+```bash
+npx tsx src/scripts/fetchDataWithLinks.ts
+```
+
+Dette laster ned Excel-filen fra handball.no API, scraper lenker fra handball.no-nettsiden, og kombinerer alt i CSV-format. Med lenker får du klikkbare lag- og kamp-lenker i terminlisten.
 
 ### Kjør utviklingsserver
 
@@ -81,16 +87,21 @@ npm run test:ui
 terminliste/
 ├── src/
 │   ├── pages/
-│   │   └── index.astro          # Hovedside med terminliste
+│   │   └── index.astro               # Hovedside med terminliste
 │   └── scripts/
-│       └── fetchData.ts         # Script for å hente data
+│       ├── fetchData.ts              # Script for å hente Excel-data
+│       ├── fetchDataWithLinks.ts     # Script for å hente data med lenker
+│       ├── scrapeLinks.ts            # Script for å scrape lenker
+│       └── inspectPage.ts            # Debug-verktøy
 ├── tests/
-│   ├── fetchData.spec.ts        # Tester for data-henting
-│   └── homepage.spec.ts         # Tester for UI
+│   ├── fetchData.spec.ts             # Tester for data-henting
+│   └── homepage.spec.ts              # Tester for UI og lenker
 ├── data/
-│   └── terminliste.csv          # Lagret terminliste-data
-├── plan.md                      # Implementeringsplan
-└── README.md                    # Denne filen
+│   ├── terminliste.csv               # Lagret terminliste-data
+│   ├── terminliste-med-lenker.csv    # Data med lenker
+│   └── kamplenker.json               # Scrapede lenker
+├── plan.md                           # Implementeringsplan
+└── README.md                         # Denne filen
 ```
 
 ## Datakilder
@@ -103,11 +114,13 @@ Terminlisten hentes fra:
 ## Funksjoner
 
 - Viser all terminlistedata i en oversiktlig tabell
+- **Klikkbare lenker til kamper og lag** (når du bruker fetchDataWithLinks)
 - Responsive design som fungerer på alle enheter
 - Moderne, fargerikt design med gradient-bakgrunn
 - Hover-effekter for bedre brukeropplevelse
-- Automatisk testing med Playwright
+- Automatisk testing med Playwright (8 tester)
 - Type-sikkerhet med TypeScript
+- Web scraping av lenker med Playwright
 
 ## Utvikling
 

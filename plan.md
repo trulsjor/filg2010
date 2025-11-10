@@ -34,9 +34,18 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [x] Verifiser at data oppdateres korrekt
 - [x] Sjekk at alt fungerer end-to-end
 
+### Steg 6: Lenker til kamper og lag ✓
+- [x] Lag Playwright-script for å scrape lenker fra handball.no
+- [x] Håndter cookie-banner og navigasjon
+- [x] Kombiner Excel-data med scrapede lenker
+- [x] Oppdater Astro-side for å vise klikkbare lenker
+- [x] Skriv tester for lenke-funksjonalitet
+- [x] Verifiser at alle lenker fungerer
+
 ## Teknologier
 - **Frontend**: Astro + TypeScript
 - **Data**: handball.no API (Excel-format)
 - **Parsing**: xlsx npm-pakke
 - **Testing**: Playwright
 - **Lagring**: CSV-fil
+- **Web scraping**: Playwright (for lenker)

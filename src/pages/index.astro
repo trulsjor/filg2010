@@ -13,14 +13,21 @@ interface Match {
   Tilskuere: string;
   Arrangør: string;
   Turnering: string;
+  'Kamp URL'?: string;
+  'Hjemmelag URL'?: string;
+  'Bortelag URL'?: string;
 }
 
-// Read CSV file
+// Try to read enhanced CSV first, fallback to regular CSV
+const enhancedCsvPath = path.join(process.cwd(), 'data', 'terminliste-med-lenker.csv');
 const csvPath = path.join(process.cwd(), 'data', 'terminliste.csv');
 let matches: Match[] = [];
 
-if (fs.existsSync(csvPath)) {
-  const csvContent = fs.readFileSync(csvPath, 'utf-8');
+const pathToRead = fs.existsSync(enhancedCsvPath) ? enhancedCsvPath : csvPath;
+const hasLinks = fs.existsSync(enhancedCsvPath);
+
+if (fs.existsSync(pathToRead)) {
+  const csvContent = fs.readFileSync(pathToRead, 'utf-8');
   const lines = csvContent.trim().split('\n');
 
   if (lines.length > 1) {
@@ -127,13 +134,42 @@ if (fs.existsSync(csvPath)) {
       color: #667eea;
     }
 
-    td:nth-child(4), td:nth-child(5) {
+    td:nth-child(3), td:nth-child(4) {
       font-weight: 500;
     }
 
-    td:nth-child(6) {
+    td:nth-child(5) {
       font-weight: 700;
       color: #764ba2;
+    }
+
+    a {
+      color: #667eea;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    a:hover {
+      color: #764ba2;
+      text-decoration: underline;
+    }
+
+    .match-link {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border-radius: 0.25rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .match-link:hover {
+      opacity: 0.8;
+      text-decoration: none;
+      color: white;
     }
 
     p {
@@ -196,14 +232,12 @@ if (fs.existsSync(csvPath)) {
             <tr>
               <th>Dato</th>
               <th>Tid</th>
-              <th>Kampnr</th>
               <th>Hjemmelag</th>
               <th>Bortelag</th>
               <th>H-B</th>
               <th>Bane</th>
               <th>Tilskuere</th>
-              <th>Arrangør</th>
-              <th>Turnering</th>
+              {hasLinks && <th>Kamp</th>}
             </tr>
           </thead>
           <tbody>
@@ -211,14 +245,38 @@ if (fs.existsSync(csvPath)) {
               <tr>
                 <td>{match.Dato}</td>
                 <td>{match.Tid}</td>
-                <td>{match.Kampnr}</td>
-                <td>{match.Hjemmelag}</td>
-                <td>{match.Bortelag}</td>
+                <td>
+                  {match['Hjemmelag URL'] ? (
+                    <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
+                      {match.Hjemmelag}
+                    </a>
+                  ) : (
+                    match.Hjemmelag
+                  )}
+                </td>
+                <td>
+                  {match['Bortelag URL'] ? (
+                    <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
+                      {match.Bortelag}
+                    </a>
+                  ) : (
+                    match.Bortelag
+                  )}
+                </td>
                 <td>{match['H-B']}</td>
                 <td>{match.Bane}</td>
                 <td>{match.Tilskuere}</td>
-                <td>{match.Arrangør}</td>
-                <td>{match.Turnering}</td>
+                {hasLinks && (
+                  <td>
+                    {match['Kamp URL'] ? (
+                      <a href={match['Kamp URL']} target="_blank" rel="noopener noreferrer" class="match-link">
+                        Se kamp
+                      </a>
+                    ) : (
+                      <span>-</span>
+                    )}
+                  </td>
+                )}
               </tr>
             ))}
           </tbody>

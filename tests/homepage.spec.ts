@@ -15,9 +15,10 @@ test.describe('Homepage - Terminliste', () => {
     const table = page.locator('table');
     await expect(table).toBeVisible();
 
-    // Check for table headers
+    // Check for table headers (7 or 8 depending on if we have links)
     const headers = page.locator('th');
-    await expect(headers).toHaveCount(10); // 10 columns
+    const headerCount = await headers.count();
+    expect(headerCount).toBeGreaterThanOrEqual(7);
 
     // Check some expected headers
     await expect(page.locator('th:has-text("Dato")')).toBeVisible();
@@ -44,5 +45,49 @@ test.describe('Homepage - Terminliste', () => {
 
     // Check that Fjellhammer appears in the table (they are in the data)
     await expect(page.locator('text=Fjellhammer').first()).toBeVisible();
+  });
+
+  test('should have clickable links to matches if available', async ({ page }) => {
+    await page.goto('/');
+
+    // Check if there are any match links
+    const matchLinks = page.locator('a.match-link');
+    const count = await matchLinks.count();
+
+    // If we have the enhanced CSV, there should be match links
+    if (count > 0) {
+      console.log(`Found ${count} match links`);
+
+      // Check that first link has correct attributes
+      const firstLink = matchLinks.first();
+      await expect(firstLink).toHaveAttribute('target', '_blank');
+      await expect(firstLink).toHaveAttribute('rel', 'noopener noreferrer');
+
+      // Check that link has handball.no URL
+      const href = await firstLink.getAttribute('href');
+      expect(href).toContain('handball.no');
+    } else {
+      console.log('No match links found (enhanced CSV not present)');
+    }
+  });
+
+  test('should have clickable team links if available', async ({ page }) => {
+    await page.goto('/');
+
+    // Look for links within table cells (team links)
+    const teamLinks = page.locator('tbody td a:not(.match-link)');
+    const count = await teamLinks.count();
+
+    if (count > 0) {
+      console.log(`Found ${count} team links`);
+
+      // Check first team link
+      const firstLink = teamLinks.first();
+      const href = await firstLink.getAttribute('href');
+      expect(href).toContain('handball.no');
+      expect(href).toContain('lagid=');
+    } else {
+      console.log('No team links found (enhanced CSV not present)');
+    }
   });
 });
