@@ -57,6 +57,7 @@ export async function fetchAndConvertDataWithLinks(): Promise<void> {
         'Kamp URL': links?.kampUrl || '',
         'Hjemmelag URL': links?.hjemmelagUrl || '',
         'Bortelag URL': links?.bortelagUrl || '',
+        'Turnering URL': links?.turneringUrl || '',
       };
     });
 

@@ -16,6 +16,7 @@ interface Match {
   'Kamp URL'?: string;
   'Hjemmelag URL'?: string;
   'Bortelag URL'?: string;
+  'Turnering URL'?: string;
 }
 
 // Try to read enhanced CSV first, fallback to regular CSV
@@ -236,7 +237,7 @@ if (fs.existsSync(pathToRead)) {
               <th>Bortelag</th>
               <th>H-B</th>
               <th>Bane</th>
-              <th>Tilskuere</th>
+              <th>Turnering</th>
               {hasLinks && <th>Kamp</th>}
             </tr>
           </thead>
@@ -265,7 +266,15 @@ if (fs.existsSync(pathToRead)) {
                 </td>
                 <td>{match['H-B']}</td>
                 <td>{match.Bane}</td>
-                <td>{match.Tilskuere}</td>
+                <td>
+                  {match['Turnering URL'] ? (
+                    <a href={match['Turnering URL']} target="_blank" rel="noopener noreferrer">
+                      {match.Turnering}
+                    </a>
+                  ) : (
+                    match.Turnering
+                  )}
+                </td>
                 {hasLinks && (
                   <td>
                     {match['Kamp URL'] ? (

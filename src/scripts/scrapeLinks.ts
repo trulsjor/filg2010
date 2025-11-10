@@ -11,6 +11,7 @@ interface MatchLink {
   kampUrl?: string;
   hjemmelagUrl?: string;
   bortelagUrl?: string;
+  turneringUrl?: string;
 }
 
 export async function scrapeMatchLinks(): Promise<MatchLink[]> {
@@ -61,6 +62,7 @@ export async function scrapeMatchLinks(): Promise<MatchLink[]> {
         let kampUrl = '';
         let hjemmelagUrl = '';
         let bortelagUrl = '';
+        let turneringUrl = '';
 
         cells.forEach((cell, index) => {
           const text = cell.textContent?.trim() || '';
@@ -82,6 +84,10 @@ export async function scrapeMatchLinks(): Promise<MatchLink[]> {
             if (href.includes('kampoppgjoer') || href.includes('/kamp/')) {
               kampUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`;
             }
+            // Tournament links
+            else if (href.includes('turnering') || href.includes('/serie/')) {
+              turneringUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`;
+            }
             // Team links
             else if (href.includes('lagid=') || href.includes('/lag/')) {
               const url = href.startsWith('http') ? href : `https://www.handball.no${href}`;
@@ -102,6 +108,7 @@ export async function scrapeMatchLinks(): Promise<MatchLink[]> {
             kampUrl: kampUrl || undefined,
             hjemmelagUrl: hjemmelagUrl || undefined,
             bortelagUrl: bortelagUrl || undefined,
+            turneringUrl: turneringUrl || undefined,
           });
         }
       });

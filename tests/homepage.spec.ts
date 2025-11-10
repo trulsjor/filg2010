@@ -20,6 +20,9 @@ test.describe('Homepage - Terminliste', () => {
     const headerCount = await headers.count();
     expect(headerCount).toBeGreaterThanOrEqual(7);
 
+    // Should have Turnering header
+    await expect(page.locator('th:has-text("Turnering")')).toBeVisible();
+
     // Check some expected headers
     await expect(page.locator('th:has-text("Dato")')).toBeVisible();
     await expect(page.locator('th:has-text("Tid")')).toBeVisible();
