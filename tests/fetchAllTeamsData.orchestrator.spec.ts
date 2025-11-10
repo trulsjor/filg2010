@@ -134,4 +134,108 @@ test.describe('runFetchPipeline', () => {
     expect(fileService.savedMetadata?.teamsCount).toBe(2);
     expect(fileService.savedMetadata?.lastUpdated).toBe('2024-12-24T14:00:00.000Z');
   });
+
+  test('continues processing other teams when one fails', async () => {
+    const teams: Team[] = [
+      { name: 'Team A', lagid: 'A1', seasonId: '2025', color: '#fff000' },
+      { name: 'Team B', lagid: 'B2', seasonId: '2025', color: '#000fff' },
+    ];
+
+    const apiData: Record<string, any[]> = {
+      A1: [
+        { Kampnr: ' 123 ', Dato: '14.09.2025', Tid: '10:00', Turnering: 'Cup' },
+      ],
+    };
+
+    class PartiallyFailingApiService extends MockHandballApiService {
+      async fetchTeamSchedule(team: Team) {
+        if (team.lagid === 'B2') {
+          throw new Error('Failed to fetch B2');
+        }
+        return super.fetchTeamSchedule(team);
+      }
+    }
+
+    const tournamentMap = new Map<string, string>([['Cup', 'https://cup']]);
+    const matchLinks: Record<string, Map<string, MatchLink>> = {
+      A1: new Map([['123', { kampnr: '123', kampUrl: 'https://kamp1' }]]),
+      B2: new Map(),
+    };
+
+    const fileService = new MockFileService(teams);
+    const scraperService = new MockScraperService(tournamentMap, matchLinks);
+    const apiService = new PartiallyFailingApiService(apiData);
+
+    const errorMessages: string[] = [];
+
+    await runFetchPipeline({
+      fileService,
+      scraperService,
+      apiService,
+      logger: {
+        info: () => {},
+        error: (message) => {
+          errorMessages.push(String(message));
+        },
+      },
+    });
+
+    expect(errorMessages.some((msg) => msg.includes('B2'))).toBeTruthy();
+    expect(fileService.savedMatches).toHaveLength(1);
+    expect(fileService.savedMatches[0].Lag).toBe('Team A');
+    expect(fileService.savedMetadata?.matchesCount).toBe(1);
+  });
+
+  test('respects team concurrency limit', async () => {
+    const teams: Team[] = [
+      { name: 'Team A', lagid: 'A1', seasonId: '2025', color: '#fff000' },
+      { name: 'Team B', lagid: 'B2', seasonId: '2025', color: '#000fff' },
+      { name: 'Team C', lagid: 'C3', seasonId: '2025', color: '#ff00ff' },
+    ];
+
+    const apiData: Record<string, any[]> = {
+      A1: [{ Kampnr: '111', Dato: '14.09.2025', Tid: '10:00', Turnering: 'Cup' }],
+      B2: [{ Kampnr: '222', Dato: '15.09.2025', Tid: '12:00', Turnering: 'Cup' }],
+      C3: [{ Kampnr: '333', Dato: '16.09.2025', Tid: '14:00', Turnering: 'Cup' }],
+    };
+
+    class ConcurrencyTrackingApiService extends MockHandballApiService {
+      inFlight = 0;
+      maxInFlight = 0;
+
+      async fetchTeamSchedule(team: Team) {
+        this.inFlight += 1;
+        this.maxInFlight = Math.max(this.maxInFlight, this.inFlight);
+        await delay(20);
+        const result = await super.fetchTeamSchedule(team);
+        this.inFlight -= 1;
+        return result;
+      }
+    }
+
+    const tournamentMap = new Map<string, string>([['Cup', 'https://cup']]);
+    const matchLinks: Record<string, Map<string, MatchLink>> = {
+      A1: new Map([['111', { kampnr: '111', kampUrl: 'https://kamp111' }]]),
+      B2: new Map([['222', { kampnr: '222', kampUrl: 'https://kamp222' }]]),
+      C3: new Map([['333', { kampnr: '333', kampUrl: 'https://kamp333' }]]),
+    };
+
+    const fileService = new MockFileService(teams);
+    const scraperService = new MockScraperService(tournamentMap, matchLinks);
+    const apiService = new ConcurrencyTrackingApiService(apiData);
+
+    await runFetchPipeline({
+      fileService,
+      scraperService,
+      apiService,
+      sortMatches: (matches) => matches,
+      teamConcurrency: 2,
+      logger: { info: () => {}, error: () => {} },
+    });
+
+    expect(apiService.maxInFlight).toBe(2);
+    expect(fileService.savedMatches).toHaveLength(3);
+  });
 });
+
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));

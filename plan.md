@@ -73,7 +73,7 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 
 ### Steg 11: Robust data-pipeline (TDD)
 - [x] Refaktorer `fetchAllTeamsData` til modulære funksjoner med enhetstester som dekker kontrollflyten før implementasjon.
-- [ ] Innfør parallellisering med begrenset concurrency og delvis feilhandtering for scraping/API-kall, verifisert gjennom nye tester.
+- [x] Innfør parallellisering med begrenset concurrency og delvis feilhandtering for scraping/API-kall, verifisert gjennom nye tester.
 - [ ] Legg til tidsavbrudd og retry/backoff-logikk i `HandballApiService` og dekk det med tester som simulerer mislykkede kall.
 
 ### Steg 12: Typing og validering (TDD)

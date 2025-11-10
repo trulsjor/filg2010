@@ -51,6 +51,7 @@ export interface FetchPipelineDependencies {
   sortMatches?: SortMatchesFn;
   now?: NowFn;
   logger?: LoggerLike;
+  teamConcurrency?: number;
 }
 
 const defaultLogger: Required<LoggerLike> = {
@@ -88,6 +89,7 @@ export async function runFetchPipeline({
   sortMatches = sortMatchesByDate,
   now = defaultNow,
   logger = defaultLogger,
+  teamConcurrency = 1,
 }: FetchPipelineDependencies): Promise<void> {
   logger.info?.('=== Fetching data for all teams ===\n');
 
@@ -105,29 +107,38 @@ export async function runFetchPipeline({
   const tournamentMap = await scraperService.scrapeTournamentLinks(teams);
   logger.info?.(`    Found ${tournamentMap.size} unique tournaments\n`);
 
-  const allMatches: Match[] = [];
+  const concurrency = Math.max(1, Math.floor(teamConcurrency));
+  const matchesPerTeam = await processTeamsWithConcurrency(
+    teams,
+    concurrency,
+    async (team) => {
+      logger.info?.(`Step 2: Fetching data for ${team.name} (lagid=${team.lagid})...`);
+      try {
+        logger.info?.('  Fetching Excel from API...');
+        const jsonData = await apiService.fetchTeamSchedule(team);
+        logger.info?.(`  Loaded ${jsonData.length} matches from Excel`);
 
-  for (const team of teams) {
-    logger.info?.(`Step 2: Fetching data for ${team.name} (lagid=${team.lagid})...`);
+        logger.info?.('  Scraping match links...');
+        const linkMap = await scraperService.scrapeMatchLinks(team.lagid);
+        logger.info?.(`  Found ${linkMap.size} match links`);
 
-    logger.info?.('  Fetching Excel from API...');
-    const jsonData = await apiService.fetchTeamSchedule(team);
-    logger.info?.(`  Loaded ${jsonData.length} matches from Excel`);
+        const enhancedMatches = enhanceMatchesWithLinks(
+          jsonData,
+          team,
+          linkMap,
+          tournamentMap
+        );
 
-    logger.info?.('  Scraping match links...');
-    const linkMap = await scraperService.scrapeMatchLinks(team.lagid);
-    logger.info?.(`  Found ${linkMap.size} match links`);
+        logger.info?.(`  Added ${enhancedMatches.length} matches for ${team.name}\n`);
+        return enhancedMatches;
+      } catch (error) {
+        logger.error?.(`  Failed to process ${team.name} (${team.lagid}):`, error);
+        return [];
+      }
+    }
+  );
 
-    const enhancedMatches = enhanceMatchesWithLinks(
-      jsonData,
-      team,
-      linkMap,
-      tournamentMap
-    );
-
-    allMatches.push(...enhancedMatches);
-    logger.info?.(`  Added ${enhancedMatches.length} matches for ${team.name}\n`);
-  }
+  const allMatches: Match[] = matchesPerTeam.flat();
 
   const sortedMatches = sortMatches(allMatches);
   fileService.saveMatches(sortedMatches);
@@ -171,6 +182,35 @@ function enhanceMatchesWithLinks(
       'Turnering URL': turneringUrl,
     };
   });
+}
+
+async function processTeamsWithConcurrency(
+  teams: Team[],
+  concurrency: number,
+  worker: (team: Team, index: number) => Promise<Match[]>
+): Promise<Match[][]> {
+  if (teams.length === 0) {
+    return [];
+  }
+
+  const results: Match[][] = new Array(teams.length);
+  let nextIndex = 0;
+
+  const runWorker = async () => {
+    while (true) {
+      const currentIndex = nextIndex++;
+      if (currentIndex >= teams.length) {
+        break;
+      }
+      const team = teams[currentIndex];
+      results[currentIndex] = await worker(team, currentIndex);
+    }
+  };
+
+  const workerCount = Math.min(concurrency, teams.length);
+  await Promise.all(Array.from({ length: workerCount }, () => runWorker()));
+
+  return results;
 }
 
 // Run if executed directly
