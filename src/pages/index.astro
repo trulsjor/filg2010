@@ -739,9 +739,16 @@ const formattedLastUpdated = metadata?.lastUpdated
       const prefersCards = window.matchMedia('(max-width: 900px)').matches;
       if (!prefersCards) return;
       const nextCard = document.getElementById('next-match-card');
-      if (nextCard) {
-        nextCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+      if (!nextCard) return;
+      const header = document.querySelector('.page-header');
+      const headerHeight =
+        header && header instanceof HTMLElement ? header.offsetHeight : 0;
+      const offset = headerHeight + 16;
+      const cardTop = nextCard.getBoundingClientRect().top + window.scrollY;
+      window.scrollTo({
+        top: Math.max(cardTop - offset, 0),
+        behavior: 'smooth',
+      });
     });
   </script>
 </body>
