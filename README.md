@@ -9,7 +9,8 @@ En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag (b�
 - 🎨 **Visuell lagindikator** - Fargekodet per lag
 - ⏰ **Timestamp** - Se når data sist ble oppdatert
 - 🔄 **Automatisk oppdatering** - Data hentes automatisk ved build
-- 📱 **Responsivt design** - Fungerer på alle enheter
+- 📱 **Responsivt design** - Tabell på desktop, kort-layout på mobil
+- 📅 **Smart sortering** - Kamper sortert etter dato og klokkeslett
 - ✅ **Testet** - 8 Playwright E2E-tester
 
 ## Teknologier
@@ -148,11 +149,27 @@ Terminlisten hentes fra:
 - **Format**: Excel (.xlsx)
 - **Lagring**: CSV
 
-## Funksjoner
+## Design
 
-- Viser all terminlistedata i en oversiktlig tabell
-- **Klikkbare lenker til kamper og lag** (når du bruker fetchDataWithLinks)
-- Responsive design som fungerer på alle enheter
+### Desktop (tabell-visning)
+- Oversiktlig tabell med alle kampdetaljer
+- Fargekodet lagindikator
+- Klikkbare lenker til kamper, lag og turneringer
+- Moderne gradient-bakgrunn
+
+### Mobil (kort-visning)
+- **Kort-layout optimalisert for små skjermer** (under 768px)
+- Hver kamp vises som et selvstendig kort
+- Tydelig dato, tid og lagindikator øverst
+- Score fremhevet for spilte kamper
+- Kompakt informasjon om bane og tilskuere
+- Én stor knapp per kamp for kampdetaljer
+
+## Tekniske funksjoner
+
+- Viser all terminlistedata sortert etter dato og klokkeslett
+- **Klikkbare lenker til kamper, lag og turneringer**
+- **Responsivt design**: Bytter automatisk mellom tabell (desktop) og kort (mobil)
 - Moderne, fargerikt design med gradient-bakgrunn
 - Hover-effekter for bedre brukeropplevelse
 - Automatisk testing med Playwright (8 tester)

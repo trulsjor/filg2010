@@ -23,4 +23,10 @@ export default defineConfig({
       dependencies: ['data-tests'],
     },
   ],
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:4321',
+    reuseExistingServer: !process.env.CI,
+    timeout: 120000,
+  },
 });

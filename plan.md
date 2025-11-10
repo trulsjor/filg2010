@@ -64,6 +64,13 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [x] Test build-time fetching
 - [x] Oppdater dokumentasjon (README)
 
+### Steg 10: Sortering og responsivt design ✓
+- [x] Sorter kamper etter dato og klokkeslett
+- [x] Design kort-layout for mobile enheter
+- [x] Implementer responsivt design som bytter mellom tabell og kort
+- [x] Test på ulike skjermstørrelser med Playwright
+- [x] Oppdater dokumentasjon
+
 ## Teknologier
 - **Frontend**: Astro + TypeScript
 - **Data**: handball.no API (Excel-format)

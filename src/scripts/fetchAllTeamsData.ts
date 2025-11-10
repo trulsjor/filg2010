@@ -233,11 +233,19 @@ export async function fetchAllTeamsData(): Promise<void> {
       console.log(`  Added ${enhancedData.length} matches for ${team.name}\n`);
     }
 
-    // Sort all matches by date
+    // Sort all matches by date and time
     allMatches.sort((a, b) => {
       const dateA = a.Dato || '';
       const dateB = b.Dato || '';
-      return dateA.localeCompare(dateB);
+      const timeA = a.Tid || '';
+      const timeB = b.Tid || '';
+
+      // First compare dates
+      const dateCompare = dateA.localeCompare(dateB);
+      if (dateCompare !== 0) return dateCompare;
+
+      // If dates are equal, compare times
+      return timeA.localeCompare(timeB);
     });
 
     // Convert to CSV
