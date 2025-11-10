@@ -42,27 +42,27 @@ Lage en Astro-nettside som viser terminlisten for et håndballag ved å hente da
 - [x] Skriv tester for lenke-funksjonalitet
 - [x] Verifiser at alle lenker fungerer
 
-### Steg 7: Dynamisk konfigurasjon og multi-lag støtte
-- [ ] Lag config.json for lag-konfigurasjon
+### Steg 7: Dynamisk konfigurasjon og multi-lag støtte ✓
+- [x] Lag config.json for lag-konfigurasjon
   - Lag 1: Fjellhammer (lagid=531500, seasonId=201060)
-  - Lag 2: Nytt lag (lagid=812498)
-- [ ] Refaktorer scripts til å bruke config i stedet for hardkodede verdier
-- [ ] Oppdater fetchDataWithLinks til å håndtere flere lag
-- [ ] Kombiner data fra begge lag i én CSV/visning
-- [ ] Legg til visuell indikator for hvilket lag hver kamp tilhører
+  - Lag 2: Fjellhammer 2 (lagid=812498)
+- [x] Refaktorer scripts til å bruke config i stedet for hardkodede verdier
+- [x] Oppdater fetchDataWithLinks til å håndtere flere lag
+- [x] Kombiner data fra begge lag i én CSV/visning
+- [x] Legg til visuell indikator for hvilket lag hver kamp tilhører
 
-### Steg 8: Automatisk data-oppdatering
-- [ ] Implementer build-time fetching (kjør fetchDataWithLinks ved build)
-- [ ] Legg til timestamp for når data sist ble hentet
-- [ ] Vis "Sist oppdatert" på nettsiden
-- [ ] Oppdater package.json scripts for automatisk refresh
+### Steg 8: Automatisk data-oppdatering ✓
+- [x] Implementer build-time fetching (kjør fetchDataWithLinks ved build)
+- [x] Legg til timestamp for når data sist ble hentet
+- [x] Vis "Sist oppdatert" på nettsiden
+- [x] Oppdater package.json scripts for automatisk refresh
 
-### Steg 9: Testing og verifisering av ny funksjonalitet
-- [ ] Skriv tester for multi-lag støtte
-- [ ] Test at begge lag vises korrekt
-- [ ] Verifiser at timestamps vises
-- [ ] Test build-time fetching
-- [ ] Oppdater dokumentasjon (README)
+### Steg 9: Testing og verifisering av ny funksjonalitet ✓
+- [x] Skriv tester for multi-lag støtte
+- [x] Test at begge lag vises korrekt
+- [x] Verifiser at timestamps vises
+- [x] Test build-time fetching
+- [x] Oppdater dokumentasjon (README)
 
 ## Teknologier
 - **Frontend**: Astro + TypeScript

@@ -1,0 +1,16 @@
+{
+  "teams": [
+    {
+      "name": "Fjellhammer",
+      "lagid": "531500",
+      "seasonId": "201060",
+      "color": "#667eea"
+    },
+    {
+      "name": "Fjellhammer 2",
+      "lagid": "812498",
+      "seasonId": "201060",
+      "color": "#f59e0b"
+    }
+  ]
+}

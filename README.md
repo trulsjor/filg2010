@@ -1,13 +1,24 @@
 # Terminliste - Fjellhammer Håndball
 
-En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag. Dataene hentes fra handball.no API og vises i en responsiv tabell.
+En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag (både lag 1 og lag 2). Dataene hentes automatisk fra handball.no API og vises i en responsiv tabell med klikkbare lenker.
+
+## ✨ Hovedfunksjoner
+
+- 📊 **Multi-lag støtte** - Vis flere lag i samme oversikt
+- 🔗 **Klikkbare lenker** - Lenker til kamper, lag og turneringer
+- 🎨 **Visuell lagindikator** - Fargekodet per lag
+- ⏰ **Timestamp** - Se når data sist ble oppdatert
+- 🔄 **Automatisk oppdatering** - Data hentes automatisk ved build
+- 📱 **Responsivt design** - Fungerer på alle enheter
+- ✅ **Testet** - 8 Playwright E2E-tester
 
 ## Teknologier
 
 - **Astro** - Moderne web framework
 - **TypeScript** - Type-sikkerhet
 - **xlsx** - Excel-parsing
-- **Playwright** - E2E testing
+- **Playwright** - E2E testing og web scraping
+- **config.json** - Enkel lag-konfigurasjon
 
 ## Kom i gang
 
@@ -17,21 +28,37 @@ En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag. Da
 npm install
 ```
 
+### Konfigurasjon
+
+Lag-konfigurasjonen ligger i `config.json`:
+
+```json
+{
+  "teams": [
+    {
+      "name": "Fjellhammer",
+      "lagid": "531500",
+      "seasonId": "201060",
+      "color": "#667eea"
+    },
+    {
+      "name": "Fjellhammer 2",
+      "lagid": "812498",
+      "seasonId": "201060",
+      "color": "#f59e0b"
+    }
+  ]
+}
+```
+
 ### Hent terminliste-data
 
-Før du kan kjøre nettsiden, må du hente dataene fra handball.no:
-
-**Alternativ 1: Kun Excel-data (uten lenker)**
+**Anbefalt: Hent data for alle lag**
 ```bash
-node --loader tsx src/scripts/fetchData.ts
+npm run refresh
 ```
 
-**Alternativ 2: Med lenker til kamper og lag (anbefalt)**
-```bash
-npx tsx src/scripts/fetchDataWithLinks.ts
-```
-
-Dette laster ned Excel-filen fra handball.no API, scraper lenker fra handball.no-nettsiden, og kombinerer alt i CSV-format. Med lenker får du klikkbare lag- og kamp-lenker i terminlisten.
+Dette henter data for alle lag definert i `config.json`, inkludert lenker til kamper, lag og turneringer.
 
 ### Kjør utviklingsserver
 
@@ -45,6 +72,12 @@ Nettsiden er nå tilgjengelig på `http://localhost:4321`
 
 ```bash
 npm run build
+```
+
+**Viktig**: `npm run build` henter automatisk ferske data før bygget starter! Hvis du vil bygge uten å hente nye data:
+
+```bash
+npm run build:no-refresh
 ```
 
 ### Forhåndsvisning av produksjonsbygg
@@ -85,23 +118,27 @@ npm run test:ui
 
 ```
 terminliste/
+├── config.json                       # ⚙️  Lag-konfigurasjon
+├── prebuild.js                       # 🔄 Prebuild script (data-refresh)
 ├── src/
 │   ├── pages/
-│   │   └── index.astro               # Hovedside med terminliste
+│   │   └── index.astro               # 🏠 Hovedside med terminliste
 │   └── scripts/
-│       ├── fetchData.ts              # Script for å hente Excel-data
-│       ├── fetchDataWithLinks.ts     # Script for å hente data med lenker
-│       ├── scrapeLinks.ts            # Script for å scrape lenker
-│       └── inspectPage.ts            # Debug-verktøy
+│       ├── fetchAllTeamsData.ts      # ⭐ Hent data for alle lag (NYTT!)
+│       ├── fetchDataWithLinks.ts     # 📊 Hent data med lenker (enkelt lag)
+│       ├── scrapeLinks.ts            # 🔗 Scrape kamp- og lag-lenker
+│       ├── scrapeTournamentLinks.ts  # 🏆 Scrape turnering-lenker
+│       └── ...debug scripts...       # 🐛 Debug-verktøy
 ├── tests/
-│   ├── fetchData.spec.ts             # Tester for data-henting
-│   └── homepage.spec.ts              # Tester for UI og lenker
+│   ├── fetchData.spec.ts             # ✅ Tester for data-henting
+│   └── homepage.spec.ts              # ✅ Tester for UI og lenker
 ├── data/
-│   ├── terminliste.csv               # Lagret terminliste-data
-│   ├── terminliste-med-lenker.csv    # Data med lenker
-│   └── kamplenker.json               # Scrapede lenker
-├── plan.md                           # Implementeringsplan
-└── README.md                         # Denne filen
+│   ├── terminliste-alle-lag.csv      # 📄 Kombinert data for alle lag
+│   ├── metadata.json                 # ⏰ Timestamp og metadata
+│   ├── turneringlenker.json          # 🏆 Cachet turnering-lenker
+│   └── kamplenker.json               # 🔗 Scrapede kamp-lenker
+├── plan.md                           # 📋 Implementeringsplan
+└── README.md                         # 📖 Denne filen
 ```
 
 ## Datakilder

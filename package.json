@@ -5,11 +5,14 @@
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
-    "build": "astro check && astro build",
+    "prebuild": "node prebuild.js",
+    "build": "npm run prebuild && astro check && astro build",
+    "build:no-refresh": "astro check && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "test": "playwright test",
-    "test:ui": "playwright test --ui"
+    "test:ui": "playwright test --ui",
+    "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts"
   },
   "dependencies": {
     "astro": "^4.16.18",
