@@ -144,10 +144,8 @@ terminliste/
 │   ├── fetchData.spec.ts             # ✅ Tester for data-henting
 │   └── homepage.spec.ts              # ✅ Tester for UI og lenker
 ├── data/
-│   ├── terminliste-alle-lag.csv      # 📄 Kombinert data for alle lag
-│   ├── metadata.json                 # ⏰ Timestamp og metadata
-│   ├── turneringlenker.json          # 🏆 Cachet turnering-lenker
-│   └── kamplenker.json               # 🔗 Scrapede kamp-lenker
+│   ├── terminliste.json              # 📄 Alle kamper (JSON format)
+│   └── metadata.json                 # ⏰ Timestamp og metadata
 ├── plan.md                           # 📋 Implementeringsplan
 └── README.md                         # 📖 Denne filen
 ```

@@ -179,11 +179,6 @@ async function scrapeTournamentLinksForAllTeams(teams: Team[]): Promise<Map<stri
 
     console.log(`    Found ${tournamentMap.size} unique tournaments`);
 
-    // Save to cache
-    const cachePath = path.join(DATA_DIR, 'turneringlenker.json');
-    const tournamentArray = Array.from(tournamentMap.entries()).map(([name, url]) => ({ name, url }));
-    fs.writeFileSync(cachePath, JSON.stringify(tournamentArray, null, 2), 'utf-8');
-
     return tournamentMap;
   } catch (error) {
     await browser.close();
