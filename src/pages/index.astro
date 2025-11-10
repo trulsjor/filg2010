@@ -27,6 +27,38 @@ interface Metadata {
   matchesCount: number;
 }
 
+interface Team {
+  name: string;
+  lagid: string;
+  seasonId: string;
+  color: string;
+}
+
+interface Config {
+  teams: Team[];
+}
+
+// Load config for team colors
+const configPath = path.join(process.cwd(), 'config.json');
+let teamColors: Map<string, string> = new Map();
+
+if (fs.existsSync(configPath)) {
+  try {
+    const config: Config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+    config.teams.forEach(team => {
+      teamColors.set(team.name, team.color);
+    });
+  } catch (e) {
+    console.error('Error reading config.json:', e);
+  }
+}
+
+// Helper function to get team color
+const getTeamColor = (teamName?: string): string => {
+  if (!teamName) return '#10b981';
+  return teamColors.get(teamName) || '#10b981';
+};
+
 // Try to read multi-team CSV first, then single-team CSVs
 const multiTeamCsvPath = path.join(process.cwd(), 'data', 'terminliste-alle-lag.csv');
 const singleTeamCsvPath = path.join(process.cwd(), 'data', 'terminliste-med-lenker.csv');
@@ -514,7 +546,7 @@ if (fs.existsSync(pathToRead)) {
                 <tr>
                   {hasMultipleTeams && (
                     <td>
-                      <span class="team-indicator" style={`background-color: ${match['Lag Farge'] || '#667eea'}`}></span>
+                      <span class="team-indicator" style={`background-color: ${getTeamColor(match.Lag)}`}></span>
                       <span class="team-name">{match.Lag}</span>
                     </td>
                   )}
@@ -576,7 +608,7 @@ if (fs.existsSync(pathToRead)) {
                 </div>
                 {hasMultipleTeams && (
                   <div class="card-team-indicator">
-                    <span class="card-team-dot" style={`background-color: ${match['Lag Farge'] || '#10b981'}`}></span>
+                    <span class="card-team-dot" style={`background-color: ${getTeamColor(match.Lag)}`}></span>
                     <span>{match.Lag}</span>
                   </div>
                 )}
