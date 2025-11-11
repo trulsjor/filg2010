@@ -193,13 +193,28 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     .page-header img {
-      width: 72px;
-      height: 72px;
-      border-radius: 16px;
-      padding: 0.5rem;
-      background: rgba(255, 255, 255, 0.04);
-      border: 1px solid rgba(255, 255, 255, 0.08);
-      box-shadow: 0 15px 35px rgba(10, 200, 130, 0.25);
+      width: 80px;
+      height: 80px;
+      border-radius: 18px;
+      padding: 0.6rem;
+      background: linear-gradient(145deg, rgba(0, 155, 62, 0.15), rgba(0, 101, 43, 0.15));
+      border: 2px solid rgba(0, 196, 106, 0.4);
+      box-shadow:
+        0 0 30px rgba(0, 196, 106, 0.5),
+        0 0 60px rgba(0, 155, 62, 0.3),
+        0 15px 35px rgba(0, 0, 0, 0.4),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .page-header img:hover {
+      transform: scale(1.05) rotate(2deg);
+      box-shadow:
+        0 0 40px rgba(0, 196, 106, 0.7),
+        0 0 80px rgba(0, 155, 62, 0.4),
+        0 20px 45px rgba(0, 0, 0, 0.5),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      border-color: rgba(0, 196, 106, 0.6);
     }
 
     .header-text {
@@ -805,8 +820,8 @@ const formattedLastUpdated = metadata?.lastUpdated
       }
 
       .page-header img {
-        width: 56px;
-        height: 56px;
+        width: 64px;
+        height: 64px;
       }
 
       .header-text {
@@ -863,7 +878,7 @@ const formattedLastUpdated = metadata?.lastUpdated
 <body>
   <main>
     <header class="page-header">
-      <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="72" height="72" loading="lazy" />
+      <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="80" height="80" loading="lazy" />
       <div class="header-text">
         <span>Fjellhammer IL</span>
         <h1>G2010</h1>
