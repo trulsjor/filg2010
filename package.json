@@ -13,7 +13,8 @@
     "test:e2e": "playwright test",
     "test:unit": "vitest run",
     "test:ui": "playwright test --ui",
-    "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts"
+    "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts",
+    "postinstall": "npx playwright install --with-deps chromium"
   },
   "dependencies": {
     "astro": "^4.16.18",

@@ -54,8 +54,9 @@ if (fs.existsSync(configPath)) {
 
 // Helper function to get team color
 const getTeamColor = (teamName?: string): string => {
-  if (!teamName) return '#10b981';
-  return teamColors.get(teamName) || '#10b981';
+  const fallback = '#009B3E';
+  if (!teamName) return fallback;
+  return teamColors.get(teamName) || fallback;
 };
 
 // Load match data from JSON
@@ -129,8 +130,13 @@ const formattedLastUpdated = metadata?.lastUpdated
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Terminliste - Fjellhammer</title>
+  <title>Terminliste - Fjellhammer G2010</title>
   <style>
+    :root {
+      --accent: #009B3E;
+      --accent-light: #00C46A;
+      --accent-dark: #00652B;
+    }
     * {
       margin: 0;
       padding: 0;
@@ -201,7 +207,7 @@ const formattedLastUpdated = metadata?.lastUpdated
       border-radius: 1.25rem;
       padding: 1.75rem;
       box-shadow: 0 25px 55px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(0, 155, 62, 0.15);
     }
 
     .card-container {
@@ -214,13 +220,13 @@ const formattedLastUpdated = metadata?.lastUpdated
       padding: 1.5rem;
       margin-bottom: 1.25rem;
       box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
-      border: 1px solid rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(0, 155, 62, 0.2);
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
     .match-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4), 0 0 0 2px rgba(0, 155, 62, 0.3);
     }
 
     .card-header {
@@ -229,14 +235,14 @@ const formattedLastUpdated = metadata?.lastUpdated
       align-items: center;
       margin-bottom: 0.75rem;
       padding-bottom: 0.75rem;
-      border-bottom: 1px solid rgba(16, 185, 129, 0.2);
+      border-bottom: 1px solid rgba(0, 155, 62, 0.2);
     }
 
     .card-date-time {
       display: flex;
       flex-direction: column;
       font-weight: 600;
-      color: #0fd18a;
+      color: var(--accent);
     }
 
     .card-date {
@@ -245,7 +251,7 @@ const formattedLastUpdated = metadata?.lastUpdated
 
     .card-time {
       font-size: 0.9rem;
-      color: #82ffd2;
+      color: var(--accent-light);
     }
 
     .card-team-indicator {
@@ -255,7 +261,7 @@ const formattedLastUpdated = metadata?.lastUpdated
       font-size: 0.85rem;
       font-weight: 600;
       color: #f6fff8;
-      background: rgba(16, 185, 129, 0.18);
+      background: rgba(0, 155, 62, 0.18);
       padding: 0.35rem 0.9rem;
       border-radius: 999px;
     }
@@ -292,7 +298,7 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     .card-teams a {
-      color: #6ff3c5;
+      color: var(--accent-light);
     }
 
     .card-teams a:hover {
@@ -330,7 +336,7 @@ const formattedLastUpdated = metadata?.lastUpdated
     .card-info-label {
       font-size: 0.7rem;
       text-transform: uppercase;
-      color: #7aecc4;
+      color: var(--accent-light);
       margin-bottom: 0.25rem;
       letter-spacing: 0.08em;
     }
@@ -350,21 +356,21 @@ const formattedLastUpdated = metadata?.lastUpdated
       flex: 1;
       text-align: center;
       padding: 0.85rem 1rem;
-      background: linear-gradient(135deg, #10b981 0%, #0b7a55 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
       color: white;
       border-radius: 0.85rem;
       font-size: 0.9rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s;
-      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.35);
+      box-shadow: 0 4px 18px rgba(0, 155, 62, 0.35);
       letter-spacing: 0.08em;
       text-transform: uppercase;
     }
 
     .card-link:hover {
       transform: translateY(-1px);
-      box-shadow: 0 8px 20px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 8px 20px rgba(0, 155, 62, 0.5);
       color: white;
       text-decoration: none;
     }
@@ -377,7 +383,7 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     .card-tournament a {
-      color: #6ff3c5;
+      color: var(--accent-light);
       font-weight: 500;
     }
 
@@ -392,8 +398,8 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     thead {
-      background: rgba(16, 185, 129, 0.1);
-      color: #10b981;
+      background: rgba(0, 155, 62, 0.1);
+      color: var(--accent);
     }
 
     th {
@@ -404,20 +410,20 @@ const formattedLastUpdated = metadata?.lastUpdated
       font-size: 0.75rem;
       letter-spacing: 0.1em;
       white-space: nowrap;
-      border-bottom: 2px solid rgba(16, 185, 129, 0.3);
-      text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
+      border-bottom: 2px solid rgba(0, 155, 62, 0.3);
+      text-shadow: 0 0 10px rgba(0, 155, 62, 0.3);
     }
 
     tbody tr {
-      border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+      border-bottom: 1px solid rgba(0, 155, 62, 0.1);
       transition: all 0.2s;
       background: rgba(0, 0, 0, 0.2);
     }
 
     tbody tr:hover {
-      background: rgba(16, 185, 129, 0.1);
+      background: rgba(0, 155, 62, 0.1);
       transform: scale(1.01);
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
+      box-shadow: 0 0 20px rgba(0, 155, 62, 0.2);
     }
 
     tbody tr:last-child {
@@ -458,8 +464,8 @@ const formattedLastUpdated = metadata?.lastUpdated
 
     td:nth-child(2), td:nth-child(3) {
       font-weight: 700;
-      color: #10b981;
-      text-shadow: 0 0 8px rgba(16, 185, 129, 0.3);
+      color: var(--accent);
+      text-shadow: 0 0 8px rgba(0, 155, 62, 0.3);
     }
 
     td:nth-child(4), td:nth-child(5) {
@@ -473,40 +479,40 @@ const formattedLastUpdated = metadata?.lastUpdated
 
     td:nth-child(6) {
       font-weight: 700;
-      color: #10b981;
-      text-shadow: 0 0 10px rgba(16, 185, 129, 0.4);
+      color: var(--accent);
+      text-shadow: 0 0 10px rgba(0, 155, 62, 0.4);
       font-size: 1.1rem;
     }
 
     a {
-      color: #10b981;
+      color: var(--accent);
       text-decoration: none;
       transition: color 0.2s;
     }
 
     a:hover {
-      color: #34d399;
+      color: var(--accent-light);
       text-decoration: underline;
     }
 
     .match-link {
       display: inline-block;
       padding: 0.35rem 0.75rem;
-      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
       color: white;
       border-radius: 0.5rem;
       font-size: 0.8rem;
       font-weight: 600;
       text-decoration: none;
       transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(16, 185, 129, 0.3);
+      box-shadow: 0 2px 8px rgba(0, 155, 62, 0.3);
       text-shadow: none;
       letter-spacing: 0.05em;
     }
 
     .match-link:hover {
       transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.5);
+      box-shadow: 0 4px 12px rgba(0, 155, 62, 0.5);
       text-decoration: none;
       color: white;
     }
@@ -569,7 +575,7 @@ const formattedLastUpdated = metadata?.lastUpdated
       <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="72" height="72" loading="lazy" />
       <div>
         <span>Fjellhammer IL</span>
-        <h1>Terminliste{hasMultipleTeams ? ' • Alle lag' : ''}</h1>
+        <h1>G2010{hasMultipleTeams ? ' • Begge lag' : ''}</h1>
       </div>
     </header>
 
