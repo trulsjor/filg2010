@@ -107,6 +107,23 @@ const buildMatchDate = (match?: Match) => {
 
 const normalizeMatchId = (value?: string | number | null) => String(value ?? '').trim();
 
+// Check if Fjellhammer won the match
+const isFjellhammerWin = (match: Match): boolean => {
+  const score = match['H-B'];
+  if (!score || score.trim() === '' || score === '-') return false;
+
+  const [homeScore, awayScore] = score.split('-').map(s => parseInt(s.trim()));
+  if (isNaN(homeScore) || isNaN(awayScore)) return false;
+
+  const fjellhammerIsHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
+  const fjellhammerIsAway = match.Bortelag?.toLowerCase().includes('fjellhammer');
+
+  if (fjellhammerIsHome && homeScore > awayScore) return true;
+  if (fjellhammerIsAway && awayScore > homeScore) return true;
+
+  return false;
+};
+
 const now = new Date();
 const nextMatch = matches.find((match) => {
   const date = buildMatchDate(match);
@@ -335,6 +352,24 @@ const formattedLastUpdated = metadata?.lastUpdated
 
     .match-card:hover::before {
       opacity: 1;
+    }
+
+    .match-card.win-card::after {
+      content: '🏆';
+      position: absolute;
+      bottom: 8%;
+      right: 5%;
+      font-size: 9rem;
+      opacity: 0.18;
+      pointer-events: none;
+      transform: rotate(-15deg);
+      z-index: 0;
+      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+    }
+
+    .match-card > * {
+      position: relative;
+      z-index: 1;
     }
 
     .card-header {
@@ -918,7 +953,7 @@ const formattedLastUpdated = metadata?.lastUpdated
         <div class="card-container">
           {matches.map((match) => (
             <div
-              class="match-card"
+              class={`match-card${isFjellhammerWin(match) ? ' win-card' : ''}`}
               id={nextMatchId && nextMatchId === String(match.Kampnr || '').trim() ? 'next-match-card' : undefined}
             >
               <div class="card-header">
