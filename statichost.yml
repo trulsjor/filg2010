@@ -1,0 +1,8 @@
+# Use a pinned Node image so builds match local development
+image: node:20.11.1-bullseye
+
+# Install dependencies and refresh data before building Astro
+command: npm ci && npm run build:fresh
+
+# Deploy the Astro production output
+public: dist
