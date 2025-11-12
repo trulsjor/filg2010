@@ -193,28 +193,23 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     .page-header img {
-      width: 80px;
-      height: 80px;
-      border-radius: 18px;
-      padding: 0.6rem;
-      background: linear-gradient(145deg, rgba(0, 155, 62, 0.15), rgba(0, 101, 43, 0.15));
-      border: 2px solid rgba(0, 196, 106, 0.4);
-      box-shadow:
-        0 0 30px rgba(0, 196, 106, 0.5),
-        0 0 60px rgba(0, 155, 62, 0.3),
-        0 15px 35px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      width: 120px;
+      height: 120px;
+      filter:
+        drop-shadow(0 0 20px rgba(0, 196, 106, 0.6))
+        drop-shadow(0 0 40px rgba(0, 155, 62, 0.4))
+        drop-shadow(0 0 60px rgba(0, 155, 62, 0.3))
+        drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     .page-header img:hover {
-      transform: scale(1.05) rotate(2deg);
-      box-shadow:
-        0 0 40px rgba(0, 196, 106, 0.7),
-        0 0 80px rgba(0, 155, 62, 0.4),
-        0 20px 45px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      border-color: rgba(0, 196, 106, 0.6);
+      transform: scale(1.08) rotate(3deg);
+      filter:
+        drop-shadow(0 0 30px rgba(0, 196, 106, 0.8))
+        drop-shadow(0 0 60px rgba(0, 155, 62, 0.6))
+        drop-shadow(0 0 90px rgba(0, 155, 62, 0.4))
+        drop-shadow(0 15px 40px rgba(0, 0, 0, 0.5));
     }
 
     .header-text {
@@ -239,51 +234,28 @@ const formattedLastUpdated = metadata?.lastUpdated
       display: none;
       align-items: center;
       gap: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-light) 100%);
-      color: #f6fff8;
-      border: 1px solid rgba(0, 196, 106, 0.3);
-      border-radius: 0.75rem;
-      font-size: 0.85rem;
-      font-weight: 700;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 155, 62, 0.1);
+      color: rgba(246, 255, 248, 0.7);
+      border: 1px solid rgba(0, 196, 106, 0.2);
+      border-radius: 0.5rem;
+      font-size: 0.75rem;
+      font-weight: 600;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow:
-        0 4px 20px rgba(0, 155, 62, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      position: relative;
-      overflow: hidden;
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
-    }
-
-    .next-match-btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .next-match-btn:hover::before {
-      left: 100%;
+      backdrop-filter: blur(4px);
     }
 
     .next-match-btn:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 8px 28px rgba(0, 155, 62, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      border-color: rgba(0, 196, 106, 0.5);
-      color: #f6fff8;
+      background: rgba(0, 155, 62, 0.2);
+      border-color: rgba(0, 196, 106, 0.4);
+      color: rgba(246, 255, 248, 0.9);
     }
 
     .next-match-btn:active {
-      transform: translateY(0);
+      transform: scale(0.98);
     }
 
     .next-match-btn svg {
@@ -636,7 +608,7 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     th {
-      padding: 1.25rem 1rem;
+      padding: 1rem 0.75rem;
       text-align: left;
       font-weight: 700;
       text-transform: uppercase;
@@ -673,7 +645,7 @@ const formattedLastUpdated = metadata?.lastUpdated
     }
 
     td {
-      padding: 1.25rem 1rem;
+      padding: 1rem 0.75rem;
       color: #e5e7eb;
       background: transparent;
     }
@@ -691,12 +663,13 @@ const formattedLastUpdated = metadata?.lastUpdated
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      margin-right: 0.5rem;
+      margin-right: 0.4rem;
       vertical-align: middle;
       box-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
     }
 
     .team-name {
+      display: inline;
       font-weight: 700;
       font-size: 0.85rem;
       color: #f6fff8;
@@ -714,6 +687,7 @@ const formattedLastUpdated = metadata?.lastUpdated
     td:nth-child(1) {
       text-align: left;
       font-weight: 600;
+      white-space: nowrap;
     }
 
     td:nth-child(2), td:nth-child(3) {
@@ -721,12 +695,13 @@ const formattedLastUpdated = metadata?.lastUpdated
       color: var(--accent-light);
       text-shadow: 0 0 10px rgba(0, 196, 106, 0.4);
       font-size: 0.95rem;
+      white-space: nowrap;
     }
 
     td:nth-child(4), td:nth-child(5) {
       font-weight: 600;
       color: #f6fff8;
-      max-width: 200px;
+      max-width: 120px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
@@ -738,6 +713,41 @@ const formattedLastUpdated = metadata?.lastUpdated
       text-shadow: 0 0 15px rgba(0, 155, 62, 0.5);
       font-size: 1.15rem;
       letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    /* Bane column - regular truncation */
+    td:nth-child(7) {
+      max-width: 120px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Turnering column - truncate from beginning */
+    td:nth-child(8) {
+      max-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      direction: rtl;
+      text-align: right;
+    }
+
+    td:nth-child(8) a {
+      direction: rtl;
+    }
+
+    /* When there's no LAG column, Turnering is column 7 */
+    tbody tr > td:nth-child(7):nth-last-child(2),
+    tbody tr > td:nth-child(7):nth-last-child(1) {
+      direction: rtl;
+      text-align: right;
+    }
+
+    tbody tr > td:nth-child(7):nth-last-child(2) a,
+    tbody tr > td:nth-child(7):nth-last-child(1) a {
+      direction: rtl;
     }
 
     a {
@@ -754,11 +764,11 @@ const formattedLastUpdated = metadata?.lastUpdated
 
     .match-link {
       display: inline-block;
-      padding: 0.5rem 1rem;
+      padding: 0.4rem 0.75rem;
       background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-light) 100%);
       color: white;
       border-radius: 0.5rem;
-      font-size: 0.75rem;
+      font-size: 0.7rem;
       font-weight: 700;
       text-decoration: none;
       transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -766,9 +776,10 @@ const formattedLastUpdated = metadata?.lastUpdated
         0 2px 12px rgba(0, 155, 62, 0.4),
         inset 0 1px 0 rgba(255, 255, 255, 0.2);
       text-shadow: none;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.05em;
       text-transform: uppercase;
       border: 1px solid rgba(0, 196, 106, 0.3);
+      white-space: nowrap;
     }
 
     .match-link:hover {
@@ -816,17 +827,20 @@ const formattedLastUpdated = metadata?.lastUpdated
       .page-header {
         padding: 1rem;
         margin-bottom: 1.5rem;
-        flex-wrap: wrap;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
       }
 
       .page-header img {
-        width: 64px;
-        height: 64px;
+        width: 96px;
+        height: 96px;
       }
 
       .header-text {
-        flex: 1;
-        min-width: 0;
+        flex: none;
+        width: 100%;
+        text-align: center;
       }
 
       .page-header h1 {
@@ -839,10 +853,15 @@ const formattedLastUpdated = metadata?.lastUpdated
 
       .next-match-btn {
         display: flex;
+        width: auto;
+        justify-content: center;
+        font-size: 0.7rem;
+        padding: 0.4rem 0.85rem;
       }
 
-      .next-match-btn span {
-        font-size: 0.75rem;
+      .next-match-btn svg {
+        width: 14px;
+        height: 14px;
       }
 
       h1 {
@@ -878,7 +897,7 @@ const formattedLastUpdated = metadata?.lastUpdated
 <body>
   <main>
     <header class="page-header">
-      <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="80" height="80" loading="lazy" />
+      <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="120" height="120" loading="lazy" />
       <div class="header-text">
         <span>Fjellhammer IL</span>
         <h1>G2010</h1>
