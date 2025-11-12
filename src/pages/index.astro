@@ -825,16 +825,16 @@ const formattedLastUpdated = metadata?.lastUpdated
       }
 
       .page-header {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
+        padding: 0.75rem;
+        margin-bottom: 1rem;
         flex-direction: column;
-        gap: 1rem;
+        gap: 0.5rem;
         align-items: center;
       }
 
       .page-header img {
-        width: 96px;
-        height: 96px;
+        width: 60px;
+        height: 60px;
       }
 
       .header-text {
@@ -844,24 +844,24 @@ const formattedLastUpdated = metadata?.lastUpdated
       }
 
       .page-header h1 {
-        font-size: 1.75rem;
+        font-size: 1.4rem;
       }
 
       .page-header span {
-        font-size: 0.75rem;
+        font-size: 0.7rem;
       }
 
       .next-match-btn {
         display: flex;
         width: auto;
         justify-content: center;
-        font-size: 0.7rem;
-        padding: 0.4rem 0.85rem;
+        font-size: 0.65rem;
+        padding: 0.35rem 0.75rem;
       }
 
       .next-match-btn svg {
-        width: 14px;
-        height: 14px;
+        width: 12px;
+        height: 12px;
       }
 
       h1 {
@@ -1088,9 +1088,12 @@ const formattedLastUpdated = metadata?.lastUpdated
 
     document.addEventListener('DOMContentLoaded', () => {
       // Auto-scroll on page load for mobile
-      const prefersCards = window.matchMedia('(max-width: 900px)').matches;
+      const prefersCards = window.matchMedia('(max-width: 768px)').matches;
       if (prefersCards) {
-        scrollToNextMatch();
+        // Delay scroll slightly to ensure DOM is fully rendered
+        setTimeout(() => {
+          scrollToNextMatch();
+        }, 100);
       }
 
       // Add click handler to button
