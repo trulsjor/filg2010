@@ -435,51 +435,37 @@ a:hover {
 .mobile-view {
   display: flex;
   flex-direction: column;
-  gap: var(--ds-spacing-2);
+  gap: 6px;
 }
 
 .match-card {
   background: var(--ds-color-surface-default);
   border: 1px solid var(--ds-color-border-default);
-  border-radius: var(--ds-radius-md, 6px);
+  border-radius: 6px;
   overflow: hidden;
-  animation: ds-fade-in 0.2s ease-out;
 }
 
-/* Win card styling */
+/* Result styling - left border */
 .match-card.win-card {
-  border-left: 4px solid var(--ds-color-success-base);
+  border-left: 3px solid var(--ds-color-success-base);
 }
 
-/* Loss card styling */
 .match-card.loss-card {
-  border-left: 4px solid var(--ds-color-danger-base);
+  border-left: 3px solid var(--ds-color-danger-base);
 }
 
-/* Draw card styling */
 .match-card.draw-card {
-  border-left: 4px solid var(--ds-color-warning-base);
-}
-
-/* Home match indicator */
-.match-card[data-location="home"] {
-  border-top: 2px solid var(--ds-color-accent-base);
-}
-
-/* Played match - slightly muted */
-.match-card[data-status="played"] {
-  opacity: 0.9;
+  border-left: 3px solid var(--ds-color-warning-base);
 }
 
 /* Next match card */
 #next-match-card {
   border: 2px solid var(--ds-color-accent-base);
   position: relative;
-  box-shadow: 0 0 0 2px var(--ds-color-accent-subtle);
 }
 
 #next-match-card::before {
-  content: 'NESTE';
+  content: 'NESTE KAMP';
   position: absolute;
   top: 0;
   right: 0;
@@ -487,35 +473,35 @@ a:hover {
   color: var(--ds-color-text-on-accent);
   font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.08em;
-  padding: 1px 6px;
-  border-radius: 0 var(--ds-radius-sm, 4px) 0 var(--ds-radius-sm, 4px);
+  letter-spacing: 0.05em;
+  padding: 2px 8px;
+  border-radius: 0 4px 0 4px;
 }
 
-/* Card header */
+/* Card header - compact */
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--ds-spacing-2) var(--ds-spacing-3);
-  border-bottom: 1px solid var(--ds-color-border-subtle);
+  padding: 6px 10px;
   background: var(--ds-color-surface-raised);
+  border-bottom: 1px solid var(--ds-color-border-subtle);
 }
 
 .card-date-time {
   display: flex;
   align-items: baseline;
-  gap: var(--ds-spacing-2);
+  gap: 6px;
 }
 
 .card-date {
-  font-size: var(--ds-font-size-sm);
+  font-size: 13px;
   font-weight: 700;
   color: var(--ds-color-text-default);
 }
 
 .card-time {
-  font-size: var(--ds-font-size-xs);
+  font-size: 11px;
   color: var(--ds-color-text-muted);
   font-weight: 500;
 }
@@ -524,52 +510,53 @@ a:hover {
   display: flex;
   align-items: center;
   gap: 4px;
-  font-size: 0.65rem;
+  font-size: 10px;
   font-weight: 600;
-  color: var(--ds-color-text-muted);
+  color: var(--ds-color-accent-text);
 }
 
 .card-team-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
 }
 
-/* Card match section */
+/* Card match section - the main content */
 .card-match {
-  padding: var(--ds-spacing-3) var(--ds-spacing-3);
+  padding: 10px;
+  text-align: center;
 }
 
 .card-teams {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ds-spacing-2);
-  font-size: var(--ds-font-size-sm);
+  font-size: 13px;
   font-weight: 600;
   color: var(--ds-color-text-default);
-  margin-bottom: var(--ds-spacing-2);
+  line-height: 1.3;
+  margin-bottom: 4px;
 }
 
 .card-teams span:nth-child(2) {
   color: var(--ds-color-text-muted);
   font-weight: 400;
+  margin: 0 4px;
 }
 
 .card-teams a {
   color: var(--ds-color-text-default);
+  text-decoration: none;
 }
 
 .card-teams a:hover {
-  color: var(--ds-color-accent-base);
+  color: var(--ds-color-accent-text);
 }
 
 .card-score {
-  text-align: center;
-  font-size: var(--ds-font-size-xl);
+  font-size: 28px;
   font-weight: 800;
   color: var(--ds-color-text-default);
-  letter-spacing: 0.1em;
+  letter-spacing: 2px;
+  line-height: 1;
+  margin: 6px 0;
 }
 
 .win-card .card-score {
@@ -584,39 +571,58 @@ a:hover {
   color: var(--ds-color-warning-base);
 }
 
-/* Card info grid */
+/* Card info - inline compact */
 .card-info {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--ds-spacing-2);
-  padding: 0 var(--ds-spacing-3) var(--ds-spacing-2);
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  padding: 6px 10px;
+  background: var(--ds-color-surface-raised);
+  border-top: 1px solid var(--ds-color-border-subtle);
 }
 
 .card-info-item {
   display: flex;
-  flex-direction: column;
-  gap: 0;
+  align-items: center;
+  gap: 4px;
 }
 
 .card-info-label {
-  font-size: 0.6rem;
+  font-size: 9px;
   font-weight: 600;
   color: var(--ds-color-text-muted);
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.03em;
 }
 
 .card-info-value {
-  font-size: var(--ds-font-size-xs);
+  font-size: 11px;
   color: var(--ds-color-text-default);
-  font-weight: 500;
+  font-weight: 600;
 }
 
-/* Card tournament */
+.card-info-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--ds-color-palette-6);
+  text-decoration: none;
+  transition: color 0.1s;
+}
+
+.card-info-link:hover {
+  color: var(--ds-color-accent-text);
+  text-decoration: underline;
+}
+
+.card-info-link svg {
+  flex-shrink: 0;
+}
+
+/* Card tournament - minimal */
 .card-tournament {
-  padding: var(--ds-spacing-2) var(--ds-spacing-3);
-  background: var(--ds-color-surface-raised);
-  font-size: 0.65rem;
+  padding: 4px 10px;
+  font-size: 10px;
   color: var(--ds-color-text-muted);
   border-top: 1px solid var(--ds-color-border-subtle);
 }
@@ -626,11 +632,11 @@ a:hover {
   font-weight: 500;
 }
 
-/* Card links */
+/* Card links - compact buttons */
 .card-links {
   display: flex;
-  gap: var(--ds-spacing-2);
-  padding: var(--ds-spacing-2) var(--ds-spacing-3);
+  gap: 6px;
+  padding: 6px 10px;
   border-top: 1px solid var(--ds-color-border-subtle);
 }
 
@@ -640,11 +646,11 @@ a:hover {
   align-items: center;
   justify-content: center;
   gap: 4px;
-  padding: var(--ds-spacing-2);
+  padding: 6px 8px;
   background: var(--ds-color-accent-subtle);
   color: var(--ds-color-accent-text);
-  border-radius: var(--ds-radius-sm, 4px);
-  font-size: var(--ds-font-size-xs);
+  border-radius: 4px;
+  font-size: 11px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.1s ease;
@@ -654,11 +660,6 @@ a:hover {
   background: var(--ds-color-accent-base);
   color: var(--ds-color-text-on-accent);
   text-decoration: none;
-}
-
-.map-link {
-  flex: none;
-  padding: var(--ds-spacing-2);
 }
 
 /* ============================================

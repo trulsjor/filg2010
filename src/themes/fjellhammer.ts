@@ -120,16 +120,16 @@ const fjellhammerDarkColors: ThemeColors = {
 
   focusRing: '#009B3E',
 
-  // Palette - inkluderer lagfarger
-  'palette-1': '#009B3E',  // Fjellhammer hovedfarge
-  'palette-2': '#00C46A',  // Lys grønn
-  'palette-3': '#00652B',  // Mørk grønn
-  'palette-4': '#fbbf24',  // Gul (lag 1)
-  'palette-5': '#059669',  // Emerald (lag 2)
-  'palette-6': '#3b82f6',  // Blå
-  'palette-7': '#9a9aa6',  // Grå lys
-  'palette-8': '#707080',  // Grå medium
-  'palette-9': '#505060',  // Grå mørk
+  // Palette - komplementære farger for dark mode
+  'palette-1': '#00c46a',  // Fjellhammer grønn (lys)
+  'palette-2': '#60a5fa',  // Blå - komplementær
+  'palette-3': '#f472b6',  // Rosa - aksent
+  'palette-4': '#fbbf24',  // Amber - varme
+  'palette-5': '#a78bfa',  // Lilla - kontrast
+  'palette-6': '#22d3ee',  // Cyan - frisk
+  'palette-7': '#fb923c',  // Orange - energi
+  'palette-8': '#34d399',  // Emerald - natur
+  'palette-9': '#9ca3af',  // Grå - nøytral
 }
 
 // Fjellhammer Light Colors - lyst tema med grønne aksenter
@@ -178,16 +178,16 @@ const fjellhammerLightColors: ThemeColors = {
 
   focusRing: '#009B3E',
 
-  // Palette
-  'palette-1': '#009B3E',
-  'palette-2': '#00652B',
-  'palette-3': '#00C46A',
-  'palette-4': '#fbbf24',
-  'palette-5': '#059669',
-  'palette-6': '#3b82f6',
-  'palette-7': '#6a6a78',
-  'palette-8': '#9090a0',
-  'palette-9': '#b8b8c4',
+  // Palette - komplementære farger for light mode
+  'palette-1': '#009B3E',  // Fjellhammer grønn
+  'palette-2': '#2563EB',  // Blå - komplementær
+  'palette-3': '#DB2777',  // Rosa - aksent
+  'palette-4': '#D97706',  // Amber - varme
+  'palette-5': '#7C3AED',  // Lilla - kontrast
+  'palette-6': '#0891B2',  // Cyan - frisk
+  'palette-7': '#EA580C',  // Orange - energi
+  'palette-8': '#059669',  // Emerald - natur
+  'palette-9': '#6B7280',  // Grå - nøytral
 }
 
 export const fjellhammerDarkTheme: Theme = {

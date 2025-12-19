@@ -138,22 +138,17 @@ describe('MatchCard', () => {
     expect(link).toHaveAttribute('href', 'https://handball.no/kamp/123')
   })
 
-  it('renders map link for away games', () => {
-    const awayMatch = {
-      ...mockMatch,
-      Hjemmelag: 'Motstanderlag',
-      Bortelag: 'Fjellhammer',
-    }
+  it('renders venue as map link', () => {
     render(
       <MatchCard
-        match={awayMatch}
+        match={mockMatch}
         isNextMatch={false}
         hasMultipleTeams={false}
         getTeamColor={mockGetTeamColor}
       />
     )
-    const mapLink = screen.getByRole('link', { name: /kart/i })
-    expect(mapLink).toBeInTheDocument()
-    expect(mapLink).toHaveAttribute('href', expect.stringContaining('google.com/maps'))
+    const venueLink = screen.getByRole('link', { name: /fjellhammerhallen/i })
+    expect(venueLink).toBeInTheDocument()
+    expect(venueLink).toHaveAttribute('href', expect.stringContaining('google.com/maps'))
   })
 })

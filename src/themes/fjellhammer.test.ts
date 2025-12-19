@@ -41,10 +41,10 @@ describe('fjellhammerDarkTheme', () => {
     expect(fjellhammerDarkTheme.shadows.md).toContain('rgba')
   })
 
-  it('has team colors in palette', () => {
-    // Fjellhammer gul og grønn for lagfarger
-    expect(fjellhammerDarkTheme.colors['palette-4']).toBe('#fbbf24') // gul
-    expect(fjellhammerDarkTheme.colors['palette-5']).toBe('#059669') // grønn
+  it('has complementary colors in palette', () => {
+    // Komplementære farger for visuell variasjon
+    expect(fjellhammerDarkTheme.colors['palette-4']).toBe('#fbbf24') // amber
+    expect(fjellhammerDarkTheme.colors['palette-5']).toBe('#a78bfa') // lilla
   })
 })
 

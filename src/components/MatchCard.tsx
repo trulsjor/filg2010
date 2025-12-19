@@ -99,12 +99,29 @@ export function MatchCard({
       <div className="card-info">
         <div className="card-info-item">
           <span className="card-info-label">Bane</span>
-          <span className="card-info-value">{match.Bane}</span>
+          {match.Bane ? (
+            <a
+              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(match.Bane)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="card-info-value card-info-link"
+            >
+              {match.Bane}
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+            </a>
+          ) : (
+            <span className="card-info-value">-</span>
+          )}
         </div>
-        <div className="card-info-item">
-          <span className="card-info-label">Tilskuere</span>
-          <span className="card-info-value">{match.Tilskuere || '-'}</span>
-        </div>
+        {match.Tilskuere && (
+          <div className="card-info-item">
+            <span className="card-info-label">Tilskuere</span>
+            <span className="card-info-value">{match.Tilskuere}</span>
+          </div>
+        )}
       </div>
 
       {match['Turnering'] && (
@@ -119,8 +136,8 @@ export function MatchCard({
         </div>
       )}
 
-      <div className="card-links">
-        {match['Kamp URL'] && (
+      {match['Kamp URL'] && (
+        <div className="card-links">
           <a
             href={match['Kamp URL']}
             target="_blank"
@@ -129,30 +146,8 @@ export function MatchCard({
           >
             Se kampdetaljer
           </a>
-        )}
-        {!isHome && match.Bane && (
-          <a
-            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(match.Bane)}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card-link map-link"
-            title="Finn veien"
-          >
-            <svg
-              width="14"
-              height="14"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-            >
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-              <circle cx="12" cy="10" r="3" />
-            </svg>
-            Kart
-          </a>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
