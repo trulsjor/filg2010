@@ -1,4 +1,4 @@
-import { useCallback, useRef } from 'react'
+import { useCallback } from 'react'
 import { Header } from './components/Header'
 import { FilterBar } from './components/FilterBar'
 import { MatchCard } from './components/MatchCard'
@@ -19,9 +19,7 @@ export function App() {
   const metadata = metadataData as Metadata
   const config = configData as Config
 
-  const nextMatchRef = useRef<HTMLDivElement>(null)
-
-  const { filteredMatches, nextMatch, setFilters } = useMatches(matches)
+  const { filteredMatches, filters, nextMatch, setFilters } = useMatches(matches)
   const { teams, getTeamColor } = useTeams(config.teams)
   const { formattedLastUpdated } = useMetadata(metadata)
 
@@ -49,7 +47,7 @@ export function App() {
 
         <FilterBar
           teamNames={teamNames}
-          filters={{}}
+          filters={filters}
           onFilterChange={handleFilterChange}
         />
 
@@ -69,7 +67,7 @@ export function App() {
         </div>
 
         {/* Mobile card view */}
-        <div className="mobile-view" ref={nextMatchRef}>
+        <div className="mobile-view">
           {filteredMatches.map((match, index) => (
             <MatchCard
               key={`${match.Dato}-${match.Tid}-${index}`}

@@ -63,6 +63,7 @@ export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
   return {
     matches,
     filteredMatches,
+    filters,
     nextMatch,
     setFilters,
   }
