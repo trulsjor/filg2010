@@ -258,7 +258,7 @@ Fase 3 (ferdig):
 
 Fase 4 (ferdig):
   [x] 5.1 PWA-støtte
-  [ ] 6.1 Serietabell
+  [x] 6.1 Serietabell
   [x] 7.1 Baneveibeskrivelse (kart-lenker)
 
 Løpende:

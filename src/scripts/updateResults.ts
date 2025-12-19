@@ -11,6 +11,7 @@
 import type { Match, Metadata } from '../types/index.js';
 import { FileService } from '../services/file.service.js';
 import { ResultScraperService } from '../services/result-scraper.service.js';
+import { fetchTables } from './fetchTables.js';
 
 interface UpdateResultsDependencies {
   fileService?: FileService;
@@ -152,13 +153,25 @@ function extractMatchId(url: string): string | null {
 
 // Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  updateResults()
-    .then((result) => {
-      console.log(`\nDone! Updated ${result.updated}/${result.checked} matches.`);
+  (async () => {
+    try {
+      const result = await updateResults();
+      console.log(`\nResults: Updated ${result.updated}/${result.checked} matches.`);
+
+      // Also fetch league tables
+      console.log('\n');
+      const tableResult = await fetchTables();
+
+      if (tableResult.failed > 0) {
+        console.log(`\nTables: Fetched ${tableResult.fetched}/${tableResult.total} tables (${tableResult.failed} failed)`);
+      } else {
+        console.log(`\nTables: Fetched ${tableResult.fetched}/${tableResult.total} tables.`);
+      }
+
       process.exit(0);
-    })
-    .catch((error) => {
-      console.error('Error updating results:', error);
+    } catch (error) {
+      console.error('Error updating:', error);
       process.exit(1);
-    });
+    }
+  })();
 }

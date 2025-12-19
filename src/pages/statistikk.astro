@@ -20,6 +20,25 @@ interface Config {
   teams: Team[];
 }
 
+interface TableRow {
+  position: number;
+  team: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  points: number;
+}
+
+interface LeagueTable {
+  tournamentName: string;
+  tournamentUrl: string;
+  rows: TableRow[];
+  updatedAt: string;
+}
+
 interface TeamStats {
   name: string;
   color: string;
@@ -49,6 +68,13 @@ const dataPath = path.join(process.cwd(), 'data', 'terminliste.json');
 let matches: Match[] = [];
 if (fs.existsSync(dataPath)) {
   matches = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+}
+
+// Load league tables
+const tablesPath = path.join(process.cwd(), 'data', 'tables.json');
+let leagueTables: LeagueTable[] = [];
+if (fs.existsSync(tablesPath)) {
+  leagueTables = JSON.parse(fs.readFileSync(tablesPath, 'utf-8'));
 }
 
 // Calculate stats for each team
@@ -354,6 +380,114 @@ const winRate = totals.played > 0 ? Math.round((totals.won / totals.played) * 10
         font-size: 1.5rem;
       }
     }
+
+    /* League table styles */
+    .league-table-section {
+      overflow: hidden;
+    }
+
+    .league-table-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+
+    .league-table-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: rgba(246, 255, 248, 0.9);
+    }
+
+    .external-link {
+      color: rgba(246, 255, 248, 0.5);
+      padding: 0.25rem;
+      transition: color 0.2s;
+    }
+
+    .external-link:hover {
+      color: var(--accent-light);
+    }
+
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
+
+    .league-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .league-table th,
+    .league-table td {
+      padding: 0.5rem 0.4rem;
+      text-align: center;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .league-table th {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(246, 255, 248, 0.5);
+      background: rgba(0, 0, 0, 0.2);
+    }
+
+    .league-table .col-pos {
+      width: 2rem;
+      color: rgba(246, 255, 248, 0.5);
+    }
+
+    .league-table .col-team {
+      text-align: left;
+      white-space: nowrap;
+    }
+
+    .league-table .col-num {
+      width: 2rem;
+    }
+
+    .league-table .col-goals {
+      width: 4rem;
+      white-space: nowrap;
+    }
+
+    .league-table .col-points {
+      font-weight: 700;
+      color: var(--accent-light);
+    }
+
+    .league-table .highlight-row {
+      background: rgba(0, 155, 62, 0.15);
+    }
+
+    .league-table .highlight-row td {
+      color: #f6fff8;
+      font-weight: 500;
+    }
+
+    .league-table .highlight-row .col-team {
+      color: var(--accent-light);
+    }
+
+    @media (max-width: 600px) {
+      .league-table {
+        font-size: 0.75rem;
+      }
+
+      .league-table th,
+      .league-table td {
+        padding: 0.4rem 0.3rem;
+      }
+
+      .league-table-title {
+        font-size: 0.9rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -467,6 +601,60 @@ const winRate = totals.played > 0 ? Math.round((totals.won / totals.played) * 10
         </div>
       ))}
     </div>
+
+    <!-- League tables -->
+    {leagueTables.length > 0 && (
+      <div class="section">
+        <h2>Serietabeller</h2>
+        {leagueTables.map(table => (
+          <div class="team-section league-table-section">
+            <div class="league-table-header">
+              <h3 class="league-table-title">{table.tournamentName}</h3>
+              <a href={table.tournamentUrl} target="_blank" rel="noopener" class="external-link">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                  <polyline points="15 3 21 3 21 9"></polyline>
+                  <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+              </a>
+            </div>
+            <div class="table-wrapper">
+              <table class="league-table">
+                <thead>
+                  <tr>
+                    <th class="col-pos">#</th>
+                    <th class="col-team">Lag</th>
+                    <th class="col-num">K</th>
+                    <th class="col-num">V</th>
+                    <th class="col-num">U</th>
+                    <th class="col-num">T</th>
+                    <th class="col-goals">Mål</th>
+                    <th class="col-num">P</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {table.rows.map(row => {
+                    const isFjellhammer = row.team.toLowerCase().includes('fjellhammer');
+                    return (
+                      <tr class={isFjellhammer ? 'highlight-row' : ''}>
+                        <td class="col-pos">{row.position}</td>
+                        <td class="col-team">{row.team}</td>
+                        <td class="col-num">{row.played}</td>
+                        <td class="col-num">{row.won}</td>
+                        <td class="col-num">{row.drawn}</td>
+                        <td class="col-num">{row.lost}</td>
+                        <td class="col-goals">{row.goalsFor}-{row.goalsAgainst}</td>
+                        <td class="col-num col-points">{row.points}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
   </main>
 </body>
 </html>

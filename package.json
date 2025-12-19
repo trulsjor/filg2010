@@ -15,6 +15,7 @@
     "test:ui": "playwright test --ui",
     "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts",
     "update-results": "npx tsx src/scripts/updateResults.ts",
+    "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
     "build:update": "npm run update-results && astro check && astro build",
     "postinstall": "npx playwright install --with-deps chromium"
   },
