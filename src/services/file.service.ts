@@ -65,4 +65,30 @@ export class FileService {
   getMatchesPath(): string {
     return path.join(this.dataDir, 'terminliste.json');
   }
+
+  /**
+   * Loads matches from JSON file
+   */
+  loadMatches(): Match[] {
+    const filePath = path.join(this.dataDir, 'terminliste.json');
+    try {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      return JSON.parse(content);
+    } catch (error) {
+      throw new Error(`Failed to load matches: ${error}`);
+    }
+  }
+
+  /**
+   * Loads metadata from JSON file
+   */
+  loadMetadata(): Metadata {
+    const filePath = path.join(this.dataDir, 'metadata.json');
+    try {
+      const content = fs.readFileSync(filePath, 'utf-8');
+      return JSON.parse(content);
+    } catch (error) {
+      throw new Error(`Failed to load metadata: ${error}`);
+    }
+  }
 }
