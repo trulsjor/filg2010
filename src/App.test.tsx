@@ -69,10 +69,10 @@ describe('App', () => {
       })
     })
 
-    it('renders the filter bar', async () => {
+    it('renders the filter dropdown', async () => {
       renderWithProviders(<App />)
       await waitFor(() => {
-        expect(screen.getByRole('navigation', { name: /filtrer kamper/i })).toBeInTheDocument()
+        expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument()
       })
     })
 
@@ -94,19 +94,4 @@ describe('App', () => {
     })
   })
 
-  describe('Statistikk route (/statistikk)', () => {
-    it('renders statistikk page', async () => {
-      renderWithProviders(<App />, { route: '/statistikk' })
-      await waitFor(() => {
-        expect(screen.getByRole('heading', { level: 1, name: /statistikk/i })).toBeInTheDocument()
-      })
-    })
-
-    it('shows back link to terminliste', async () => {
-      renderWithProviders(<App />, { route: '/statistikk' })
-      await waitFor(() => {
-        expect(screen.getByRole('link', { name: /tilbake/i })).toBeInTheDocument()
-      })
-    })
-  })
 })

@@ -25,9 +25,9 @@ describe('TerminlistePage', () => {
     expect(screen.getByRole('heading', { name: /terminliste/i })).toBeInTheDocument()
   })
 
-  it('renders filter bar', () => {
+  it('renders filter dropdown', () => {
     renderPage()
-    expect(screen.getByRole('navigation', { name: /filtrer kamper/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument()
   })
 
   it('renders match content', () => {
@@ -36,8 +36,8 @@ describe('TerminlistePage', () => {
     expect(screen.getByText(/sist oppdatert/i)).toBeInTheDocument()
   })
 
-  it('has navigation link to statistics', () => {
+  it('has navigation link to tables', () => {
     renderPage()
-    expect(screen.getByRole('link', { name: /statistikk/i })).toBeInTheDocument()
+    expect(screen.getByTestId('tabell-link')).toBeInTheDocument()
   })
 })

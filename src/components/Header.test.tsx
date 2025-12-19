@@ -50,18 +50,11 @@ describe('Header', () => {
     expect(onScrollToNext).toHaveBeenCalledTimes(1)
   })
 
-  it('renders tabeller link', () => {
+  it('renders tabell link', () => {
     renderHeader()
-    const tabellerLink = screen.getByRole('link', { name: /tabeller/i })
-    expect(tabellerLink).toBeInTheDocument()
-    expect(tabellerLink).toHaveAttribute('href', '/tabeller')
-  })
-
-  it('renders statistikk link', () => {
-    renderHeader()
-    const statsLink = screen.getByRole('link', { name: /statistikk/i })
-    expect(statsLink).toBeInTheDocument()
-    expect(statsLink).toHaveAttribute('href', '/statistikk')
+    const tabellLink = screen.getByTestId('tabell-link')
+    expect(tabellLink).toBeInTheDocument()
+    expect(tabellLink).toHaveAttribute('href', '/tabeller')
   })
 
   it('has proper accessibility attributes', () => {

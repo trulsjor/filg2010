@@ -11,9 +11,16 @@ export interface UseMatchesOptions {
   now?: () => Date
 }
 
+const isFjellhammerTeam = (teamName?: string): boolean =>
+  teamName?.toLowerCase().includes('fjellhammer') ?? false
+
+const isValidScore = (score?: string): boolean =>
+  !!score && score.trim() !== '' && score !== '-'
+
 function parseMatchDate(match: Match): Date | null {
   const [day, month, year] = (match.Dato || '').split('.')
   if (!day || !month || !year) return null
+
   const [hour, minute] = (match.Tid || '00:00').split(':')
   const date = new Date(
     Number(year),
@@ -25,40 +32,42 @@ function parseMatchDate(match: Match): Date | null {
   return isNaN(date.getTime()) ? null : date
 }
 
+function matchesFilter(match: Match, filters: FilterState): boolean {
+  if (filters.team && match.Lag !== filters.team) {
+    return false
+  }
+
+  if (filters.location) {
+    const isHome = isFjellhammerTeam(match.Hjemmelag)
+    if (filters.location === 'home' !== isHome) return false
+  }
+
+  if (filters.status) {
+    const hasResult = isValidScore(match['H-B'])
+    if (filters.status === 'played' !== hasResult) return false
+  }
+
+  return true
+}
+
 export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
   const [filters, setFilters] = useState<FilterState>({})
   const getNow = options.now ?? (() => new Date())
 
-  const filteredMatches = useMemo(() => {
-    return matches.filter((match) => {
-      // Team filter
-      if (filters.team && match.Lag !== filters.team) {
-        return false
-      }
-      // Location filter (home/away)
-      if (filters.location) {
-        const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
-        if (filters.location === 'home' && !isHome) return false
-        if (filters.location === 'away' && isHome) return false
-      }
-      // Status filter (played/upcoming)
-      if (filters.status) {
-        const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
-        if (filters.status === 'played' && !hasResult) return false
-        if (filters.status === 'upcoming' && hasResult) return false
-      }
-      return true
-    })
-  }, [matches, filters])
+  const filteredMatches = useMemo(
+    () => matches.filter((match) => matchesFilter(match, filters)),
+    [matches, filters]
+  )
 
+  // getNow is intentionally omitted from deps - we only want to compute nextMatch
+  // when matches change, not on every render (getNow returns current time)
   const nextMatch = useMemo(() => {
-    const currentDate = getNow()
+    const now = getNow()
     return matches.find((match) => {
       const matchDate = parseMatchDate(match)
-      return matchDate && matchDate >= currentDate
+      return matchDate && matchDate >= now
     }) ?? null
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [matches])
+  }, [matches]) // eslint-disable-line react-hooks/exhaustive-deps
 
   return {
     matches,

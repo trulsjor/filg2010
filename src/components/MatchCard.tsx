@@ -1,4 +1,3 @@
-import { Link } from 'react-router-dom'
 import type { Match } from '../types'
 import { getMapsUrl } from '../utils/maps'
 
@@ -7,6 +6,58 @@ interface MatchCardProps {
   isNextMatch: boolean
   hasMultipleTeams: boolean
   getTeamColor: (teamName?: string) => string
+  onOpenTable?: (teamName: string, tournamentName: string) => void
+}
+
+const isFjellhammerTeam = (teamName?: string): boolean =>
+  teamName?.toLowerCase().includes('fjellhammer') ?? false
+
+const isValidScore = (score?: string): boolean =>
+  !!score && score.trim() !== '' && score !== '-'
+
+const parseScore = (score: string): { home: number; away: number } | null => {
+  const parts = score.split('-')
+  if (parts.length !== 2) return null
+
+  const home = parseInt(parts[0].trim())
+  const away = parseInt(parts[1].trim())
+
+  if (isNaN(home) || isNaN(away)) return null
+  return { home, away }
+}
+
+interface TeamNameProps {
+  name?: string
+  url?: string
+  isOurs: boolean
+  showDot: boolean
+  dotColor: string
+}
+
+function TeamName({ name, url, isOurs, showDot, dotColor }: TeamNameProps) {
+  const content = (
+    <>
+      {showDot && (
+        <span
+          className="card-team-dot"
+          style={{ backgroundColor: dotColor }}
+        />
+      )}
+      {name}
+    </>
+  )
+
+  const className = isOurs ? 'card-team-name card-team-ours' : undefined
+
+  if (url) {
+    return (
+      <a href={url} target="_blank" rel="noopener noreferrer" className={className}>
+        {content}
+      </a>
+    )
+  }
+
+  return <span className={className}>{content}</span>
 }
 
 export function MatchCard({
@@ -14,27 +65,27 @@ export function MatchCard({
   isNextMatch,
   hasMultipleTeams,
   getTeamColor,
+  onOpenTable,
 }: MatchCardProps) {
-  const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
-  const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
+  const isHome = isFjellhammerTeam(match.Hjemmelag)
+  const isAway = isFjellhammerTeam(match.Bortelag)
+  const hasResult = isValidScore(match['H-B'])
 
   const getMatchResult = (): 'win' | 'loss' | 'draw' | null => {
-    const score = match['H-B']
-    if (!score || score.trim() === '' || score === '-') return null
+    if (!isValidScore(match['H-B'])) return null
 
-    const [homeScore, awayScore] = score.split('-').map((s) => parseInt(s.trim()))
-    if (isNaN(homeScore) || isNaN(awayScore)) return null
+    const parsed = parseScore(match['H-B']!)
+    if (!parsed) return null
 
-    const fjellhammerIsHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
-    const fjellhammerIsAway = match.Bortelag?.toLowerCase().includes('fjellhammer')
+    const { home, away } = parsed
 
-    if (homeScore === awayScore) return 'draw'
+    if (home === away) return 'draw'
 
-    if (fjellhammerIsHome && homeScore > awayScore) return 'win'
-    if (fjellhammerIsAway && awayScore > homeScore) return 'win'
+    if (isHome && home > away) return 'win'
+    if (isAway && away > home) return 'win'
 
-    if (fjellhammerIsHome && homeScore < awayScore) return 'loss'
-    if (fjellhammerIsAway && awayScore < homeScore) return 'loss'
+    if (isHome && home < away) return 'loss'
+    if (isAway && away < home) return 'loss'
 
     return null
   }
@@ -48,6 +99,8 @@ export function MatchCard({
   ]
     .filter(Boolean)
     .join(' ')
+
+  const teamDotColor = getTeamColor(match.Lag)
 
   return (
     <div
@@ -73,46 +126,24 @@ export function MatchCard({
         )}
         <div className="card-match-content">
           <div className="card-teams">
-            {isHome ? (
-              <span className="card-team-name card-team-ours">
-                {hasMultipleTeams && (
-                  <span
-                    className="card-team-dot"
-                    style={{ backgroundColor: getTeamColor(match.Lag) }}
-                  />
-                )}
-                {match.Hjemmelag}
-              </span>
-            ) : match['Hjemmelag URL'] ? (
-              <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
-                {match.Hjemmelag}
-              </a>
-            ) : (
-              <span>{match.Hjemmelag}</span>
-            )}
+            <TeamName
+              name={match.Hjemmelag}
+              url={match['Hjemmelag URL']}
+              isOurs={isHome}
+              showDot={isHome && hasMultipleTeams}
+              dotColor={teamDotColor}
+            />
             <span className="card-teams-separator">-</span>
-            {!isHome ? (
-              <span className="card-team-name card-team-ours">
-                {hasMultipleTeams && (
-                  <span
-                    className="card-team-dot"
-                    style={{ backgroundColor: getTeamColor(match.Lag) }}
-                  />
-                )}
-                {match.Bortelag}
-              </span>
-            ) : match['Bortelag URL'] ? (
-              <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
-                {match.Bortelag}
-              </a>
-            ) : (
-              <span>{match.Bortelag}</span>
-            )}
+            <TeamName
+              name={match.Bortelag}
+              url={match['Bortelag URL']}
+              isOurs={isAway}
+              showDot={isAway && hasMultipleTeams}
+              dotColor={teamDotColor}
+            />
           </div>
           <div className="card-score">
-            {match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
-              ? match['H-B']
-              : '-'}
+            {hasResult ? match['H-B'] : '-'}
           </div>
           {match.Bane && <div className="card-venue">{match.Bane}</div>}
           {match.Tilskuere && (
@@ -125,12 +156,13 @@ export function MatchCard({
       </div>
 
       <div className="card-actions">
-        <Link
-          to={`/tabeller#tabell-${match.Lag?.toLowerCase().replace(/\s+/g, '-')}`}
+        <button
+          type="button"
           className="card-action card-action-secondary"
+          onClick={() => onOpenTable?.(match.Lag || '', match.Turnering || '')}
         >
           Tabell
-        </Link>
+        </button>
         {match.Bane && (
           <a
             href={getMapsUrl(match.Bane)}

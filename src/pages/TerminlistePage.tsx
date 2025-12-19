@@ -1,8 +1,10 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useState, useMemo } from 'react'
+import { useLocation } from 'react-router-dom'
 import { Header } from '../components/Header'
-import { FilterBar } from '../components/FilterBar'
 import { MatchCard } from '../components/MatchCard'
 import { MatchTable } from '../components/MatchTable'
+import { TableOverlay } from '../components/TableOverlay'
+import { type LeagueTable } from '../components/LeagueTableCard'
 import { useMatches } from '../hooks/useMatches'
 import { useTeams } from '../hooks/useTeams'
 import { useMetadata } from '../hooks/useMetadata'
@@ -10,6 +12,7 @@ import { useMetadata } from '../hooks/useMetadata'
 import matchesData from '../../data/terminliste.json'
 import metadataData from '../../data/metadata.json'
 import configData from '../../config.json'
+import tablesData from '../../data/tables.json'
 
 import type { Match, Metadata, Config } from '../types'
 
@@ -17,6 +20,10 @@ export function TerminlistePage() {
   const matches = matchesData as Match[]
   const metadata = metadataData as Metadata
   const config = configData as Config
+  const tables = tablesData as LeagueTable[]
+  const location = useLocation()
+
+  const [overlayTournament, setOverlayTournament] = useState<string | null>(null)
 
   const { filteredMatches, filters, nextMatch, setFilters } = useMatches(matches)
   const { teams, getTeamColor } = useTeams(config.teams)
@@ -24,6 +31,29 @@ export function TerminlistePage() {
 
   const hasMultipleTeams = teams.length > 1
   const teamNames = teams.map((t) => t.name)
+
+  // Get table for a specific tournament
+  const getTableForTournament = useCallback((tournamentName: string): LeagueTable | undefined => {
+    // Match tournament name - tables have full name like "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026"
+    // Match data has short name like "Regionserien Gutter 15 - avd 42"
+    return tables.find((table) =>
+      table.tournamentName.toLowerCase().includes(tournamentName.toLowerCase())
+    )
+  }, [tables])
+
+  const overlayTables = useMemo(() => {
+    if (!overlayTournament) return []
+    const table = getTableForTournament(overlayTournament)
+    return table ? [table] : []
+  }, [overlayTournament, getTableForTournament])
+
+  const handleOpenTable = useCallback((_teamName: string, tournamentName: string) => {
+    setOverlayTournament(tournamentName)
+  }, [])
+
+  const handleCloseOverlay = useCallback(() => {
+    setOverlayTournament(null)
+  }, [])
 
   const scrollToNextMatch = useCallback(() => {
     // Try mobile card first, then desktop row
@@ -44,16 +74,17 @@ export function TerminlistePage() {
     }
   }, [])
 
-  // Auto-scroll to next match on page load
+  // Auto-scroll to next match on page load or when navigating with scrollToNext state
   useEffect(() => {
-    if (nextMatch) {
+    const shouldScroll = nextMatch && (location.state?.scrollToNext || !location.key || location.key === 'default')
+    if (shouldScroll) {
       // Small delay to ensure DOM is rendered
       const timer = setTimeout(() => {
         scrollToNextMatch()
       }, 100)
       return () => clearTimeout(timer)
     }
-  }, [nextMatch, scrollToNextMatch])
+  }, [nextMatch, scrollToNextMatch, location.state, location.key])
 
   const handleFilterChange = useCallback(
     (newFilters: Parameters<typeof setFilters>[0]) => {
@@ -64,15 +95,13 @@ export function TerminlistePage() {
 
   return (
     <div className="app">
-      <Header onScrollToNext={scrollToNextMatch} />
+      <Header
+        onScrollToNext={scrollToNextMatch}
+        teamNames={teamNames}
+        filters={filters}
+        onFilterChange={handleFilterChange}
+      />
       <div className="container">
-
-        <FilterBar
-          teamNames={teamNames}
-          filters={filters}
-          onFilterChange={handleFilterChange}
-        />
-
         {formattedLastUpdated && (
           <p className="last-updated">
             Sist oppdatert: {formattedLastUpdated}
@@ -98,6 +127,7 @@ export function TerminlistePage() {
               isNextMatch={nextMatch === match}
               hasMultipleTeams={hasMultipleTeams}
               getTeamColor={getTeamColor}
+              onOpenTable={handleOpenTable}
             />
           ))}
         </div>
@@ -108,6 +138,14 @@ export function TerminlistePage() {
           </div>
         )}
       </div>
+
+      {overlayTournament && overlayTables.length > 0 && (
+        <TableOverlay
+          tables={overlayTables}
+          teamName={overlayTournament}
+          onClose={handleCloseOverlay}
+        />
+      )}
     </div>
   )
 }
