@@ -16,23 +16,34 @@ export function MatchCard({
   const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
   const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
 
-  const isFjellhammerWin = (): boolean => {
+  const getMatchResult = (): 'win' | 'loss' | 'draw' | null => {
     const score = match['H-B']
-    if (!score || score.trim() === '' || score === '-') return false
+    if (!score || score.trim() === '' || score === '-') return null
 
     const [homeScore, awayScore] = score.split('-').map((s) => parseInt(s.trim()))
-    if (isNaN(homeScore) || isNaN(awayScore)) return false
+    if (isNaN(homeScore) || isNaN(awayScore)) return null
 
     const fjellhammerIsHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
     const fjellhammerIsAway = match.Bortelag?.toLowerCase().includes('fjellhammer')
 
-    if (fjellhammerIsHome && homeScore > awayScore) return true
-    if (fjellhammerIsAway && awayScore > homeScore) return true
+    if (homeScore === awayScore) return 'draw'
 
-    return false
+    if (fjellhammerIsHome && homeScore > awayScore) return 'win'
+    if (fjellhammerIsAway && awayScore > homeScore) return 'win'
+
+    if (fjellhammerIsHome && homeScore < awayScore) return 'loss'
+    if (fjellhammerIsAway && awayScore < homeScore) return 'loss'
+
+    return null
   }
 
-  const classNames = ['match-card', isFjellhammerWin() ? 'win-card' : '']
+  const result = getMatchResult()
+  const classNames = [
+    'match-card',
+    result === 'win' ? 'win-card' : '',
+    result === 'loss' ? 'loss-card' : '',
+    result === 'draw' ? 'draw-card' : '',
+  ]
     .filter(Boolean)
     .join(' ')
 
