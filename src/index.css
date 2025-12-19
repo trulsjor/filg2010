@@ -447,3 +447,48 @@ body {
   background-color: var(--ds-color-surface-hover);
   color: var(--ds-color-text-muted);
 }
+
+/* ============================================
+ * APP LAYOUT
+ * ============================================ */
+.app {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: var(--ds-content-max-width, 1280px);
+  margin: 0 auto;
+  padding: var(--ds-spacing-4);
+}
+
+.last-updated {
+  text-align: center;
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-text-muted);
+  margin: var(--ds-spacing-4) 0;
+}
+
+.no-matches {
+  text-align: center;
+  padding: var(--ds-spacing-8);
+  color: var(--ds-color-text-muted);
+}
+
+/* Responsive views */
+.desktop-view {
+  display: none;
+}
+
+.mobile-view {
+  display: block;
+}
+
+@media (min-width: 769px) {
+  .desktop-view {
+    display: block;
+  }
+
+  .mobile-view {
+    display: none;
+  }
+}
