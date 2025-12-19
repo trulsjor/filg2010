@@ -28,3 +28,4 @@ playwright-report/
 playwright/.cache/
 *.bak
 *.png
+.vite/
