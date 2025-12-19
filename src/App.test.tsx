@@ -98,7 +98,7 @@ describe('App', () => {
     it('renders statistikk page', async () => {
       renderWithProviders(<App />, { route: '/statistikk' })
       await waitFor(() => {
-        expect(screen.getByRole('heading', { name: /statistikk/i })).toBeInTheDocument()
+        expect(screen.getByRole('heading', { level: 1, name: /statistikk/i })).toBeInTheDocument()
       })
     })
 

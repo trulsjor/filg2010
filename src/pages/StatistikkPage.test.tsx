@@ -14,7 +14,7 @@ describe('StatistikkPage', () => {
 
   it('renders the page title', () => {
     renderPage()
-    expect(screen.getByRole('heading', { name: /statistikk/i })).toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: /statistikk/i })).toBeInTheDocument()
   })
 
   it('has navigation link back to terminliste', () => {
@@ -32,5 +32,10 @@ describe('StatistikkPage', () => {
     expect(screen.getByText(/seire/i)).toBeInTheDocument()
     expect(screen.getByText(/tap/i)).toBeInTheDocument()
     expect(screen.getByText(/uavgjort/i)).toBeInTheDocument()
+  })
+
+  it('shows league tables section', () => {
+    renderPage()
+    expect(screen.getByRole('heading', { name: /serietabeller/i })).toBeInTheDocument()
   })
 })
