@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+
 interface HeaderProps {
   onScrollToNext?: () => void
 }
@@ -7,7 +9,7 @@ export function Header({ onScrollToNext }: HeaderProps) {
     <header className="page-header">
       <img
         src="/fjellhammer-logo.svg"
-        alt="Fjellhammer IL"
+        alt="Fjellhammer logo"
         width={120}
         height={120}
         loading="lazy"
@@ -15,7 +17,7 @@ export function Header({ onScrollToNext }: HeaderProps) {
       />
       <div className="header-text">
         <span>Fjellhammer IL</span>
-        <h1>G2010</h1>
+        <h1>Terminliste G2010</h1>
       </div>
       <div className="header-buttons">
         <button
@@ -60,10 +62,10 @@ export function Header({ onScrollToNext }: HeaderProps) {
           </svg>
           <span>Kalender</span>
         </a>
-        <a
-          href="/statistikk"
+        <Link
+          to="/statistikk"
           className="calendar-btn"
-          aria-label="Se statistikk"
+          aria-label="Statistikk"
           title="Kampstatistikk"
         >
           <svg
@@ -81,7 +83,7 @@ export function Header({ onScrollToNext }: HeaderProps) {
             <line x1="6" y1="20" x2="6" y2="14" />
           </svg>
           <span>Statistikk</span>
-        </a>
+        </Link>
       </div>
     </header>
   )

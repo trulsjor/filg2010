@@ -1,5 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render, screen, waitFor } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { App } from './App'
 import { ThemeProvider } from './context/ThemeContext'
 
@@ -47,8 +48,12 @@ vi.mock('/Users/Truls.Jorgensen/dev/terminliste/config.json', () => ({
   },
 }))
 
-function renderWithTheme(ui: React.ReactElement) {
-  return render(<ThemeProvider>{ui}</ThemeProvider>)
+function renderWithProviders(ui: React.ReactElement, { route = '/' } = {}) {
+  return render(
+    <MemoryRouter initialEntries={[route]}>
+      <ThemeProvider>{ui}</ThemeProvider>
+    </MemoryRouter>
+  )
 }
 
 describe('App', () => {
@@ -56,34 +61,52 @@ describe('App', () => {
     vi.clearAllMocks()
   })
 
-  it('renders the header', async () => {
-    renderWithTheme(<App />)
-    await waitFor(() => {
-      expect(screen.getByRole('heading', { name: 'G2010' })).toBeInTheDocument()
+  describe('Terminliste route (/)', () => {
+    it('renders the header', async () => {
+      renderWithProviders(<App />)
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: /terminliste/i })).toBeInTheDocument()
+      })
+    })
+
+    it('renders the filter bar', async () => {
+      renderWithProviders(<App />)
+      await waitFor(() => {
+        expect(screen.getByRole('navigation', { name: /filtrer kamper/i })).toBeInTheDocument()
+      })
+    })
+
+    it('renders matches', async () => {
+      renderWithProviders(<App />)
+      await waitFor(() => {
+        // Match date appears in the cards
+        expect(screen.getAllByText('15.01.2025').length).toBeGreaterThan(0)
+        // Team names appear multiple times (in filters, cards, tables)
+        expect(screen.getAllByText('Fjellhammer').length).toBeGreaterThan(0)
+      })
+    })
+
+    it('shows last updated time', async () => {
+      renderWithProviders(<App />)
+      await waitFor(() => {
+        expect(screen.getByText(/oppdatert/i)).toBeInTheDocument()
+      })
     })
   })
 
-  it('renders the filter bar', async () => {
-    renderWithTheme(<App />)
-    await waitFor(() => {
-      expect(screen.getByRole('navigation', { name: /filtrer kamper/i })).toBeInTheDocument()
+  describe('Statistikk route (/statistikk)', () => {
+    it('renders statistikk page', async () => {
+      renderWithProviders(<App />, { route: '/statistikk' })
+      await waitFor(() => {
+        expect(screen.getByRole('heading', { name: /statistikk/i })).toBeInTheDocument()
+      })
     })
-  })
 
-  it('renders matches', async () => {
-    renderWithTheme(<App />)
-    await waitFor(() => {
-      // Match date appears in the cards
-      expect(screen.getAllByText('15.01.2025').length).toBeGreaterThan(0)
-      // Team names appear multiple times (in filters, cards, tables)
-      expect(screen.getAllByText('Fjellhammer').length).toBeGreaterThan(0)
-    })
-  })
-
-  it('shows last updated time', async () => {
-    renderWithTheme(<App />)
-    await waitFor(() => {
-      expect(screen.getByText(/oppdatert/i)).toBeInTheDocument()
+    it('shows back link to terminliste', async () => {
+      renderWithProviders(<App />, { route: '/statistikk' })
+      await waitFor(() => {
+        expect(screen.getByRole('link', { name: /tilbake/i })).toBeInTheDocument()
+      })
     })
   })
 })
