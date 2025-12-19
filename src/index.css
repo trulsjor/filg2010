@@ -222,6 +222,23 @@ a:hover {
     gap: var(--ds-spacing-1);
   }
 
+  .header-buttons .next-match-btn {
+    order: 1;
+  }
+
+  .header-buttons .filter-dropdown {
+    order: 2;
+  }
+
+  .header-buttons .tables-btn {
+    order: 3;
+    margin-left: auto;
+  }
+
+  .header-buttons .theme-selector {
+    order: 4;
+  }
+
   .header-buttons > button > span:not(.theme-name):not(.btn-label),
   .header-buttons > a > span:not(.btn-label),
   .header-buttons .filter-dropdown > button > span:not(.btn-label):not(.filter-badge) {
@@ -234,8 +251,9 @@ a:hover {
     font-size: 0.7rem;
   }
 
-  .theme-selector .theme-name {
-    display: inline;
+  .theme-selector .theme-name,
+  .theme-selector-button > svg:last-child {
+    display: none;
   }
 
   .filter-dropdown .btn-label {
