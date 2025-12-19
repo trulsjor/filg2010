@@ -252,9 +252,9 @@ Fase 2 (ferdig):
   [ ] 2.2 Enkelt-kamp kalender
   [ ] T1 Splitt komponenter
 
-Fase 3 (pågår):
+Fase 3 (ferdig):
   [x] 3.1 Filtrering
-  [ ] 4.1 Statistikk-side
+  [x] 4.1 Statistikk-side
 
 Fase 4:
   [ ] 5.1 PWA-støtte

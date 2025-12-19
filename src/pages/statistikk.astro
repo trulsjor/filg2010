@@ -1,0 +1,469 @@
+---
+import * as fs from 'fs';
+import * as path from 'path';
+
+interface Match {
+  Lag?: string;
+  Dato: string;
+  Tid: string;
+  Hjemmelag: string;
+  Bortelag: string;
+  'H-B': string;
+}
+
+interface Team {
+  name: string;
+  color: string;
+}
+
+interface Config {
+  teams: Team[];
+}
+
+interface TeamStats {
+  name: string;
+  color: string;
+  played: number;
+  won: number;
+  drawn: number;
+  lost: number;
+  goalsFor: number;
+  goalsAgainst: number;
+  goalDiff: number;
+  homeWins: number;
+  awayWins: number;
+  winStreak: number;
+  currentStreak: number;
+}
+
+// Load config
+const configPath = path.join(process.cwd(), 'config.json');
+let teams: Team[] = [];
+if (fs.existsSync(configPath)) {
+  const config: Config = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+  teams = config.teams;
+}
+
+// Load matches
+const dataPath = path.join(process.cwd(), 'data', 'terminliste.json');
+let matches: Match[] = [];
+if (fs.existsSync(dataPath)) {
+  matches = JSON.parse(fs.readFileSync(dataPath, 'utf-8'));
+}
+
+// Calculate stats for each team
+function calculateTeamStats(teamName: string, teamColor: string): TeamStats {
+  const teamMatches = matches.filter(m => m.Lag === teamName);
+  const playedMatches = teamMatches.filter(m => m['H-B'] && m['H-B'] !== '-' && m['H-B'].includes('-'));
+
+  let won = 0, drawn = 0, lost = 0;
+  let goalsFor = 0, goalsAgainst = 0;
+  let homeWins = 0, awayWins = 0;
+  let currentStreak = 0;
+  let maxStreak = 0;
+  let lastResult = '';
+
+  playedMatches.forEach(match => {
+    const [homeScore, awayScore] = match['H-B'].split('-').map(s => parseInt(s.trim()));
+    if (isNaN(homeScore) || isNaN(awayScore)) return;
+
+    const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
+    const teamScore = isHome ? homeScore : awayScore;
+    const oppScore = isHome ? awayScore : homeScore;
+
+    goalsFor += teamScore;
+    goalsAgainst += oppScore;
+
+    if (teamScore > oppScore) {
+      won++;
+      if (isHome) homeWins++;
+      else awayWins++;
+
+      if (lastResult === 'W') {
+        currentStreak++;
+      } else {
+        currentStreak = 1;
+      }
+      lastResult = 'W';
+      maxStreak = Math.max(maxStreak, currentStreak);
+    } else if (teamScore === oppScore) {
+      drawn++;
+      currentStreak = 0;
+      lastResult = 'D';
+    } else {
+      lost++;
+      currentStreak = 0;
+      lastResult = 'L';
+    }
+  });
+
+  return {
+    name: teamName,
+    color: teamColor,
+    played: playedMatches.length,
+    won,
+    drawn,
+    lost,
+    goalsFor,
+    goalsAgainst,
+    goalDiff: goalsFor - goalsAgainst,
+    homeWins,
+    awayWins,
+    winStreak: maxStreak,
+    currentStreak: lastResult === 'W' ? currentStreak : 0
+  };
+}
+
+const teamStats = teams.map(t => calculateTeamStats(t.name, t.color));
+
+// Calculate totals
+const totals = teamStats.reduce((acc, t) => ({
+  played: acc.played + t.played,
+  won: acc.won + t.won,
+  drawn: acc.drawn + t.drawn,
+  lost: acc.lost + t.lost,
+  goalsFor: acc.goalsFor + t.goalsFor,
+  goalsAgainst: acc.goalsAgainst + t.goalsAgainst
+}), { played: 0, won: 0, drawn: 0, lost: 0, goalsFor: 0, goalsAgainst: 0 });
+
+const winRate = totals.played > 0 ? Math.round((totals.won / totals.played) * 100) : 0;
+---
+
+<!DOCTYPE html>
+<html lang="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Statistikk - Fjellhammer G2010</title>
+  <style>
+    :root {
+      --accent: #009B3E;
+      --accent-light: #00C46A;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(circle at top, #031a10 0%, #020b05 60%, #010503 100%);
+      min-height: 100vh;
+      padding: 2rem 1rem;
+      color: #f6fff8;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .back-link {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(246, 255, 248, 0.7);
+      text-decoration: none;
+      font-size: 0.85rem;
+      padding: 0.5rem 1rem;
+      background: rgba(0, 155, 62, 0.1);
+      border: 1px solid rgba(0, 196, 106, 0.2);
+      border-radius: 0.5rem;
+      transition: all 0.2s;
+    }
+
+    .back-link:hover {
+      background: rgba(0, 155, 62, 0.2);
+      color: #f6fff8;
+    }
+
+    h1 {
+      font-size: 2rem;
+      flex: 1;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: rgba(5, 17, 11, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      padding: 1.25rem;
+      text-align: center;
+    }
+
+    .stat-value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      line-height: 1;
+    }
+
+    .stat-value.win { color: #22c55e; }
+    .stat-value.draw { color: #eab308; }
+    .stat-value.loss { color: #ef4444; }
+
+    .stat-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: rgba(246, 255, 248, 0.5);
+      margin-top: 0.5rem;
+    }
+
+    .section {
+      margin-bottom: 2rem;
+    }
+
+    .section h2 {
+      font-size: 1.25rem;
+      margin-bottom: 1rem;
+      color: rgba(246, 255, 248, 0.9);
+    }
+
+    .team-section {
+      background: rgba(5, 17, 11, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 1rem;
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .team-header {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+
+    .team-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+    }
+
+    .team-name {
+      font-size: 1.1rem;
+      font-weight: 600;
+    }
+
+    .team-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 1rem;
+    }
+
+    .team-stat {
+      text-align: center;
+    }
+
+    .team-stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .team-stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(246, 255, 248, 0.5);
+    }
+
+    .progress-bar {
+      height: 8px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      overflow: hidden;
+      margin-top: 1rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      display: flex;
+    }
+
+    .progress-win { background: #22c55e; }
+    .progress-draw { background: #eab308; }
+    .progress-loss { background: #ef4444; }
+
+    .goals-comparison {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+      padding: 1rem;
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 0.5rem;
+    }
+
+    .goals-for {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #22c55e;
+    }
+
+    .goals-separator {
+      color: rgba(246, 255, 248, 0.3);
+    }
+
+    .goals-against {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #ef4444;
+    }
+
+    .goals-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      color: rgba(246, 255, 248, 0.5);
+    }
+
+    @media (max-width: 600px) {
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .stat-value {
+        font-size: 2rem;
+      }
+
+      .header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <div class="header">
+      <a href="/" class="back-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="15 18 9 12 15 6"></polyline>
+        </svg>
+        Terminliste
+      </a>
+      <h1>Statistikk</h1>
+    </div>
+
+    <!-- Overall stats -->
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-value">{totals.played}</div>
+        <div class="stat-label">Kamper spilt</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value win">{totals.won}</div>
+        <div class="stat-label">Seire</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value draw">{totals.drawn}</div>
+        <div class="stat-label">Uavgjort</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value loss">{totals.lost}</div>
+        <div class="stat-label">Tap</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value">{winRate}%</div>
+        <div class="stat-label">Seiersprosent</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-value" style={`color: ${totals.goalsFor - totals.goalsAgainst >= 0 ? '#22c55e' : '#ef4444'}`}>
+          {totals.goalsFor - totals.goalsAgainst > 0 ? '+' : ''}{totals.goalsFor - totals.goalsAgainst}
+        </div>
+        <div class="stat-label">Målforskjell</div>
+      </div>
+    </div>
+
+    <!-- Goals comparison -->
+    <div class="section">
+      <h2>Mål totalt</h2>
+      <div class="team-section">
+        <div class="goals-comparison">
+          <div style="text-align: center;">
+            <div class="goals-for">{totals.goalsFor}</div>
+            <div class="goals-label">Scoret</div>
+          </div>
+          <div class="goals-separator">—</div>
+          <div style="text-align: center;">
+            <div class="goals-against">{totals.goalsAgainst}</div>
+            <div class="goals-label">Sluppet inn</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Per team stats -->
+    <div class="section">
+      <h2>Per lag</h2>
+      {teamStats.map(team => (
+        <div class="team-section">
+          <div class="team-header">
+            <span class="team-dot" style={`background-color: ${team.color}`}></span>
+            <span class="team-name">{team.name}</span>
+          </div>
+
+          <div class="team-stats">
+            <div class="team-stat">
+              <div class="team-stat-value">{team.played}</div>
+              <div class="team-stat-label">Spilt</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-value" style="color: #22c55e">{team.won}</div>
+              <div class="team-stat-label">Vunnet</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-value" style="color: #eab308">{team.drawn}</div>
+              <div class="team-stat-label">Uavgjort</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-value" style="color: #ef4444">{team.lost}</div>
+              <div class="team-stat-label">Tapt</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-value">{team.goalsFor}-{team.goalsAgainst}</div>
+              <div class="team-stat-label">Mål</div>
+            </div>
+            <div class="team-stat">
+              <div class="team-stat-value" style={`color: ${team.goalDiff >= 0 ? '#22c55e' : '#ef4444'}`}>
+                {team.goalDiff > 0 ? '+' : ''}{team.goalDiff}
+              </div>
+              <div class="team-stat-label">Diff</div>
+            </div>
+          </div>
+
+          {team.played > 0 && (
+            <div class="progress-bar">
+              <div class="progress-fill">
+                <div class="progress-win" style={`width: ${(team.won / team.played) * 100}%`}></div>
+                <div class="progress-draw" style={`width: ${(team.drawn / team.played) * 100}%`}></div>
+                <div class="progress-loss" style={`width: ${(team.lost / team.played) * 100}%`}></div>
+              </div>
+            </div>
+          )}
+        </div>
+      ))}
+    </div>
+  </main>
+</body>
+</html>
