@@ -158,9 +158,15 @@ export function MatchCard({
       <div className="card-actions">
         <button
           type="button"
-          className="card-action card-action-secondary"
+          className="card-action card-action-table"
           onClick={() => onOpenTable?.(match.Lag || '', match.Turnering || '')}
         >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <line x1="10" y1="6" x2="21" y2="6" />
+            <line x1="10" y1="12" x2="21" y2="12" />
+            <line x1="10" y1="18" x2="21" y2="18" />
+            <path d="M4 6h1v1H4zM4 11h1v2H4zM4 17h1v2H4z" fill="currentColor" />
+          </svg>
           Tabell
         </button>
         {match.Bane && (
@@ -168,8 +174,12 @@ export function MatchCard({
             href={getMapsUrl(match.Bane)}
             target="_blank"
             rel="noopener noreferrer"
-            className="card-action card-action-secondary"
+            className="card-action card-action-map"
           >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
+              <circle cx="12" cy="10" r="3" />
+            </svg>
             Kart
           </a>
         )}
@@ -180,6 +190,11 @@ export function MatchCard({
             rel="noopener noreferrer"
             className="card-action card-action-primary"
           >
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
             Detaljer
           </a>
         )}
