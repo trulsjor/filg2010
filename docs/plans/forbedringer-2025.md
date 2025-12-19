@@ -247,13 +247,13 @@ Fase 1 (ferdig):
   [x] 1.1 updateResults.ts script
   [x] 1.2 GitHub Actions cron
 
-Fase 2 (pågår):
+Fase 2 (ferdig):
   [x] 2.1 iCal-feed
   [ ] 2.2 Enkelt-kamp kalender
   [ ] T1 Splitt komponenter
 
-Fase 3:
-  [ ] 3.1 Filtrering
+Fase 3 (pågår):
+  [x] 3.1 Filtrering
   [ ] 4.1 Statistikk-side
 
 Fase 4:

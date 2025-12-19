@@ -308,6 +308,68 @@ const formattedLastUpdated = metadata?.lastUpdated
       transform: scale(0.98);
     }
 
+    /* Filter bar */
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(5, 17, 11, 0.8);
+      border-radius: 0.75rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .filter-group-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgba(246, 255, 248, 0.5);
+      margin-right: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.4rem 0.75rem;
+      background: rgba(0, 155, 62, 0.1);
+      color: rgba(246, 255, 248, 0.6);
+      border: 1px solid rgba(0, 196, 106, 0.15);
+      border-radius: 0.4rem;
+      font-size: 0.7rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .filter-btn:hover {
+      background: rgba(0, 155, 62, 0.2);
+      color: rgba(246, 255, 248, 0.8);
+    }
+
+    .filter-btn.active {
+      background: rgba(0, 155, 62, 0.3);
+      color: #f6fff8;
+      border-color: rgba(0, 196, 106, 0.4);
+    }
+
+    .filter-divider {
+      width: 1px;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.1);
+      margin: 0 0.5rem;
+    }
+
+    /* Hidden rows/cards when filtered */
+    tr.filtered-out,
+    .match-card.filtered-out {
+      display: none !important;
+    }
+
     .table-container {
       overflow-x: auto;
       margin-top: 1rem;
@@ -916,6 +978,26 @@ const formattedLastUpdated = metadata?.lastUpdated
         height: 12px;
       }
 
+      .filter-bar {
+        flex-direction: column;
+        padding: 0.75rem;
+        gap: 0.75rem;
+      }
+
+      .filter-group {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .filter-divider {
+        display: none;
+      }
+
+      .filter-btn {
+        padding: 0.35rem 0.6rem;
+        font-size: 0.65rem;
+      }
+
       h1 {
         font-size: 1.5rem;
         margin-bottom: 1rem;
@@ -973,6 +1055,31 @@ const formattedLastUpdated = metadata?.lastUpdated
       </div>
     </header>
 
+    <!-- Filter bar -->
+    <div class="filter-bar">
+      <div class="filter-group">
+        <span class="filter-group-label">Lag:</span>
+        <button class="filter-btn active" data-filter="team" data-value="all">Alle</button>
+        {Array.from(teamColors.keys()).map((teamName) => (
+          <button class="filter-btn" data-filter="team" data-value={teamName}>{teamName}</button>
+        ))}
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-group-label">Type:</span>
+        <button class="filter-btn active" data-filter="location" data-value="all">Alle</button>
+        <button class="filter-btn" data-filter="location" data-value="home">Hjemme</button>
+        <button class="filter-btn" data-filter="location" data-value="away">Borte</button>
+      </div>
+      <div class="filter-divider"></div>
+      <div class="filter-group">
+        <span class="filter-group-label">Status:</span>
+        <button class="filter-btn active" data-filter="status" data-value="all">Alle</button>
+        <button class="filter-btn" data-filter="status" data-value="upcoming">Kommende</button>
+        <button class="filter-btn" data-filter="status" data-value="played">Spilte</button>
+      </div>
+    </div>
+
 {matches.length > 0 ? (
       <>
         <div class="table-container">
@@ -991,8 +1098,15 @@ const formattedLastUpdated = metadata?.lastUpdated
               </tr>
             </thead>
             <tbody>
-              {matches.map((match) => (
-                <tr>
+              {matches.map((match) => {
+                const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
+                const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-';
+                return (
+                <tr
+                  data-team={match.Lag}
+                  data-location={isHome ? 'home' : 'away'}
+                  data-status={hasResult ? 'played' : 'upcoming'}
+                >
                   {hasMultipleTeams && (
                     <td>
                       <span class="team-indicator" style={`background-color: ${getTeamColor(match.Lag)}`}></span>
@@ -1042,16 +1156,23 @@ const formattedLastUpdated = metadata?.lastUpdated
                     </td>
                   )}
                 </tr>
-              ))}
+              );
+              })}
             </tbody>
           </table>
         </div>
 
         <div class="card-container">
-          {matches.map((match) => (
+          {matches.map((match) => {
+            const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
+            const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-';
+            return (
             <div
               class={`match-card${isFjellhammerWin(match) ? ' win-card' : ''}`}
               id={nextMatchId && nextMatchId === String(match.Kampnr || '').trim() ? 'next-match-card' : undefined}
+              data-team={match.Lag}
+              data-location={isHome ? 'home' : 'away'}
+              data-status={hasResult ? 'played' : 'upcoming'}
             >
               <div class="card-header">
                 <div class="card-date-time">
@@ -1120,7 +1241,8 @@ const formattedLastUpdated = metadata?.lastUpdated
                 </div>
               )}
             </div>
-          ))}
+          );
+          })}
         </div>
 
         {formattedLastUpdated && (
@@ -1149,7 +1271,87 @@ const formattedLastUpdated = metadata?.lastUpdated
       });
     }
 
+    // Filter state
+    const filters = {
+      team: 'all',
+      location: 'all',
+      status: 'all'
+    };
+
+    // Load saved filters from localStorage
+    function loadFilters() {
+      try {
+        const saved = localStorage.getItem('terminliste-filters');
+        if (saved) {
+          Object.assign(filters, JSON.parse(saved));
+        }
+      } catch (e) {}
+    }
+
+    // Save filters to localStorage
+    function saveFilters() {
+      try {
+        localStorage.setItem('terminliste-filters', JSON.stringify(filters));
+      } catch (e) {}
+    }
+
+    // Apply filters to all matches
+    function applyFilters() {
+      const rows = document.querySelectorAll('tbody tr[data-team]');
+      const cards = document.querySelectorAll('.match-card[data-team]');
+
+      const elements = [...rows, ...cards];
+
+      elements.forEach(el => {
+        const team = el.getAttribute('data-team');
+        const location = el.getAttribute('data-location');
+        const status = el.getAttribute('data-status');
+
+        const teamMatch = filters.team === 'all' || filters.team === team;
+        const locationMatch = filters.location === 'all' || filters.location === location;
+        const statusMatch = filters.status === 'all' || filters.status === status;
+
+        if (teamMatch && locationMatch && statusMatch) {
+          el.classList.remove('filtered-out');
+        } else {
+          el.classList.add('filtered-out');
+        }
+      });
+    }
+
+    // Update button active states
+    function updateButtonStates() {
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        const filterType = btn.getAttribute('data-filter');
+        const value = btn.getAttribute('data-value');
+
+        if (filters[filterType] === value) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    }
+
     document.addEventListener('DOMContentLoaded', () => {
+      // Load saved filters
+      loadFilters();
+      updateButtonStates();
+      applyFilters();
+
+      // Filter button click handlers
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const filterType = btn.getAttribute('data-filter');
+          const value = btn.getAttribute('data-value');
+
+          filters[filterType] = value;
+          saveFilters();
+          updateButtonStates();
+          applyFilters();
+        });
+      });
+
       // Auto-scroll on page load for mobile
       const prefersCards = window.matchMedia('(max-width: 768px)').matches;
       if (prefersCards) {
