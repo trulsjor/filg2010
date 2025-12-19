@@ -801,30 +801,30 @@ a.card-action-secondary:hover,
 }
 
 .card-action-table {
-  background: var(--ds-color-palette-6);
-  color: var(--ds-color-background-default);
+  background: var(--ds-color-palette-3);
+  color: #ffffff;
   box-shadow: var(--ds-shadow-sm);
   border: none;
 }
 
 .card-action-table:hover {
-  background: var(--ds-color-palette-7);
-  color: var(--ds-color-background-default);
+  background: var(--ds-color-palette-2);
+  color: #ffffff;
   box-shadow: var(--ds-shadow-md);
   transform: translateY(-1px);
 }
 
 .card-action-map {
-  background: var(--ds-color-palette-6);
-  color: var(--ds-color-background-default);
+  background: var(--ds-color-palette-3);
+  color: #ffffff;
   box-shadow: var(--ds-shadow-sm);
   border: none;
 }
 
 a.card-action-map:hover,
 .card-action-map:hover {
-  background: var(--ds-color-palette-7);
-  color: var(--ds-color-background-default);
+  background: var(--ds-color-palette-2);
+  color: #ffffff;
   text-decoration: none;
   box-shadow: var(--ds-shadow-md);
   transform: translateY(-1px);

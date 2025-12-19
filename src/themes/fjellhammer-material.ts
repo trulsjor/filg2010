@@ -124,16 +124,16 @@ const fjellhammerMaterialLightColors: ThemeColors = {
 
   focusRing: '#009B3E',
 
-  // Palette
-  'palette-1': '#009B3E',  // Fjellhammer green
-  'palette-2': '#1976d2',  // Blue
-  'palette-3': '#c2185b',  // Pink
-  'palette-4': '#ffa000',  // Amber
-  'palette-5': '#7b1fa2',  // Purple
-  'palette-6': '#0097a7',  // Cyan
-  'palette-7': '#f57c00',  // Orange
-  'palette-8': '#388e3c',  // Green
-  'palette-9': '#616161',  // Gray
+  // Palette - grønn gradient fra fjellhammer.no
+  'palette-1': '#00c462',  // Fjellhammer grønn (lys)
+  'palette-2': '#2d6a4f',  // Mørk skogsgrønn
+  'palette-3': '#40916c',  // Medium grønn
+  'palette-4': '#ffc107',  // Gul
+  'palette-5': '#52b788',  // Frisk grønn
+  'palette-6': '#74c69d',  // Lys grønn
+  'palette-7': '#95d5b2',  // Mint grønn
+  'palette-8': '#34d399',  // Emerald
+  'palette-9': '#9ca3af',  // Grå
 }
 
 // Fjellhammer Material Dark - dark surfaces, green accent
