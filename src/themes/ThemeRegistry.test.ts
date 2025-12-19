@@ -6,6 +6,9 @@ describe('ThemeRegistry', () => {
     expect(themes['fjellhammer-dark']).toBeDefined()
     expect(themes['fjellhammer-light']).toBeDefined()
     expect(themes['forest']).toBeDefined()
+    expect(themes['showcase']).toBeDefined()
+    expect(themes['elevated']).toBeDefined()
+    expect(themes['material']).toBeDefined()
   })
 
   it('has correct default theme id', () => {
@@ -30,7 +33,7 @@ describe('ThemeRegistry', () => {
     it('returns array of theme options', () => {
       const options = getThemeOptions()
       expect(Array.isArray(options)).toBe(true)
-      expect(options.length).toBe(3)
+      expect(options.length).toBe(6)
     })
 
     it('each option has value and label', () => {

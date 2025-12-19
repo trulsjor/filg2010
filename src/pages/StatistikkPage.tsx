@@ -3,28 +3,9 @@ import { Link } from 'react-router-dom'
 import { Header } from '../components/Header'
 
 import matchesData from '../../data/terminliste.json'
-import tablesData from '../../data/tables.json'
 import configData from '../../config.json'
 
 import type { Match, Config } from '../types'
-
-interface LeagueTableRow {
-  position: number
-  team: string
-  played: number
-  won: number
-  drawn: number
-  lost: number
-  goalsFor: number
-  goalsAgainst: number
-  points: number
-}
-
-interface LeagueTable {
-  tournamentName: string
-  tournamentUrl: string
-  rows: LeagueTableRow[]
-}
 
 interface TeamStats {
   name: string
@@ -45,7 +26,6 @@ function parseResult(result: string): { home: number; away: number } | null {
 
 export function StatistikkPage() {
   const matches = matchesData as Match[]
-  const tables = tablesData as LeagueTable[]
   const config = configData as Config
 
   const teamStats = useMemo(() => {
@@ -70,7 +50,12 @@ export function StatistikkPage() {
       const teamName = match.Lag
       if (!stats[teamName]) return
 
-      const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
+      // Check if our specific team is home - use exact team name for "Fjellhammer 2" to avoid confusion
+      const hjemmelagLower = match.Hjemmelag?.toLowerCase() || ''
+      const teamNameLower = teamName.toLowerCase()
+      const isHome = teamNameLower === 'fjellhammer 2'
+        ? hjemmelagLower.includes('fjellhammer 2')
+        : hjemmelagLower.includes('fjellhammer') && !hjemmelagLower.includes('fjellhammer 2')
       const ourGoals = isHome ? result.home : result.away
       const theirGoals = isHome ? result.away : result.home
 
@@ -201,106 +186,57 @@ export function StatistikkPage() {
           <section className="team-breakdown">
             <h2>Per lag</h2>
             <div className="team-cards">
-              {teamStats.map((team) => (
-                <div key={team.name} className="team-card">
-                  <h3>{team.name}</h3>
-                  <div className="team-card-stats">
-                    <div className="team-stat-item">
-                      <span className="team-stat-value">{team.played}</span>
-                      <span className="team-stat-label">Kamper</span>
-                    </div>
-                    <div className="team-stat-item team-stat--success">
-                      <span className="team-stat-value">{team.wins}</span>
-                      <span className="team-stat-label">S</span>
-                    </div>
-                    <div className="team-stat-item team-stat--warning">
-                      <span className="team-stat-value">{team.draws}</span>
-                      <span className="team-stat-label">U</span>
-                    </div>
-                    <div className="team-stat-item team-stat--danger">
-                      <span className="team-stat-value">{team.losses}</span>
-                      <span className="team-stat-label">T</span>
-                    </div>
-                  </div>
-                  <div className="team-goals">
-                    Mål: {team.goalsFor} - {team.goalsAgainst}
-                    <span className="team-goal-diff">
-                      ({team.goalsFor - team.goalsAgainst >= 0 ? '+' : ''}
-                      {team.goalsFor - team.goalsAgainst})
-                    </span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* League Tables */}
-        {tables.length > 0 && (
-          <section className="league-tables-section">
-            <h2>Serietabeller</h2>
-            <div className="tables-grid">
-              {tables.map((table) => {
-                const shortName = table.tournamentName.split(',')[0].replace('Regionserien ', '')
+              {teamStats.map((team) => {
+                const teamWinPct = team.played > 0
+                  ? Math.round((team.wins / team.played) * 100)
+                  : 0
                 return (
-                  <div key={table.tournamentUrl} className="table-card">
-                    <div className="table-card-header">
-                      <h3>{shortName}</h3>
-                      <a
-                        href={table.tournamentUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="table-link"
-                        aria-label="Se på handball.no"
-                      >
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                          <polyline points="15 3 21 3 21 9" />
-                          <line x1="10" y1="14" x2="21" y2="3" />
-                        </svg>
-                      </a>
+                  <div key={team.name} className="team-card">
+                    <div className="team-card-header">
+                      <h3>{team.name}</h3>
+                      <span className="team-win-pct">{teamWinPct}%</span>
                     </div>
-                    <table className="league-table">
-                      <thead>
-                        <tr>
-                          <th className="col-pos">#</th>
-                          <th className="col-team">Lag</th>
-                          <th className="col-num">K</th>
-                          <th className="col-num">+/-</th>
-                          <th className="col-num col-points">P</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {table.rows.map((row) => {
-                          const isFjellhammer = row.team.toLowerCase().includes('fjellhammer')
-                          const goalDiff = row.goalsFor - row.goalsAgainst
-                          return (
-                            <tr key={row.position} className={isFjellhammer ? 'row-highlight' : ''}>
-                              <td className="col-pos">
-                                <span className={`position-badge position-${row.position}`}>
-                                  {row.position}
-                                </span>
-                              </td>
-                              <td className="col-team">
-                                {isFjellhammer && <span className="team-marker">●</span>}
-                                {row.team}
-                              </td>
-                              <td className="col-num">{row.played}</td>
-                              <td className={`col-num ${goalDiff > 0 ? 'positive' : goalDiff < 0 ? 'negative' : ''}`}>
-                                {goalDiff > 0 ? '+' : ''}{goalDiff}
-                              </td>
-                              <td className="col-num col-points">{row.points}</td>
-                            </tr>
-                          )
-                        })}
-                      </tbody>
-                    </table>
+                    <div className="team-card-stats">
+                      <div className="team-stat-item">
+                        <span className="team-stat-value">{team.played}</span>
+                        <span className="team-stat-label">Kamper</span>
+                      </div>
+                      <div className="team-stat-item team-stat--success">
+                        <span className="team-stat-value">{team.wins}</span>
+                        <span className="team-stat-label">S</span>
+                      </div>
+                      <div className="team-stat-item team-stat--warning">
+                        <span className="team-stat-value">{team.draws}</span>
+                        <span className="team-stat-label">U</span>
+                      </div>
+                      <div className="team-stat-item team-stat--danger">
+                        <span className="team-stat-value">{team.losses}</span>
+                        <span className="team-stat-label">T</span>
+                      </div>
+                    </div>
+                    <div className="team-goals">
+                      Mål: {team.goalsFor} - {team.goalsAgainst}
+                      <span className="team-goal-diff">
+                        ({team.goalsFor - team.goalsAgainst >= 0 ? '+' : ''}
+                        {team.goalsFor - team.goalsAgainst})
+                      </span>
+                    </div>
                   </div>
                 )
               })}
             </div>
           </section>
         )}
+
+        {/* Link to Tables */}
+        <section className="tables-link-section">
+          <Link to="/tabeller" className="tables-link-button">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+              <path d="M3 3h18v18H3zM3 9h18M3 15h18M9 3v18M15 3v18" />
+            </svg>
+            Se serietabeller
+          </Link>
+        </section>
       </div>
     </div>
   )

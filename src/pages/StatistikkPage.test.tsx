@@ -37,8 +37,8 @@ describe('StatistikkPage', () => {
     expect(screen.getByText(/uavgjort/i)).toBeInTheDocument()
   })
 
-  it('shows league tables section', () => {
+  it('shows link to tables page', () => {
     renderPage()
-    expect(screen.getByRole('heading', { name: /serietabeller/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /se serietabeller/i })).toBeInTheDocument()
   })
 })

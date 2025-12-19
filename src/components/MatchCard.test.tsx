@@ -1,7 +1,12 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen } from '@testing-library/react'
+import { MemoryRouter } from 'react-router-dom'
 import { MatchCard } from './MatchCard'
 import type { Match } from '../types'
+
+const renderWithRouter = (ui: React.ReactElement) => {
+  return render(<MemoryRouter>{ui}</MemoryRouter>)
+}
 
 const mockMatch: Match = {
   Dato: '15.01.2025',
@@ -25,7 +30,7 @@ const mockGetTeamColor = vi.fn().mockReturnValue('#fbbf24')
 
 describe('MatchCard', () => {
   it('renders match date and time', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -38,7 +43,7 @@ describe('MatchCard', () => {
   })
 
   it('renders team names', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -51,7 +56,7 @@ describe('MatchCard', () => {
   })
 
   it('renders score when available', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -64,7 +69,7 @@ describe('MatchCard', () => {
 
   it('renders dash when no score', () => {
     const matchWithoutScore = { ...mockMatch, 'H-B': '' }
-    const { container } = render(
+    const { container } = renderWithRouter(
       <MatchCard
         match={matchWithoutScore}
         isNextMatch={false}
@@ -77,7 +82,7 @@ describe('MatchCard', () => {
   })
 
   it('renders venue and spectators', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -86,11 +91,11 @@ describe('MatchCard', () => {
       />
     )
     expect(screen.getByText('Fjellhammerhallen')).toBeInTheDocument()
-    expect(screen.getByText('50')).toBeInTheDocument()
+    expect(screen.getByText('50 tilskuere')).toBeInTheDocument()
   })
 
   it('renders team indicator when hasMultipleTeams is true', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -102,7 +107,7 @@ describe('MatchCard', () => {
   })
 
   it('adds win-card class when Fjellhammer wins at home', () => {
-    const { container } = render(
+    const { container } = renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -114,7 +119,7 @@ describe('MatchCard', () => {
   })
 
   it('has next-match-card id when isNextMatch is true', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={true}
@@ -126,7 +131,7 @@ describe('MatchCard', () => {
   })
 
   it('renders match details link when available', () => {
-    render(
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -134,12 +139,12 @@ describe('MatchCard', () => {
         getTeamColor={mockGetTeamColor}
       />
     )
-    const link = screen.getByRole('link', { name: /se kampdetaljer/i })
+    const link = screen.getByRole('link', { name: /detaljer/i })
     expect(link).toHaveAttribute('href', 'https://handball.no/kamp/123')
   })
 
-  it('renders venue as map link', () => {
-    render(
+  it('renders map button', () => {
+    renderWithRouter(
       <MatchCard
         match={mockMatch}
         isNextMatch={false}
@@ -147,8 +152,8 @@ describe('MatchCard', () => {
         getTeamColor={mockGetTeamColor}
       />
     )
-    const venueLink = screen.getByRole('link', { name: /fjellhammerhallen/i })
-    expect(venueLink).toBeInTheDocument()
-    expect(venueLink).toHaveAttribute('href', expect.stringContaining('google.com/maps'))
+    const mapButton = screen.getByRole('link', { name: /kart/i })
+    expect(mapButton).toBeInTheDocument()
+    expect(mapButton).toHaveAttribute('href', expect.stringContaining('maps'))
   })
 })

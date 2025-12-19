@@ -435,30 +435,25 @@ a:hover {
 .mobile-view {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 12px;
 }
 
 .match-card {
   background: var(--ds-color-surface-default);
-  border: 1px solid var(--ds-color-border-default);
-  border-radius: 3px;
+  border-radius: var(--ds-radius-lg, 8px);
+  box-shadow: var(--ds-shadow-md);
   overflow: hidden;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-/* Result styling - left border + subtle background tint */
-.match-card.win-card {
-  border-left: 3px solid var(--ds-color-success-base);
-  background: linear-gradient(90deg, var(--ds-color-success-subtle) 0%, var(--ds-color-surface-default) 30%);
-}
-
-.match-card.loss-card {
-  border-left: 3px solid var(--ds-color-danger-base);
-  background: linear-gradient(90deg, var(--ds-color-danger-subtle) 0%, var(--ds-color-surface-default) 30%);
-}
-
+/* Result styling - keep card neutral */
+.match-card.win-card,
+.match-card.loss-card,
 .match-card.draw-card {
-  border-left: 3px solid var(--ds-color-warning-base);
-  background: linear-gradient(90deg, var(--ds-color-warning-subtle) 0%, var(--ds-color-surface-default) 30%);
+  background: var(--ds-color-surface-default);
 }
 
 /* Next match card */
@@ -481,14 +476,12 @@ a:hover {
   border-radius: 0 2px 0 2px;
 }
 
-/* Card header - compact */
+/* Card header - simple top row */
 .card-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 6px 10px;
-  background: var(--ds-color-surface-raised);
-  border-bottom: 1px solid var(--ds-color-border-subtle);
+  padding: 4px 0;
 }
 
 .card-date-time {
@@ -509,25 +502,48 @@ a:hover {
   font-weight: 500;
 }
 
-.card-team-indicator {
-  display: flex;
+.card-team-name {
+  display: inline-flex;
   align-items: center;
-  gap: 4px;
-  font-size: 10px;
-  font-weight: 600;
-  color: var(--ds-color-accent-text);
+  gap: 6px;
+}
+
+.card-team-ours {
+  font-weight: 700;
+  color: var(--ds-color-text-default);
 }
 
 .card-team-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
+  flex-shrink: 0;
 }
 
-/* Card match section - the main content */
+.card-teams-separator {
+  margin: 0 4px;
+  color: var(--ds-color-text-muted);
+}
+
+/* Card match section - elevated main content */
 .card-match {
-  padding: 10px;
+  padding: 16px;
   text-align: center;
+  background: var(--ds-color-surface-raised);
+  border-radius: var(--ds-radius-md, 6px);
+  box-shadow: var(--ds-shadow-sm);
+}
+
+.win-card .card-match {
+  background: var(--ds-color-success-subtle);
+}
+
+.loss-card .card-match {
+  background: var(--ds-color-danger-subtle);
+}
+
+.draw-card .card-match {
+  background: var(--ds-color-warning-subtle);
 }
 
 .card-teams {
@@ -563,106 +579,99 @@ a:hover {
 }
 
 .win-card .card-score {
-  color: var(--ds-color-success-base);
+  color: var(--ds-color-success-text);
 }
 
 .loss-card .card-score {
-  color: var(--ds-color-danger-base);
+  color: var(--ds-color-danger-text);
 }
 
 .draw-card .card-score {
-  color: var(--ds-color-warning-base);
+  color: var(--ds-color-warning-text);
 }
 
-/* Card info - inline compact */
-.card-info {
+/* Card meta - compact info line */
+.card-meta {
   display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 16px;
-  padding: 6px 10px;
-  background: var(--ds-color-surface-raised);
-  border-top: 1px solid var(--ds-color-border-subtle);
-}
-
-.card-info-item {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-}
-
-.card-info-label {
-  font-size: 9px;
-  font-weight: 600;
-  color: var(--ds-color-text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-}
-
-.card-info-value {
+  flex-wrap: wrap;
+  gap: 6px;
+  padding: 8px 12px;
   font-size: 11px;
-  color: var(--ds-color-text-default);
-  font-weight: 600;
+  color: var(--ds-color-text-muted);
+  text-align: center;
 }
 
-.card-info-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  color: var(--ds-color-palette-6);
-  text-decoration: none;
-  transition: color 0.1s;
+.card-meta-dot {
+  color: var(--ds-color-border-default);
 }
 
-.card-info-link:hover {
-  color: var(--ds-color-accent-text);
-  text-decoration: underline;
-}
-
-.card-info-link svg {
-  flex-shrink: 0;
-}
-
-/* Card tournament - minimal */
-.card-tournament {
-  padding: 4px 10px;
+/* Card tournament name - in header */
+.card-tournament-name {
   font-size: 10px;
   color: var(--ds-color-text-muted);
-  border-top: 1px solid var(--ds-color-border-subtle);
+  letter-spacing: 0.02em;
+  text-align: right;
+  max-width: 50%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-.card-tournament a {
-  color: var(--ds-color-accent-text);
-  font-weight: 500;
-}
-
-/* Card links - compact buttons */
-.card-links {
+/* Card actions - compact button row */
+.card-actions {
   display: flex;
-  gap: 6px;
-  padding: 6px 10px;
-  border-top: 1px solid var(--ds-color-border-subtle);
+  gap: 8px;
 }
 
-.card-link {
+.card-action {
   flex: 1;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  padding: 6px 8px;
-  background: var(--ds-color-accent-subtle);
-  color: var(--ds-color-accent-text);
-  border-radius: 2px;
-  font-size: 11px;
-  font-weight: 600;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: var(--ds-radius-md, 6px);
+  font-size: 12px;
+  font-weight: 500;
   text-decoration: none;
-  transition: all 0.1s ease;
+  transition: all 0.15s ease;
 }
 
-.card-link:hover {
+.card-action svg {
+  flex-shrink: 0;
+}
+
+.card-action-primary {
   background: var(--ds-color-accent-base);
   color: var(--ds-color-text-on-accent);
+  box-shadow: var(--ds-shadow-sm);
+}
+
+a.card-action-primary:hover,
+.card-action-primary:hover {
+  background: var(--ds-color-accent-hover);
+  color: var(--ds-color-text-on-accent);
   text-decoration: none;
+  box-shadow: var(--ds-shadow-md);
+  transform: translateY(-1px);
+}
+
+.card-action-secondary {
+  background: var(--ds-color-surface-raised);
+  color: var(--ds-color-text-subtle);
+  box-shadow: var(--ds-shadow-sm);
+  border: 1px solid var(--ds-color-border-subtle);
+}
+
+a.card-action-secondary:hover,
+.card-action-secondary:hover {
+  background: var(--ds-color-surface-hover);
+  color: var(--ds-color-text-default);
+  text-decoration: none;
+  box-shadow: var(--ds-shadow-md);
+  transform: translateY(-1px);
 }
 
 /* ============================================
@@ -1262,12 +1271,25 @@ a:hover {
   padding: var(--ds-spacing-3);
 }
 
-.team-card h3 {
-  font-size: var(--ds-font-size-sm);
-  font-weight: 700;
+.team-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-bottom: var(--ds-spacing-2);
   padding-bottom: var(--ds-spacing-2);
   border-bottom: 1px solid var(--ds-color-border-subtle);
+}
+
+.team-card h3 {
+  font-size: var(--ds-font-size-sm);
+  font-weight: 700;
+  margin: 0;
+}
+
+.team-win-pct {
+  font-size: var(--ds-font-size-lg);
+  font-weight: 700;
+  color: var(--ds-color-accent-text);
 }
 
 .team-card-stats {
@@ -1321,15 +1343,67 @@ a:hover {
   font-weight: 600;
 }
 
+/* Tables Link Section */
+.tables-link-section {
+  margin-top: var(--ds-spacing-4);
+}
+
+.tables-link-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ds-spacing-2);
+  padding: var(--ds-spacing-3) var(--ds-spacing-4);
+  background: var(--ds-color-accent-subtle);
+  color: var(--ds-color-accent-text);
+  border-radius: var(--ds-radius-md, 4px);
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+
+.tables-link-button:hover {
+  background: var(--ds-color-surface-hover);
+}
+
+.tables-link-button svg {
+  opacity: 0.8;
+}
+
 /* League Tables Section */
 .league-tables-section {
   margin-bottom: var(--ds-spacing-4);
 }
 
-.league-tables-section h2 {
+.league-tables-section > h2 {
   font-size: var(--ds-font-size-md);
   font-weight: 700;
+  margin-bottom: var(--ds-spacing-3);
+}
+
+/* Team Tables Group */
+.team-tables-group {
+  margin-bottom: var(--ds-spacing-4);
+}
+
+.team-tables-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
   margin-bottom: var(--ds-spacing-2);
+  padding-bottom: var(--ds-spacing-2);
+  border-bottom: 1px solid var(--ds-color-border-subtle);
+}
+
+.team-tables-header h3 {
+  font-size: var(--ds-font-size-sm);
+  font-weight: 700;
+  margin: 0;
+}
+
+.team-color-indicator {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
 }
 
 .tables-grid {

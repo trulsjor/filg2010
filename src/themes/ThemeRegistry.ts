@@ -5,11 +5,17 @@ export { applyTheme, camelToKebab } from './ThemeDefinitions'
 
 import { fjellhammerDarkTheme, fjellhammerLightTheme } from './fjellhammer'
 import { forestTheme } from './forest'
+import { showcaseTheme } from './showcase'
+import { elevatedTheme } from './elevated'
+import { materialTheme } from './material'
 
 export const themes: Record<ThemeId, Theme> = {
   'fjellhammer-dark': fjellhammerDarkTheme,
   'fjellhammer-light': fjellhammerLightTheme,
   'forest': forestTheme,
+  'showcase': showcaseTheme,
+  'elevated': elevatedTheme,
+  'material': materialTheme,
 }
 
 export const DEFAULT_THEME_ID: ThemeId = 'fjellhammer-dark'

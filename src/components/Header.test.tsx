@@ -50,11 +50,11 @@ describe('Header', () => {
     expect(onScrollToNext).toHaveBeenCalledTimes(1)
   })
 
-  it('renders calendar link', () => {
+  it('renders tabeller link', () => {
     renderHeader()
-    const calendarLink = screen.getByRole('link', { name: /kalender/i })
-    expect(calendarLink).toBeInTheDocument()
-    expect(calendarLink).toHaveAttribute('href', '/calendar.ics')
+    const tabellerLink = screen.getByRole('link', { name: /tabeller/i })
+    expect(tabellerLink).toBeInTheDocument()
+    expect(tabellerLink).toHaveAttribute('href', '/tabeller')
   })
 
   it('renders statistikk link', () => {

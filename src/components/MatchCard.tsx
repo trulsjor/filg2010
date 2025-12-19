@@ -1,4 +1,6 @@
+import { Link } from 'react-router-dom'
 import type { Match } from '../types'
+import { getMapsUrl } from '../utils/maps'
 
 interface MatchCardProps {
   match: Match
@@ -60,28 +62,42 @@ export function MatchCard({
           <span className="card-date">{match.Dato}</span>
           <span className="card-time">{match.Tid}</span>
         </div>
-        {hasMultipleTeams && (
-          <div className="card-team-indicator">
-            <span
-              className="card-team-dot"
-              style={{ backgroundColor: getTeamColor(match.Lag) }}
-            />
-            <span>{match.Lag}</span>
-          </div>
+        {match.Turnering && (
+          <span className="card-tournament-name">{match.Turnering}</span>
         )}
       </div>
 
       <div className="card-match">
         <div className="card-teams">
-          {match['Hjemmelag URL'] ? (
+          {isHome ? (
+            <span className="card-team-name card-team-ours">
+              {hasMultipleTeams && (
+                <span
+                  className="card-team-dot"
+                  style={{ backgroundColor: getTeamColor(match.Lag) }}
+                />
+              )}
+              {match.Hjemmelag}
+            </span>
+          ) : match['Hjemmelag URL'] ? (
             <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
               {match.Hjemmelag}
             </a>
           ) : (
             <span>{match.Hjemmelag}</span>
           )}
-          <span>-</span>
-          {match['Bortelag URL'] ? (
+          <span className="card-teams-separator">-</span>
+          {!isHome ? (
+            <span className="card-team-name card-team-ours">
+              {hasMultipleTeams && (
+                <span
+                  className="card-team-dot"
+                  style={{ backgroundColor: getTeamColor(match.Lag) }}
+                />
+              )}
+              {match.Bortelag}
+            </span>
+          ) : match['Bortelag URL'] ? (
             <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
               {match.Bortelag}
             </a>
@@ -96,58 +112,42 @@ export function MatchCard({
         </div>
       </div>
 
-      <div className="card-info">
-        <div className="card-info-item">
-          <span className="card-info-label">Bane</span>
-          {match.Bane ? (
-            <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(match.Bane)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card-info-value card-info-link"
-            >
-              {match.Bane}
-              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
-                <circle cx="12" cy="10" r="3" />
-              </svg>
-            </a>
-          ) : (
-            <span className="card-info-value">-</span>
-          )}
-        </div>
-        {match.Tilskuere && (
-          <div className="card-info-item">
-            <span className="card-info-label">Tilskuere</span>
-            <span className="card-info-value">{match.Tilskuere}</span>
-          </div>
-        )}
-      </div>
-
-      {match['Turnering'] && (
-        <div className="card-tournament">
-          {match['Turnering URL'] ? (
-            <a href={match['Turnering URL']} target="_blank" rel="noopener noreferrer">
-              {match.Turnering}
-            </a>
-          ) : (
-            <span>{match.Turnering}</span>
-          )}
+      {(match.Bane || match.Tilskuere) && (
+        <div className="card-meta">
+          {match.Bane && <span className="card-meta-item">{match.Bane}</span>}
+          {match.Bane && match.Tilskuere && <span className="card-meta-dot">·</span>}
+          {match.Tilskuere && <span className="card-meta-item">{match.Tilskuere} tilskuere</span>}
         </div>
       )}
 
-      {match['Kamp URL'] && (
-        <div className="card-links">
+      <div className="card-actions">
+        <Link
+          to={`/tabeller#tabell-${match.Lag?.toLowerCase().replace(/\s+/g, '-')}`}
+          className="card-action card-action-secondary"
+        >
+          Tabell
+        </Link>
+        {match.Bane && (
+          <a
+            href={getMapsUrl(match.Bane)}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="card-action card-action-secondary"
+          >
+            Kart
+          </a>
+        )}
+        {match['Kamp URL'] && (
           <a
             href={match['Kamp URL']}
             target="_blank"
             rel="noopener noreferrer"
-            className="card-link"
+            className="card-action card-action-primary"
           >
-            Se kampdetaljer
+            Detaljer
           </a>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }
