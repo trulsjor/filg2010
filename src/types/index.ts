@@ -16,7 +16,23 @@ export interface Config {
 }
 
 /**
- * Match data from handball.no API
+ * Raw match data from handball.no API (before enhancement)
+ */
+export interface RawMatchData {
+  Dato: string;
+  Tid: string;
+  Kampnr: string;
+  Hjemmelag: string;
+  Bortelag: string;
+  'H-B': string;
+  Bane: string;
+  Tilskuere?: number | string;
+  Arrangør?: string;
+  Turnering: string;
+}
+
+/**
+ * Match data with all fields populated (after enhancement)
  */
 export interface Match {
   Lag: string;

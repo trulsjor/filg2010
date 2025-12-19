@@ -10,7 +10,7 @@
  * 6. Saves to JSON files
  */
 
-import type { Team, Match, MatchLink, Config, Metadata } from '../types/index.js';
+import type { Team, Match, MatchLink, Config, Metadata, RawMatchData } from '../types/index.js';
 import { ScraperService } from '../services/scraper.service.js';
 import { HandballApiService } from '../services/handball-api.service.js';
 import { FileService } from '../services/file.service.js';
@@ -161,12 +161,12 @@ export async function runFetchPipeline({
  * Enhances match data with scraped links
  */
 function enhanceMatchesWithLinks(
-  matches: any[],
+  matches: RawMatchData[],
   team: Team,
   linkMap: Map<string, MatchLink>,
   tournamentMap: Map<string, string>
 ): Match[] {
-  return matches.map((row: any) => {
+  return matches.map((row: RawMatchData) => {
     const kampnr = String(row.Kampnr || '').trim();
     const links = linkMap.get(kampnr);
     const turneringNavn = String(row.Turnering || '').trim();

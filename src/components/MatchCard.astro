@@ -1,0 +1,439 @@
+---
+/**
+ * Mobile card view for a single match
+ */
+import type { Match } from '../types/index.js';
+
+interface Props {
+  match: Match;
+  isNextMatch: boolean;
+  hasMultipleTeams: boolean;
+  getTeamColor: (teamName?: string) => string;
+}
+
+const { match, isNextMatch, hasMultipleTeams, getTeamColor } = Astro.props;
+
+const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
+const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-';
+
+// Check if Fjellhammer won the match
+const isFjellhammerWin = (): boolean => {
+  const score = match['H-B'];
+  if (!score || score.trim() === '' || score === '-') return false;
+
+  const [homeScore, awayScore] = score.split('-').map(s => parseInt(s.trim()));
+  if (isNaN(homeScore) || isNaN(awayScore)) return false;
+
+  const fjellhammerIsHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
+  const fjellhammerIsAway = match.Bortelag?.toLowerCase().includes('fjellhammer');
+
+  if (fjellhammerIsHome && homeScore > awayScore) return true;
+  if (fjellhammerIsAway && awayScore > homeScore) return true;
+
+  return false;
+};
+---
+
+<div
+  class:list={['match-card', { 'win-card': isFjellhammerWin() }]}
+  id={isNextMatch ? 'next-match-card' : undefined}
+  data-team={match.Lag}
+  data-location={isHome ? 'home' : 'away'}
+  data-status={hasResult ? 'played' : 'upcoming'}
+>
+  <div class="card-header">
+    <div class="card-date-time">
+      <span class="card-date">{match.Dato}</span>
+      <span class="card-time">{match.Tid}</span>
+    </div>
+    {hasMultipleTeams && (
+      <div class="card-team-indicator">
+        <span class="card-team-dot" style={`background-color: ${getTeamColor(match.Lag)}`}></span>
+        <span>{match.Lag}</span>
+      </div>
+    )}
+  </div>
+
+  <div class="card-match">
+    <div class="card-teams">
+      {match['Hjemmelag URL'] ? (
+        <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
+          {match.Hjemmelag}
+        </a>
+      ) : (
+        <span>{match.Hjemmelag}</span>
+      )}
+      <span>-</span>
+      {match['Bortelag URL'] ? (
+        <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
+          {match.Bortelag}
+        </a>
+      ) : (
+        <span>{match.Bortelag}</span>
+      )}
+    </div>
+    <div class="card-score">
+      {match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-' ? match['H-B'] : '-'}
+    </div>
+  </div>
+
+  <div class="card-info">
+    <div class="card-info-item">
+      <span class="card-info-label">Bane</span>
+      <span class="card-info-value">{match.Bane}</span>
+    </div>
+    <div class="card-info-item">
+      <span class="card-info-label">Tilskuere</span>
+      <span class="card-info-value">{match.Tilskuere || '-'}</span>
+    </div>
+  </div>
+
+  {match['Turnering'] && (
+    <div class="card-tournament">
+      {match['Turnering URL'] ? (
+        <a href={match['Turnering URL']} target="_blank" rel="noopener noreferrer">
+          {match.Turnering}
+        </a>
+      ) : (
+        <span>{match.Turnering}</span>
+      )}
+    </div>
+  )}
+
+  <div class="card-links">
+    {match['Kamp URL'] && (
+      <a href={match['Kamp URL']} target="_blank" rel="noopener noreferrer" class="card-link">
+        Se kampdetaljer
+      </a>
+    )}
+    {!isHome && match.Bane && (
+      <a
+        href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(match.Bane)}`}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="card-link map-link"
+        title="Finn veien"
+      >
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+          <circle cx="12" cy="10" r="3"></circle>
+        </svg>
+        Kart
+      </a>
+    )}
+  </div>
+</div>
+
+<style>
+  .match-card {
+    background: linear-gradient(145deg, rgba(8, 25, 16, 0.95), rgba(4, 15, 9, 0.95));
+    border-radius: 1rem;
+    padding: 1.25rem;
+    margin-bottom: 1rem;
+    box-shadow:
+      0 4px 20px rgba(0, 0, 0, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(0, 155, 62, 0.25);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .match-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .match-card:hover {
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 32px rgba(0, 155, 62, 0.25),
+      0 4px 12px rgba(0, 0, 0, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    border-color: rgba(0, 155, 62, 0.5);
+  }
+
+  .match-card:hover::before {
+    opacity: 1;
+  }
+
+  .match-card.win-card::after {
+    content: '';
+    position: absolute;
+    bottom: 8%;
+    right: 5%;
+    font-size: 9rem;
+    opacity: 0.18;
+    pointer-events: none;
+    transform: rotate(-15deg);
+    z-index: 0;
+    filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
+  }
+
+  .match-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 155, 62, 0.15);
+  }
+
+  .card-date-time {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .card-date {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--accent-light);
+    letter-spacing: -0.02em;
+  }
+
+  .card-time {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: rgba(0, 196, 106, 0.8);
+    letter-spacing: 0.02em;
+  }
+
+  .card-team-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #f6fff8;
+    background: linear-gradient(135deg, rgba(0, 155, 62, 0.25), rgba(0, 101, 43, 0.25));
+    padding: 0.5rem 1rem;
+    border-radius: 999px;
+    border: 1px solid rgba(0, 155, 62, 0.3);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .card-team-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
+  }
+
+  .card-match {
+    margin-bottom: 0.75rem;
+  }
+
+  .card-teams {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    color: #f6fff8;
+  }
+
+  .card-teams a,
+  .card-teams span {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .card-teams > :first-child {
+    text-align: right;
+  }
+
+  .card-teams > :last-child {
+    text-align: left;
+  }
+
+  .card-teams a {
+    color: var(--accent-light);
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .card-teams a:hover {
+    color: white;
+    text-decoration: none;
+    text-shadow: 0 0 10px rgba(0, 196, 106, 0.5);
+  }
+
+  .card-teams > span:nth-child(2) {
+    flex: 0;
+    color: rgba(255, 255, 255, 0.3);
+    font-weight: 400;
+    font-size: 1.2rem;
+  }
+
+  .card-score {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin: 0.75rem 0;
+    letter-spacing: 0.2em;
+    text-shadow: 0 0 20px rgba(0, 155, 62, 0.4);
+    background: rgba(0, 155, 62, 0.1);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 155, 62, 0.2);
+  }
+
+  .card-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 155, 62, 0.15);
+  }
+
+  .card-info-item {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(135deg, rgba(0, 155, 62, 0.08), rgba(0, 101, 43, 0.08));
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    border: 1px solid rgba(0, 155, 62, 0.15);
+    transition: all 0.2s;
+  }
+
+  .card-info-item:hover {
+    background: linear-gradient(135deg, rgba(0, 155, 62, 0.12), rgba(0, 101, 43, 0.12));
+    border-color: rgba(0, 155, 62, 0.25);
+    transform: translateY(-1px);
+  }
+
+  .card-info-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+  }
+
+  .card-info-value {
+    color: #f6fff8;
+    font-weight: 600;
+    font-size: 0.95rem;
+  }
+
+  .card-links {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .card-link {
+    flex: 1;
+    text-align: center;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-light) 100%);
+    color: white;
+    border-radius: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-decoration: none;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow:
+      0 4px 20px rgba(0, 155, 62, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border: 1px solid rgba(0, 196, 106, 0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .card-link::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s;
+  }
+
+  .card-link:hover::before {
+    left: 100%;
+  }
+
+  .card-link:hover {
+    transform: translateY(-2px);
+    box-shadow:
+      0 8px 28px rgba(0, 155, 62, 0.6),
+      inset 0 1px 0 rgba(255, 255, 255, 0.3);
+    color: white;
+    text-decoration: none;
+    border-color: rgba(0, 196, 106, 0.5);
+  }
+
+  .map-link {
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    padding: 1rem;
+    background: rgba(59, 130, 246, 0.15);
+    border-color: rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+  }
+
+  .map-link:hover {
+    background: rgba(59, 130, 246, 0.25);
+    box-shadow: 0 8px 28px rgba(59, 130, 246, 0.4);
+    border-color: rgba(59, 130, 246, 0.5);
+  }
+
+  .card-tournament {
+    margin-top: 1rem;
+    font-size: 0.8rem;
+    color: rgba(193, 215, 204, 0.8);
+    text-align: center;
+    padding: 0.5rem;
+    background: rgba(0, 155, 62, 0.05);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(0, 155, 62, 0.1);
+  }
+
+  .card-tournament a {
+    color: var(--accent-light);
+    font-weight: 600;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+
+  .card-tournament a:hover {
+    color: white;
+    text-shadow: 0 0 10px rgba(0, 196, 106, 0.5);
+  }
+
+  /* Hidden cards when filtered */
+  :global(.match-card.filtered-out) {
+    display: none !important;
+  }
+</style>

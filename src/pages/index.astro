@@ -1,41 +1,11 @@
 ---
 import * as fs from 'fs';
 import * as path from 'path';
-
-interface Match {
-  Lag?: string;
-  Dato: string;
-  Tid: string;
-  Kampnr: string;
-  Hjemmelag: string;
-  Bortelag: string;
-  'H-B': string;
-  Bane: string;
-  Tilskuere: string;
-  Arrangør: string;
-  Turnering: string;
-  'Kamp URL'?: string;
-  'Hjemmelag URL'?: string;
-  'Bortelag URL'?: string;
-  'Turnering URL'?: string;
-}
-
-interface Metadata {
-  lastUpdated: string;
-  teamsCount: number;
-  matchesCount: number;
-}
-
-interface Team {
-  name: string;
-  lagid: string;
-  seasonId: string;
-  color: string;
-}
-
-interface Config {
-  teams: Team[];
-}
+import type { Match, Metadata, Config } from '../types/index.js';
+import Header from '../components/Header.astro';
+import FilterBar from '../components/FilterBar.astro';
+import MatchTable from '../components/MatchTable.astro';
+import MatchCard from '../components/MatchCard.astro';
 
 // Load config for team colors
 const configPath = path.join(process.cwd(), 'config.json');
@@ -85,12 +55,9 @@ if (fs.existsSync(dataPath)) {
 }
 
 // Check if we have multiple teams
-const hasMultipleTeams = metadata && metadata.teamsCount > 1;
+const hasMultipleTeams = metadata !== null && metadata.teamsCount > 1;
 
-// Always have links in the new system
-const hasLinks = true;
-
-const buildMatchDate = (match?: Match) => {
+const buildMatchDate = (match?: Match): Date | null => {
   if (!match) return null;
   const [day, month, year] = (match.Dato || '').split('.');
   if (!day || !month || !year) return null;
@@ -105,24 +72,7 @@ const buildMatchDate = (match?: Match) => {
   return isNaN(date.getTime()) ? null : date;
 };
 
-const normalizeMatchId = (value?: string | number | null) => String(value ?? '').trim();
-
-// Check if Fjellhammer won the match
-const isFjellhammerWin = (match: Match): boolean => {
-  const score = match['H-B'];
-  if (!score || score.trim() === '' || score === '-') return false;
-
-  const [homeScore, awayScore] = score.split('-').map(s => parseInt(s.trim()));
-  if (isNaN(homeScore) || isNaN(awayScore)) return false;
-
-  const fjellhammerIsHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
-  const fjellhammerIsAway = match.Bortelag?.toLowerCase().includes('fjellhammer');
-
-  if (fjellhammerIsHome && homeScore > awayScore) return true;
-  if (fjellhammerIsAway && awayScore > homeScore) return true;
-
-  return false;
-};
+const normalizeMatchId = (value?: string | number | null): string => String(value ?? '').trim();
 
 const now = new Date();
 const nextMatch = matches.find((match) => {
@@ -140,6 +90,8 @@ const formattedLastUpdated = metadata?.lastUpdated
       minute: '2-digit',
     })
   : null;
+
+const teamNames = Array.from(teamColors.keys());
 ---
 
 <!DOCTYPE html>
@@ -153,12 +105,13 @@ const formattedLastUpdated = metadata?.lastUpdated
   <link rel="manifest" href="/manifest.json">
   <link rel="apple-touch-icon" href="/fjellhammer-logo.svg">
   <title>Terminliste - Fjellhammer G2010</title>
-  <style>
+  <style is:global>
     :root {
       --accent: #009B3E;
       --accent-light: #00C46A;
       --accent-dark: #00652B;
     }
+
     * {
       margin: 0;
       padding: 0;
@@ -181,694 +134,6 @@ const formattedLastUpdated = metadata?.lastUpdated
       padding: 2rem;
     }
 
-    .page-header {
-      position: sticky;
-      top: 1rem;
-      z-index: 20;
-      display: flex;
-      align-items: center;
-      gap: 1.25rem;
-      margin-bottom: 2.5rem;
-      padding: 1rem 1.5rem;
-      border-radius: 1.25rem;
-      background: rgba(5, 17, 11, 0.92);
-      border: 1px solid rgba(255, 255, 255, 0.05);
-      box-shadow: 0 20px 45px rgba(0, 0, 0, 0.5);
-      backdrop-filter: blur(8px);
-    }
-
-    .page-header img {
-      width: 120px;
-      height: 120px;
-      filter:
-        drop-shadow(0 0 20px rgba(0, 196, 106, 0.6))
-        drop-shadow(0 0 40px rgba(0, 155, 62, 0.4))
-        drop-shadow(0 0 60px rgba(0, 155, 62, 0.3))
-        drop-shadow(0 10px 30px rgba(0, 0, 0, 0.4));
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .page-header img:hover {
-      transform: scale(1.08) rotate(3deg);
-      filter:
-        drop-shadow(0 0 30px rgba(0, 196, 106, 0.8))
-        drop-shadow(0 0 60px rgba(0, 155, 62, 0.6))
-        drop-shadow(0 0 90px rgba(0, 155, 62, 0.4))
-        drop-shadow(0 15px 40px rgba(0, 0, 0, 0.5));
-    }
-
-    .header-text {
-      flex: 1;
-    }
-
-    .page-header h1 {
-      font-size: clamp(2rem, 4vw, 3rem);
-      color: #f6fff8;
-      line-height: 1.1;
-    }
-
-    .page-header span {
-      text-transform: uppercase;
-      letter-spacing: 0.25em;
-      font-size: 0.85rem;
-      color: #a7c0b3;
-      display: block;
-    }
-
-    .next-match-btn {
-      display: none;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(0, 155, 62, 0.1);
-      color: rgba(246, 255, 248, 0.7);
-      border: 1px solid rgba(0, 196, 106, 0.2);
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(4px);
-    }
-
-    .next-match-btn:hover {
-      background: rgba(0, 155, 62, 0.2);
-      border-color: rgba(0, 196, 106, 0.4);
-      color: rgba(246, 255, 248, 0.9);
-    }
-
-    .next-match-btn:active {
-      transform: scale(0.98);
-    }
-
-    .next-match-btn svg {
-      width: 18px;
-      height: 18px;
-      animation: bounce 2s infinite;
-    }
-
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(3px);
-      }
-    }
-
-    .header-buttons {
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-    }
-
-    .calendar-btn {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.5rem 1rem;
-      background: rgba(0, 155, 62, 0.1);
-      color: rgba(246, 255, 248, 0.7);
-      border: 1px solid rgba(0, 196, 106, 0.2);
-      border-radius: 0.5rem;
-      font-size: 0.75rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      backdrop-filter: blur(4px);
-      text-decoration: none;
-    }
-
-    .calendar-btn:hover {
-      background: rgba(0, 155, 62, 0.2);
-      border-color: rgba(0, 196, 106, 0.4);
-      color: rgba(246, 255, 248, 0.9);
-    }
-
-    .calendar-btn:active {
-      transform: scale(0.98);
-    }
-
-    /* Filter bar */
-    .filter-bar {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.5rem;
-      margin-bottom: 1.5rem;
-      padding: 1rem;
-      background: rgba(5, 17, 11, 0.8);
-      border-radius: 0.75rem;
-      border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .filter-group {
-      display: flex;
-      align-items: center;
-      gap: 0.25rem;
-    }
-
-    .filter-group-label {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: rgba(246, 255, 248, 0.5);
-      margin-right: 0.5rem;
-    }
-
-    .filter-btn {
-      padding: 0.4rem 0.75rem;
-      background: rgba(0, 155, 62, 0.1);
-      color: rgba(246, 255, 248, 0.6);
-      border: 1px solid rgba(0, 196, 106, 0.15);
-      border-radius: 0.4rem;
-      font-size: 0.7rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: all 0.2s ease;
-    }
-
-    .filter-btn:hover {
-      background: rgba(0, 155, 62, 0.2);
-      color: rgba(246, 255, 248, 0.8);
-    }
-
-    .filter-btn.active {
-      background: rgba(0, 155, 62, 0.3);
-      color: #f6fff8;
-      border-color: rgba(0, 196, 106, 0.4);
-    }
-
-    .filter-divider {
-      width: 1px;
-      height: 24px;
-      background: rgba(255, 255, 255, 0.1);
-      margin: 0 0.5rem;
-    }
-
-    /* Hidden rows/cards when filtered */
-    tr.filtered-out,
-    .match-card.filtered-out {
-      display: none !important;
-    }
-
-    .table-container {
-      overflow-x: auto;
-      margin-top: 1rem;
-      background: linear-gradient(145deg, rgba(8, 25, 16, 0.95), rgba(4, 15, 9, 0.95));
-      border-radius: 1.25rem;
-      padding: 2rem;
-      box-shadow:
-        0 20px 60px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 155, 62, 0.25);
-      position: relative;
-    }
-
-    .table-container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light), var(--accent), var(--accent-dark));
-      border-radius: 1.25rem 1.25rem 0 0;
-    }
-
-    .card-container {
-      display: none;
-    }
-
-    .match-card {
-      background: linear-gradient(145deg, rgba(8, 25, 16, 0.95), rgba(4, 15, 9, 0.95));
-      border-radius: 1rem;
-      padding: 1.25rem;
-      margin-bottom: 1rem;
-      box-shadow:
-        0 4px 20px rgba(0, 0, 0, 0.5),
-        inset 0 1px 0 rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(0, 155, 62, 0.25);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .match-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent-dark), var(--accent), var(--accent-light));
-      opacity: 0;
-      transition: opacity 0.3s;
-    }
-
-    .match-card:hover {
-      transform: translateY(-4px);
-      box-shadow:
-        0 12px 32px rgba(0, 155, 62, 0.25),
-        0 4px 12px rgba(0, 0, 0, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.1);
-      border-color: rgba(0, 155, 62, 0.5);
-    }
-
-    .match-card:hover::before {
-      opacity: 1;
-    }
-
-    .match-card.win-card::after {
-      content: '🏆';
-      position: absolute;
-      bottom: 8%;
-      right: 5%;
-      font-size: 9rem;
-      opacity: 0.18;
-      pointer-events: none;
-      transform: rotate(-15deg);
-      z-index: 0;
-      filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.3));
-    }
-
-    .match-card > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1rem;
-      padding-bottom: 1rem;
-      border-bottom: 1px solid rgba(0, 155, 62, 0.15);
-    }
-
-    .card-date-time {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25rem;
-    }
-
-    .card-date {
-      font-size: 1.1rem;
-      font-weight: 700;
-      color: var(--accent-light);
-      letter-spacing: -0.02em;
-    }
-
-    .card-time {
-      font-size: 0.95rem;
-      font-weight: 600;
-      color: rgba(0, 196, 106, 0.8);
-      letter-spacing: 0.02em;
-    }
-
-    .card-team-indicator {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      font-size: 0.8rem;
-      font-weight: 700;
-      color: #f6fff8;
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.25), rgba(0, 101, 43, 0.25));
-      padding: 0.5rem 1rem;
-      border-radius: 999px;
-      border: 1px solid rgba(0, 155, 62, 0.3);
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .card-team-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      box-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
-    }
-
-    .card-match {
-      margin-bottom: 0.75rem;
-    }
-
-    .card-teams {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      font-size: 1.05rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
-      color: #f6fff8;
-    }
-
-    .card-teams a,
-    .card-teams span {
-      flex: 1;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      display: inline-block;
-    }
-
-    .card-teams > :first-child {
-      text-align: right;
-    }
-
-    .card-teams > :last-child {
-      text-align: left;
-    }
-
-    .card-teams a {
-      color: var(--accent-light);
-      transition: all 0.2s;
-    }
-
-    .card-teams a:hover {
-      color: white;
-      text-decoration: none;
-      text-shadow: 0 0 10px rgba(0, 196, 106, 0.5);
-    }
-
-    .card-teams > span:nth-child(2) {
-      flex: 0;
-      color: rgba(255, 255, 255, 0.3);
-      font-weight: 400;
-      font-size: 1.2rem;
-    }
-
-    .card-score {
-      text-align: center;
-      font-size: 2rem;
-      font-weight: 800;
-      color: var(--accent);
-      margin: 0.75rem 0;
-      letter-spacing: 0.2em;
-      text-shadow: 0 0 20px rgba(0, 155, 62, 0.4);
-      background: rgba(0, 155, 62, 0.1);
-      padding: 0.5rem;
-      border-radius: 0.5rem;
-      border: 1px solid rgba(0, 155, 62, 0.2);
-    }
-
-    .card-info {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.75rem;
-      font-size: 0.85rem;
-      margin-top: 1rem;
-      padding-top: 1rem;
-      border-top: 1px solid rgba(0, 155, 62, 0.15);
-    }
-
-    .card-info-item {
-      display: flex;
-      flex-direction: column;
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.08), rgba(0, 101, 43, 0.08));
-      padding: 0.75rem;
-      border-radius: 0.75rem;
-      border: 1px solid rgba(0, 155, 62, 0.15);
-      transition: all 0.2s;
-    }
-
-    .card-info-item:hover {
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.12), rgba(0, 101, 43, 0.12));
-      border-color: rgba(0, 155, 62, 0.25);
-      transform: translateY(-1px);
-    }
-
-    .card-info-label {
-      font-size: 0.65rem;
-      text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 0.3rem;
-      letter-spacing: 0.1em;
-      font-weight: 700;
-    }
-
-    .card-info-value {
-      color: #f6fff8;
-      font-weight: 600;
-      font-size: 0.95rem;
-    }
-
-    .card-links {
-      display: flex;
-      gap: 0.5rem;
-      margin-top: 1rem;
-    }
-
-    .card-link {
-      flex: 1;
-      text-align: center;
-      padding: 1rem 1.25rem;
-      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-light) 100%);
-      color: white;
-      border-radius: 0.75rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow:
-        0 4px 20px rgba(0, 155, 62, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border: 1px solid rgba(0, 196, 106, 0.3);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .card-link::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-      transition: left 0.5s;
-    }
-
-    .card-link:hover::before {
-      left: 100%;
-    }
-
-    .card-link:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 8px 28px rgba(0, 155, 62, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      color: white;
-      text-decoration: none;
-      border-color: rgba(0, 196, 106, 0.5);
-    }
-
-    .map-link {
-      flex: 0 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 1rem;
-      background: rgba(59, 130, 246, 0.15);
-      border-color: rgba(59, 130, 246, 0.3);
-      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
-    }
-
-    .map-link:hover {
-      background: rgba(59, 130, 246, 0.25);
-      box-shadow: 0 8px 28px rgba(59, 130, 246, 0.4);
-      border-color: rgba(59, 130, 246, 0.5);
-    }
-
-    .card-tournament {
-      margin-top: 1rem;
-      font-size: 0.8rem;
-      color: rgba(193, 215, 204, 0.8);
-      text-align: center;
-      padding: 0.5rem;
-      background: rgba(0, 155, 62, 0.05);
-      border-radius: 0.5rem;
-      border: 1px solid rgba(0, 155, 62, 0.1);
-    }
-
-    .card-tournament a {
-      color: var(--accent-light);
-      font-weight: 600;
-      transition: all 0.2s;
-    }
-
-    .card-tournament a:hover {
-      color: white;
-      text-shadow: 0 0 10px rgba(0, 196, 106, 0.5);
-    }
-
-    table {
-      width: 100%;
-      border-collapse: separate;
-      border-spacing: 0 0.5rem;
-      font-size: 0.9rem;
-    }
-
-    thead {
-      position: sticky;
-      top: 0;
-      z-index: 10;
-    }
-
-    thead tr {
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.15), rgba(0, 101, 43, 0.15));
-      border: 1px solid rgba(0, 155, 62, 0.3);
-    }
-
-    th {
-      padding: 1rem 0.75rem;
-      text-align: left;
-      font-weight: 700;
-      text-transform: uppercase;
-      font-size: 0.7rem;
-      letter-spacing: 0.12em;
-      white-space: nowrap;
-      color: var(--accent-light);
-      text-shadow: 0 0 15px rgba(0, 155, 62, 0.4);
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.2), rgba(0, 101, 43, 0.2));
-      border-bottom: 2px solid rgba(0, 155, 62, 0.4);
-    }
-
-    th:first-child {
-      border-radius: 0.75rem 0 0 0.75rem;
-    }
-
-    th:last-child {
-      border-radius: 0 0.75rem 0.75rem 0;
-    }
-
-    tbody tr {
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.05), rgba(0, 101, 43, 0.05));
-      border: 1px solid rgba(0, 155, 62, 0.15);
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    tbody tr:hover {
-      background: linear-gradient(135deg, rgba(0, 155, 62, 0.15), rgba(0, 101, 43, 0.15));
-      transform: translateX(4px);
-      box-shadow:
-        -4px 0 0 var(--accent),
-        0 4px 20px rgba(0, 155, 62, 0.3);
-      border-color: rgba(0, 155, 62, 0.4);
-    }
-
-    td {
-      padding: 1rem 0.75rem;
-      color: #e5e7eb;
-      background: transparent;
-    }
-
-    tbody tr td:first-child {
-      border-radius: 0.75rem 0 0 0.75rem;
-    }
-
-    tbody tr td:last-child {
-      border-radius: 0 0.75rem 0.75rem 0;
-    }
-
-    .team-indicator {
-      display: inline-block;
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      margin-right: 0.4rem;
-      vertical-align: middle;
-      box-shadow: 0 0 12px currentColor, 0 0 4px currentColor;
-    }
-
-    .team-name {
-      display: inline;
-      font-weight: 700;
-      font-size: 0.85rem;
-      color: #f6fff8;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-    }
-
-    .last-updated {
-      text-align: center;
-      color: #a7c0b3;
-      font-size: 0.95rem;
-      margin-top: 1.75rem;
-    }
-
-    td:nth-child(1) {
-      text-align: left;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    td:nth-child(2), td:nth-child(3) {
-      font-weight: 700;
-      color: var(--accent-light);
-      text-shadow: 0 0 10px rgba(0, 196, 106, 0.4);
-      font-size: 0.95rem;
-      white-space: nowrap;
-    }
-
-    td:nth-child(4), td:nth-child(5) {
-      font-weight: 600;
-      color: #f6fff8;
-      max-width: 120px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    td:nth-child(6) {
-      font-weight: 800;
-      color: var(--accent);
-      text-shadow: 0 0 15px rgba(0, 155, 62, 0.5);
-      font-size: 1.15rem;
-      letter-spacing: 0.1em;
-      white-space: nowrap;
-    }
-
-    /* Bane column - regular truncation */
-    td:nth-child(7) {
-      max-width: 120px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-    }
-
-    /* Turnering column - truncate from beginning */
-    td:nth-child(8) {
-      max-width: 130px;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
-      direction: rtl;
-      text-align: right;
-    }
-
-    td:nth-child(8) a {
-      direction: rtl;
-    }
-
-    /* When there's no LAG column, Turnering is column 7 */
-    tbody tr > td:nth-child(7):nth-last-child(2),
-    tbody tr > td:nth-child(7):nth-last-child(1) {
-      direction: rtl;
-      text-align: right;
-    }
-
-    tbody tr > td:nth-child(7):nth-last-child(2) a,
-    tbody tr > td:nth-child(7):nth-last-child(1) a {
-      direction: rtl;
-    }
-
     a {
       color: var(--accent-light);
       text-decoration: none;
@@ -881,36 +146,6 @@ const formattedLastUpdated = metadata?.lastUpdated
       text-shadow: 0 0 10px rgba(0, 196, 106, 0.5);
     }
 
-    .match-link {
-      display: inline-block;
-      padding: 0.4rem 0.75rem;
-      background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 50%, var(--accent-light) 100%);
-      color: white;
-      border-radius: 0.5rem;
-      font-size: 0.7rem;
-      font-weight: 700;
-      text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-      box-shadow:
-        0 2px 12px rgba(0, 155, 62, 0.4),
-        inset 0 1px 0 rgba(255, 255, 255, 0.2);
-      text-shadow: none;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      border: 1px solid rgba(0, 196, 106, 0.3);
-      white-space: nowrap;
-    }
-
-    .match-link:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 4px 16px rgba(0, 155, 62, 0.6),
-        inset 0 1px 0 rgba(255, 255, 255, 0.3);
-      text-decoration: none;
-      color: white;
-      border-color: rgba(0, 196, 106, 0.5);
-    }
-
     p {
       text-align: center;
       color: #9ca3af;
@@ -918,18 +153,15 @@ const formattedLastUpdated = metadata?.lastUpdated
       font-size: 1.1rem;
     }
 
-    @media (max-width: 1200px) {
-      h1 {
-        font-size: 2rem;
-      }
+    .last-updated {
+      text-align: center;
+      color: #a7c0b3;
+      font-size: 0.95rem;
+      margin-top: 1.75rem;
+    }
 
-      table {
-        font-size: 0.85rem;
-      }
-
-      th, td {
-        padding: 0.75rem 0.5rem;
-      }
+    .card-container {
+      display: none;
     }
 
     @media (max-width: 768px) {
@@ -943,101 +175,9 @@ const formattedLastUpdated = metadata?.lastUpdated
         box-shadow: none;
       }
 
-      .page-header {
-        padding: 0.75rem;
-        margin-bottom: 1rem;
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
-      }
-
-      .page-header img {
-        width: 60px;
-        height: 60px;
-      }
-
-      .header-text {
-        flex: none;
-        width: 100%;
-        text-align: center;
-      }
-
-      .page-header h1 {
-        font-size: 1.4rem;
-      }
-
-      .page-header span {
-        font-size: 0.7rem;
-      }
-
-      .next-match-btn {
-        display: flex;
-        width: auto;
-        justify-content: center;
-        font-size: 0.65rem;
-        padding: 0.35rem 0.75rem;
-      }
-
-      .next-match-btn svg {
-        width: 12px;
-        height: 12px;
-      }
-
-      .header-buttons {
-        flex-direction: row;
-        gap: 0.5rem;
-        width: 100%;
-        justify-content: center;
-      }
-
-      .calendar-btn {
-        display: flex;
-        font-size: 0.65rem;
-        padding: 0.35rem 0.75rem;
-      }
-
-      .calendar-btn svg {
-        width: 12px;
-        height: 12px;
-      }
-
-      .filter-bar {
-        flex-direction: column;
-        padding: 0.75rem;
-        gap: 0.75rem;
-      }
-
-      .filter-group {
-        flex-wrap: wrap;
-        justify-content: center;
-      }
-
-      .filter-divider {
-        display: none;
-      }
-
-      .filter-btn {
-        padding: 0.35rem 0.6rem;
-        font-size: 0.65rem;
-      }
-
-      h1 {
-        font-size: 1.5rem;
-        margin-bottom: 1rem;
-        color: white;
-      }
-
-      .table-container {
-        display: none;
-      }
-
       .card-container {
         display: block;
         padding: 0;
-      }
-
-      .match-card {
-        margin-bottom: 1rem;
       }
 
       .last-updated {
@@ -1053,242 +193,26 @@ const formattedLastUpdated = metadata?.lastUpdated
 </head>
 <body>
   <main>
-    <header class="page-header">
-      <img src="/fjellhammer-logo.svg" alt="Fjellhammer IL" width="120" height="120" loading="lazy" />
-      <div class="header-text">
-        <span>Fjellhammer IL</span>
-        <h1>G2010</h1>
-      </div>
-      <div class="header-buttons">
-        <button id="scroll-to-next" class="next-match-btn" aria-label="Gå til neste kamp">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9"></polyline>
-          </svg>
-          <span>Neste kamp</span>
-        </button>
-        <a href="/calendar.ics" class="calendar-btn" aria-label="Abonner på kalender" title="Legg til i kalender">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-            <line x1="16" y1="2" x2="16" y2="6"></line>
-            <line x1="8" y1="2" x2="8" y2="6"></line>
-            <line x1="3" y1="10" x2="21" y2="10"></line>
-          </svg>
-          <span>Kalender</span>
-        </a>
-        <a href="/statistikk" class="calendar-btn" aria-label="Se statistikk" title="Kampstatistikk">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="18" y1="20" x2="18" y2="10"></line>
-            <line x1="12" y1="20" x2="12" y2="4"></line>
-            <line x1="6" y1="20" x2="6" y2="14"></line>
-          </svg>
-          <span>Statistikk</span>
-        </a>
-      </div>
-    </header>
+    <Header />
+    <FilterBar teamNames={teamNames} />
 
-    <!-- Filter bar -->
-    <div class="filter-bar">
-      <div class="filter-group">
-        <span class="filter-group-label">Lag:</span>
-        <button class="filter-btn active" data-filter="team" data-value="all">Alle</button>
-        {Array.from(teamColors.keys()).map((teamName) => (
-          <button class="filter-btn" data-filter="team" data-value={teamName}>{teamName}</button>
-        ))}
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-group">
-        <span class="filter-group-label">Type:</span>
-        <button class="filter-btn active" data-filter="location" data-value="all">Alle</button>
-        <button class="filter-btn" data-filter="location" data-value="home">Hjemme</button>
-        <button class="filter-btn" data-filter="location" data-value="away">Borte</button>
-      </div>
-      <div class="filter-divider"></div>
-      <div class="filter-group">
-        <span class="filter-group-label">Status:</span>
-        <button class="filter-btn active" data-filter="status" data-value="all">Alle</button>
-        <button class="filter-btn" data-filter="status" data-value="upcoming">Kommende</button>
-        <button class="filter-btn" data-filter="status" data-value="played">Spilte</button>
-      </div>
-    </div>
-
-{matches.length > 0 ? (
+    {matches.length > 0 ? (
       <>
-        <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                {hasMultipleTeams && <th>Lag</th>}
-                <th>Dato</th>
-                <th>Tid</th>
-                <th>Hjemmelag</th>
-                <th>Bortelag</th>
-                <th>H-B</th>
-                <th>Bane</th>
-                <th>Turnering</th>
-                {hasLinks && <th>Kamp</th>}
-              </tr>
-            </thead>
-            <tbody>
-              {matches.map((match) => {
-                const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
-                const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-';
-                return (
-                <tr
-                  data-team={match.Lag}
-                  data-location={isHome ? 'home' : 'away'}
-                  data-status={hasResult ? 'played' : 'upcoming'}
-                >
-                  {hasMultipleTeams && (
-                    <td>
-                      <span class="team-indicator" style={`background-color: ${getTeamColor(match.Lag)}`}></span>
-                      <span class="team-name">{match.Lag}</span>
-                    </td>
-                  )}
-                  <td>{match.Dato}</td>
-                  <td>{match.Tid}</td>
-                  <td>
-                    {match['Hjemmelag URL'] ? (
-                      <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
-                        {match.Hjemmelag}
-                      </a>
-                    ) : (
-                      match.Hjemmelag
-                    )}
-                  </td>
-                  <td>
-                    {match['Bortelag URL'] ? (
-                      <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
-                        {match.Bortelag}
-                      </a>
-                    ) : (
-                      match.Bortelag
-                    )}
-                  </td>
-                  <td>{match['H-B'] && match['H-B'].trim() !== '' ? match['H-B'] : '-'}</td>
-                  <td>{match.Bane}</td>
-                  <td>
-                    {match['Turnering URL'] ? (
-                      <a href={match['Turnering URL']} target="_blank" rel="noopener noreferrer">
-                        {match.Turnering}
-                      </a>
-                    ) : (
-                      match.Turnering
-                    )}
-                  </td>
-                  {hasLinks && (
-                    <td>
-                      {match['Kamp URL'] ? (
-                        <a href={match['Kamp URL']} target="_blank" rel="noopener noreferrer" class="match-link">
-                          Se kamp
-                        </a>
-                      ) : (
-                        <span>-</span>
-                      )}
-                    </td>
-                  )}
-                </tr>
-              );
-              })}
-            </tbody>
-          </table>
-        </div>
+        <MatchTable
+          matches={matches}
+          hasMultipleTeams={hasMultipleTeams}
+          getTeamColor={getTeamColor}
+        />
 
         <div class="card-container">
-          {matches.map((match) => {
-            const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
-            const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-';
-            return (
-            <div
-              class={`match-card${isFjellhammerWin(match) ? ' win-card' : ''}`}
-              id={nextMatchId && nextMatchId === String(match.Kampnr || '').trim() ? 'next-match-card' : undefined}
-              data-team={match.Lag}
-              data-location={isHome ? 'home' : 'away'}
-              data-status={hasResult ? 'played' : 'upcoming'}
-            >
-              <div class="card-header">
-                <div class="card-date-time">
-                  <span class="card-date">{match.Dato}</span>
-                  <span class="card-time">{match.Tid}</span>
-                </div>
-                {hasMultipleTeams && (
-                  <div class="card-team-indicator">
-                    <span class="card-team-dot" style={`background-color: ${getTeamColor(match.Lag)}`}></span>
-                    <span>{match.Lag}</span>
-                  </div>
-                )}
-              </div>
-
-              <div class="card-match">
-                <div class="card-teams">
-                  {match['Hjemmelag URL'] ? (
-                    <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
-                      {match.Hjemmelag}
-                    </a>
-                  ) : (
-                    <span>{match.Hjemmelag}</span>
-                  )}
-                  <span>-</span>
-                  {match['Bortelag URL'] ? (
-                    <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
-                      {match.Bortelag}
-                    </a>
-                  ) : (
-                    <span>{match.Bortelag}</span>
-                  )}
-                </div>
-                <div class="card-score">
-                  {match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-' ? match['H-B'] : '-'}
-                </div>
-              </div>
-
-              <div class="card-info">
-                <div class="card-info-item">
-                  <span class="card-info-label">Bane</span>
-                  <span class="card-info-value">{match.Bane}</span>
-                </div>
-                <div class="card-info-item">
-                  <span class="card-info-label">Tilskuere</span>
-                  <span class="card-info-value">{match.Tilskuere || '-'}</span>
-                </div>
-              </div>
-
-              {match['Turnering'] && (
-                <div class="card-tournament">
-                  {match['Turnering URL'] ? (
-                    <a href={match['Turnering URL']} target="_blank" rel="noopener noreferrer">
-                      {match.Turnering}
-                    </a>
-                  ) : (
-                    <span>{match.Turnering}</span>
-                  )}
-                </div>
-              )}
-
-              <div class="card-links">
-                {match['Kamp URL'] && (
-                  <a href={match['Kamp URL']} target="_blank" rel="noopener noreferrer" class="card-link">
-                    Se kampdetaljer
-                  </a>
-                )}
-                {!isHome && match.Bane && (
-                  <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(match.Bane)}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="card-link map-link"
-                    title="Finn veien"
-                  >
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                      <circle cx="12" cy="10" r="3"></circle>
-                    </svg>
-                    Kart
-                  </a>
-                )}
-              </div>
-            </div>
-          );
-          })}
+          {matches.map((match) => (
+            <MatchCard
+              match={match}
+              isNextMatch={nextMatchId === String(match.Kampnr || '').trim()}
+              hasMultipleTeams={hasMultipleTeams}
+              getTeamColor={getTeamColor}
+            />
+          ))}
         </div>
 
         {formattedLastUpdated && (
@@ -1307,8 +231,7 @@ const formattedLastUpdated = metadata?.lastUpdated
       const nextCard = document.getElementById('next-match-card');
       if (!nextCard) return;
       const header = document.querySelector('.page-header');
-      const headerHeight =
-        header && header instanceof HTMLElement ? header.offsetHeight : 0;
+      const headerHeight = header && header instanceof HTMLElement ? header.offsetHeight : 0;
       const offset = headerHeight + 16;
       const cardTop = nextCard.getBoundingClientRect().top + window.scrollY;
       window.scrollTo({
@@ -1365,16 +288,19 @@ const formattedLastUpdated = metadata?.lastUpdated
       });
     }
 
-    // Update button active states
+    // Update button active states and aria-pressed
     function updateButtonStates() {
       document.querySelectorAll('.filter-btn').forEach(btn => {
         const filterType = btn.getAttribute('data-filter');
         const value = btn.getAttribute('data-value');
+        const isActive = filters[filterType] === value;
 
-        if (filters[filterType] === value) {
+        if (isActive) {
           btn.classList.add('active');
+          btn.setAttribute('aria-pressed', 'true');
         } else {
           btn.classList.remove('active');
+          btn.setAttribute('aria-pressed', 'false');
         }
       });
     }
@@ -1401,7 +327,6 @@ const formattedLastUpdated = metadata?.lastUpdated
       // Auto-scroll on page load for mobile
       const prefersCards = window.matchMedia('(max-width: 768px)').matches;
       if (prefersCards) {
-        // Delay scroll slightly to ensure DOM is fully rendered
         setTimeout(() => {
           scrollToNextMatch();
         }, 100);
