@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { useCallback, useEffect } from 'react'
 import { Header } from '../components/Header'
 import { FilterBar } from '../components/FilterBar'
 import { MatchCard } from '../components/MatchCard'
@@ -25,7 +25,7 @@ export function TerminlistePage() {
   const hasMultipleTeams = teams.length > 1
   const teamNames = teams.map((t) => t.name)
 
-  const handleScrollToNext = useCallback(() => {
+  const scrollToNextMatch = useCallback(() => {
     // Try mobile card first, then desktop row
     const element = document.getElementById('next-match-card')
       ?? document.getElementById('next-match-row')
@@ -41,10 +41,19 @@ export function TerminlistePage() {
         top: offsetPosition,
         behavior: 'smooth'
       })
-    } else if (nextMatch) {
-      console.warn('Kunne ikke finne neste kamp-element i DOM')
     }
-  }, [nextMatch])
+  }, [])
+
+  // Auto-scroll to next match on page load
+  useEffect(() => {
+    if (nextMatch) {
+      // Small delay to ensure DOM is rendered
+      const timer = setTimeout(() => {
+        scrollToNextMatch()
+      }, 100)
+      return () => clearTimeout(timer)
+    }
+  }, [nextMatch, scrollToNextMatch])
 
   const handleFilterChange = useCallback(
     (newFilters: Parameters<typeof setFilters>[0]) => {
@@ -55,7 +64,7 @@ export function TerminlistePage() {
 
   return (
     <div className="app">
-      <Header onScrollToNext={handleScrollToNext} />
+      <Header onScrollToNext={scrollToNextMatch} />
       <div className="container">
 
         <FilterBar

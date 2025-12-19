@@ -68,57 +68,61 @@ export function MatchCard({
       </div>
 
       <div className="card-match">
-        <div className="card-teams">
-          {isHome ? (
-            <span className="card-team-name card-team-ours">
-              {hasMultipleTeams && (
-                <span
-                  className="card-team-dot"
-                  style={{ backgroundColor: getTeamColor(match.Lag) }}
-                />
-              )}
-              {match.Hjemmelag}
-            </span>
-          ) : match['Hjemmelag URL'] ? (
-            <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
-              {match.Hjemmelag}
-            </a>
-          ) : (
-            <span>{match.Hjemmelag}</span>
-          )}
-          <span className="card-teams-separator">-</span>
-          {!isHome ? (
-            <span className="card-team-name card-team-ours">
-              {hasMultipleTeams && (
-                <span
-                  className="card-team-dot"
-                  style={{ backgroundColor: getTeamColor(match.Lag) }}
-                />
-              )}
-              {match.Bortelag}
-            </span>
-          ) : match['Bortelag URL'] ? (
-            <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
-              {match.Bortelag}
-            </a>
-          ) : (
-            <span>{match.Bortelag}</span>
+        {isHome && (
+          <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-home" />
+        )}
+        <div className="card-match-content">
+          <div className="card-teams">
+            {isHome ? (
+              <span className="card-team-name card-team-ours">
+                {hasMultipleTeams && (
+                  <span
+                    className="card-team-dot"
+                    style={{ backgroundColor: getTeamColor(match.Lag) }}
+                  />
+                )}
+                {match.Hjemmelag}
+              </span>
+            ) : match['Hjemmelag URL'] ? (
+              <a href={match['Hjemmelag URL']} target="_blank" rel="noopener noreferrer">
+                {match.Hjemmelag}
+              </a>
+            ) : (
+              <span>{match.Hjemmelag}</span>
+            )}
+            <span className="card-teams-separator">-</span>
+            {!isHome ? (
+              <span className="card-team-name card-team-ours">
+                {hasMultipleTeams && (
+                  <span
+                    className="card-team-dot"
+                    style={{ backgroundColor: getTeamColor(match.Lag) }}
+                  />
+                )}
+                {match.Bortelag}
+              </span>
+            ) : match['Bortelag URL'] ? (
+              <a href={match['Bortelag URL']} target="_blank" rel="noopener noreferrer">
+                {match.Bortelag}
+              </a>
+            ) : (
+              <span>{match.Bortelag}</span>
+            )}
+          </div>
+          <div className="card-score">
+            {match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
+              ? match['H-B']
+              : '-'}
+          </div>
+          {match.Bane && <div className="card-venue">{match.Bane}</div>}
+          {match.Tilskuere && (
+            <div className="card-spectators">{match.Tilskuere} tilskuere</div>
           )}
         </div>
-        <div className="card-score">
-          {match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
-            ? match['H-B']
-            : '-'}
-        </div>
+        {!isHome && (
+          <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-away" />
+        )}
       </div>
-
-      {(match.Bane || match.Tilskuere) && (
-        <div className="card-meta">
-          {match.Bane && <span className="card-meta-item">{match.Bane}</span>}
-          {match.Bane && match.Tilskuere && <span className="card-meta-dot">·</span>}
-          {match.Tilskuere && <span className="card-meta-item">{match.Tilskuere} tilskuere</span>}
-        </div>
-      )}
 
       <div className="card-actions">
         <Link
