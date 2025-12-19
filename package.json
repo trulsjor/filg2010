@@ -15,8 +15,7 @@
     "lint": "eslint . --ext .ts,.tsx",
     "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts",
     "update-results": "npx tsx src/scripts/updateResults.ts",
-    "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
-    "postinstall": "npx playwright install --with-deps chromium"
+    "fetch-tables": "npx tsx src/scripts/fetchTables.ts"
   },
   "dependencies": {
     "react": "^19.0.0",
