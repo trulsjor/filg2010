@@ -11,19 +11,24 @@ import type { Match } from '../types/index.js';
 // Import match data at build time
 import matchData from '../../data/terminliste.json';
 
-const matches = matchData as Match[];
+// Filter out matches without valid date/time
+const matches = (matchData as Match[]).filter(m => m.Dato && m.Tid);
 
 // iCal date format: YYYYMMDDTHHMMSS
 function formatICalDate(dato: string, tid: string): string {
+  if (!dato || !tid) return '';
   const [day, month, year] = dato.split('.');
   const [hour, minute] = tid.split(':');
+  if (!day || !month || !year || !hour || !minute) return '';
   return `${year}${month.padStart(2, '0')}${day.padStart(2, '0')}T${hour.padStart(2, '0')}${minute.padStart(2, '0')}00`;
 }
 
 // Add 2 hours for match end time (typical handball match duration)
 function formatICalEndDate(dato: string, tid: string): string {
+  if (!dato || !tid) return '';
   const [day, month, year] = dato.split('.');
   const [hour, minute] = tid.split(':');
+  if (!day || !month || !year || !hour || !minute) return '';
   const endHour = (parseInt(hour) + 2) % 24;
   return `${year}${month.padStart(2, '0')}${day.padStart(2, '0')}T${String(endHour).padStart(2, '0')}${minute.padStart(2, '0')}00`;
 }
