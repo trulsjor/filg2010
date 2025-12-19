@@ -613,20 +613,20 @@ a:hover {
 
 .card-logo {
   position: absolute;
-  width: 56px;
-  height: 56px;
+  width: 70px;
+  height: 70px;
   object-fit: contain;
-  opacity: 0.85;
+  opacity: 0.7;
   top: 50%;
-  transform: translateY(-50%);
+  transform: translateY(-50%) rotate(-0deg);
 }
 
 .card-logo-home {
-  left: 20px;
+  left: 16px;
 }
 
 .card-logo-away {
-  right: 20px;
+  right: 16px;
 }
 
 .win-card .card-match {
