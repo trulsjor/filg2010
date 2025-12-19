@@ -242,13 +242,13 @@
 ## Implementeringsrekkefølge
 
 ```
-Fase 1 (nå):
+Fase 1 (ferdig):
   [x] Analyse
-  [ ] 1.1 updateResults.ts script
-  [ ] 1.2 GitHub Actions cron
+  [x] 1.1 updateResults.ts script
+  [x] 1.2 GitHub Actions cron
 
-Fase 2:
-  [ ] 2.1 iCal-feed
+Fase 2 (pågår):
+  [x] 2.1 iCal-feed
   [ ] 2.2 Enkelt-kamp kalender
   [ ] T1 Splitt komponenter
 
