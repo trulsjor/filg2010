@@ -1,6 +1,7 @@
 # build output
 dist/
 .output/
+*.tsbuildinfo
 
 # dependencies
 node_modules/
@@ -17,6 +18,9 @@ pnpm-debug.log*
 
 # macOS-specific files
 .DS_Store
+
+# IDE
+.idea/
 
 # playwright
 test-results/
