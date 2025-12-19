@@ -26,9 +26,21 @@ export function TerminlistePage() {
   const teamNames = teams.map((t) => t.name)
 
   const handleScrollToNext = useCallback(() => {
+    // Try mobile card first, then desktop row
     const element = document.getElementById('next-match-card')
+      ?? document.getElementById('next-match-row')
+
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'center' })
+      // Get header height to offset scroll
+      const header = document.querySelector('.page-header')
+      const headerHeight = header?.getBoundingClientRect().height ?? 80
+      const elementPosition = element.getBoundingClientRect().top + window.scrollY
+      const offsetPosition = elementPosition - headerHeight - 20
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      })
     } else if (nextMatch) {
       console.warn('Kunne ikke finne neste kamp-element i DOM')
     }
@@ -43,8 +55,8 @@ export function TerminlistePage() {
 
   return (
     <div className="app">
+      <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
-        <Header onScrollToNext={handleScrollToNext} />
 
         <FilterBar
           teamNames={teamNames}
@@ -64,6 +76,7 @@ export function TerminlistePage() {
             matches={filteredMatches}
             hasMultipleTeams={hasMultipleTeams}
             getTeamColor={getTeamColor}
+            nextMatch={nextMatch}
           />
         </div>
 

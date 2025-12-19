@@ -1,4 +1,4 @@
-export type ThemeId = 'fjellhammer-dark' | 'fjellhammer-light'
+export type ThemeId = 'fjellhammer-dark' | 'fjellhammer-light' | 'forest'
 
 export type ColorScheme = 'light' | 'dark'
 

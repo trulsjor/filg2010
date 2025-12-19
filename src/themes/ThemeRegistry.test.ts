@@ -2,9 +2,10 @@ import { describe, it, expect } from 'vitest'
 import { themes, getTheme, getThemeOptions, DEFAULT_THEME_ID } from './ThemeRegistry'
 
 describe('ThemeRegistry', () => {
-  it('exports all Fjellhammer themes', () => {
+  it('exports all themes', () => {
     expect(themes['fjellhammer-dark']).toBeDefined()
     expect(themes['fjellhammer-light']).toBeDefined()
+    expect(themes['forest']).toBeDefined()
   })
 
   it('has correct default theme id', () => {
@@ -29,7 +30,7 @@ describe('ThemeRegistry', () => {
     it('returns array of theme options', () => {
       const options = getThemeOptions()
       expect(Array.isArray(options)).toBe(true)
-      expect(options.length).toBe(2)
+      expect(options.length).toBe(3)
     })
 
     it('each option has value and label', () => {

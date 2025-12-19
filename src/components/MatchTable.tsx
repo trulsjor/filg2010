@@ -4,9 +4,10 @@ interface MatchTableProps {
   matches: Match[]
   hasMultipleTeams: boolean
   getTeamColor: (teamName?: string) => string
+  nextMatch?: Match | null
 }
 
-export function MatchTable({ matches, hasMultipleTeams, getTeamColor }: MatchTableProps) {
+export function MatchTable({ matches, hasMultipleTeams, getTeamColor, nextMatch }: MatchTableProps) {
   return (
     <div className="table-container" role="region" aria-label="Kampoversikt" tabIndex={0}>
       <table aria-label="Terminliste for Fjellhammer G2010">
@@ -27,9 +28,12 @@ export function MatchTable({ matches, hasMultipleTeams, getTeamColor }: MatchTab
           {matches.map((match, index) => {
             const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
             const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
+            const isNextMatch = nextMatch === match
             return (
               <tr
                 key={`${match.Dato}-${match.Tid}-${index}`}
+                id={isNextMatch ? 'next-match-row' : undefined}
+                className={isNextMatch ? 'next-match-row' : undefined}
                 data-team={match.Lag}
                 data-location={isHome ? 'home' : 'away'}
                 data-status={hasResult ? 'played' : 'upcoming'}

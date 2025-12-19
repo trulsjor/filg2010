@@ -1,5 +1,6 @@
 import { useMemo } from 'react'
 import { Link } from 'react-router-dom'
+import { Header } from '../components/Header'
 
 import matchesData from '../../data/terminliste.json'
 import tablesData from '../../data/tables.json'
@@ -109,9 +110,10 @@ export function StatistikkPage() {
 
   return (
     <div className="app">
+      <Header showScrollButton={false} />
       <div className="container">
-        {/* Header */}
-        <header className="stats-page-header">
+        {/* Page Title */}
+        <div className="stats-page-header">
           <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <path d="M19 12H5M12 19l-7-7 7-7" />
@@ -122,7 +124,7 @@ export function StatistikkPage() {
             <h1>Statistikk</h1>
             <p className="stats-subtitle">Sesongoversikt for Fjellhammer G2010</p>
           </div>
-        </header>
+        </div>
 
         {/* Hero Stats */}
         <section className="stats-hero">

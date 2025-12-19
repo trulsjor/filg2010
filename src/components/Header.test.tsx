@@ -2,11 +2,14 @@ import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { Header } from './Header'
+import { ThemeProvider } from '../context/ThemeContext'
 
 const renderHeader = (props = {}) => {
   return render(
     <MemoryRouter>
-      <Header {...props} />
+      <ThemeProvider>
+        <Header {...props} />
+      </ThemeProvider>
     </MemoryRouter>
   )
 }
@@ -25,9 +28,16 @@ describe('Header', () => {
     expect(screen.getByRole('heading', { name: /terminliste/i })).toBeInTheDocument()
   })
 
-  it('renders "Neste kamp" button', () => {
-    renderHeader()
+  it('renders "Neste kamp" button when onScrollToNext is provided', () => {
+    const onScrollToNext = vi.fn()
+    renderHeader({ onScrollToNext })
     expect(screen.getByRole('button', { name: /neste kamp/i })).toBeInTheDocument()
+  })
+
+  it('does not render "Neste kamp" button when showScrollButton is false', () => {
+    const onScrollToNext = vi.fn()
+    renderHeader({ onScrollToNext, showScrollButton: false })
+    expect(screen.queryByRole('button', { name: /neste kamp/i })).not.toBeInTheDocument()
   })
 
   it('calls onScrollToNext when button is clicked', () => {
@@ -55,8 +65,14 @@ describe('Header', () => {
   })
 
   it('has proper accessibility attributes', () => {
-    renderHeader()
+    const onScrollToNext = vi.fn()
+    renderHeader({ onScrollToNext })
     expect(screen.getByRole('banner')).toBeInTheDocument()
     expect(screen.getByRole('button', { name: /neste kamp/i })).toHaveAttribute('aria-label', 'Gå til neste kamp')
+  })
+
+  it('renders theme selector', () => {
+    renderHeader()
+    expect(screen.getByRole('button', { name: /velg tema/i })).toBeInTheDocument()
   })
 })

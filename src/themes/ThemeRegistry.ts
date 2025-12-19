@@ -4,10 +4,12 @@ export type { Theme, ThemeId, ThemeColors, ThemeTypography, ThemeBorders, ThemeS
 export { applyTheme, camelToKebab } from './ThemeDefinitions'
 
 import { fjellhammerDarkTheme, fjellhammerLightTheme } from './fjellhammer'
+import { forestTheme } from './forest'
 
 export const themes: Record<ThemeId, Theme> = {
   'fjellhammer-dark': fjellhammerDarkTheme,
   'fjellhammer-light': fjellhammerLightTheme,
+  'forest': forestTheme,
 }
 
 export const DEFAULT_THEME_ID: ThemeId = 'fjellhammer-dark'

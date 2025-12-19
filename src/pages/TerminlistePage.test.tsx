@@ -2,12 +2,15 @@ import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import { MemoryRouter } from 'react-router-dom'
 import { TerminlistePage } from './TerminlistePage'
+import { ThemeProvider } from '../context/ThemeContext'
 
 describe('TerminlistePage', () => {
   const renderPage = () => {
     return render(
       <MemoryRouter>
-        <TerminlistePage />
+        <ThemeProvider>
+          <TerminlistePage />
+        </ThemeProvider>
       </MemoryRouter>
     )
   }
