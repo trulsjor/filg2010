@@ -15,10 +15,10 @@ const fjellhammerTypography: ThemeTypography = {
 
 const fjellhammerBorders: ThemeBorders = {
   radiusNone: '0',
-  radiusSm: '4px',
-  radiusMd: '8px',
-  radiusLg: '12px',
-  radiusXl: '16px',
+  radiusSm: '2px',
+  radiusMd: '4px',
+  radiusLg: '6px',
+  radiusXl: '8px',
   radiusFull: '9999px',
   widthDefault: '1px',
   widthStrong: '2px',

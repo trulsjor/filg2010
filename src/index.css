@@ -156,7 +156,7 @@ a:hover {
   align-items: center;
   gap: var(--ds-spacing-2);
   padding: var(--ds-spacing-2) var(--ds-spacing-3);
-  border-radius: var(--ds-radius-sm, 4px);
+  border-radius: 2px;
   font-size: var(--ds-font-size-xs);
   font-weight: 600;
   text-decoration: none;
@@ -237,7 +237,7 @@ a:hover {
   padding: var(--ds-spacing-2) var(--ds-spacing-3);
   background: var(--ds-color-surface-raised);
   border: 1px solid var(--ds-color-border-default);
-  border-radius: var(--ds-radius-md, 6px);
+  border-radius: 3px;
   margin-bottom: var(--ds-spacing-3);
 }
 
@@ -265,7 +265,7 @@ a:hover {
 
 .filter-btn {
   padding: 2px var(--ds-spacing-2);
-  border-radius: var(--ds-radius-sm, 4px);
+  border-radius: 2px;
   font-size: var(--ds-font-size-xs);
   font-weight: 600;
   border: 1px solid transparent;
@@ -329,7 +329,7 @@ a:hover {
 .table-container {
   background: var(--ds-color-surface-default);
   border: 1px solid var(--ds-color-border-default);
-  border-radius: var(--ds-radius-md, 6px);
+  border-radius: 3px;
   overflow: hidden;
 }
 
@@ -441,21 +441,24 @@ a:hover {
 .match-card {
   background: var(--ds-color-surface-default);
   border: 1px solid var(--ds-color-border-default);
-  border-radius: 6px;
+  border-radius: 3px;
   overflow: hidden;
 }
 
-/* Result styling - left border */
+/* Result styling - left border + subtle background tint */
 .match-card.win-card {
   border-left: 3px solid var(--ds-color-success-base);
+  background: linear-gradient(90deg, var(--ds-color-success-subtle) 0%, var(--ds-color-surface-default) 30%);
 }
 
 .match-card.loss-card {
   border-left: 3px solid var(--ds-color-danger-base);
+  background: linear-gradient(90deg, var(--ds-color-danger-subtle) 0%, var(--ds-color-surface-default) 30%);
 }
 
 .match-card.draw-card {
   border-left: 3px solid var(--ds-color-warning-base);
+  background: linear-gradient(90deg, var(--ds-color-warning-subtle) 0%, var(--ds-color-surface-default) 30%);
 }
 
 /* Next match card */
@@ -475,7 +478,7 @@ a:hover {
   font-weight: 700;
   letter-spacing: 0.05em;
   padding: 2px 8px;
-  border-radius: 0 4px 0 4px;
+  border-radius: 0 2px 0 2px;
 }
 
 /* Card header - compact */
@@ -649,7 +652,7 @@ a:hover {
   padding: 6px 8px;
   background: var(--ds-color-accent-subtle);
   color: var(--ds-color-accent-text);
-  border-radius: 4px;
+  border-radius: 2px;
   font-size: 11px;
   font-weight: 600;
   text-decoration: none;

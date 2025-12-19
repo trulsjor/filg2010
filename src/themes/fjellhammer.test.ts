@@ -33,8 +33,8 @@ describe('fjellhammerDarkTheme', () => {
   })
 
   it('has border radius settings', () => {
-    expect(fjellhammerDarkTheme.borders.radiusMd).toBe('8px')
-    expect(fjellhammerDarkTheme.borders.radiusLg).toBe('12px')
+    expect(fjellhammerDarkTheme.borders.radiusMd).toBe('4px')
+    expect(fjellhammerDarkTheme.borders.radiusLg).toBe('6px')
   })
 
   it('has shadow settings', () => {
