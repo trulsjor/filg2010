@@ -147,6 +147,11 @@ const formattedLastUpdated = metadata?.lastUpdated
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#009B3E">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="manifest" href="/manifest.json">
+  <link rel="apple-touch-icon" href="/fjellhammer-logo.svg">
   <title>Terminliste - Fjellhammer G2010</title>
   <style>
     :root {
@@ -661,6 +666,24 @@ const formattedLastUpdated = metadata?.lastUpdated
       color: white;
       text-decoration: none;
       border-color: rgba(0, 196, 106, 0.5);
+    }
+
+    .map-link {
+      flex: 0 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 1rem;
+      background: rgba(59, 130, 246, 0.15);
+      border-color: rgba(59, 130, 246, 0.3);
+      box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2);
+    }
+
+    .map-link:hover {
+      background: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 8px 28px rgba(59, 130, 246, 0.4);
+      border-color: rgba(59, 130, 246, 0.5);
     }
 
     .card-tournament {
@@ -1241,13 +1264,28 @@ const formattedLastUpdated = metadata?.lastUpdated
                 </div>
               )}
 
-              {match['Kamp URL'] && (
-                <div class="card-links">
+              <div class="card-links">
+                {match['Kamp URL'] && (
                   <a href={match['Kamp URL']} target="_blank" rel="noopener noreferrer" class="card-link">
                     Se kampdetaljer
                   </a>
-                </div>
-              )}
+                )}
+                {!isHome && match.Bane && (
+                  <a
+                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(match.Bane)}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="card-link map-link"
+                    title="Finn veien"
+                  >
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    Kart
+                  </a>
+                )}
+              </div>
             </div>
           );
           })}
@@ -1373,6 +1411,11 @@ const formattedLastUpdated = metadata?.lastUpdated
       const scrollBtn = document.getElementById('scroll-to-next');
       if (scrollBtn) {
         scrollBtn.addEventListener('click', scrollToNextMatch);
+      }
+
+      // Register service worker for PWA
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/sw.js').catch(() => {});
       }
     });
   </script>

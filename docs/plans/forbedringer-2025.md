@@ -256,10 +256,10 @@ Fase 3 (ferdig):
   [x] 3.1 Filtrering
   [x] 4.1 Statistikk-side
 
-Fase 4:
-  [ ] 5.1 PWA-støtte
+Fase 4 (ferdig):
+  [x] 5.1 PWA-støtte
   [ ] 6.1 Serietabell
-  [ ] 7.1 Baneveibeskrivelse
+  [x] 7.1 Baneveibeskrivelse (kart-lenker)
 
 Løpende:
   [ ] T2 TypeScript-forbedringer
