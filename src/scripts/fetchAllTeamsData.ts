@@ -41,7 +41,7 @@ interface ScraperServiceLike {
 }
 
 interface HandballApiServiceLike {
-  fetchTeamSchedule(team: Team): Promise<any[]>;
+  fetchTeamSchedule(team: Team): Promise<RawMatchData[]>;
 }
 
 export interface FetchPipelineDependencies {
@@ -174,8 +174,16 @@ function enhanceMatchesWithLinks(
 
     return {
       Lag: team.name,
-      ...row,
+      Dato: row.Dato,
+      Tid: row.Tid,
       Kampnr: kampnr,
+      Hjemmelag: row.Hjemmelag,
+      Bortelag: row.Bortelag,
+      'H-B': row['H-B'],
+      Bane: row.Bane,
+      Tilskuere: row.Tilskuere ?? 0,
+      Arrangør: row.Arrangør ?? '',
+      Turnering: row.Turnering,
       'Kamp URL': links?.kampUrl || '',
       'Hjemmelag URL': links?.hjemmelagUrl || '',
       'Bortelag URL': links?.bortelagUrl || '',

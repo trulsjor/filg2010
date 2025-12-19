@@ -1,5 +1,5 @@
 import * as XLSX from 'xlsx';
-import type { Team } from '../types/index.js';
+import type { Team, RawMatchData } from '../types/index.js';
 import { HandballUrlService } from './handball-url.service.js';
 
 interface HandballApiOptions {
@@ -27,7 +27,7 @@ export class HandballApiService {
    * Fetches team schedule data from handball.no API
    * @returns Array of match objects from Excel file
    */
-  async fetchTeamSchedule(team: Team): Promise<any[]> {
+  async fetchTeamSchedule(team: Team): Promise<RawMatchData[]> {
     const apiUrl = this.urlService.buildApiUrl(team.lagid, team.seasonId);
 
     for (let attempt = 1; attempt <= this.maxRetries; attempt++) {
@@ -48,7 +48,7 @@ export class HandballApiService {
         const workbook = XLSX.read(buffer, { type: 'buffer' });
         const sheetName = workbook.SheetNames[0];
         const worksheet = workbook.Sheets[sheetName];
-        const jsonData = XLSX.utils.sheet_to_json(worksheet);
+        const jsonData = XLSX.utils.sheet_to_json(worksheet) as RawMatchData[];
 
         clearTimeout(timeout);
         return jsonData;
