@@ -47,11 +47,19 @@ export class TableScraperService {
 
     try {
       const page = await browser.newPage();
-      await page.goto(tournamentUrl, { waitUntil: 'networkidle', timeout: 30000 });
+      await page.goto(tournamentUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
       await this.handleCookieBanner(page);
 
-      // Wait for table to be rendered (Angular app)
-      await page.waitForSelector('table', { timeout: 10000 });
+      // Click on "Tabell" tab if it exists
+      try {
+        await page.click('text=Tabell', { timeout: 3000 });
+        await page.waitForTimeout(1000);
+      } catch {
+        // Tab might not exist or already on table view
+      }
+
+      // Wait for page content to load
+      await page.waitForTimeout(3000);
 
       // Extract tournament name and table data using a serializable function string
       const data = await page.evaluate(`
@@ -69,8 +77,8 @@ export class TableScraperService {
             tournamentName = tournamentName.substring(10).trim();
           }
 
-          // Find the standings table
-          var tables = document.querySelectorAll('table');
+          // Find the standings table (exclude cookie banner tables)
+          var tables = document.querySelectorAll('table:not([role="presentation"])');
           var rows = [];
 
           for (var i = 0; i < tables.length; i++) {
