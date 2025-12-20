@@ -5,14 +5,19 @@ import type { Match } from '../types/index.js';
 const createMockMatch = (overrides: Partial<Match> = {}): Match => ({
   Dato: '01.01.2025',
   Tid: '18:00',
+  Kampnr: '1',
   Hjemmelag: 'Fjellhammer',
   Bortelag: 'Motstander',
   'H-B': '-',
   Bane: 'Fjellhammerhallen',
+  Tilskuere: 0,
+  Arrangør: 'Fjellhammer',
   Turnering: 'Regionserien',
   'Turnering URL': 'https://handball.no/turnering/123',
   Lag: 'Fjellhammer',
   'Kamp URL': 'https://handball.no/kamp?matchid=12345',
+  'Hjemmelag URL': 'https://handball.no/lag/1',
+  'Bortelag URL': 'https://handball.no/lag/2',
   ...overrides,
 });
 
