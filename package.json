@@ -16,7 +16,8 @@
     "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts",
     "update-results": "npx tsx src/scripts/updateResults.ts",
     "update-results:http": "npx tsx src/scripts/updateResultsHttp.ts",
-    "fetch-tables": "npx tsx src/scripts/fetchTables.ts"
+    "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
+    "fetch-tables:http": "npx tsx src/scripts/fetchTablesHttp.ts"
   },
   "dependencies": {
     "react": "^19.0.0",

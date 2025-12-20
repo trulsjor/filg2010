@@ -6,7 +6,7 @@
 import type { Match, Metadata } from '../types/index.js';
 import { FileService } from '../services/file.service.js';
 import { ResultFetcherService } from '../services/result-fetcher.service.js';
-import { fetchTables } from './fetchTables.js';
+import { fetchTablesHttp } from './fetchTablesHttp.js';
 
 interface UpdateResultsDependencies {
   fileService?: FileService;
@@ -144,7 +144,7 @@ if (import.meta.url === `file://${process.argv[1]}`) {
 
       if (result.affectedTournaments.size > 0) {
         console.log(`\n📊 Oppdaterer ${result.affectedTournaments.size} berørte tabeller...`);
-        const tableResult = await fetchTables(result.affectedTournaments);
+        const tableResult = await fetchTablesHttp(result.affectedTournaments);
 
         if (tableResult.failed > 0) {
           console.log(`\nTables: Updated ${tableResult.fetched}/${tableResult.total} tables (${tableResult.failed} failed)`);
