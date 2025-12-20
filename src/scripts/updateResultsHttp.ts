@@ -1,8 +1,3 @@
-/**
- * HTTP-based results updater - no Playwright needed
- * Much faster than the Playwright version
- */
-
 import type { Match, Metadata } from '../types/index.js';
 import { FileService } from '../services/file.service.js';
 import { ResultFetcherService } from '../services/result-fetcher.service.js';

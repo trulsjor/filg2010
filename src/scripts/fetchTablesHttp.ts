@@ -1,7 +1,3 @@
-/**
- * HTTP-based table fetcher script - no Playwright needed
- */
-
 import * as fs from 'fs';
 import * as path from 'path';
 import { TableFetcherService, type LeagueTable } from '../services/table-fetcher.service.js';
