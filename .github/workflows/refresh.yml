@@ -38,3 +38,6 @@ jobs:
           git add data/
           git diff --staged --quiet || git commit -m "🔄 Full data refresh"
           git push
+
+      - name: Trigger Statichost build
+        run: curl -X POST https://builder.statichost.eu/fjellhammeril-g2010
