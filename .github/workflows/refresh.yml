@@ -2,6 +2,8 @@ name: Full data refresh
 
 on:
   workflow_dispatch:
+  repository_dispatch:
+    types: [full-refresh]
 
 permissions:
   contents: write

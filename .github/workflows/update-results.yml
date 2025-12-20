@@ -5,6 +5,8 @@ on:
     # Hver dag kl 22:00 norsk tid (21:00 UTC)
     - cron: '0 21 * * *'
   workflow_dispatch:
+  repository_dispatch:
+    types: [update-results]
 
 permissions:
   contents: write
