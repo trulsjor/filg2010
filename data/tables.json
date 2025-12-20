@@ -106,123 +106,6 @@
     "updatedAt": "2025-12-19T23:58:18.825Z"
   },
   {
-    "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
-    "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=440238",
-    "rows": [
-      {
-        "position": 1,
-        "team": "Kråkerøy",
-        "played": 8,
-        "won": 7,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 202,
-        "goalsAgainst": 149,
-        "points": 14
-      },
-      {
-        "position": 2,
-        "team": "Haslum",
-        "played": 8,
-        "won": 6,
-        "drawn": 1,
-        "lost": 1,
-        "goalsFor": 219,
-        "goalsAgainst": 157,
-        "points": 13
-      },
-      {
-        "position": 3,
-        "team": "Fjellhammer",
-        "played": 8,
-        "won": 6,
-        "drawn": 1,
-        "lost": 1,
-        "goalsFor": 225,
-        "goalsAgainst": 164,
-        "points": 13
-      },
-      {
-        "position": 4,
-        "team": "Oppegård",
-        "played": 8,
-        "won": 5,
-        "drawn": 0,
-        "lost": 3,
-        "goalsFor": 220,
-        "goalsAgainst": 167,
-        "points": 10
-      },
-      {
-        "position": 5,
-        "team": "Bøler/Oppsal",
-        "played": 8,
-        "won": 4,
-        "drawn": 0,
-        "lost": 4,
-        "goalsFor": 185,
-        "goalsAgainst": 202,
-        "points": 8
-      },
-      {
-        "position": 6,
-        "team": "Torp/Rolvsøy/Tindlund/Sarpsborg",
-        "played": 8,
-        "won": 3,
-        "drawn": 0,
-        "lost": 5,
-        "goalsFor": 190,
-        "goalsAgainst": 195,
-        "points": 6
-      },
-      {
-        "position": 7,
-        "team": "Lillestrøm",
-        "played": 8,
-        "won": 2,
-        "drawn": 0,
-        "lost": 6,
-        "goalsFor": 163,
-        "goalsAgainst": 220,
-        "points": 4
-      },
-      {
-        "position": 8,
-        "team": "Ski/Langhus",
-        "played": 8,
-        "won": 2,
-        "drawn": 0,
-        "lost": 6,
-        "goalsFor": 186,
-        "goalsAgainst": 210,
-        "points": 4
-      },
-      {
-        "position": 9,
-        "team": "Nordstrand 2",
-        "played": 8,
-        "won": 0,
-        "drawn": 0,
-        "lost": 8,
-        "goalsFor": 123,
-        "goalsAgainst": 249,
-        "points": 0
-      },
-      {
-        "position": 10,
-        "team": "Ski/Langhus 2\n (Trukket)",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      }
-    ],
-    "updatedAt": "2025-12-19T23:58:27.535Z"
-  },
-  {
     "tournamentName": "Gutter 15 Nivå 1 - A Sluttspill, Håndballsesongen 2025/2026",
     "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=444098",
     "rows": [
@@ -400,5 +283,111 @@
       }
     ],
     "updatedAt": "2025-12-19T23:58:44.898Z"
+  },
+  {
+    "tournamentName": "Regionserien Gutter 15 - avd 32, H&#229;ndballsesongen 2025/2026",
+    "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=440238",
+    "rows": [
+      {
+        "position": 1,
+        "team": "Kråkerøy",
+        "played": 8,
+        "won": 7,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 202,
+        "goalsAgainst": 149,
+        "points": 14
+      },
+      {
+        "position": 2,
+        "team": "Haslum",
+        "played": 8,
+        "won": 6,
+        "drawn": 1,
+        "lost": 1,
+        "goalsFor": 219,
+        "goalsAgainst": 157,
+        "points": 13
+      },
+      {
+        "position": 3,
+        "team": "Fjellhammer",
+        "played": 8,
+        "won": 6,
+        "drawn": 1,
+        "lost": 1,
+        "goalsFor": 225,
+        "goalsAgainst": 164,
+        "points": 13
+      },
+      {
+        "position": 4,
+        "team": "Oppegård",
+        "played": 8,
+        "won": 5,
+        "drawn": 0,
+        "lost": 3,
+        "goalsFor": 220,
+        "goalsAgainst": 167,
+        "points": 10
+      },
+      {
+        "position": 5,
+        "team": "Bøler/Oppsal",
+        "played": 8,
+        "won": 4,
+        "drawn": 0,
+        "lost": 4,
+        "goalsFor": 185,
+        "goalsAgainst": 202,
+        "points": 8
+      },
+      {
+        "position": 6,
+        "team": "Torp/Rolvsøy/Tindlund/Sarpsborg",
+        "played": 8,
+        "won": 3,
+        "drawn": 0,
+        "lost": 5,
+        "goalsFor": 190,
+        "goalsAgainst": 195,
+        "points": 6
+      },
+      {
+        "position": 7,
+        "team": "Lillestrøm",
+        "played": 8,
+        "won": 2,
+        "drawn": 0,
+        "lost": 6,
+        "goalsFor": 163,
+        "goalsAgainst": 220,
+        "points": 4
+      },
+      {
+        "position": 8,
+        "team": "Ski/Langhus",
+        "played": 8,
+        "won": 2,
+        "drawn": 0,
+        "lost": 6,
+        "goalsFor": 186,
+        "goalsAgainst": 210,
+        "points": 4
+      },
+      {
+        "position": 9,
+        "team": "Nordstrand 2",
+        "played": 8,
+        "won": 0,
+        "drawn": 0,
+        "lost": 8,
+        "goalsFor": 123,
+        "goalsAgainst": 249,
+        "points": 0
+      }
+    ],
+    "updatedAt": "2025-12-20T00:25:48.475Z"
   }
 ]
