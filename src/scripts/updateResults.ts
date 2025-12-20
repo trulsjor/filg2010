@@ -74,6 +74,7 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
   updated: number;
   checked: number;
   total: number;
+  affectedTournaments: Map<string, string>;
 }> {
   const fileService = deps.fileService ?? new FileService();
   const scraperService = deps.scraperService ?? new ResultScraperService();
@@ -92,7 +93,7 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
 
   if (matchesNeedingUpdate.length === 0) {
     logger.info('No matches need result updates.');
-    return { updated: 0, checked: 0, total: matches.length };
+    return { updated: 0, checked: 0, total: matches.length, affectedTournaments: new Map() };
   }
 
   logger.info(`Found ${matchesNeedingUpdate.length} matches needing result update:`);
@@ -107,8 +108,9 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
     logger.info(`  Progress: ${current}/${total}`);
   });
 
-  // Update matches with new results
+  // Update matches with new results and track affected tournaments
   let updatedCount = 0;
+  const affectedTournaments = new Map<string, string>();
   for (const match of matches) {
     const matchId = extractMatchId(match['Kamp URL']);
     if (matchId && results.has(matchId)) {
@@ -116,6 +118,9 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
       match['H-B'] = result.result;
       updatedCount++;
       logger.info(`  Updated: ${match.Hjemmelag} vs ${match.Bortelag} = ${result.result}`);
+      if (match['Turnering URL'] && match.Turnering && !match.Turnering.toLowerCase().includes('cup')) {
+        affectedTournaments.set(match['Turnering URL'], match.Turnering);
+      }
     }
   }
 
@@ -142,6 +147,7 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
     updated: updatedCount,
     checked: matchesNeedingUpdate.length,
     total: matches.length,
+    affectedTournaments,
   };
 }
 
@@ -158,14 +164,18 @@ if (import.meta.url === `file://${process.argv[1]}`) {
       const result = await updateResults();
       console.log(`\nResults: Updated ${result.updated}/${result.checked} matches.`);
 
-      // Also fetch league tables
-      console.log('\n');
-      const tableResult = await fetchTables();
+      // Only fetch tables for affected tournaments
+      if (result.affectedTournaments.size > 0) {
+        console.log(`\n📊 Oppdaterer ${result.affectedTournaments.size} berørte tabeller...`);
+        const tableResult = await fetchTables(result.affectedTournaments);
 
-      if (tableResult.failed > 0) {
-        console.log(`\nTables: Fetched ${tableResult.fetched}/${tableResult.total} tables (${tableResult.failed} failed)`);
+        if (tableResult.failed > 0) {
+          console.log(`\nTables: Updated ${tableResult.fetched}/${tableResult.total} tables (${tableResult.failed} failed)`);
+        } else {
+          console.log(`\nTables: Updated ${tableResult.fetched}/${tableResult.total} tables.`);
+        }
       } else {
-        console.log(`\nTables: Fetched ${tableResult.fetched}/${tableResult.total} tables.`);
+        console.log('\n📊 Ingen tabeller trenger oppdatering.');
       }
 
       process.exit(0);

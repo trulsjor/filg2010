@@ -23,30 +23,37 @@ export interface FetchTablesResult {
   failedTournaments: string[];
 }
 
-export async function fetchTables(): Promise<FetchTablesResult> {
+export async function fetchTables(specificTournaments?: Map<string, string>): Promise<FetchTablesResult> {
   console.log('🏆 Henter serietabeller...');
 
-  // Load matches and extract unique tournament URLs
-  if (!fs.existsSync(TERMINLISTE_PATH)) {
-    console.error('❌ terminliste.json ikke funnet');
-    return { fetched: 0, failed: 0, total: 0, failedTournaments: [] };
-  }
+  let tournamentUrls: Map<string, string>;
 
-  const matches: Match[] = JSON.parse(fs.readFileSync(TERMINLISTE_PATH, 'utf-8'));
-
-  // Get unique tournament URLs (excluding cups like "Regionscup")
-  const tournamentUrls = new Map<string, string>();
-  for (const match of matches) {
-    if (match['Turnering URL'] && match.Turnering) {
-      // Skip cups - they don't have standing tables
-      if (match.Turnering.toLowerCase().includes('cup')) {
-        continue;
-      }
-      tournamentUrls.set(match['Turnering URL'], match.Turnering);
+  if (specificTournaments && specificTournaments.size > 0) {
+    tournamentUrls = specificTournaments;
+    console.log(`📋 Oppdaterer ${tournamentUrls.size} spesifikke turneringer`);
+  } else {
+    // Load matches and extract unique tournament URLs
+    if (!fs.existsSync(TERMINLISTE_PATH)) {
+      console.error('❌ terminliste.json ikke funnet');
+      return { fetched: 0, failed: 0, total: 0, failedTournaments: [] };
     }
-  }
 
-  console.log(`📋 Fant ${tournamentUrls.size} turneringer (ekskludert cups)`);
+    const matches: Match[] = JSON.parse(fs.readFileSync(TERMINLISTE_PATH, 'utf-8'));
+
+    // Get unique tournament URLs (excluding cups like "Regionscup")
+    tournamentUrls = new Map<string, string>();
+    for (const match of matches) {
+      if (match['Turnering URL'] && match.Turnering) {
+        // Skip cups - they don't have standing tables
+        if (match.Turnering.toLowerCase().includes('cup')) {
+          continue;
+        }
+        tournamentUrls.set(match['Turnering URL'], match.Turnering);
+      }
+    }
+
+    console.log(`📋 Fant ${tournamentUrls.size} turneringer (ekskludert cups)`);
+  }
 
   const scraper = new TableScraperService();
   const tables: LeagueTable[] = [];
@@ -69,9 +76,16 @@ export async function fetchTables(): Promise<FetchTablesResult> {
     }
   }
 
-  // Save tables
-  fs.writeFileSync(TABLES_PATH, JSON.stringify(tables, null, 2), 'utf-8');
-  console.log(`\n💾 Lagret ${tables.length} tabeller til ${TABLES_PATH}`);
+  // Save tables (merge with existing if updating specific tournaments)
+  let allTables = tables;
+  if (specificTournaments && specificTournaments.size > 0 && fs.existsSync(TABLES_PATH)) {
+    const existingTables: LeagueTable[] = JSON.parse(fs.readFileSync(TABLES_PATH, 'utf-8'));
+    const updatedUrls = new Set(tables.map(t => t.tournamentUrl));
+    const unchangedTables = existingTables.filter(t => !updatedUrls.has(t.tournamentUrl));
+    allTables = [...unchangedTables, ...tables];
+  }
+  fs.writeFileSync(TABLES_PATH, JSON.stringify(allTables, null, 2), 'utf-8');
+  console.log(`\n💾 Lagret ${allTables.length} tabeller til ${TABLES_PATH}`);
 
   // Report failures if any
   if (failedTournaments.length > 0) {
