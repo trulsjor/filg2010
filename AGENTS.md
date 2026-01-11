@@ -22,5 +22,7 @@ Playwright is configured via `playwright.config.ts`. Mirror the structure `tests
 ## Commit & Pull Request Guidelines
 Follow the existing concise, imperative, Norwegian commit style (`Flytt URL-logikk fra utils til HandballUrlService`). Each commit should bundle a logical unit: refresh data separately from UI tweaks. Pull requests should describe the scenario, list commands executed (`npm run build`, `npm test`), and link the relevant Trello/Jira issue. Include screenshots or terminal snippets whenever UI or data output changes.
 
+**Viktig:** Bruk aldri `--no-verify` ved commit. Pre-commit hooks (lint, tester) skal alltid kjøres. Hvis det er feil, fiks dem – ikke omgå dem.
+
 ## Data Refresh & Configuration Tips
 `config.json` defines teams, lag IDs, and brand colors; keep sensitive IDs out of source control by using `.env` only if a future API requires authentication. Regenerate JSON via `npm run refresh` whenever league data changes, then verify timestamps in `data/metadata.json`. Never edit generated JSON manually—adjust `src/scripts` instead to keep the scraping pipeline trustworthy.

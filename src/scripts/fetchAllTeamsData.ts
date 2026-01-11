@@ -1,84 +1,91 @@
 /**
  * Main script for fetching handball schedule data
  *
- * This script orchestrates the data fetching process:
+ * Optimized pipeline:
  * 1. Loads team configuration
- * 2. Scrapes tournament links
- * 3. Fetches schedule data from API
- * 4. Scrapes match links
- * 5. Combines and sorts all data
- * 6. Saves to JSON files
+ * 2. Fetches Excel data from API (parallel)
+ * 3. Scrapes match + tournament links (parallel, shared browser)
+ * 4. Combines and sorts all data
+ * 5. Saves to JSON files
  */
 
-import type { Team, Match, MatchLink, Config, Metadata, RawMatchData } from '../types/index.js';
-import { ScraperService } from '../services/scraper.service.js';
-import { HandballApiService } from '../services/handball-api.service.js';
-import { FileService } from '../services/file.service.js';
-import { sortMatchesByDate } from '../utils/date.utils.js';
+import type { Team, Match, MatchLink, Config, Metadata, RawMatchData } from '../types/index.js'
+import { ScraperService } from '../services/scraper.service.js'
+import { HandballApiService } from '../services/handball-api.service.js'
+import { FileService } from '../services/file.service.js'
+import { sortMatchesByDate } from '../utils/date.utils.js'
 
-// Re-export for backwards compatibility with tests
-export { convertDateForSorting, sortMatchesByDate as sortMatches } from '../utils/date.utils.js';
-
-type SortMatchesFn = (matches: Match[]) => Match[];
-type NowFn = () => Date;
+type SortMatchesFn = (matches: Match[]) => Match[]
+type NowFn = () => Date
 
 interface LoggerLike {
-  info?: (...args: unknown[]) => void;
-  error?: (...args: unknown[]) => void;
+  info?: (...args: unknown[]) => void
+  error?: (...args: unknown[]) => void
 }
 
 interface FileServiceLike {
-  ensureDataDirectory(): void;
-  loadConfig(): Config;
-  saveMatches(matches: Match[]): void;
-  saveMetadata(metadata: Metadata): void;
-  getMatchesPath(): string;
+  ensureDataDirectory(): void
+  loadConfig(): Config
+  saveMatches(matches: Match[]): void
+  saveMetadata(metadata: Metadata): void
+  getMatchesPath(): string
 }
 
 interface ScraperServiceLike {
-  scrapeTournamentLinks(teams: Team[]): Promise<Map<string, string>>;
-  scrapeMatchLinks(lagid: string): Promise<Map<string, MatchLink>>;
+  scrapeAllTeams(
+    teams: Team[],
+    concurrency?: number
+  ): Promise<{
+    matchLinksPerTeam: Map<string, Map<string, MatchLink>>
+    allTournamentLinks: Map<string, string>
+  }>
+  close(): Promise<void>
+  // Legacy methods for backwards compatibility
+  scrapeTournamentLinks?(teams: Team[]): Promise<Map<string, string>>
+  scrapeMatchLinks?(lagid: string): Promise<Map<string, MatchLink>>
 }
 
 interface HandballApiServiceLike {
-  fetchTeamSchedule(team: Team): Promise<RawMatchData[]>;
+  fetchTeamSchedule(team: Team): Promise<RawMatchData[]>
 }
 
 export interface FetchPipelineDependencies {
-  fileService: FileServiceLike;
-  scraperService: ScraperServiceLike;
-  apiService: HandballApiServiceLike;
-  sortMatches?: SortMatchesFn;
-  now?: NowFn;
-  logger?: LoggerLike;
-  teamConcurrency?: number;
+  fileService: FileServiceLike
+  scraperService: ScraperServiceLike
+  apiService: HandballApiServiceLike
+  sortMatches?: SortMatchesFn
+  now?: NowFn
+  logger?: LoggerLike
 }
 
 const defaultLogger: Required<LoggerLike> = {
   info: (...args: unknown[]) => console.log(...args),
   error: (...args: unknown[]) => console.error(...args),
-};
+}
 
-const defaultNow: NowFn = () => new Date();
+const defaultNow: NowFn = () => new Date()
 
 /**
  * Main data fetching orchestrator
  */
 export async function fetchAllTeamsData(): Promise<void> {
+  const scraperService = new ScraperService()
   const deps: FetchPipelineDependencies = {
     fileService: new FileService(),
-    scraperService: new ScraperService(),
+    scraperService,
     apiService: new HandballApiService(),
     sortMatches: sortMatchesByDate,
     now: defaultNow,
     logger: defaultLogger,
-  };
+  }
 
   try {
-    await runFetchPipeline(deps);
+    await runFetchPipeline(deps)
   } catch (error) {
-    defaultLogger.error('Error fetching all teams data:', error);
-    throw error;
+    defaultLogger.error('Error fetching all teams data:', error)
+    throw error
+  } finally {
+    await scraperService.close()
   }
 }
 
@@ -89,72 +96,78 @@ export async function runFetchPipeline({
   sortMatches = sortMatchesByDate,
   now = defaultNow,
   logger = defaultLogger,
-  teamConcurrency = 1,
 }: FetchPipelineDependencies): Promise<void> {
-  logger.info?.('=== Fetching data for all teams ===\n');
+  const startTime = Date.now()
+  logger.info?.('=== Fetching data for all teams ===\n')
 
-  const config = fileService.loadConfig();
-  const teams: Team[] = config.teams;
-  logger.info?.(`Found ${teams.length} teams in config\n`);
+  const config = fileService.loadConfig()
+  const teams: Team[] = config.teams
+  logger.info?.(`Found ${teams.length} teams in config`)
+  teams.forEach((team) => logger.info?.(`  - ${team.name} (${team.lagid})`))
+  logger.info?.('')
 
-  fileService.ensureDataDirectory();
+  fileService.ensureDataDirectory()
 
-  logger.info?.('Step 1: Scraping tournament links from all team pages...');
-  teams.forEach((team) => {
-    logger.info?.(`    - ${team.name} (${team.lagid})`);
-  });
+  // Step 1: Fetch API data and scrape in parallel
+  logger.info?.('Step 1: Fetching data (API + scraping in parallel)...')
 
-  const tournamentMap = await scraperService.scrapeTournamentLinks(teams);
-  logger.info?.(`    Found ${tournamentMap.size} unique tournaments\n`);
+  const [apiDataPerTeam, scrapingResult] = await Promise.all([
+    // Fetch Excel data from API for all teams in parallel
+    Promise.all(
+      teams.map(async (team) => {
+        try {
+          const data = await apiService.fetchTeamSchedule(team)
+          logger.info?.(`  ✓ API: ${team.name} - ${data.length} matches`)
+          return { team, data }
+        } catch (error) {
+          logger.error?.(`  ✗ API: ${team.name} failed:`, error)
+          return { team, data: [] as RawMatchData[] }
+        }
+      })
+    ),
+    // Scrape all teams (shared browser, parallel pages)
+    (async () => {
+      const result = await scraperService.scrapeAllTeams(teams, 3)
+      logger.info?.(
+        `  ✓ Scraping: ${result.allTournamentLinks.size} tournaments, ${teams.length} teams`
+      )
+      return result
+    })(),
+  ])
 
-  const concurrency = Math.max(1, Math.floor(teamConcurrency));
-  const matchesPerTeam = await processTeamsWithConcurrency(
-    teams,
-    concurrency,
-    async (team) => {
-      logger.info?.(`Step 2: Fetching data for ${team.name} (lagid=${team.lagid})...`);
-      try {
-        logger.info?.('  Fetching Excel from API...');
-        const jsonData = await apiService.fetchTeamSchedule(team);
-        logger.info?.(`  Loaded ${jsonData.length} matches from Excel`);
+  // Step 2: Combine data
+  logger.info?.('\nStep 2: Combining data...')
+  const allMatches: Match[] = []
 
-        logger.info?.('  Scraping match links...');
-        const linkMap = await scraperService.scrapeMatchLinks(team.lagid);
-        logger.info?.(`  Found ${linkMap.size} match links`);
+  for (const { team, data } of apiDataPerTeam) {
+    const matchLinks = scrapingResult.matchLinksPerTeam.get(team.lagid) || new Map()
+    const enhancedMatches = enhanceMatchesWithLinks(
+      data,
+      team,
+      matchLinks,
+      scrapingResult.allTournamentLinks
+    )
+    allMatches.push(...enhancedMatches)
+    logger.info?.(`  ${team.name}: ${enhancedMatches.length} matches`)
+  }
 
-        const enhancedMatches = enhanceMatchesWithLinks(
-          jsonData,
-          team,
-          linkMap,
-          tournamentMap
-        );
-
-        logger.info?.(`  Added ${enhancedMatches.length} matches for ${team.name}\n`);
-        return enhancedMatches;
-      } catch (error) {
-        logger.error?.(`  Failed to process ${team.name} (${team.lagid}):`, error);
-        return [];
-      }
-    }
-  );
-
-  const allMatches: Match[] = matchesPerTeam.flat();
-
-  const sortedMatches = sortMatches(allMatches);
-  fileService.saveMatches(sortedMatches);
+  // Step 3: Sort and save
+  const sortedMatches = sortMatches(allMatches)
+  fileService.saveMatches(sortedMatches)
 
   const metadata: Metadata = {
     lastUpdated: now().toISOString(),
     teamsCount: teams.length,
     matchesCount: sortedMatches.length,
-  };
-  fileService.saveMetadata(metadata);
+  }
+  fileService.saveMetadata(metadata)
 
-  logger.info?.('=== Summary ===');
-  logger.info?.(`Total matches: ${sortedMatches.length}`);
-  logger.info?.(`Teams: ${teams.map((t) => t.name).join(', ')}`);
-  logger.info?.(`Saved to: ${fileService.getMatchesPath()}`);
-  logger.info?.(`Last updated: ${metadata.lastUpdated}`);
+  const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
+  logger.info?.('\n=== Summary ===')
+  logger.info?.(`Total matches: ${sortedMatches.length}`)
+  logger.info?.(`Teams: ${teams.map((t) => t.name).join(', ')}`)
+  logger.info?.(`Saved to: ${fileService.getMatchesPath()}`)
+  logger.info?.(`Time: ${elapsed}s`)
 }
 
 /**
@@ -167,10 +180,10 @@ function enhanceMatchesWithLinks(
   tournamentMap: Map<string, string>
 ): Match[] {
   return matches.map((row: RawMatchData) => {
-    const kampnr = String(row.Kampnr || '').trim();
-    const links = linkMap.get(kampnr);
-    const turneringNavn = String(row.Turnering || '').trim();
-    const turneringUrl = tournamentMap.get(turneringNavn) || '';
+    const kampnr = String(row.Kampnr || '').trim()
+    const links = linkMap.get(kampnr)
+    const turneringNavn = String(row.Turnering || '').trim()
+    const turneringUrl = tournamentMap.get(turneringNavn) || ''
 
     return {
       Lag: team.name,
@@ -188,40 +201,11 @@ function enhanceMatchesWithLinks(
       'Hjemmelag URL': links?.hjemmelagUrl || '',
       'Bortelag URL': links?.bortelagUrl || '',
       'Turnering URL': turneringUrl,
-    };
-  });
-}
-
-async function processTeamsWithConcurrency(
-  teams: Team[],
-  concurrency: number,
-  worker: (team: Team, index: number) => Promise<Match[]>
-): Promise<Match[][]> {
-  if (teams.length === 0) {
-    return [];
-  }
-
-  const results: Match[][] = new Array(teams.length);
-  let nextIndex = 0;
-
-  const runWorker = async () => {
-    while (true) {
-      const currentIndex = nextIndex++;
-      if (currentIndex >= teams.length) {
-        break;
-      }
-      const team = teams[currentIndex];
-      results[currentIndex] = await worker(team, currentIndex);
     }
-  };
-
-  const workerCount = Math.min(concurrency, teams.length);
-  await Promise.all(Array.from({ length: workerCount }, () => runWorker()));
-
-  return results;
+  })
 }
 
 // Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  fetchAllTeamsData();
+  fetchAllTeamsData()
 }
