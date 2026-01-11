@@ -118,6 +118,7 @@ export function TerminlistePage() {
               isNextMatch={nextMatch === match}
               hasMultipleTeams={hasMultipleTeams}
               getTeamColor={getTeamColor}
+              hasTable={!!getTableForTournament(match.Turnering || '')}
               onOpenTable={handleOpenTable}
             />
           ))}

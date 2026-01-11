@@ -7,6 +7,7 @@ interface MatchCardProps {
   isNextMatch: boolean
   hasMultipleTeams: boolean
   getTeamColor: (teamName?: string) => string
+  hasTable?: boolean
   onOpenTable?: (teamName: string, tournamentName: string) => void
 }
 
@@ -60,6 +61,7 @@ export function MatchCard({
   isNextMatch,
   hasMultipleTeams,
   getTeamColor,
+  hasTable = false,
   onOpenTable,
 }: MatchCardProps) {
   const isHome = isFjellhammerTeam(match.Hjemmelag)
@@ -143,26 +145,28 @@ export function MatchCard({
       </div>
 
       <div className="card-actions">
-        <button
-          type="button"
-          className="card-action card-action-table"
-          onClick={() => onOpenTable?.(match.Lag || '', match.Turnering || '')}
-        >
-          <svg
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
+        {hasTable && (
+          <button
+            type="button"
+            className="card-action card-action-table"
+            onClick={() => onOpenTable?.(match.Lag || '', match.Turnering || '')}
           >
-            <line x1="10" y1="6" x2="21" y2="6" />
-            <line x1="10" y1="12" x2="21" y2="12" />
-            <line x1="10" y1="18" x2="21" y2="18" />
-            <path d="M4 6h1v1H4zM4 11h1v2H4zM4 17h1v2H4z" fill="currentColor" />
-          </svg>
-          Tabell
-        </button>
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <line x1="10" y1="6" x2="21" y2="6" />
+              <line x1="10" y1="12" x2="21" y2="12" />
+              <line x1="10" y1="18" x2="21" y2="18" />
+              <path d="M4 6h1v1H4zM4 11h1v2H4zM4 17h1v2H4z" fill="currentColor" />
+            </svg>
+            Tabell
+          </button>
+        )}
         {match.Bane && (
           <a
             href={getMapsUrl(match.Bane)}
