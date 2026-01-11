@@ -2,7 +2,6 @@ import { useCallback, useEffect, useState, useMemo } from 'react'
 import { useLocation } from 'react-router-dom'
 import { Header } from '../components/Header'
 import { MatchCard } from '../components/MatchCard'
-import { MatchTable } from '../components/MatchTable'
 import { TableOverlay } from '../components/TableOverlay'
 import { type LeagueTable } from '../components/LeagueTableCard'
 import { useMatches } from '../hooks/useMatches'
@@ -33,13 +32,16 @@ export function TerminlistePage() {
   const teamNames = teams.map((t) => t.name)
 
   // Get table for a specific tournament
-  const getTableForTournament = useCallback((tournamentName: string): LeagueTable | undefined => {
-    // Match tournament name - tables have full name like "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026"
-    // Match data has short name like "Regionserien Gutter 15 - avd 42"
-    return tables.find((table) =>
-      table.tournamentName.toLowerCase().includes(tournamentName.toLowerCase())
-    )
-  }, [tables])
+  const getTableForTournament = useCallback(
+    (tournamentName: string): LeagueTable | undefined => {
+      // Match tournament name - tables have full name like "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026"
+      // Match data has short name like "Regionserien Gutter 15 - avd 42"
+      return tables.find((table) =>
+        table.tournamentName.toLowerCase().includes(tournamentName.toLowerCase())
+      )
+    },
+    [tables]
+  )
 
   const overlayTables = useMemo(() => {
     if (!overlayTournament) return []
@@ -57,8 +59,8 @@ export function TerminlistePage() {
 
   const scrollToNextMatch = useCallback(() => {
     // Try mobile card first, then desktop row
-    const element = document.getElementById('next-match-card')
-      ?? document.getElementById('next-match-row')
+    const element =
+      document.getElementById('next-match-card') ?? document.getElementById('next-match-row')
 
     if (element) {
       // Get header height to offset scroll
@@ -69,14 +71,15 @@ export function TerminlistePage() {
 
       window.scrollTo({
         top: offsetPosition,
-        behavior: 'smooth'
+        behavior: 'smooth',
       })
     }
   }, [])
 
   // Auto-scroll to next match on page load or when navigating with scrollToNext state
   useEffect(() => {
-    const shouldScroll = nextMatch && (location.state?.scrollToNext || !location.key || location.key === 'default')
+    const shouldScroll =
+      nextMatch && (location.state?.scrollToNext || !location.key || location.key === 'default')
     if (shouldScroll) {
       // Small delay to ensure DOM is rendered
       const timer = setTimeout(() => {
@@ -103,23 +106,11 @@ export function TerminlistePage() {
       />
       <div className="container">
         {formattedLastUpdated && (
-          <p className="last-updated">
-            Sist oppdatert: {formattedLastUpdated}
-          </p>
+          <p className="last-updated">Sist oppdatert: {formattedLastUpdated}</p>
         )}
 
-        {/* Desktop table view */}
-        <div className="desktop-view">
-          <MatchTable
-            matches={filteredMatches}
-            hasMultipleTeams={hasMultipleTeams}
-            getTeamColor={getTeamColor}
-            nextMatch={nextMatch}
-          />
-        </div>
-
-        {/* Mobile card view */}
-        <div className="mobile-view">
+        {/* Card grid - responsive for all screen sizes */}
+        <div className="match-grid">
           {filteredMatches.map((match) => (
             <MatchCard
               key={match.Kampnr}

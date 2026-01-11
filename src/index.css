@@ -521,12 +521,25 @@ a:hover {
 }
 
 /* ============================================
- * MATCH CARDS - Mobile
+ * MATCH CARDS - Responsive Grid
  * ============================================ */
-.mobile-view {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.match-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  padding: var(--ds-spacing-4) 0;
+}
+
+@media (min-width: 640px) {
+  .match-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .match-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 .match-card {
@@ -910,22 +923,7 @@ a.card-action-map:hover,
   border-radius: var(--ds-radius-lg, 8px);
 }
 
-/* ============================================
- * RESPONSIVE VIEWS
- * ============================================ */
-.desktop-view {
-  display: none;
-}
 
-@media (min-width: 769px) {
-  .desktop-view {
-    display: block;
-  }
-
-  .mobile-view {
-    display: none;
-  }
-}
 
 /* ============================================
  * STATISTIKK PAGE
