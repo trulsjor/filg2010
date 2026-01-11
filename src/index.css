@@ -736,13 +736,26 @@ a:hover {
   margin-bottom: 4px;
 }
 
-.card-teams > span:not(.card-teams-separator),
-.card-teams > a {
+.card-team-name {
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-team-home {
+  text-align: right;
+}
+
+.card-team-away {
+  text-align: left;
 }
 
 .card-teams > .card-teams-separator {
   flex-shrink: 0;
+  width: 24px;
+  text-align: center;
 }
 
 .card-teams span:nth-child(2) {

@@ -33,9 +33,10 @@ interface TeamNameProps {
   isOurs: boolean
   showDot: boolean
   dotColor: string
+  position: 'home' | 'away'
 }
 
-function TeamName({ name, url, isOurs, showDot, dotColor }: TeamNameProps) {
+function TeamName({ name, url, isOurs, showDot, dotColor, position }: TeamNameProps) {
   const content = (
     <>
       {showDot && <span className="card-team-dot" style={{ backgroundColor: dotColor }} />}
@@ -43,17 +44,19 @@ function TeamName({ name, url, isOurs, showDot, dotColor }: TeamNameProps) {
     </>
   )
 
-  const className = isOurs ? 'card-team-name card-team-ours' : undefined
+  const classNames = ['card-team-name', isOurs ? 'card-team-ours' : '', `card-team-${position}`]
+    .filter(Boolean)
+    .join(' ')
 
   if (url) {
     return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className={className}>
+      <a href={url} target="_blank" rel="noopener noreferrer" className={classNames}>
         {content}
       </a>
     )
   }
 
-  return <span className={className}>{content}</span>
+  return <span className={classNames}>{content}</span>
 }
 
 export function MatchCard({
@@ -127,12 +130,14 @@ export function MatchCard({
               isOurs={isHome}
               showDot={isHome && hasMultipleTeams}
               dotColor={teamDotColor}
+              position="home"
             />
             <span className="card-teams-separator">-</span>
             <TeamName
               name={match.Bortelag}
               url={match['Bortelag URL']}
               isOurs={isAway}
+              position="away"
               showDot={isAway && hasMultipleTeams}
               dotColor={teamDotColor}
             />
