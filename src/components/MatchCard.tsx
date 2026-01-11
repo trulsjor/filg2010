@@ -91,6 +91,8 @@ export function MatchCard({
   }
 
   const result = getMatchResult()
+  const resultEmoji =
+    result === 'win' ? '✅' : result === 'draw' ? '🟡' : result === 'loss' ? '❌' : null
   const classNames = [
     'match-card',
     result === 'win' ? 'win-card' : '',
@@ -142,7 +144,10 @@ export function MatchCard({
               dotColor={teamDotColor}
             />
           </div>
-          <div className="card-score">{hasResult ? match['H-B'] : '-'}</div>
+          <div className="card-score">
+            {resultEmoji && <span className="card-result-emoji">{resultEmoji}</span>}
+            {hasResult ? match['H-B'] : '-'}
+          </div>
           {match.Bane && <div className="card-venue">{match.Bane}</div>}
           {match.Tilskuere && <div className="card-spectators">{match.Tilskuere} tilskuere</div>}
         </div>
