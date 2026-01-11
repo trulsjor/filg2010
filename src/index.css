@@ -560,20 +560,7 @@ a:hover {
   animation: pulse-glow 2s ease-in-out 3;
 }
 
-#next-match-card::before {
-  content: '⚡ NESTE KAMP';
-  position: absolute;
-  top: 0;
-  right: 0;
-  background: linear-gradient(135deg, var(--ds-color-accent-base), var(--ds-color-accent-hover));
-  color: var(--ds-color-text-on-accent);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 4px 10px;
-  border-radius: 0 6px 0 8px;
-  box-shadow: var(--ds-shadow-md);
-}
+
 
 /* Card header - simple top row */
 .card-header {

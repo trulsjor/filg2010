@@ -49,12 +49,12 @@ export function Countdown({ date, time }: CountdownProps) {
   }, [date, time])
 
   if (timeLeft.total <= 0) {
-    return <div className="countdown countdown-live">Kampen pågår!</div>
+    return <div className="countdown countdown-live">⚡ Kampen pågår!</div>
   }
 
   return (
     <div className="countdown">
-      <span className="countdown-prefix">Neste kamp om</span>
+      <span className="countdown-prefix">⚡ Neste kamp om</span>
       {timeLeft.days > 0 && (
         <div className="countdown-unit">
           <span className="countdown-value">{timeLeft.days}</span>
