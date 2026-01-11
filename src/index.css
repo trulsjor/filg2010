@@ -569,8 +569,6 @@ a:hover {
 /* Next match card - enhanced visibility */
 #next-match-card {
   border: 2px solid var(--ds-color-accent-base);
-  position: relative;
-  animation: pulse-glow 2s ease-in-out 3;
 }
 
 
@@ -600,6 +598,7 @@ a:hover {
   border-radius: 8px;
   font-variant-numeric: tabular-nums;
   margin: 0 var(--ds-spacing-4) var(--ds-spacing-3);
+  transform: rotate(-2deg);
 }
 
 .countdown-unit {
@@ -727,8 +726,6 @@ a:hover {
 .card-teams {
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 0;
   font-size: 13px;
   font-weight: 600;
   color: var(--ds-color-text-default);
@@ -739,23 +736,25 @@ a:hover {
 .card-team-name {
   flex: 1;
   min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .card-team-home {
-  text-align: right;
+  justify-content: flex-end;
 }
 
 .card-team-away {
-  text-align: left;
+  justify-content: flex-start;
 }
 
-.card-teams > .card-teams-separator {
+.card-teams-separator {
   flex-shrink: 0;
-  width: 24px;
-  text-align: center;
+  padding: 0 8px;
+  color: var(--ds-color-text-default);
+  font-weight: 700;
+  font-size: 15px;
 }
 
 .card-teams span:nth-child(2) {
