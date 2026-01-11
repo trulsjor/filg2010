@@ -5,7 +5,7 @@ describe('ThemeRegistry', () => {
   it('exports all themes', () => {
     expect(themes['fjellhammer-dark']).toBeDefined()
     expect(themes['fjellhammer-light']).toBeDefined()
-    expect(themes['material']).toBeDefined()
+    expect(themes['nhf']).toBeDefined()
   })
 
   it('has correct default theme id', () => {
