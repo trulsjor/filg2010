@@ -1,6 +1,15 @@
-import type { Theme, ThemeColors, ThemeTypography, ThemeBorders, ThemeShadows, ThemeSpacing, ThemeNavbar } from './ThemeDefinitions'
+import type {
+  Theme,
+  ThemeColors,
+  ThemeTypography,
+  ThemeBorders,
+  ThemeShadows,
+  ThemeSpacing,
+  ThemeNavbar,
+} from './ThemeDefinitions'
 
-const fjellhammerILFonts = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+const fjellhammerILFonts =
+  "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
 
 const fjellhammerILTypography: ThemeTypography = {
   fontFamily: fjellhammerILFonts,
@@ -98,20 +107,20 @@ const fjellhammerILColors: ThemeColors = {
   focusRing: '#00a651',
 
   // Palette - grønn gradient fra fjellhammer.no
-  'palette-1': '#00c462',  // Fjellhammer grønn (lys)
-  'palette-2': '#2d6a4f',  // Mørk skogsgrønn
-  'palette-3': '#40916c',  // Medium grønn
-  'palette-4': '#ffc107',  // Gul (som på nettsiden)
-  'palette-5': '#52b788',  // Frisk grønn
-  'palette-6': '#74c69d',  // Lys grønn
-  'palette-7': '#95d5b2',  // Mint grønn
-  'palette-8': '#34d399',  // Emerald
-  'palette-9': '#9ca3af',  // Grå
+  'palette-1': '#00c462', // Fjellhammer grønn (lys)
+  'palette-2': '#2d6a4f', // Mørk skogsgrønn
+  'palette-3': '#40916c', // Medium grønn
+  'palette-4': '#ffc107', // Gul (som på nettsiden)
+  'palette-5': '#52b788', // Frisk grønn
+  'palette-6': '#74c69d', // Lys grønn
+  'palette-7': '#95d5b2', // Mint grønn
+  'palette-8': '#34d399', // Emerald
+  'palette-9': '#9ca3af', // Grå
 }
 
 export const fjellhammerILTheme: Theme = {
-  id: 'fjellhammer-il',
-  name: 'Fjellhammer IL',
+  id: 'fjellhammer-dark',
+  name: 'Fjellhammer Mørk',
   colorScheme: 'dark',
   colors: fjellhammerILColors,
   typography: fjellhammerILTypography,

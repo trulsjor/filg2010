@@ -1,4 +1,7 @@
 import type { Theme } from './ThemeDefinitions'
+import { fjellhammerILTheme } from './fjellhammer-il'
+import { fjellhammerMaterialLightTheme } from './fjellhammer-material'
+import { materialTheme } from './material'
 
 export type {
   Theme,
@@ -11,13 +14,6 @@ export type {
 } from './ThemeDefinitions'
 export { applyTheme, camelToKebab } from './ThemeDefinitions'
 
-import { fjellhammerDarkTheme, fjellhammerLightTheme } from './fjellhammer'
-import { fjellhammerILTheme } from './fjellhammer-il'
-import { fjellhammerMaterialLightTheme, fjellhammerMaterialDarkTheme } from './fjellhammer-material'
-import { showcaseTheme } from './showcase'
-import { elevatedTheme } from './elevated'
-import { materialTheme } from './material'
-
 /**
  * THEME REGISTRY - Single source of truth for all themes
  *
@@ -29,20 +25,15 @@ import { materialTheme } from './material'
  * That's it! ThemeId type is auto-generated from this object's keys.
  */
 export const themes = {
-  'fjellhammer-dark': fjellhammerDarkTheme,
-  'fjellhammer-light': fjellhammerLightTheme,
-  'fjellhammer-il': fjellhammerILTheme,
-  'fjellhammer-material-light': fjellhammerMaterialLightTheme,
-  'fjellhammer-material-dark': fjellhammerMaterialDarkTheme,
-  showcase: showcaseTheme,
-  elevated: elevatedTheme,
+  'fjellhammer-dark': fjellhammerILTheme,
+  'fjellhammer-light': fjellhammerMaterialLightTheme,
   material: materialTheme,
 } as const satisfies Record<string, Theme>
 
 // ThemeId is automatically derived from the themes object keys
 export type ThemeId = keyof typeof themes
 
-export const DEFAULT_THEME_ID: ThemeId = 'fjellhammer-il'
+export const DEFAULT_THEME_ID: ThemeId = 'fjellhammer-dark'
 
 export function getTheme(id: ThemeId): Theme {
   return themes[id]

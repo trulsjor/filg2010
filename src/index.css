@@ -14,6 +14,26 @@
   0% { stroke-dasharray: 0, 100; }
 }
 
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--ds-color-accent-base); }
+  50% { box-shadow: 0 0 12px 4px var(--ds-color-accent-base); }
+}
+
+@keyframes slide-in-up {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes bounce-subtle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-2px); }
+}
+
 /* ============================================
  * SEMANTIC TOKENS
  * ============================================ */
@@ -515,6 +535,12 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  animation: slide-in-up 0.3s ease-out;
+}
+
+.match-card:active {
+  transform: scale(0.98);
 }
 
 /* Result styling - keep card neutral */
@@ -524,24 +550,26 @@ a:hover {
   background: var(--ds-color-surface-default);
 }
 
-/* Next match card */
+/* Next match card - enhanced visibility */
 #next-match-card {
   border: 2px solid var(--ds-color-accent-base);
   position: relative;
+  animation: pulse-glow 2s ease-in-out 3;
 }
 
 #next-match-card::before {
-  content: 'NESTE KAMP';
+  content: '⚡ NESTE KAMP';
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--ds-color-accent-base);
+  background: linear-gradient(135deg, var(--ds-color-accent-base), var(--ds-color-accent-hover));
   color: var(--ds-color-text-on-accent);
-  font-size: 9px;
+  font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.05em;
-  padding: 2px 8px;
-  border-radius: 0 2px 0 2px;
+  padding: 4px 10px;
+  border-radius: 0 6px 0 8px;
+  box-shadow: var(--ds-shadow-md);
 }
 
 /* Card header - simple top row */

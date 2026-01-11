@@ -42,14 +42,14 @@ describe('ThemeContext', () => {
       })
     })
 
-    it('defaults to fjellhammer-il theme', async () => {
+    it('defaults to fjellhammer-dark theme', async () => {
       const { result } = renderHook(() => useTheme(), {
         wrapper: ThemeProvider,
       })
 
       await waitFor(() => {
-        expect(result.current.themeId).toBe('fjellhammer-il')
-        expect(result.current.theme.name).toBe('Fjellhammer IL')
+        expect(result.current.themeId).toBe('fjellhammer-dark')
+        expect(result.current.theme.name).toBe('Fjellhammer Mørk')
       })
     })
 
@@ -59,7 +59,7 @@ describe('ThemeContext', () => {
       })
 
       await waitFor(() => {
-        expect(document.documentElement.getAttribute('data-theme')).toBe('fjellhammer-il')
+        expect(document.documentElement.getAttribute('data-theme')).toBe('fjellhammer-dark')
         expect(document.documentElement.getAttribute('data-color-scheme')).toBe('dark')
       })
     })
