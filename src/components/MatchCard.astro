@@ -16,6 +16,14 @@ const { match, isNextMatch, hasMultipleTeams, getTeamColor } = Astro.props;
 const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer');
 const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-';
 
+// Get weekday from date string (format: "DD.MM.YYYY")
+const getWeekday = (dateStr: string): string => {
+  const [day, month, year] = dateStr.split('.').map(Number);
+  const date = new Date(year, month - 1, day);
+  return date.toLocaleDateString('nb-NO', { weekday: 'short' });
+};
+const weekday = getWeekday(match.Dato);
+
 // Check if Fjellhammer won the match
 const isFjellhammerWin = (): boolean => {
   const score = match['H-B'];
@@ -43,7 +51,7 @@ const isFjellhammerWin = (): boolean => {
 >
   <div class="card-header">
     <div class="card-date-time">
-      <span class="card-date">{match.Dato}</span>
+      <span class="card-date">{weekday} {match.Dato}</span>
       <span class="card-time">{match.Tid}</span>
     </div>
     {hasMultipleTeams && (

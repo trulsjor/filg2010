@@ -14,6 +14,17 @@ interface MatchCardProps {
 const isFjellhammerTeam = (teamName?: string): boolean =>
   teamName?.toLowerCase().includes('fjellhammer') ?? false
 
+const getWeekday = (dateStr: string): string => {
+  if (!dateStr || !dateStr.includes('.')) return ''
+  const parts = dateStr.split('.')
+  if (parts.length !== 3) return ''
+  const [day, month, year] = parts.map(Number)
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return ''
+  const date = new Date(year, month - 1, day)
+  if (isNaN(date.getTime())) return ''
+  return date.toLocaleDateString('nb-NO', { weekday: 'short' })
+}
+
 const isValidScore = (score?: string): boolean => !!score && score.trim() !== '' && score !== '-'
 
 const parseScore = (score: string): { home: number; away: number } | null => {
@@ -113,7 +124,9 @@ export function MatchCard({
     >
       <div className="card-header">
         <div className="card-date-time">
-          <span className="card-date">{match.Dato}</span>
+          <span className="card-date">
+            {getWeekday(match.Dato)} {match.Dato}
+          </span>
           <span className="card-time">{match.Tid}</span>
         </div>
         {match.Turnering && <span className="card-tournament-name">{match.Turnering}</span>}
