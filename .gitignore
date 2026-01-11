@@ -27,5 +27,8 @@ test-results/
 playwright-report/
 playwright/.cache/
 *.bak
-*.png
 .vite/
+
+# Ignore screenshots but not app icons
+*.png
+!public/*.png
