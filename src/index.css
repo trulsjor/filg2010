@@ -1866,3 +1866,74 @@ a.card-action-map:hover,
 .table-overlay-body .table-card {
   margin: 0;
 }
+
+/* ============================================
+ * INSTALL PROMPT (PWA)
+ * ============================================ */
+.install-prompt {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: var(--ds-spacing-3);
+  background: var(--ds-color-surface-raised);
+  border-top: 1px solid var(--ds-color-border-default);
+  box-shadow: var(--ds-shadow-lg);
+}
+
+.install-prompt-content {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-spacing-3);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.install-prompt-icon {
+  font-size: 24px;
+  flex-shrink: 0;
+}
+
+.install-prompt-content p {
+  margin: 0;
+  flex: 1;
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-text-default);
+}
+
+.install-prompt-share {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  color: var(--ds-color-accent-base);
+}
+
+.install-prompt-btn {
+  padding: var(--ds-spacing-2) var(--ds-spacing-4);
+  background: var(--ds-color-accent-base);
+  color: var(--ds-color-text-on-accent);
+  border: none;
+  border-radius: var(--ds-radius-md);
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.install-prompt-btn:hover {
+  background: var(--ds-color-accent-hover);
+}
+
+.install-prompt-close {
+  padding: var(--ds-spacing-2);
+  background: transparent;
+  border: none;
+  color: var(--ds-color-text-muted);
+  cursor: pointer;
+  font-size: 18px;
+  line-height: 1;
+}
+
+.install-prompt-close:hover {
+  color: var(--ds-color-text-default);
+}
