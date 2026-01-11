@@ -183,7 +183,7 @@ a:hover {
   align-items: center;
   gap: var(--ds-spacing-2);
   padding: var(--ds-spacing-2) var(--ds-spacing-3);
-  border-radius: 2px;
+  border-radius: 8px;
   font-size: var(--ds-font-size-xs);
   font-weight: 600;
   text-decoration: none;
@@ -239,7 +239,7 @@ a:hover {
     width: 100%;
     justify-content: flex-start;
     margin-top: var(--ds-spacing-2);
-    gap: var(--ds-spacing-1);
+    gap: var(--ds-spacing-2);
   }
 
   .header-buttons .next-match-btn {
@@ -267,8 +267,11 @@ a:hover {
 
   .header-buttons button,
   .header-buttons a {
-    padding: var(--ds-spacing-2);
-    font-size: 0.7rem;
+    min-height: 44px;
+    min-width: 44px;
+    padding: var(--ds-spacing-3) var(--ds-spacing-4);
+    font-size: var(--ds-font-size-xs);
+    justify-content: center;
   }
 
   .theme-selector .theme-name,
