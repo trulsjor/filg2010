@@ -37,26 +37,25 @@ interface TeamNameProps {
 }
 
 function TeamName({ name, url, isOurs, showDot, dotColor, position }: TeamNameProps) {
-  const content = (
-    <>
-      {showDot && <span className="card-team-dot" style={{ backgroundColor: dotColor }} />}
-      {name}
-    </>
-  )
-
   const classNames = ['card-team-name', isOurs ? 'card-team-ours' : '', `card-team-${position}`]
     .filter(Boolean)
     .join(' ')
 
-  if (url) {
-    return (
-      <a href={url} target="_blank" rel="noopener noreferrer" className={classNames}>
-        {content}
-      </a>
-    )
-  }
+  const nameElement = url ? (
+    <a href={url} target="_blank" rel="noopener noreferrer" className="card-team-text">
+      {name}
+    </a>
+  ) : (
+    <span className="card-team-text">{name}</span>
+  )
 
-  return <span className={classNames}>{content}</span>
+  return (
+    <span className={classNames}>
+      {position === 'home' && nameElement}
+      {showDot && <span className="card-team-dot" style={{ backgroundColor: dotColor }} />}
+      {position === 'away' && nameElement}
+    </span>
+  )
 }
 
 export function MatchCard({
@@ -92,7 +91,7 @@ export function MatchCard({
 
   const result = getMatchResult()
   const resultEmoji =
-    result === 'win' ? '✅' : result === 'draw' ? '🟡' : result === 'loss' ? '❌' : null
+    result === 'win' ? '✅' : result === 'draw' ? '⚖️' : result === 'loss' ? '❌' : null
   const classNames = [
     'match-card',
     result === 'win' ? 'win-card' : '',
@@ -123,7 +122,6 @@ export function MatchCard({
       {isNextMatch && !hasResult && <Countdown date={match.Dato} time={match.Tid} />}
 
       <div className="card-match">
-        {isHome && <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-home" />}
         <div className="card-match-content">
           <div className="card-teams">
             <TeamName
@@ -144,14 +142,11 @@ export function MatchCard({
               dotColor={teamDotColor}
             />
           </div>
-          <div className="card-score">
-            {resultEmoji && <span className="card-result-emoji">{resultEmoji}</span>}
-            {hasResult ? match['H-B'] : '-'}
-          </div>
+          <div className="card-score">{hasResult ? match['H-B'] : '-'}</div>
           {match.Bane && <div className="card-venue">{match.Bane}</div>}
           {match.Tilskuere && <div className="card-spectators">{match.Tilskuere} tilskuere</div>}
         </div>
-        {!isHome && <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-away" />}
+        {resultEmoji && <span className="card-result-watermark">{resultEmoji}</span>}
       </div>
 
       <div className="card-actions">

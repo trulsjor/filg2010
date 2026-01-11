@@ -741,11 +741,13 @@ a:hover {
 }
 
 .card-team-home {
-  justify-content: flex-end;
+  flex-direction: row-reverse;
 }
 
-.card-team-away {
-  justify-content: flex-start;
+.card-team-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .card-teams-separator {
@@ -772,10 +774,6 @@ a:hover {
 }
 
 .card-score {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
   font-size: 28px;
   font-weight: 800;
   color: var(--ds-color-text-default);
@@ -784,8 +782,15 @@ a:hover {
   margin: 6px 0;
 }
 
-.card-result-emoji {
-  font-size: 20px;
+.card-result-watermark {
+  position: absolute;
+  font-size: 80px;
+  opacity: 0.3;
+  transform: rotate(-15deg);
+  right: 10px;
+  bottom: 0;
+  z-index: 0;
+  pointer-events: none;
 }
 
 .card-venue {
