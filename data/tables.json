@@ -70,7 +70,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2025-12-22T09:45:14.892Z"
+    "updatedAt": "2026-01-11T14:43:29.751Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -176,7 +176,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2025-12-22T09:45:23.120Z"
+    "updatedAt": "2026-01-11T14:43:38.480Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2025-12-22T09:45:31.487Z"
+    "updatedAt": "2026-01-11T14:43:55.245Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -301,28 +301,83 @@
     "rows": [
       {
         "position": 1,
-        "team": "Sinsen-Refstad Idrettslag 2",
-        "played": 0,
-        "won": 0,
+        "team": "Korsvoll 2",
+        "played": 1,
+        "won": 1,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
+        "goalsFor": 35,
+        "goalsAgainst": 32,
+        "points": 2
       },
       {
         "position": 2,
-        "team": "Nordstrand\n (D)",
-        "played": 0,
+        "team": "Fjellhammer 2",
+        "played": 1,
         "won": 0,
-        "drawn": 0,
+        "drawn": 1,
         "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
+        "goalsFor": 27,
+        "goalsAgainst": 27,
+        "points": 1
       },
       {
         "position": 3,
+        "team": "Drøbak/Nordby",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 27,
+        "goalsAgainst": 27,
+        "points": 1
+      },
+      {
+        "position": 4,
+        "team": "Sinsen-Refstad Idrettslag 2",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 23,
+        "goalsAgainst": 23,
+        "points": 1
+      },
+      {
+        "position": 5,
+        "team": "Nordstrand\n (D)",
+        "played": 2,
+        "won": 0,
+        "drawn": 1,
+        "lost": 1,
+        "goalsFor": 55,
+        "goalsAgainst": 58,
+        "points": 1
+      },
+      {
+        "position": 6,
+        "team": "Oppegård 2",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 22,
+        "goalsAgainst": 22,
+        "points": 1
+      },
+      {
+        "position": 7,
+        "team": "Bøler/Oppsal 2\n (D)",
+        "played": 1,
+        "won": 0,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 22,
+        "goalsAgainst": 22,
+        "points": 1
+      },
+      {
+        "position": 8,
         "team": "Kjelsås 2",
         "played": 0,
         "won": 0,
@@ -333,63 +388,8 @@
         "points": 0
       },
       {
-        "position": 4,
-        "team": "Oppegård 2",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
-        "position": 5,
-        "team": "Fjellhammer 2",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
-        "position": 6,
-        "team": "Drøbak/Nordby",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
-        "position": 7,
-        "team": "Bøler/Oppsal 2\n (D)",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
-        "position": 8,
-        "team": "Haslum 2",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
         "position": 9,
-        "team": "Korsvoll 2",
+        "team": "Haslum 2",
         "played": 0,
         "won": 0,
         "drawn": 0,
@@ -399,6 +399,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2025-12-22T09:45:40.218Z"
+    "updatedAt": "2026-01-11T14:44:04.378Z"
   }
 ]
