@@ -1,7 +1,7 @@
 import type { Theme } from './ThemeDefinitions'
 import { fjellhammerILTheme } from './fjellhammer-il'
 import { fjellhammerMaterialLightTheme } from './fjellhammer-material'
-import { materialTheme } from './material'
+import { handballTheme } from './handball'
 
 export type {
   Theme,
@@ -27,7 +27,7 @@ export { applyTheme, camelToKebab } from './ThemeDefinitions'
 export const themes = {
   'fjellhammer-dark': fjellhammerILTheme,
   'fjellhammer-light': fjellhammerMaterialLightTheme,
-  material: materialTheme,
+  nhf: handballTheme,
 } as const satisfies Record<string, Theme>
 
 // ThemeId is automatically derived from the themes object keys
