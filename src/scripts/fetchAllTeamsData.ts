@@ -207,5 +207,5 @@ function enhanceMatchesWithLinks(
 
 // Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
-  fetchAllTeamsData()
+  fetchAllTeamsData().then(() => process.exit(0))
 }
