@@ -1,22 +1,12 @@
-import { createContext, useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
-  type Theme,
   type ThemeId,
-  type ColorScheme,
   getTheme,
   applyTheme,
   DEFAULT_THEME_ID,
   themes,
 } from '../themes/ThemeRegistry'
-
-interface ThemeContextType {
-  themeId: ThemeId
-  theme: Theme
-  colorScheme: ColorScheme
-  setThemeId: (id: ThemeId) => void
-}
-
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined)
+import { ThemeContext } from '../hooks/useTheme'
 
 function isValidThemeId(id: string): id is ThemeId {
   return id in themes
@@ -57,12 +47,4 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
       {children}
     </ThemeContext.Provider>
   )
-}
-
-export function useTheme() {
-  const context = useContext(ThemeContext)
-  if (context === undefined) {
-    throw new Error('useTheme must be used within a ThemeProvider')
-  }
-  return context
 }

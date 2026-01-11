@@ -46,7 +46,7 @@ export function Countdown({ date, time }: CountdownProps) {
     }, 1000)
 
     return () => clearInterval(timer)
-  }, [date, time])
+  }, [targetDate])
 
   if (timeLeft.total <= 0) {
     return <div className="countdown countdown-live">⚡ Kampen pågår!</div>
