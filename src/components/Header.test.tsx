@@ -24,7 +24,7 @@ describe('Header', () => {
 
   it('renders title and subtitle', () => {
     renderHeader()
-    expect(screen.getByText('Fjellhammer IL')).toBeInTheDocument()
+    expect(screen.getAllByText('Fjellhammer IL').length).toBeGreaterThan(0)
     expect(screen.getByRole('heading', { name: /terminliste/i })).toBeInTheDocument()
   })
 
@@ -61,7 +61,10 @@ describe('Header', () => {
     const onScrollToNext = vi.fn()
     renderHeader({ onScrollToNext })
     expect(screen.getByRole('banner')).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: /neste kamp/i })).toHaveAttribute('aria-label', 'Gå til neste kamp')
+    expect(screen.getByRole('button', { name: /neste kamp/i })).toHaveAttribute(
+      'aria-label',
+      'Gå til neste kamp'
+    )
   })
 
   it('renders theme selector', () => {

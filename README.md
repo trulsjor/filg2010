@@ -1,6 +1,6 @@
 # Terminliste - Fjellhammer Håndball
 
-En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag (både lag 1 og lag 2). Dataene hentes automatisk fra handball.no API og vises i en responsiv tabell med klikkbare lenker.
+En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag (G15 1, G15 2 og G16 3). Dataene hentes automatisk fra handball.no API og vises i en responsiv tabell med klikkbare lenker.
 
 ## ✨ Hovedfunksjoner
 
@@ -37,16 +37,22 @@ Lag-konfigurasjonen ligger i `config.json`:
 {
   "teams": [
     {
-      "name": "Fjellhammer",
+      "name": "Fjellhammer G15 1",
       "lagid": "531500",
       "seasonId": "201060",
       "color": "#fbbf24"
     },
     {
-      "name": "Fjellhammer 2",
+      "name": "Fjellhammer G15 2",
       "lagid": "812498",
       "seasonId": "201060",
       "color": "#059669"
+    },
+    {
+      "name": "Fjellhammer G16 3",
+      "lagid": "583470",
+      "seasonId": "201060",
+      "color": "#9B0098FF"
     }
   ]
 }

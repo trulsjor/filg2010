@@ -8,14 +8,13 @@ describe('ThemeRegistry', () => {
     expect(themes['fjellhammer-il']).toBeDefined()
     expect(themes['fjellhammer-material-light']).toBeDefined()
     expect(themes['fjellhammer-material-dark']).toBeDefined()
-    expect(themes['forest']).toBeDefined()
     expect(themes['showcase']).toBeDefined()
     expect(themes['elevated']).toBeDefined()
     expect(themes['material']).toBeDefined()
   })
 
   it('has correct default theme id', () => {
-    expect(DEFAULT_THEME_ID).toBe('fjellhammer-dark')
+    expect(DEFAULT_THEME_ID).toBe('fjellhammer-il')
   })
 
   describe('getTheme', () => {
@@ -36,7 +35,7 @@ describe('ThemeRegistry', () => {
     it('returns array of theme options', () => {
       const options = getThemeOptions()
       expect(Array.isArray(options)).toBe(true)
-      expect(options.length).toBe(9)
+      expect(options.length).toBe(8)
     })
 
     it('each option has value and label', () => {

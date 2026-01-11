@@ -1,5 +1,3 @@
-export type ThemeId = 'fjellhammer-dark' | 'fjellhammer-light' | 'fjellhammer-il' | 'fjellhammer-material-light' | 'fjellhammer-material-dark' | 'forest' | 'showcase' | 'elevated' | 'material'
-
 export type ColorScheme = 'light' | 'dark'
 
 export interface ThemeColors {
@@ -103,7 +101,7 @@ export interface ThemeNavbar {
 }
 
 export interface Theme {
-  id: ThemeId
+  id: string
   name: string
   colorScheme: ColorScheme
   colors: ThemeColors

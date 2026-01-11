@@ -1,16 +1,22 @@
 {
   "teams": [
     {
-      "name": "Fjellhammer",
+      "name": "Fjellhammer G15 1",
       "lagid": "531500",
       "seasonId": "201060",
       "color": "#fbbf24"
     },
     {
-      "name": "Fjellhammer 2",
+      "name": "Fjellhammer G15 2",
       "lagid": "812498",
       "seasonId": "201060",
       "color": "#059669"
+    },
+    {
+      "name": "Fjellhammer G16 3",
+      "lagid": "583470",
+      "seasonId": "201060",
+      "color": "#9B0098FF"
     }
   ]
 }

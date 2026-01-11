@@ -13,11 +13,20 @@
     "test:unit": "vitest run",
     "test:watch": "vitest",
     "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "refresh": "npx tsx src/scripts/fetchAllTeamsData.ts",
     "update-results": "npx tsx src/scripts/updateResults.ts",
     "update-results:http": "npx tsx src/scripts/updateResultsHttp.ts",
     "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
-    "fetch-tables:http": "npx tsx src/scripts/fetchTablesHttp.ts"
+    "fetch-tables:http": "npx tsx src/scripts/fetchTablesHttp.ts",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   },
   "dependencies": {
     "react": "^19.0.0",
@@ -35,10 +44,14 @@
     "@types/react-dom": "^19.0.2",
     "@vitejs/plugin-react": "^4.3.4",
     "eslint": "^9.17.0",
+    "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-react-hooks": "^5.1.0",
     "eslint-plugin-react-refresh": "^0.4.16",
     "globals": "^15.14.0",
+    "husky": "^9.1.7",
     "jsdom": "^26.0.0",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.7.4",
     "tailwindcss": "^4.0.0",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",

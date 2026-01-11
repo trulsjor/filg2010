@@ -30,11 +30,24 @@ export function TabellPage() {
 
     tables.forEach((table) => {
       // Find which team is in this table - check longest names first
-      const teamInTable = sortedTeams.find((team) =>
-        table.rows.some((row) =>
-          row.team.toLowerCase().includes(team.name.toLowerCase())
-        )
-      )
+      // Match by extracting base name (e.g., "Fjellhammer" from "Fjellhammer G15 1")
+      const teamInTable = sortedTeams.find((team) => {
+        const baseName = team.name.split(' ')[0].toLowerCase()
+        const teamNumber = team.name.match(/\d+$/)?.[0] // Get trailing number like "1" or "2"
+        return table.rows.some((row) => {
+          const rowTeam = row.team.toLowerCase()
+          // Match "Fjellhammer" or "Fjellhammer 2" style names
+          if (teamNumber === '1' || !teamNumber) {
+            // For team 1, match exact base name without number suffix
+            return (
+              rowTeam === baseName || (rowTeam.startsWith(baseName + ' ') && !rowTeam.match(/\d/))
+            )
+          } else {
+            // For team 2, 3, etc., match base name with that number
+            return rowTeam.includes(baseName) && rowTeam.includes(teamNumber)
+          }
+        })
+      })
       if (teamInTable) {
         grouped[teamInTable.name].push(table)
       }
@@ -55,7 +68,14 @@ export function TabellPage() {
         {/* Page Title */}
         <div className="stats-page-header">
           <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Tilbake
@@ -74,7 +94,11 @@ export function TabellPage() {
               if (!teamTables || teamTables.length === 0) return null
 
               return (
-                <div key={team.name} className="team-tables-group" id={`tabell-${team.name.toLowerCase().replace(/\s+/g, '-')}`}>
+                <div
+                  key={team.name}
+                  className="team-tables-group"
+                  id={`tabell-${team.name.toLowerCase().replace(/\s+/g, '-')}`}
+                >
                   <div className="team-tables-header">
                     <span
                       className="team-color-indicator"
