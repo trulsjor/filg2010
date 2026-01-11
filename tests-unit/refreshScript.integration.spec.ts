@@ -14,8 +14,8 @@ describe('npm run refresh integration', () => {
 
       expect(result.timedOut).toBe(false)
       expect(result.exitCode).toBe(0)
-      expect(result.stdout).toContain('Summary')
-      expect(result.stdout).toContain('Total matches:')
+      expect(result.stdout).toContain('Done')
+      expect(result.stdout).toContain('Matches:')
     },
     TIMEOUT_MS + 5000
   )

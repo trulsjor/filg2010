@@ -1,11 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { updateResults } from './updateResults'
 import type { Match } from '../types/index.js'
-import type { FileService } from '../services/file.service.js'
-import type { ResultScraperService, MatchResult } from '../services/result-scraper.service.js'
+import type { MatchResult } from '../services/result-scraper.service.js'
 
-type MockFileService = Pick<FileService, 'loadMatches' | 'saveMatches' | 'saveMetadata'>
-type MockScraperService = Pick<ResultScraperService, 'fetchMultipleResults'>
+interface MockFileService {
+  loadMatches: () => Match[]
+  saveMatches: ReturnType<typeof vi.fn>
+  saveMetadata: ReturnType<typeof vi.fn>
+}
+
+interface MockScraperService {
+  fetchMultipleResults: ReturnType<typeof vi.fn>
+}
 
 const createMockMatch = (overrides: Partial<Match> = {}): Match => ({
   Dato: '01.01.2025',

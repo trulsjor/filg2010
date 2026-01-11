@@ -1,41 +1,60 @@
 /**
  * Service for scraping league tables from handball.no
+ * Optimized to reuse browser instance across multiple tables
  */
 
-import { chromium, type Page } from 'playwright';
+import { chromium, type Browser, type Page } from 'playwright'
 
 export interface TableRow {
-  position: number;
-  team: string;
-  played: number;
-  won: number;
-  drawn: number;
-  lost: number;
-  goalsFor: number;
-  goalsAgainst: number;
-  points: number;
+  position: number
+  team: string
+  played: number
+  won: number
+  drawn: number
+  lost: number
+  goalsFor: number
+  goalsAgainst: number
+  points: number
 }
 
 export interface LeagueTable {
-  tournamentName: string;
-  tournamentUrl: string;
-  rows: TableRow[];
-  updatedAt: string;
+  tournamentName: string
+  tournamentUrl: string
+  rows: TableRow[]
+  updatedAt: string
 }
 
-const COOKIE_ACCEPT_TEXT = 'AKSEPTER';
-const COOKIE_TIMEOUT = 3000;
+const COOKIE_ACCEPT_TEXT = 'AKSEPTER'
+const COOKIE_TIMEOUT = 3000
 
 export class TableScraperService {
+  private browser: Browser | null = null
+  private cookieHandled = false
+
+  private async getBrowser(): Promise<Browser> {
+    if (!this.browser) {
+      this.browser = await chromium.launch({ headless: true })
+    }
+    return this.browser
+  }
+
+  async close(): Promise<void> {
+    if (this.browser) {
+      await this.browser.close()
+      this.browser = null
+      this.cookieHandled = false
+    }
+  }
+
   private async handleCookieBanner(page: Page): Promise<void> {
+    if (this.cookieHandled) return
+
     try {
-      await page.click(`text=${COOKIE_ACCEPT_TEXT}`, { timeout: COOKIE_TIMEOUT });
-      await page.waitForTimeout(500);
-    } catch (error) {
-      // Cookie banner not present or click failed - this is expected on most page loads
-      if (error instanceof Error && !error.message.includes('Timeout')) {
-        console.warn('Cookie banner handling failed:', error.message);
-      }
+      await page.click(`text=${COOKIE_ACCEPT_TEXT}`, { timeout: COOKIE_TIMEOUT })
+      await page.waitForTimeout(500)
+      this.cookieHandled = true
+    } catch {
+      this.cookieHandled = true
     }
   }
 
@@ -43,41 +62,37 @@ export class TableScraperService {
    * Scrapes a league table from a tournament URL
    */
   async scrapeLeagueTable(tournamentUrl: string): Promise<LeagueTable | null> {
-    const browser = await chromium.launch({ headless: true });
+    const browser = await this.getBrowser()
+    const page = await browser.newPage()
 
     try {
-      const page = await browser.newPage();
-      await page.goto(tournamentUrl, { waitUntil: 'domcontentloaded', timeout: 30000 });
-      await this.handleCookieBanner(page);
+      await page.goto(tournamentUrl, { waitUntil: 'domcontentloaded', timeout: 30000 })
+      await this.handleCookieBanner(page)
 
       // Click on "Tabell" tab if it exists
       try {
-        await page.click('text=Tabell', { timeout: 3000 });
-        await page.waitForTimeout(1000);
+        await page.click('text=Tabell', { timeout: 3000 })
+        await page.waitForTimeout(1000)
       } catch {
         // Tab might not exist or already on table view
       }
 
       // Wait for page content to load
-      await page.waitForTimeout(3000);
+      await page.waitForTimeout(2000)
 
-      // Extract tournament name and table data using a serializable function string
-      const data = await page.evaluate(`
+      // Extract tournament name and table data
+      const data = (await page.evaluate(`
         (function() {
-          // Get tournament name from page title or header
           var titleEl = document.querySelector('h1, .tournament-name, title');
           var tournamentName = titleEl ? (titleEl.textContent || '').trim() : 'Ukjent turnering';
 
-          // Clean up title
           if (tournamentName.indexOf('|') !== -1) {
             tournamentName = tournamentName.split('|')[0].trim();
           }
-          // Remove "Turnering," prefix
           if (tournamentName.indexOf('Turnering,') === 0) {
             tournamentName = tournamentName.substring(10).trim();
           }
 
-          // Find the standings table (exclude cookie banner tables)
           var tables = document.querySelectorAll('table:not([role="presentation"])');
           var rows = [];
 
@@ -86,7 +101,6 @@ export class TableScraperService {
             var headerRow = table.querySelector('thead tr, tr:first-child');
             var headerText = headerRow ? (headerRow.textContent || '').toLowerCase() : '';
 
-            // Check if this looks like a standings table (columns: nr, lag, k, v, u, t, mål, p)
             if (headerText.indexOf('lag') !== -1 && headerText.indexOf('mål') !== -1) {
               var bodyRows = table.querySelectorAll('tbody tr');
               if (bodyRows.length === 0) {
@@ -95,7 +109,6 @@ export class TableScraperService {
 
               for (var j = 0; j < bodyRows.length; j++) {
                 var row = bodyRows[j];
-                // Skip header rows
                 if (row.querySelector('th')) continue;
 
                 var cells = row.querySelectorAll('td');
@@ -103,7 +116,6 @@ export class TableScraperService {
                   var getText = function(cell) { return cell ? (cell.textContent || '').trim() : ''; };
                   var getNum = function(cell) { return parseInt(getText(cell)) || 0; };
 
-                  // Parse goals (format: "123-456")
                   var goalsText = getText(cells[6]) || getText(cells[5]);
                   var goalsParts = goalsText.split('-');
                   var goalsFor = parseInt((goalsParts[0] || '').trim()) || 0;
@@ -129,10 +141,10 @@ export class TableScraperService {
 
           return { tournamentName: tournamentName, rows: rows };
         })()
-      `) as { tournamentName: string; rows: TableRow[] };
+      `)) as { tournamentName: string; rows: TableRow[] }
 
       if (data.rows.length === 0) {
-        return null;
+        return null
       }
 
       return {
@@ -140,28 +152,50 @@ export class TableScraperService {
         tournamentUrl,
         rows: data.rows,
         updatedAt: new Date().toISOString(),
-      };
+      }
     } catch (error) {
-      console.error(`Failed to scrape table from ${tournamentUrl}:`, error);
-      return null;
+      console.error(`Failed to scrape table from ${tournamentUrl}:`, error)
+      return null
     } finally {
-      await browser.close();
+      await page.close()
     }
   }
 
   /**
-   * Scrapes tables for multiple tournaments
+   * Scrapes tables for multiple tournaments in parallel
    */
-  async scrapeMultipleTables(tournamentUrls: string[]): Promise<LeagueTable[]> {
-    const tables: LeagueTable[] = [];
+  async scrapeMultipleTables(
+    tournamentUrls: Map<string, string>,
+    concurrency = 3,
+    onProgress?: (completed: number, total: number, name: string) => void
+  ): Promise<LeagueTable[]> {
+    const entries = Array.from(tournamentUrls.entries())
+    const tables: LeagueTable[] = []
+    let completed = 0
 
-    for (const url of tournamentUrls) {
-      const table = await this.scrapeLeagueTable(url);
-      if (table) {
-        tables.push(table);
+    // Process in parallel batches
+    const chunks: [string, string][][] = []
+    for (let i = 0; i < entries.length; i += concurrency) {
+      chunks.push(entries.slice(i, i + concurrency))
+    }
+
+    for (const chunk of chunks) {
+      const results = await Promise.all(
+        chunk.map(async ([url, name]) => {
+          const table = await this.scrapeLeagueTable(url)
+          completed++
+          onProgress?.(completed, entries.length, name)
+          return table
+        })
+      )
+
+      for (const table of results) {
+        if (table) {
+          tables.push(table)
+        }
       }
     }
 
-    return tables;
+    return tables
   }
 }
