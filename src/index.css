@@ -297,7 +297,8 @@ a:hover {
 
 .filter-toggle.has-filters {
   border-color: var(--ds-color-accent-base);
-  color: var(--ds-color-accent-text);
+  background: var(--ds-color-accent-base);
+  color: var(--ds-color-text-on-accent);
 }
 
 .filter-badge {
