@@ -589,6 +589,56 @@ a:hover {
   gap: 6px;
 }
 
+/* Countdown timer */
+.countdown {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  background: linear-gradient(135deg, var(--ds-color-accent-base), var(--ds-color-accent-hover));
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+  margin: 0 var(--ds-spacing-4) var(--ds-spacing-3);
+}
+
+.countdown-unit {
+  display: flex;
+  align-items: baseline;
+  gap: 1px;
+}
+
+.countdown-value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--ds-color-text-on-accent);
+}
+
+.countdown-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--ds-color-text-on-accent);
+  opacity: 0.8;
+  margin-right: 4px;
+}
+
+.countdown-unit:last-child .countdown-label {
+  margin-right: 0;
+}
+
+.countdown-prefix {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ds-color-text-on-accent);
+  opacity: 0.9;
+  margin-right: 6px;
+}
+
+.countdown-live {
+  background: var(--ds-color-success);
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
 .card-date {
   font-size: 13px;
   font-weight: 700;

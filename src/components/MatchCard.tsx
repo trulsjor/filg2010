@@ -1,5 +1,6 @@
 import type { Match } from '../types'
 import { getMapsUrl } from '../utils/maps'
+import { Countdown } from './Countdown'
 
 interface MatchCardProps {
   match: Match
@@ -12,8 +13,7 @@ interface MatchCardProps {
 const isFjellhammerTeam = (teamName?: string): boolean =>
   teamName?.toLowerCase().includes('fjellhammer') ?? false
 
-const isValidScore = (score?: string): boolean =>
-  !!score && score.trim() !== '' && score !== '-'
+const isValidScore = (score?: string): boolean => !!score && score.trim() !== '' && score !== '-'
 
 const parseScore = (score: string): { home: number; away: number } | null => {
   const parts = score.split('-')
@@ -37,12 +37,7 @@ interface TeamNameProps {
 function TeamName({ name, url, isOurs, showDot, dotColor }: TeamNameProps) {
   const content = (
     <>
-      {showDot && (
-        <span
-          className="card-team-dot"
-          style={{ backgroundColor: dotColor }}
-        />
-      )}
+      {showDot && <span className="card-team-dot" style={{ backgroundColor: dotColor }} />}
       {name}
     </>
   )
@@ -115,15 +110,13 @@ export function MatchCard({
           <span className="card-date">{match.Dato}</span>
           <span className="card-time">{match.Tid}</span>
         </div>
-        {match.Turnering && (
-          <span className="card-tournament-name">{match.Turnering}</span>
-        )}
+        {match.Turnering && <span className="card-tournament-name">{match.Turnering}</span>}
       </div>
 
+      {isNextMatch && !hasResult && <Countdown date={match.Dato} time={match.Tid} />}
+
       <div className="card-match">
-        {isHome && (
-          <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-home" />
-        )}
+        {isHome && <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-home" />}
         <div className="card-match-content">
           <div className="card-teams">
             <TeamName
@@ -142,17 +135,11 @@ export function MatchCard({
               dotColor={teamDotColor}
             />
           </div>
-          <div className="card-score">
-            {hasResult ? match['H-B'] : '-'}
-          </div>
+          <div className="card-score">{hasResult ? match['H-B'] : '-'}</div>
           {match.Bane && <div className="card-venue">{match.Bane}</div>}
-          {match.Tilskuere && (
-            <div className="card-spectators">{match.Tilskuere} tilskuere</div>
-          )}
+          {match.Tilskuere && <div className="card-spectators">{match.Tilskuere} tilskuere</div>}
         </div>
-        {!isHome && (
-          <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-away" />
-        )}
+        {!isHome && <img src="/fjellhammer-logo.svg" alt="" className="card-logo card-logo-away" />}
       </div>
 
       <div className="card-actions">
@@ -161,7 +148,14 @@ export function MatchCard({
           className="card-action card-action-table"
           onClick={() => onOpenTable?.(match.Lag || '', match.Turnering || '')}
         >
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <svg
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
             <line x1="10" y1="6" x2="21" y2="6" />
             <line x1="10" y1="12" x2="21" y2="12" />
             <line x1="10" y1="18" x2="21" y2="18" />
@@ -176,7 +170,14 @@ export function MatchCard({
             rel="noopener noreferrer"
             className="card-action card-action-map"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
               <circle cx="12" cy="10" r="3" />
             </svg>
@@ -190,7 +191,14 @@ export function MatchCard({
             rel="noopener noreferrer"
             className="card-action card-action-primary"
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
