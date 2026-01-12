@@ -320,6 +320,23 @@
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444101"
   },
   {
+    "Lag": "Fjellhammer G16 3",
+    "Dato": "19.01.2026",
+    "Tid": "19:20",
+    "Kampnr": "41031609005",
+    "Hjemmelag": "Fjellhammer 3",
+    "Bortelag": "INDRE 2",
+    "H-B": "-",
+    "Bane": "Fjellhamar Arena 1",
+    "Tilskuere": 0,
+    "Arrangør": "Fjellhammer Idrettslag",
+    "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330825",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=813771",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
+  },
+  {
     "Lag": "Fjellhammer G15 2",
     "Dato": "25.01.2026",
     "Tid": "16:10",
@@ -335,23 +352,6 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=812498",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=428764",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
-  },
-  {
-    "Lag": "Fjellhammer G16 3",
-    "Dato": "25.01.2026",
-    "Tid": "16:10",
-    "Kampnr": "41031609005",
-    "Hjemmelag": "Fjellhammer 3",
-    "Bortelag": "INDRE 2",
-    "H-B": "-",
-    "Bane": "Fjellhamar Arena 1",
-    "Tilskuere": 0,
-    "Arrangør": "Fjellhammer Idrettslag",
-    "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330825",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=813771",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
   },
   {
     "Lag": "Fjellhammer G15 1",
