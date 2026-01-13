@@ -1,7 +1,7 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-The app is an Astro + TypeScript site. `src/pages/index.astro` reads match JSON from `data/` and renders the schedule, while shared helpers live in `src/services/` and `src/utils/`. Automation scripts (scraping, refresh, debug) are under `src/scripts/`. Public assets stay in `public/`, Playwright specs live in `tests/`, and generated datasets (`terminliste.json`, `metadata.json`) are kept in `data/` to keep git-friendly diffs.
+The app is a React + TypeScript site. The main app lives in `src/pages/` and renders the schedule, while handball-specific services live in `src/handball/`. Automation scripts (scraping, refresh, debug) are under `src/scripts/`. Public assets stay in `public/`, Playwright specs live in `tests/`, and generated datasets (`terminliste.json`, `metadata.json`) are kept in `data/` to keep git-friendly diffs.
 
 ## Build, Test, and Development Commands
 - `npm run dev` / `npm start`: launch Astro at http://localhost:4321 with hot reload.
