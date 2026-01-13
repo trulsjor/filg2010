@@ -1,80 +1,65 @@
-/**
- * Team configuration from config.json
- */
+export type TeamId = string
+export type TeamName = string
+export type PlayerId = string
+export type TournamentName = string
+
 export interface Team {
-  name: string;
-  lagid: string;
-  seasonId: string;
-  color: string;
+  name: string
+  lagid: string
+  seasonId: string
+  color: string
 }
 
-/**
- * Config file structure
- */
 export interface Config {
-  teams: Team[];
+  teams: Team[]
 }
 
-/**
- * Raw match data from handball.no API (before enhancement)
- */
 export interface RawMatchData {
-  Dato: string;
-  Tid: string;
-  Kampnr: string;
-  Hjemmelag: string;
-  Bortelag: string;
-  'H-B': string;
-  Bane: string;
-  Tilskuere?: number | string;
-  Arrangør?: string;
-  Turnering: string;
+  Dato: string
+  Tid: string
+  Kampnr: string
+  Hjemmelag: string
+  Bortelag: string
+  'H-B': string
+  Bane: string
+  Tilskuere?: number | string
+  Arrangør?: string
+  Turnering: string
 }
 
-/**
- * Match data with all fields populated (after enhancement)
- */
 export interface Match {
-  Lag: string;
-  Dato: string;
-  Tid: string;
-  Kampnr: string;
-  Hjemmelag: string;
-  Bortelag: string;
-  'H-B': string;
-  Bane: string;
-  Tilskuere: number | string;
-  Arrangør: string;
-  Turnering: string;
-  'Kamp URL': string;
-  'Hjemmelag URL': string;
-  'Bortelag URL': string;
-  'Turnering URL': string;
+  Lag: string
+  Dato: string
+  Tid: string
+  Kampnr: string
+  Hjemmelag: string
+  Bortelag: string
+  'H-B': string
+  Bane: string
+  Tilskuere: number | string
+  Arrangør: string
+  Turnering: string
+  'Kamp URL': string
+  'Hjemmelag URL': string
+  'Bortelag URL': string
+  'Turnering URL': string
 }
 
-/**
- * Links scraped from handball.no team page
- */
 export interface MatchLink {
-  kampnr: string;
-  kampUrl?: string;
-  hjemmelagUrl?: string;
-  bortelagUrl?: string;
+  kampnr: string
+  kampUrl?: string
+  hjemmelagUrl?: string
+  bortelagUrl?: string
+  hasBeenPlayed?: boolean
 }
 
-/**
- * Metadata about the data fetch
- */
 export interface Metadata {
-  lastUpdated: string;
-  teamsCount: number;
-  matchesCount: number;
+  lastUpdated: string
+  teamsCount: number
+  matchesCount: number
 }
 
-/**
- * Tournament link mapping
- */
 export interface TournamentLink {
-  name: string;
-  url: string;
+  name: string
+  url: string
 }
