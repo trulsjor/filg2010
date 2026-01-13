@@ -21,6 +21,8 @@
     "update-results:http": "npx tsx src/scripts/updateResultsHttp.ts",
     "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
     "fetch-tables:http": "npx tsx src/scripts/fetchTablesHttp.ts",
+    "fetch-player-stats": "npx tsx src/scripts/fetchPlayerStats.ts",
+    "generate-player-aggregates": "npx tsx src/scripts/generatePlayerAggregates.ts",
     "prepare": "husky"
   },
   "lint-staged": {
