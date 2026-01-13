@@ -2,70 +2,58 @@ import { useMemo, useCallback } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
 import { LeagueTableCard, type LeagueTable } from '../components/LeagueTableCard'
+import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 
 import tablesData from '../../data/tables.json'
 import configData from '../../config.json'
+import statsData from '../../data/player-stats.json'
 
 import type { Config } from '../types'
+import type { PlayerStatsData } from '../types/player-stats'
+
+type ConfigTeamName = string
+type TeamLeagueTablesMap = Record<ConfigTeamName, LeagueTable[]>
+
+const typedTables: LeagueTable[] = tablesData
+const typedConfig: Config = configData
+const typedStatsData: PlayerStatsData = statsData
 
 export function TabellPage() {
-  const tables = tablesData as LeagueTable[]
-  const config = configData as Config
   const navigate = useNavigate()
+  const teamNameToId = useMemo(() => TeamStatsAggregate.buildTeamNameToIdMap(typedStatsData), [])
 
   const handleScrollToNext = useCallback(() => {
     navigate('/', { state: { scrollToNext: true } })
   }, [navigate])
 
-  // Group tables by team - sort by name length (longest first) to match "Fjellhammer 2" before "Fjellhammer"
   const tablesByTeam = useMemo(() => {
-    const grouped: Record<string, LeagueTable[]> = {}
+    const grouped: TeamLeagueTablesMap = {}
 
-    config.teams.forEach((team) => {
+    typedConfig.teams.forEach((team) => {
       grouped[team.name] = []
     })
 
-    // Sort teams by name length (longest first) to match more specific names first
-    const sortedTeams = [...config.teams].sort((a, b) => b.name.length - a.name.length)
+    const teamsSortedBySpecificity = TeamStatsAggregate.sortTeamsByNameLengthDescending(
+      typedConfig.teams
+    )
 
-    tables.forEach((table) => {
-      // Find which team is in this table - check longest names first
-      // Match by extracting base name (e.g., "Fjellhammer" from "Fjellhammer G15 1")
-      const teamInTable = sortedTeams.find((team) => {
-        const baseName = team.name.split(' ')[0].toLowerCase()
-        const teamNumber = team.name.match(/\d+$/)?.[0] // Get trailing number like "1" or "2"
-        return table.rows.some((row) => {
-          const rowTeam = row.team.toLowerCase()
-          // Match "Fjellhammer" or "Fjellhammer 2" style names
-          if (teamNumber === '1' || !teamNumber) {
-            // For team 1, match exact base name without number suffix
-            return (
-              rowTeam === baseName || (rowTeam.startsWith(baseName + ' ') && !rowTeam.match(/\d/))
-            )
-          } else {
-            // For team 2, 3, etc., match base name with that number
-            return rowTeam.includes(baseName) && rowTeam.includes(teamNumber)
-          }
-        })
-      })
-      if (teamInTable) {
-        grouped[teamInTable.name].push(table)
+    typedTables.forEach((table) => {
+      const matchingTeam = TeamStatsAggregate.findConfigTeamInTable(
+        table.rows,
+        teamsSortedBySpecificity
+      )
+      if (matchingTeam) {
+        grouped[matchingTeam.name].push(table)
       }
     })
 
     return grouped
-  }, [tables, config.teams])
-
-  const getTeamColor = (teamName: string) => {
-    const team = config.teams.find((t) => t.name === teamName)
-    return team?.color ?? '#009B3E'
-  }
+  }, [])
 
   return (
     <div className="app">
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
-        {/* Page Title */}
         <div className="stats-page-header">
           <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
             <svg
@@ -86,10 +74,9 @@ export function TabellPage() {
           </div>
         </div>
 
-        {/* League Tables - grouped by team */}
-        {tables.length > 0 && (
+        {typedTables.length > 0 && (
           <section className="league-tables-section">
-            {config.teams.map((team) => {
+            {typedConfig.teams.map((team) => {
               const teamTables = tablesByTeam[team.name]
               if (!teamTables || teamTables.length === 0) return null
 
@@ -102,13 +89,17 @@ export function TabellPage() {
                   <div className="team-tables-header">
                     <span
                       className="team-color-indicator"
-                      style={{ backgroundColor: getTeamColor(team.name) }}
+                      style={{ backgroundColor: team.color }}
                     />
                     <h3>{team.name}</h3>
                   </div>
                   <div className="tables-grid">
                     {teamTables.map((table) => (
-                      <LeagueTableCard key={table.tournamentUrl} table={table} />
+                      <LeagueTableCard
+                        key={table.tournamentUrl}
+                        table={table}
+                        teamNameToId={teamNameToId}
+                      />
                     ))}
                   </div>
                 </div>

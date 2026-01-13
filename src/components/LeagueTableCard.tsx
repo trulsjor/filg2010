@@ -1,3 +1,7 @@
+import { Link } from 'react-router-dom'
+import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
+import type { TeamId, TeamName } from '../types'
+
 interface LeagueTableRow {
   position: number
   team: string
@@ -19,9 +23,14 @@ export interface LeagueTable {
 interface LeagueTableCardProps {
   table: LeagueTable
   showExternalLink?: boolean
+  teamNameToId?: Map<TeamName, TeamId>
 }
 
-export function LeagueTableCard({ table, showExternalLink = true }: LeagueTableCardProps) {
+export function LeagueTableCard({
+  table,
+  showExternalLink = true,
+  teamNameToId,
+}: LeagueTableCardProps) {
   const shortName = table.tournamentName.split(',')[0].replace('Regionserien ', '')
 
   return (
@@ -36,7 +45,14 @@ export function LeagueTableCard({ table, showExternalLink = true }: LeagueTableC
             className="table-link"
             aria-label="Se på handball.no"
           >
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
@@ -61,23 +77,33 @@ export function LeagueTableCard({ table, showExternalLink = true }: LeagueTableC
           {table.rows.map((row) => {
             const isFjellhammer = row.team.toLowerCase().includes('fjellhammer')
             const goalDiff = row.goalsFor - row.goalsAgainst
+            const teamId = teamNameToId
+              ? TeamStatsAggregate.lookupTeamId(row.team, teamNameToId)
+              : undefined
             return (
               <tr key={row.position} className={isFjellhammer ? 'row-highlight' : ''}>
                 <td className="col-pos">
-                  <span className={`position-badge position-${row.position}`}>
-                    {row.position}
-                  </span>
+                  <span className={`position-badge position-${row.position}`}>{row.position}</span>
                 </td>
                 <td className="col-team">
                   {isFjellhammer && <span className="team-marker">●</span>}
-                  {row.team}
+                  {teamId ? (
+                    <Link to={`/lag/${teamId}`} className="table-team-link">
+                      {row.team}
+                    </Link>
+                  ) : (
+                    row.team
+                  )}
                 </td>
                 <td className="col-num">{row.played}</td>
                 <td className="col-num col-win">{row.won}</td>
                 <td className="col-num col-draw">{row.drawn}</td>
                 <td className="col-num col-loss">{row.lost}</td>
-                <td className={`col-num ${goalDiff > 0 ? 'positive' : goalDiff < 0 ? 'negative' : ''}`}>
-                  {goalDiff > 0 ? '+' : ''}{goalDiff}
+                <td
+                  className={`col-num ${goalDiff > 0 ? 'positive' : goalDiff < 0 ? 'negative' : ''}`}
+                >
+                  {goalDiff > 0 ? '+' : ''}
+                  {goalDiff}
                 </td>
                 <td className="col-num col-points">{row.points}</td>
               </tr>
