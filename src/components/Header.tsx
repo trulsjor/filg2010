@@ -48,11 +48,7 @@ export function Header({
         <div className="header-main">
           <div className="header-brand">
             <Link to="/">
-              <img
-                src="/fjellhammer-logo.svg"
-                alt="Fjellhammer logo"
-                className="header-logo"
-              />
+              <img src="/fjellhammer-logo.svg" alt="Fjellhammer logo" className="header-logo" />
             </Link>
             <div className="header-text">
               <span>Fjellhammer IL</span>
@@ -69,7 +65,16 @@ export function Header({
                   aria-expanded={isOpen}
                   aria-haspopup="true"
                 >
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <svg
+                    width="18"
+                    height="18"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
                     <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3" />
                   </svg>
                   <span className="btn-label">Filter</span>
@@ -147,7 +152,16 @@ export function Header({
                 aria-label="Gå til neste kamp"
                 onClick={onScrollToNext}
               >
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <svg
+                  width="18"
+                  height="18"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
                   <polyline points="6 9 12 15 18 9" />
                 </svg>
                 <span className="btn-label">Neste kamp</span>
@@ -161,13 +175,72 @@ export function Header({
               title="Se serietabell"
               data-testid="tabell-link"
             >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
                 <line x1="10" y1="6" x2="21" y2="6" />
                 <line x1="10" y1="12" x2="21" y2="12" />
                 <line x1="10" y1="18" x2="21" y2="18" />
                 <path d="M4 6h1v1H4zM4 11h1v2H4zM4 17h1v2H4z" fill="currentColor" />
               </svg>
               <span className="btn-label">Tabell</span>
+            </Link>
+
+            <Link
+              to="/spillere"
+              className="tables-btn"
+              aria-label="Spillere"
+              title="Se spillerstatistikk"
+              data-testid="spillere-link"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                <circle cx="9" cy="7" r="4" />
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+              <span className="btn-label">Spillere</span>
+            </Link>
+
+            <Link
+              to="/lag"
+              className="tables-btn"
+              aria-label="Lag"
+              title="Se lagstatistikk"
+              data-testid="lag-link"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <rect x="3" y="3" width="7" height="7" />
+                <rect x="14" y="3" width="7" height="7" />
+                <rect x="14" y="14" width="7" height="7" />
+                <rect x="3" y="14" width="7" height="7" />
+              </svg>
+              <span className="btn-label">Lag</span>
             </Link>
 
             <ThemeSelector />
