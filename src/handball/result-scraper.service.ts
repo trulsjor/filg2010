@@ -3,30 +3,30 @@
  * Uses Playwright since the site requires JavaScript rendering
  */
 
-import { chromium, type Page } from 'playwright';
+import { chromium, type Page } from 'playwright'
 
 export interface MatchResult {
-  matchId: string;
-  homeScore: number | null;
-  awayScore: number | null;
-  result: string; // "31-23" format or "-" if not available
+  matchId: string
+  homeScore: number | null
+  awayScore: number | null
+  result: string // "31-23" format or "-" if not available
 }
 
 interface ResultScraperOptions {
-  delayMs?: number;
-  timeoutMs?: number;
+  delayMs?: number
+  timeoutMs?: number
 }
 
-const COOKIE_ACCEPT_TEXT = 'AKSEPTER';
-const COOKIE_TIMEOUT = 3000;
+const COOKIE_ACCEPT_TEXT = 'AKSEPTER'
+const COOKIE_TIMEOUT = 3000
 
 export class ResultScraperService {
-  private readonly delayMs: number;
-  private readonly timeoutMs: number;
+  private readonly delayMs: number
+  private readonly timeoutMs: number
 
   constructor(options: ResultScraperOptions = {}) {
-    this.delayMs = options.delayMs ?? 500; // Rate limiting between pages
-    this.timeoutMs = options.timeoutMs ?? 15000;
+    this.delayMs = options.delayMs ?? 500 // Rate limiting between pages
+    this.timeoutMs = options.timeoutMs ?? 15000
   }
 
   /**
@@ -34,8 +34,8 @@ export class ResultScraperService {
    */
   private async handleCookieBanner(page: Page): Promise<void> {
     try {
-      await page.click(`text=${COOKIE_ACCEPT_TEXT}`, { timeout: COOKIE_TIMEOUT });
-      await page.waitForTimeout(500);
+      await page.click(`text=${COOKIE_ACCEPT_TEXT}`, { timeout: COOKIE_TIMEOUT })
+      await page.waitForTimeout(500)
     } catch {
       // Cookie banner not present or already accepted
     }
@@ -48,43 +48,43 @@ export class ResultScraperService {
     page: Page,
     matchUrl: string
   ): Promise<MatchResult | null> {
-    const matchId = this.extractMatchId(matchUrl);
+    const matchId = this.extractMatchId(matchUrl)
     if (!matchId) {
-      return null;
+      return null
     }
 
     try {
-      await page.goto(matchUrl, { waitUntil: 'networkidle', timeout: this.timeoutMs });
+      await page.goto(matchUrl, { waitUntil: 'networkidle', timeout: this.timeoutMs })
 
       // Wait for Angular to render
-      await page.waitForTimeout(2000);
+      await page.waitForTimeout(2000)
 
       // Extract scores from page text
       // Format is: "27   (12)	Hjemmelag" and "22   (8)	Bortelag"
       const scores = await page.evaluate(() => {
-        const bodyText = document.body.innerText;
-        const lines = bodyText.split('\n');
+        const bodyText = document.body.innerText
+        const lines = bodyText.split('\n')
 
         // Look for score pattern: number (number) team-name
         // e.g., "27   (12)	Fjellhammer 2"
-        const scorePattern = /^(\d{1,2})\s+\(\d+\)\s+.+$/;
-        const foundScores: number[] = [];
+        const scorePattern = /^(\d{1,2})\s+\(\d+\)\s+.+$/
+        const foundScores: number[] = []
 
         for (const line of lines) {
-          const trimmed = line.trim();
-          const match = trimmed.match(scorePattern);
+          const trimmed = line.trim()
+          const match = trimmed.match(scorePattern)
           if (match) {
-            foundScores.push(parseInt(match[1], 10));
-            if (foundScores.length === 2) break;
+            foundScores.push(parseInt(match[1], 10))
+            if (foundScores.length === 2) break
           }
         }
 
         if (foundScores.length === 2) {
-          return { homeScore: foundScores[0], awayScore: foundScores[1] };
+          return { homeScore: foundScores[0], awayScore: foundScores[1] }
         }
 
-        return { homeScore: null, awayScore: null };
-      });
+        return { homeScore: null, awayScore: null }
+      })
 
       return {
         matchId,
@@ -94,9 +94,9 @@ export class ResultScraperService {
           scores.homeScore !== null && scores.awayScore !== null
             ? `${scores.homeScore}-${scores.awayScore}`
             : '-',
-      };
+      }
     } catch {
-      return null;
+      return null
     }
   }
 
@@ -107,50 +107,50 @@ export class ResultScraperService {
     matchUrls: string[],
     onProgress?: (current: number, total: number) => void
   ): Promise<Map<string, MatchResult>> {
-    const results = new Map<string, MatchResult>();
+    const results = new Map<string, MatchResult>()
 
     if (matchUrls.length === 0) {
-      return results;
+      return results
     }
 
-    const browser = await chromium.launch({ headless: true });
+    const browser = await chromium.launch({ headless: true })
 
     try {
-      const page = await browser.newPage();
+      const page = await browser.newPage()
 
       // Handle cookie banner on first navigation
-      await page.goto(matchUrls[0], { waitUntil: 'networkidle', timeout: this.timeoutMs });
-      await this.handleCookieBanner(page);
+      await page.goto(matchUrls[0], { waitUntil: 'networkidle', timeout: this.timeoutMs })
+      await this.handleCookieBanner(page)
 
       for (let i = 0; i < matchUrls.length; i++) {
-        const url = matchUrls[i];
-        onProgress?.(i + 1, matchUrls.length);
+        const url = matchUrls[i]
+        onProgress?.(i + 1, matchUrls.length)
 
-        const result = await this.fetchMatchResultFromPage(page, url);
+        const result = await this.fetchMatchResultFromPage(page, url)
         if (result && result.result !== '-') {
-          results.set(result.matchId, result);
+          results.set(result.matchId, result)
         }
 
         // Small delay between requests
         if (i < matchUrls.length - 1) {
-          await page.waitForTimeout(this.delayMs);
+          await page.waitForTimeout(this.delayMs)
         }
       }
 
-      await browser.close();
+      await browser.close()
     } catch (error) {
-      await browser.close();
-      throw error;
+      await browser.close()
+      throw error
     }
 
-    return results;
+    return results
   }
 
   /**
    * Extracts match ID from URL
    */
   private extractMatchId(url: string): string | null {
-    const match = url.match(/matchid=(\d+)/);
-    return match ? match[1] : null;
+    const match = url.match(/matchid=(\d+)/)
+    return match ? match[1] : null
   }
 }

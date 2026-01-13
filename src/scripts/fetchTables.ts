@@ -5,7 +5,7 @@
 
 import * as fs from 'fs'
 import * as path from 'path'
-import { TableScraperService, type LeagueTable } from '../services/table-scraper.service.js'
+import { TableScraperService, type LeagueTable } from '../handball/table-scraper.service.js'
 
 interface Match {
   'Turnering URL'?: string

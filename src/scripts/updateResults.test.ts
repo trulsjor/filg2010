@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { updateResults } from './updateResults'
 import type { Match } from '../types/index.js'
-import type { MatchResult } from '../services/result-scraper.service.js'
+import type { MatchResult } from '../handball/result-scraper.service.js'
 
 interface MockFileService {
   loadMatches: () => Match[]

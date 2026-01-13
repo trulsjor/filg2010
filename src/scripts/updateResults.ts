@@ -9,8 +9,8 @@
  */
 
 import type { Match, Metadata } from '../types/index.js'
-import { FileService } from '../services/file.service.js'
-import { ResultScraperService } from '../services/result-scraper.service.js'
+import { FileService } from '../handball/file.service.js'
+import { ResultScraperService } from '../handball/result-scraper.service.js'
 import { fetchTables } from './fetchTables.js'
 
 interface FileServiceLike {

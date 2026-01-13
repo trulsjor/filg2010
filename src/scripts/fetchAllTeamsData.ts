@@ -10,9 +10,9 @@
  */
 
 import type { Team, Match, MatchLink, Config, Metadata, RawMatchData } from '../types/index.js'
-import { ScraperService } from '../services/scraper.service.js'
-import { HandballApiService } from '../services/handball-api.service.js'
-import { FileService } from '../services/file.service.js'
+import { ScraperService } from '../handball/scraper.service.js'
+import { HandballApiService } from '../handball/handball-api.service.js'
+import { FileService } from '../handball/file.service.js'
 import { sortMatchesByDate } from '../utils/date.utils.js'
 
 type SortMatchesFn = (matches: Match[]) => Match[]

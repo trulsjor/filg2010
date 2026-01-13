@@ -9,9 +9,9 @@
  */
 
 import type { Team, Match, RawMatchData, Metadata } from '../types/index.js'
-import { HandballScraperService } from '../services/handball-scraper.service.js'
-import { HandballApiService } from '../services/handball-api.service.js'
-import { FileService } from '../services/file.service.js'
+import { HandballScraper } from '../handball/handball-scraper.js'
+import { HandballApiService } from '../handball/handball-api.service.js'
+import { FileService } from '../handball/file.service.js'
 import { sortMatchesByDate } from '../utils/date.utils.js'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -25,7 +25,7 @@ export async function refresh(): Promise<void> {
 
   const fileService = new FileService()
   const apiService = new HandballApiService()
-  const scraperService = new HandballScraperService()
+  const scraperService = new HandballScraper()
 
   try {
     const config = fileService.loadConfig()
