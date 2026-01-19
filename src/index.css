@@ -449,6 +449,7 @@ a:hover {
 
 .filter-menu button.filter-option.active {
   background: var(--ds-color-accent-base) !important;
+  color: var(--ds-color-text-on-accent) !important;
 }
 
 .filter-menu .filter-section-label {

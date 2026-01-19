@@ -1,6 +1,15 @@
-import type { Theme, ThemeColors, ThemeTypography, ThemeBorders, ThemeShadows, ThemeSpacing, ThemeNavbar } from './ThemeDefinitions'
+import type {
+  Theme,
+  ThemeColors,
+  ThemeTypography,
+  ThemeBorders,
+  ThemeShadows,
+  ThemeSpacing,
+  ThemeNavbar,
+} from './ThemeDefinitions'
 
-const fjellhammerFonts = "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
+const fjellhammerFonts =
+  "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif"
 
 const fjellhammerTypography: ThemeTypography = {
   fontFamily: fjellhammerFonts,
@@ -96,7 +105,7 @@ const fjellhammerDarkColors: ThemeColors = {
   textDefault: '#f6fff8',
   textSubtle: '#c8e6d0',
   textMuted: '#a7c0b3',
-  textOnAccent: '#020b05',
+  textOnAccent: '#ffffff',
 
   // Accent - Fjellhammer grønn
   accentSubtle: '#052e1a',
@@ -121,15 +130,15 @@ const fjellhammerDarkColors: ThemeColors = {
   focusRing: '#009B3E',
 
   // Palette - komplementære farger for dark mode
-  'palette-1': '#00c46a',  // Fjellhammer grønn (lys)
-  'palette-2': '#60a5fa',  // Blå - komplementær
-  'palette-3': '#f472b6',  // Rosa - aksent
-  'palette-4': '#fbbf24',  // Amber - varme
-  'palette-5': '#a78bfa',  // Lilla - kontrast
-  'palette-6': '#22d3ee',  // Cyan - frisk
-  'palette-7': '#fb923c',  // Orange - energi
-  'palette-8': '#34d399',  // Emerald - natur
-  'palette-9': '#9ca3af',  // Grå - nøytral
+  'palette-1': '#00c46a', // Fjellhammer grønn (lys)
+  'palette-2': '#60a5fa', // Blå - komplementær
+  'palette-3': '#f472b6', // Rosa - aksent
+  'palette-4': '#fbbf24', // Amber - varme
+  'palette-5': '#a78bfa', // Lilla - kontrast
+  'palette-6': '#22d3ee', // Cyan - frisk
+  'palette-7': '#fb923c', // Orange - energi
+  'palette-8': '#34d399', // Emerald - natur
+  'palette-9': '#9ca3af', // Grå - nøytral
 }
 
 // Fjellhammer Light Colors - lyst tema med grønne aksenter
@@ -179,15 +188,15 @@ const fjellhammerLightColors: ThemeColors = {
   focusRing: '#009B3E',
 
   // Palette - komplementære farger for light mode
-  'palette-1': '#009B3E',  // Fjellhammer grønn
-  'palette-2': '#2563EB',  // Blå - komplementær
-  'palette-3': '#DB2777',  // Rosa - aksent
-  'palette-4': '#D97706',  // Amber - varme
-  'palette-5': '#7C3AED',  // Lilla - kontrast
-  'palette-6': '#0891B2',  // Cyan - frisk
-  'palette-7': '#EA580C',  // Orange - energi
-  'palette-8': '#059669',  // Emerald - natur
-  'palette-9': '#6B7280',  // Grå - nøytral
+  'palette-1': '#009B3E', // Fjellhammer grønn
+  'palette-2': '#2563EB', // Blå - komplementær
+  'palette-3': '#DB2777', // Rosa - aksent
+  'palette-4': '#D97706', // Amber - varme
+  'palette-5': '#7C3AED', // Lilla - kontrast
+  'palette-6': '#0891B2', // Cyan - frisk
+  'palette-7': '#EA580C', // Orange - energi
+  'palette-8': '#059669', // Emerald - natur
+  'palette-9': '#6B7280', // Grå - nøytral
 }
 
 export const fjellhammerDarkTheme: Theme = {
