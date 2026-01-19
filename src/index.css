@@ -2231,6 +2231,7 @@ a.card-action-map:hover,
 }
 
 .player-match-card {
+  position: relative;
   background: var(--ds-color-surface-elevated);
   border: 1px solid var(--ds-color-border-default);
   border-radius: var(--ds-radius-lg);
@@ -2319,32 +2320,24 @@ a.card-action-map:hover,
 }
 
 /* Player Match Card - Enhanced */
-.player-match-card-link {
-  text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  position: relative;
-  transition: transform 0.15s ease, box-shadow 0.15s ease;
-}
-
-.player-match-card-link:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--ds-shadow-lg);
-  text-decoration: none;
-  color: inherit;
-}
-
-.player-match-card-link:hover .player-match-link-icon {
-  opacity: 1;
-}
-
-.player-match-link-icon {
+a.player-match-link-icon {
   position: absolute;
   top: var(--ds-spacing-3);
   right: var(--ds-spacing-3);
-  color: var(--ds-color-text-muted);
-  opacity: 0.5;
-  transition: opacity 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--ds-color-accent-text);
+  background: var(--ds-color-accent-subtle);
+  transition: background 0.15s ease, transform 0.15s ease;
+}
+
+a.player-match-link-icon:hover {
+  background: var(--ds-color-accent-muted);
+  transform: scale(1.1);
 }
 
 .player-match-card.win-card {
@@ -2371,6 +2364,25 @@ a.card-action-map:hover,
 .player-match-vs {
   color: var(--ds-color-text-muted);
   font-weight: 400;
+}
+
+.player-match-team-link {
+  color: var(--ds-color-text-default);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-color: var(--ds-color-border-default);
+  transition: color 0.15s, text-decoration-color 0.15s;
+}
+
+.player-match-team-link:hover {
+  color: var(--ds-color-accent-text);
+  text-decoration-color: var(--ds-color-accent-text);
+}
+
+.player-match-team-link.player-match-team-ours {
+  font-weight: 700;
+  color: var(--ds-color-accent-text);
+  text-decoration-color: var(--ds-color-accent-border);
 }
 
 .player-match-team-ours {

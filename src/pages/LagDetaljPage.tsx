@@ -178,17 +178,30 @@ export function LagDetaljPage() {
             {teamData.matches.map((match) => {
               const resultClass = match.resultType
 
+              const homeTeamLink = match.isHome
+                ? `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
+                : `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+              const awayTeamLink = match.isHome
+                ? `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                : `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
+
               const cardContent = (
                 <>
                   <div className="player-match-info">
                     <div className="player-match-teams">
-                      <span className={match.isHome ? 'player-match-team-ours' : ''}>
+                      <Link
+                        to={homeTeamLink}
+                        className={`player-match-team-link ${match.isHome ? 'player-match-team-ours' : ''}`}
+                      >
                         {match.isHome ? teamData.teamName : match.opponent}
-                      </span>
+                      </Link>
                       <span className="player-match-vs">–</span>
-                      <span className={!match.isHome ? 'player-match-team-ours' : ''}>
+                      <Link
+                        to={awayTeamLink}
+                        className={`player-match-team-link ${!match.isHome ? 'player-match-team-ours' : ''}`}
+                      >
                         {match.isHome ? match.opponent : teamData.teamName}
-                      </span>
+                      </Link>
                       <span className={`result-badge ${resultClass}`}>
                         {match.goalsScored}–{match.goalsConceded}
                       </span>
@@ -197,38 +210,32 @@ export function LagDetaljPage() {
                       {match.matchDate} &middot; {match.tournament}
                     </div>
                   </div>
-                  <div className="player-match-stats">
-                    <Link to={`/lag/${match.opponentId}`} className="opponent-link">
-                      Se {match.opponent}
-                    </Link>
-                  </div>
                 </>
               )
 
-              return match.matchUrl ? (
-                <a
-                  key={match.matchId}
-                  href={match.matchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`player-match-card player-match-card-link ${resultClass}-card`}
-                >
-                  {cardContent}
-                  <svg
-                    className="player-match-link-icon"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-                  </svg>
-                </a>
-              ) : (
+              return (
                 <div key={match.matchId} className={`player-match-card ${resultClass}-card`}>
                   {cardContent}
+                  {match.matchUrl && (
+                    <a
+                      href={match.matchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="player-match-link-icon"
+                      aria-label="Se kampdetaljer"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
               )
             })}
