@@ -2497,6 +2497,7 @@ a.player-match-link-icon:hover {
   border: 1px solid var(--ds-color-border-default);
   border-radius: var(--ds-radius-lg);
   padding: var(--ds-spacing-4);
+  overflow: visible;
 }
 
 .player-chart-card h3 {
@@ -2629,6 +2630,159 @@ a.player-match-link-icon:hover {
 
 .goals-bar-result-draw {
   background: var(--ds-color-warning-base);
+}
+
+/* Diverging Goals Chart (scored up, conceded down) */
+.goals-diverging-container {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding-top: 60px;
+  margin-top: -40px;
+}
+
+.goals-diverging-y-axis {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: var(--ds-spacing-2) 0 40px 0;
+  min-width: 32px;
+  height: 240px;
+  text-align: right;
+  padding-right: var(--ds-spacing-2);
+}
+
+.goals-y-label-zero {
+  font-weight: 600;
+  color: var(--ds-color-text-default);
+}
+
+.goals-diverging-chart {
+  flex: 1;
+  position: relative;
+  height: 240px;
+  padding: var(--ds-spacing-2) 0 0 0;
+  overflow: visible;
+}
+
+.goals-diverging-bars {
+  display: flex;
+  gap: 3px;
+  height: 200px;
+  overflow: visible;
+}
+
+.goals-diverging-bar-wrapper {
+  flex: 1;
+  min-width: 8px;
+  max-width: 40px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  cursor: pointer;
+}
+
+.goals-diverging-bar-wrapper:hover {
+  z-index: 20;
+}
+
+.goals-diverging-bar-wrapper:hover .goals-bar {
+  opacity: 0.8;
+}
+
+.goals-diverging-bar-wrapper:hover .goals-bar-tooltip {
+  opacity: 1;
+}
+
+.goals-diverging-bar-wrapper .goals-bar-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--ds-color-surface-raised);
+  border: 1px solid var(--ds-color-border-default);
+  border-radius: var(--ds-radius-md);
+  padding: 10px 14px;
+  font-size: var(--ds-font-size-sm);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease;
+  z-index: 30;
+  box-shadow: var(--ds-shadow-lg);
+  line-height: 1.5;
+}
+
+.goals-diverging-bar-wrapper .tooltip-result {
+  font-size: var(--ds-font-size-lg);
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 4px;
+}
+
+.goals-diverging-bar-wrapper .tooltip-teams {
+  color: var(--ds-color-text-default);
+  text-align: center;
+}
+
+.goals-diverging-bar-wrapper .tooltip-date {
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-font-size-xs);
+  text-align: center;
+  margin-top: 4px;
+}
+
+.goals-diverging-positive {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.goals-diverging-positive .goals-bar {
+  border-radius: 4px 4px 0 0;
+}
+
+.goals-diverging-negative {
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.goals-diverging-negative .goals-bar {
+  border-radius: 0 0 4px 4px;
+}
+
+.goals-bar-conceded {
+  opacity: 0.5;
+}
+
+.goals-diverging-bar-wrapper:hover .goals-bar-conceded {
+  opacity: 0.4;
+}
+
+.goals-diverging-zero-line {
+  position: absolute;
+  top: calc(var(--ds-spacing-2) + 100px);
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--ds-color-border-strong);
+  pointer-events: none;
+}
+
+.goals-diverging-bar-wrapper .goals-bar-label {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 2px 0;
+  color: white;
+  border-radius: 3px;
 }
 
 /* Goals Breakdown Pie Chart */

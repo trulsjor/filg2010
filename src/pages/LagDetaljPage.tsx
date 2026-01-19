@@ -46,7 +46,11 @@ export function LagDetaljPage() {
   }
 
   const reversed = [...teamData.matches].reverse()
-  const maxGoals = Math.max(...reversed.map((m) => m.goalsScored), CHART_MIN_MAX_GOALS)
+  const maxGoals = Math.max(
+    ...reversed.map((m) => m.goalsScored),
+    ...reversed.map((m) => m.goalsConceded),
+    CHART_MIN_MAX_GOALS
+  )
 
   return (
     <div className="app">
@@ -129,44 +133,59 @@ export function LagDetaljPage() {
         <div className="player-charts-section">
           <h2>Form</h2>
           <div className="player-chart-card">
-            <h3>Mål scoret per kamp</h3>
-            <div className="goals-timeline-container">
-              <div className="goals-y-axis">
-                <span className="goals-y-label">{maxGoals}</span>
-                <span className="goals-y-label">{Math.round(maxGoals / 2)}</span>
-                <span className="goals-y-label">0</span>
+            <h3>Mål scoret / sluppet inn</h3>
+            <div className="goals-diverging-container">
+              <div className="goals-diverging-y-axis">
+                <span className="goals-y-label">+{maxGoals}</span>
+                <span className="goals-y-label">+{Math.round(maxGoals / 2)}</span>
+                <span className="goals-y-label goals-y-label-zero">0</span>
+                <span className="goals-y-label">−{Math.round(maxGoals / 2)}</span>
+                <span className="goals-y-label">−{maxGoals}</span>
               </div>
-              <div className="goals-timeline">
-                {reversed.map((match) => {
-                  const resultClass = match.resultType
-                  const resultLetter = match.result.getDisplayLetter()
-                  return (
-                    <div key={match.matchId} className="goals-bar-wrapper">
-                      <div
-                        className={`goals-bar goals-bar-${resultClass}`}
-                        style={{
-                          height: `${(match.goalsScored / maxGoals) * 100}%`,
-                          minHeight: match.goalsScored > 0 ? '8px' : '2px',
-                        }}
-                      >
+              <div className="goals-diverging-chart">
+                <div className="goals-diverging-bars">
+                  {reversed.map((match) => {
+                    const resultClass = match.resultType
+                    const resultLetter = match.result.getDisplayLetter()
+                    return (
+                      <div key={match.matchId} className="goals-diverging-bar-wrapper">
+                        <div className="goals-diverging-positive">
+                          <div
+                            className={`goals-bar goals-bar-${resultClass}`}
+                            style={{
+                              height: `${(match.goalsScored / maxGoals) * 100}%`,
+                              minHeight: match.goalsScored > 0 ? '4px' : '0',
+                            }}
+                          />
+                        </div>
+                        <div className="goals-diverging-negative">
+                          <div
+                            className={`goals-bar goals-bar-conceded goals-bar-${resultClass}`}
+                            style={{
+                              height: `${(match.goalsConceded / maxGoals) * 100}%`,
+                              minHeight: match.goalsConceded > 0 ? '4px' : '0',
+                            }}
+                          />
+                        </div>
                         <div className="goals-bar-tooltip">
-                          <strong>{teamData.teamName}</strong>: {match.goalsScored} mål
-                          <br />
-                          {match.isHome ? teamData.teamName : match.opponent} –{' '}
-                          {match.isHome ? match.opponent : teamData.teamName}
-                          <br />
-                          {match.goalsScored}–{match.goalsConceded} ({resultLetter})
-                          <br />
-                          {match.matchDate}
+                          <div className="tooltip-result">
+                            {match.goalsScored}–{match.goalsConceded}
+                          </div>
+                          <div className="tooltip-teams">
+                            {match.isHome ? teamData.teamName : match.opponent} –{' '}
+                            {match.isHome ? match.opponent : teamData.teamName}
+                          </div>
+                          <div className="tooltip-date">{match.matchDate}</div>
+                        </div>
+                        <div className={`goals-bar-label goals-bar-result-${resultClass}`}>
+                          <span className="goals-bar-date">{match.matchDate.slice(0, 5)}</span>
+                          <span className="goals-bar-result">{resultLetter}</span>
                         </div>
                       </div>
-                      <div className={`goals-bar-label goals-bar-result-${resultClass}`}>
-                        <span className="goals-bar-date">{match.matchDate.slice(0, 5)}</span>
-                        <span className="goals-bar-result">{resultLetter}</span>
-                      </div>
-                    </div>
-                  )
-                })}
+                    )
+                  })}
+                </div>
+                <div className="goals-diverging-zero-line" />
               </div>
             </div>
           </div>
