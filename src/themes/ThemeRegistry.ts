@@ -33,7 +33,7 @@ export const themes = {
 // ThemeId is automatically derived from the themes object keys
 export type ThemeId = keyof typeof themes
 
-export const DEFAULT_THEME_ID: ThemeId = 'fjellhammer-dark'
+export const DEFAULT_THEME_ID: ThemeId = 'nhf'
 
 export function getTheme(id: ThemeId): Theme {
   return themes[id]

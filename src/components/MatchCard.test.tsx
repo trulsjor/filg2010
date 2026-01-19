@@ -38,7 +38,7 @@ describe('MatchCard', () => {
         getTeamColor={mockGetTeamColor}
       />
     )
-    expect(screen.getByText('15.01.2025')).toBeInTheDocument()
+    expect(screen.getByText('ons. 15.01.2025')).toBeInTheDocument()
     expect(screen.getByText('18:00')).toBeInTheDocument()
   })
 

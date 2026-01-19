@@ -1,6 +1,30 @@
 {
   "matches": [
     {
+      "matchId": "48031501018",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337887"
+    },
+    {
+      "matchId": "48031501011",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337881"
+    },
+    {
+      "matchId": "48031501008",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337879"
+    },
+    {
+      "matchId": "48031501004",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337875"
+    },
+    {
+      "matchId": "48031501003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337874"
+    },
+    {
+      "matchId": "420315017",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8263408"
+    },
+    {
       "matchId": "41031502045",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231511"
     },
@@ -17,20 +41,24 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231494"
     },
     {
-      "matchId": "41031502019",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231485"
-    },
-    {
-      "matchId": "41031502023",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231489"
+      "matchId": "41031502001",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231467"
     },
     {
       "matchId": "41031502012",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231478"
     },
     {
-      "matchId": "41031502001",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231467"
+      "matchId": "41031502023",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231489"
+    },
+    {
+      "matchId": "41031502019",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231485"
+    },
+    {
+      "matchId": "41031506008",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330555"
     },
     {
       "matchId": "41031506003",
@@ -65,10 +93,6 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231491"
     },
     {
-      "matchId": "41031502017",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231483"
-    },
-    {
       "matchId": "41031502008",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231474"
     },
@@ -79,6 +103,10 @@
     {
       "matchId": "41031502014",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231480"
+    },
+    {
+      "matchId": "41031502017",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231483"
     },
     {
       "matchId": "41031502036",
@@ -147,6 +175,10 @@
     {
       "matchId": "41031502016",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231482"
+    },
+    {
+      "matchId": "41031507001",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330578"
     },
     {
       "matchId": "43031508011",
@@ -241,6 +273,14 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231498"
     },
     {
+      "matchId": "41031510003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330646"
+    },
+    {
+      "matchId": "41031510026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330669"
+    },
+    {
       "matchId": "41031510037",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330680"
     },
@@ -277,28 +317,60 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231431"
     },
     {
-      "matchId": "43031509006",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8320131"
-    },
-    {
-      "matchId": "43031509003",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8320128"
+      "matchId": "41031501035",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231465"
     },
     {
       "matchId": "41031501029",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231459"
     },
     {
-      "matchId": "41031501027",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231457"
+      "matchId": "420315006",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8263397"
     },
     {
-      "matchId": "41031501022",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231452"
+      "matchId": "41031501020",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231450"
     },
     {
-      "matchId": "41031501018",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231448"
+      "matchId": "41031501002",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231432"
+    },
+    {
+      "matchId": "41031501013",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231443"
+    },
+    {
+      "matchId": "41031501011",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231441"
+    },
+    {
+      "matchId": "41031501006",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231436"
+    },
+    {
+      "matchId": "48031501015",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337884"
+    },
+    {
+      "matchId": "48031501001",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337873"
+    },
+    {
+      "matchId": "48031501005",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337876"
+    },
+    {
+      "matchId": "48031501021",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337890"
+    },
+    {
+      "matchId": "43031509006",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8320131"
+    },
+    {
+      "matchId": "43031509003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8320128"
     },
     {
       "matchId": "41031501008",
@@ -311,6 +383,18 @@
     {
       "matchId": "41031501015",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231445"
+    },
+    {
+      "matchId": "41031501018",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231448"
+    },
+    {
+      "matchId": "41031501022",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231452"
+    },
+    {
+      "matchId": "41031501027",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231457"
     },
     {
       "matchId": "41031509002",
@@ -505,6 +589,26 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231615"
     },
     {
+      "matchId": "48031502014",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337871"
+    },
+    {
+      "matchId": "48031502012",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337869"
+    },
+    {
+      "matchId": "48031502007",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337864"
+    },
+    {
+      "matchId": "48031502006",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337863"
+    },
+    {
+      "matchId": "48031502002",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8337859"
+    },
+    {
       "matchId": "41031503045",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8260847"
     },
@@ -517,24 +621,24 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231601"
     },
     {
-      "matchId": "41031503023",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231599"
-    },
-    {
-      "matchId": "41031503018",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231594"
-    },
-    {
-      "matchId": "41031503014",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231590"
+      "matchId": "41031503005",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231581"
     },
     {
       "matchId": "41031503011",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231587"
     },
     {
-      "matchId": "41031503005",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231581"
+      "matchId": "41031503014",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231590"
+    },
+    {
+      "matchId": "41031503018",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231594"
+    },
+    {
+      "matchId": "41031503023",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231599"
     },
     {
       "matchId": "41031509003",
@@ -773,8 +877,16 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8231617"
     },
     {
+      "matchId": "41031511003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330691"
+    },
+    {
       "matchId": "41031511026",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330714"
+    },
+    {
+      "matchId": "41031609016",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330836"
     },
     {
       "matchId": "41031609002",
@@ -813,12 +925,72 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222739"
     },
     {
+      "matchId": "41031603006",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222733"
+    },
+    {
       "matchId": "41031603007",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222734"
     },
     {
-      "matchId": "41031603006",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222733"
+      "matchId": "41031609022",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330842"
+    },
+    {
+      "matchId": "41031609026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330846"
+    },
+    {
+      "matchId": "41031605043",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222866"
+    },
+    {
+      "matchId": "41031605032",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222855"
+    },
+    {
+      "matchId": "41031605030",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222853"
+    },
+    {
+      "matchId": "41031605021",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222844"
+    },
+    {
+      "matchId": "41031605020",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222843"
+    },
+    {
+      "matchId": "41031605012",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222835"
+    },
+    {
+      "matchId": "95031618003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8287272"
+    },
+    {
+      "matchId": "95031618001",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8287270"
+    },
+    {
+      "matchId": "95031607001",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8259581"
+    },
+    {
+      "matchId": "95031607005",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8259585"
+    },
+    {
+      "matchId": "95031607003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8259583"
+    },
+    {
+      "matchId": "41031605003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222826"
+    },
+    {
+      "matchId": "41031609005",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330825"
     },
     {
       "matchId": "41031609003",
@@ -835,10 +1007,6 @@
     {
       "matchId": "41031605026",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222849"
-    },
-    {
-      "matchId": "41031605021",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222844"
     },
     {
       "matchId": "41031605016",
@@ -901,106 +1069,6 @@
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222842"
     },
     {
-      "matchId": "41031605012",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222835"
-    },
-    {
-      "matchId": "41031605043",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222866"
-    },
-    {
-      "matchId": "41031605032",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222855"
-    },
-    {
-      "matchId": "41031605030",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222853"
-    },
-    {
-      "matchId": "41031605020",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222843"
-    },
-    {
-      "matchId": "95031618003",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8287272"
-    },
-    {
-      "matchId": "95031618001",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8287270"
-    },
-    {
-      "matchId": "41031605003",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222826"
-    },
-    {
-      "matchId": "95031607003",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8259583"
-    },
-    {
-      "matchId": "95031607001",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8259581"
-    },
-    {
-      "matchId": "95031607005",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8259585"
-    },
-    {
-      "matchId": "41031603028",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222755"
-    },
-    {
-      "matchId": "41031603021",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222748"
-    },
-    {
-      "matchId": "41031603023",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222750"
-    },
-    {
-      "matchId": "41031603008",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222735"
-    },
-    {
-      "matchId": "41031603017",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222744"
-    },
-    {
-      "matchId": "41031603013",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222740"
-    },
-    {
-      "matchId": "41031603005",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222732"
-    },
-    {
-      "matchId": "41031603003",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222730"
-    },
-    {
-      "matchId": "41031603030",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222757"
-    },
-    {
-      "matchId": "41031603025",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222752"
-    },
-    {
-      "matchId": "41031603024",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222751"
-    },
-    {
-      "matchId": "41031603015",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222742"
-    },
-    {
-      "matchId": "41031603010",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222737"
-    },
-    {
-      "matchId": "41031603009",
-      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222736"
-    },
-    {
       "matchId": "43031604002",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8319642"
     },
@@ -1027,9 +1095,65 @@
     {
       "matchId": "41031605007",
       "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222830"
+    },
+    {
+      "matchId": "41031603028",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222755"
+    },
+    {
+      "matchId": "41031603021",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222748"
+    },
+    {
+      "matchId": "41031603023",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222750"
+    },
+    {
+      "matchId": "41031603008",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222735"
+    },
+    {
+      "matchId": "41031603017",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222744"
+    },
+    {
+      "matchId": "41031603013",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222740"
+    },
+    {
+      "matchId": "41031603003",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222730"
+    },
+    {
+      "matchId": "41031603005",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222732"
+    },
+    {
+      "matchId": "41031603030",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222757"
+    },
+    {
+      "matchId": "41031603025",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222752"
+    },
+    {
+      "matchId": "41031603024",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222751"
+    },
+    {
+      "matchId": "41031603015",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222742"
+    },
+    {
+      "matchId": "41031603010",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222737"
+    },
+    {
+      "matchId": "41031603009",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8222736"
     }
   ],
-  "lastUpdated": "2026-01-12T23:38:22.664Z",
+  "lastUpdated": "2026-01-19T22:11:29.652Z",
   "tournaments": [
     "Regionserien Gutter 15 - avd 32",
     "Mobile Regionscup G15",

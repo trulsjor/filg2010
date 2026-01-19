@@ -42,7 +42,7 @@ export function LagDetaljPage() {
   }, [lagId, ourTeamIds, tournamentFilter])
 
   if (!teamData) {
-    return <Navigate to="/lag" replace />
+    return <Navigate to="/" replace />
   }
 
   const reversed = [...teamData.matches].reverse()
@@ -53,7 +53,7 @@ export function LagDetaljPage() {
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <Link to="/lag" className="back-link" aria-label="Tilbake til lag">
+          <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
             <svg
               width="20"
               height="20"
@@ -64,7 +64,7 @@ export function LagDetaljPage() {
             >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Lag
+            Tilbake
           </Link>
           <div className="team-detail-header">
             <h1>{teamData.teamName}</h1>

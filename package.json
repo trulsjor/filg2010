@@ -21,7 +21,8 @@
     "update-results:http": "npx tsx src/scripts/updateResultsHttp.ts",
     "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
     "fetch-tables:http": "npx tsx src/scripts/fetchTablesHttp.ts",
-    "fetch-player-stats": "npx tsx src/scripts/fetchPlayerStats.ts",
+    "fetch-player-stats": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/fetchPlayerStats.js",
+    "fetch-player-stats:quick": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/fetchPlayerStats.js --quick",
     "generate-player-aggregates": "npx tsx src/scripts/generatePlayerAggregates.ts",
     "prepare": "husky"
   },

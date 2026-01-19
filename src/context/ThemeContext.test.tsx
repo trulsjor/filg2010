@@ -43,14 +43,14 @@ describe('ThemeContext', () => {
       })
     })
 
-    it('defaults to fjellhammer-dark theme', async () => {
+    it('defaults to nhf theme', async () => {
       const { result } = renderHook(() => useTheme(), {
         wrapper: ThemeProvider,
       })
 
       await waitFor(() => {
-        expect(result.current.themeId).toBe('fjellhammer-dark')
-        expect(result.current.theme.name).toBe('Fjellhammer Mørk')
+        expect(result.current.themeId).toBe('nhf')
+        expect(result.current.theme.name).toBe('NHF')
       })
     })
 
@@ -60,8 +60,8 @@ describe('ThemeContext', () => {
       })
 
       await waitFor(() => {
-        expect(document.documentElement.getAttribute('data-theme')).toBe('fjellhammer-dark')
-        expect(document.documentElement.getAttribute('data-color-scheme')).toBe('dark')
+        expect(document.documentElement.getAttribute('data-theme')).toBe('nhf')
+        expect(document.documentElement.getAttribute('data-color-scheme')).toBe('light')
       })
     })
 
@@ -120,15 +120,15 @@ describe('ThemeContext', () => {
       })
 
       await waitFor(() => {
-        expect(result.current.colorScheme).toBe('dark')
+        expect(result.current.colorScheme).toBe('light')
       })
 
       await act(async () => {
-        result.current.setThemeId('fjellhammer-light')
+        result.current.setThemeId('fjellhammer-dark')
       })
 
       await waitFor(() => {
-        expect(result.current.colorScheme).toBe('light')
+        expect(result.current.colorScheme).toBe('dark')
       })
     })
   })

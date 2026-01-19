@@ -7,12 +7,14 @@
  *   - Resumes from where it left off if interrupted
  *
  * Options:
+ *   --quick                    Fast mode: use terminliste.json to find new matches (no web scraping for discovery)
  *   --force                    Re-scrape ALL matches from scratch
  *   --refresh-matches          Re-discover matches (ignore cache)
  *   --rescrape <id1,id2,...>   Re-scrape specific match IDs
  *
  * Examples:
- *   npx tsx src/scripts/fetchPlayerStats.ts
+ *   npx tsx src/scripts/fetchPlayerStats.ts --quick     # Recommended for daily updates
+ *   npx tsx src/scripts/fetchPlayerStats.ts             # Full discovery (slower)
  *   npx tsx src/scripts/fetchPlayerStats.ts --force
  *   npx tsx src/scripts/fetchPlayerStats.ts --refresh-matches
  *   npx tsx src/scripts/fetchPlayerStats.ts --rescrape 41031502009,41031502013
@@ -28,6 +30,7 @@ const DATA_DIR = path.join(process.cwd(), 'data')
 const CONFIG_PATH = path.join(process.cwd(), 'config.json')
 const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
 const MATCH_CACHE_PATH = path.join(DATA_DIR, 'match-cache.json') // Cache of discovered matches
+const TERMINLISTE_PATH = path.join(DATA_DIR, 'terminliste.json')
 
 // Parse arguments
 function getRescrapeIds(): Set<string> {
@@ -39,11 +42,58 @@ function getRescrapeIds(): Set<string> {
 const RESCRAPE_IDS = getRescrapeIds()
 const FORCE = process.argv.includes('--force')
 const REFRESH_MATCHES = process.argv.includes('--refresh-matches')
+const QUICK = process.argv.includes('--quick')
 
 interface MatchCache {
   matches: Array<{ matchId: string; matchUrl: string }>
   lastUpdated: string
   tournaments: string[]
+}
+
+interface TerminlisteMatch {
+  Kampnr: string
+  'Kamp URL'?: string
+  'H-B'?: string
+}
+
+// Quick mode: find matches from local data (no web scraping for discovery)
+function findMatchesFromLocalData(): Array<{ matchId: string; matchUrl: string }> {
+  const uniqueMatches = new Map<string, { matchId: string; matchUrl: string }>()
+
+  // First, add played matches from terminliste.json (our teams' matches)
+  if (fs.existsSync(TERMINLISTE_PATH)) {
+    const terminliste: TerminlisteMatch[] = JSON.parse(fs.readFileSync(TERMINLISTE_PATH, 'utf-8'))
+    for (const match of terminliste) {
+      const score = match['H-B']
+      const hasScore = score && score.trim() !== '' && score.trim() !== '-' && score.includes('-')
+      if (hasScore && match['Kamp URL']) {
+        uniqueMatches.set(match.Kampnr, {
+          matchId: match.Kampnr,
+          matchUrl: match['Kamp URL'],
+        })
+      }
+    }
+    console.log(`  📄 terminliste.json: ${uniqueMatches.size} spilte kamper`)
+  }
+
+  // Then, add all matches from match-cache.json (includes other teams in same tournaments)
+  if (fs.existsSync(MATCH_CACHE_PATH)) {
+    const cache: MatchCache = JSON.parse(fs.readFileSync(MATCH_CACHE_PATH, 'utf-8'))
+    let added = 0
+    for (const match of cache.matches) {
+      if (!uniqueMatches.has(match.matchId)) {
+        uniqueMatches.set(match.matchId, match)
+        added++
+      }
+    }
+    console.log(`  📋 match-cache.json: ${added} ekstra kamper fra turneringene`)
+  } else {
+    console.log(
+      '  ⚠️  match-cache.json ikke funnet - kjør full fetch først for å oppdage alle kamper'
+    )
+  }
+
+  return Array.from(uniqueMatches.values())
 }
 
 // Load or create match cache
@@ -213,18 +263,24 @@ async function main() {
 
   // Try to use cached match list
   let allMatches: Array<{ matchId: string; matchUrl: string }>
-  const cache = loadMatchCache()
 
   const scraper = new HandballScraper()
 
   try {
-    if (cache && !FORCE) {
-      console.log(
-        `📋 Bruker cachet kampliste (${cache.matches.length} kamper fra ${cache.tournaments.length} turneringer)\n`
-      )
-      allMatches = cache.matches
+    if (QUICK) {
+      // Quick mode: use local data directly (no web scraping for discovery)
+      console.log('⚡ Quick mode: Bruker lokale data for kampoppdagelse\n')
+      allMatches = findMatchesFromLocalData()
     } else {
-      allMatches = await discoverMatches(scraper)
+      const cache = loadMatchCache()
+      if (cache && !FORCE) {
+        console.log(
+          `📋 Bruker cachet kampliste (${cache.matches.length} kamper fra ${cache.tournaments.length} turneringer)\n`
+        )
+        allMatches = cache.matches
+      } else {
+        allMatches = await discoverMatches(scraper)
+      }
     }
 
     console.log(`\n📊 Totalt ${allMatches.length} spilte kamper funnet\n`)
@@ -307,7 +363,11 @@ async function main() {
   }
 }
 
-main().catch((err) => {
-  console.error('❌ Feil:', err)
-  process.exit(1)
-})
+main()
+  .then(() => {
+    process.exit(0)
+  })
+  .catch((err) => {
+    console.error('❌ Feil:', err)
+    process.exit(1)
+  })

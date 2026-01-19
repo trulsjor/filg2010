@@ -371,8 +371,24 @@ export class TeamStatsAggregate {
     }
   }
 
-  static buildTeamNameToIdMap(statsData: PlayerStatsData): Map<TeamName, TeamId> {
+  static extractLagIdFromUrl(url: string | undefined): TeamId | undefined {
+    if (!url) return undefined
+    const match = url.match(/lagid=(\d+)/)
+    return match ? match[1] : undefined
+  }
+
+  static buildTeamNameToIdMap(
+    statsData: PlayerStatsData,
+    terminlisteMatches?: Array<{
+      Hjemmelag?: string
+      Bortelag?: string
+      'Hjemmelag URL'?: string
+      'Bortelag URL'?: string
+    }>
+  ): Map<TeamName, TeamId> {
     const map = new Map<TeamName, TeamId>()
+
+    // First, add from player-stats (these are more reliable)
     for (const match of statsData.matchStats) {
       if (!map.has(match.homeTeamName)) {
         map.set(match.homeTeamName, match.homeTeamId)
@@ -381,6 +397,25 @@ export class TeamStatsAggregate {
         map.set(match.awayTeamName, match.awayTeamId)
       }
     }
+
+    // Then, add from terminliste (for teams without player-stats)
+    if (terminlisteMatches) {
+      for (const match of terminlisteMatches) {
+        if (match.Hjemmelag && !map.has(match.Hjemmelag)) {
+          const lagId = TeamStatsAggregate.extractLagIdFromUrl(match['Hjemmelag URL'])
+          if (lagId) {
+            map.set(match.Hjemmelag, lagId)
+          }
+        }
+        if (match.Bortelag && !map.has(match.Bortelag)) {
+          const lagId = TeamStatsAggregate.extractLagIdFromUrl(match['Bortelag URL'])
+          if (lagId) {
+            map.set(match.Bortelag, lagId)
+          }
+        }
+      }
+    }
+
     return map
   }
 

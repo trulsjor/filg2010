@@ -23,13 +23,19 @@ export function SpillerePage() {
 
   const tournaments = useMemo(() => {
     const set = new Set<string>()
-    for (const p of aggregates.aggregates) {
+    const players =
+      filter === 'our'
+        ? aggregates.aggregates.filter(
+            (p) => p.teamIds?.some((id) => ourTeamIds.has(id)) ?? ourTeamIds.has(p.teamId)
+          )
+        : aggregates.aggregates
+    for (const p of players) {
       for (const t of p.byTournament) {
         set.add(t.tournament)
       }
     }
     return Array.from(set).sort()
-  }, [aggregates])
+  }, [aggregates, filter, ourTeamIds])
 
   const filteredPlayers = useMemo(() => {
     let players = aggregates.aggregates
@@ -136,13 +142,19 @@ export function SpillerePage() {
         {/* Filters */}
         <div className="player-filters">
           <button
-            onClick={() => setFilter('our')}
+            onClick={() => {
+              setFilter('our')
+              setTournamentFilter('')
+            }}
             className={`player-filter-btn ${filter === 'our' ? 'active' : ''}`}
           >
-            Våre spillere
+            Fjellhammer
           </button>
           <button
-            onClick={() => setFilter('all')}
+            onClick={() => {
+              setFilter('all')
+              setTournamentFilter('')
+            }}
             className={`player-filter-btn ${filter === 'all' ? 'active' : ''}`}
           >
             Alle spillere

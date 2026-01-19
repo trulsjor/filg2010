@@ -9,7 +9,7 @@ describe('ThemeRegistry', () => {
   })
 
   it('has correct default theme id', () => {
-    expect(DEFAULT_THEME_ID).toBe('fjellhammer-dark')
+    expect(DEFAULT_THEME_ID).toBe('nhf')
   })
 
   describe('getTheme', () => {

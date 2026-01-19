@@ -7,8 +7,9 @@ import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 import tablesData from '../../data/tables.json'
 import configData from '../../config.json'
 import statsData from '../../data/player-stats.json'
+import terminlisteData from '../../data/terminliste.json'
 
-import type { Config } from '../types'
+import type { Config, Match } from '../types'
 import type { PlayerStatsData } from '../types/player-stats'
 
 type ConfigTeamName = string
@@ -17,10 +18,14 @@ type TeamLeagueTablesMap = Record<ConfigTeamName, LeagueTable[]>
 const typedTables: LeagueTable[] = tablesData
 const typedConfig: Config = configData
 const typedStatsData: PlayerStatsData = statsData
+const typedTerminlisteData = terminlisteData as Match[]
 
 export function TabellPage() {
   const navigate = useNavigate()
-  const teamNameToId = useMemo(() => TeamStatsAggregate.buildTeamNameToIdMap(typedStatsData), [])
+  const teamNameToId = useMemo(
+    () => TeamStatsAggregate.buildTeamNameToIdMap(typedStatsData, typedTerminlisteData),
+    []
+  )
 
   const handleScrollToNext = useCallback(() => {
     navigate('/', { state: { scrollToNext: true } })
