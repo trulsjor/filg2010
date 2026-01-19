@@ -764,13 +764,23 @@ a:hover {
   margin: 0 4px;
 }
 
-.card-teams a {
-  color: var(--ds-color-text-default);
-  text-decoration: none;
+.card-team-link {
+  color: var(--ds-color-accent-text);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  text-decoration-thickness: 1px;
+  transition: all 0.15s;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 2px 4px;
+  margin: -2px -4px;
+  border-radius: 4px;
 }
 
-.card-teams a:hover {
-  color: var(--ds-color-accent-text);
+.card-team-link:hover {
+  background: var(--ds-color-accent-subtle);
+  text-decoration-thickness: 2px;
 }
 
 .card-score {

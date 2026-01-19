@@ -1,6 +1,13 @@
+import { Link } from 'react-router-dom'
 import type { Match } from '../types'
 import { getMapsUrl } from '../utils/maps'
 import { Countdown } from './Countdown'
+
+const extractLagId = (url?: string): string | null => {
+  if (!url) return null
+  const match = url.match(/lagid=(\d+)/)
+  return match ? match[1] : null
+}
 
 interface MatchCardProps {
   match: Match
@@ -40,22 +47,38 @@ const parseScore = (score: string): { home: number; away: number } | null => {
 
 interface TeamNameProps {
   name?: string
-  url?: string
+  lagId: string | null
+  tournament?: string
+  hasTable: boolean
   isOurs: boolean
   showDot: boolean
   dotColor: string
   position: 'home' | 'away'
 }
 
-function TeamName({ name, url, isOurs, showDot, dotColor, position }: TeamNameProps) {
+function TeamName({
+  name,
+  lagId,
+  tournament,
+  hasTable,
+  isOurs,
+  showDot,
+  dotColor,
+  position,
+}: TeamNameProps) {
   const classNames = ['card-team-name', isOurs ? 'card-team-ours' : '', `card-team-${position}`]
     .filter(Boolean)
     .join(' ')
 
-  const nameElement = url ? (
-    <a href={url} target="_blank" rel="noopener noreferrer" className="card-team-text">
+  const shouldFilterByTournament = hasTable && tournament
+  const linkUrl = lagId
+    ? `/lag/${lagId}${shouldFilterByTournament ? `?turnering=${encodeURIComponent(tournament)}` : ''}`
+    : null
+
+  const nameElement = linkUrl ? (
+    <Link to={linkUrl} className="card-team-link">
       {name}
-    </a>
+    </Link>
   ) : (
     <span className="card-team-text">{name}</span>
   )
@@ -82,9 +105,10 @@ export function MatchCard({
   const hasResult = isValidScore(match['H-B'])
 
   const getMatchResult = (): 'win' | 'loss' | 'draw' | null => {
-    if (!isValidScore(match['H-B'])) return null
+    const score = match['H-B']
+    if (!isValidScore(score)) return null
 
-    const parsed = parseScore(match['H-B']!)
+    const parsed = parseScore(score)
     if (!parsed) return null
 
     const { home, away } = parsed
@@ -139,7 +163,9 @@ export function MatchCard({
           <div className="card-teams">
             <TeamName
               name={match.Hjemmelag}
-              url={match['Hjemmelag URL']}
+              lagId={extractLagId(match['Hjemmelag URL'])}
+              tournament={match.Turnering}
+              hasTable={hasTable}
               isOurs={isHome}
               showDot={isHome && hasMultipleTeams}
               dotColor={teamDotColor}
@@ -148,7 +174,9 @@ export function MatchCard({
             <span className="card-teams-separator">-</span>
             <TeamName
               name={match.Bortelag}
-              url={match['Bortelag URL']}
+              lagId={extractLagId(match['Bortelag URL'])}
+              tournament={match.Turnering}
+              hasTable={hasTable}
               isOurs={isAway}
               position="away"
               showDot={isAway && hasMultipleTeams}
@@ -163,11 +191,11 @@ export function MatchCard({
       </div>
 
       <div className="card-actions">
-        {hasTable && (
+        {hasTable && match.Lag && match.Turnering && (
           <button
             type="button"
             className="card-action card-action-table"
-            onClick={() => onOpenTable?.(match.Lag || '', match.Turnering || '')}
+            onClick={() => onOpenTable?.(match.Lag, match.Turnering)}
           >
             <svg
               width="16"
