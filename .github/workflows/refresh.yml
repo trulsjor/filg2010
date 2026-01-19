@@ -1,4 +1,4 @@
-name: Full data refresh
+name: Full fetch
 
 on:
   workflow_dispatch:

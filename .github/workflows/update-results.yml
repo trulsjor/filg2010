@@ -1,4 +1,4 @@
-name: Update match results
+name: Quick fetch
 
 on:
   schedule:
