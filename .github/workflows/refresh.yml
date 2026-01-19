@@ -37,8 +37,11 @@ jobs:
         if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install --with-deps chromium
 
-      - name: Fetch all data (matches + tables)
+      - name: Refresh matches and tables
         run: npm run refresh
+
+      - name: Fetch player stats (full)
+        run: npm run fetch-player-stats
 
       - name: Commit and push if changed
         run: |

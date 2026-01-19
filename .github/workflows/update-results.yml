@@ -25,8 +25,26 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Update match results (HTTP)
-        run: npm run update-results:http
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(npm ls @playwright/test --json | jq -r '.dependencies["@playwright/test"].version')" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        id: playwright-cache
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.playwright-version.outputs.version }}
+
+      - name: Install Playwright browsers
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install --with-deps chromium
+
+      - name: Refresh matches and tables
+        run: npm run refresh
+
+      - name: Fetch player stats (quick)
+        run: npm run fetch-player-stats:quick
 
       - name: Commit and push if changed
         id: commit
