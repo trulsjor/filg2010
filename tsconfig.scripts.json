@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "outDir": "dist-scripts",
+    "rootDir": "src",
+    "strict": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "declaration": false
+  },
+  "include": [
+    "src/scripts/**/*",
+    "src/handball/**/*",
+    "src/types/**/*",
+    "src/utils/**/*"
+  ]
+}

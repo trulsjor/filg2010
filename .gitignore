@@ -32,3 +32,4 @@ playwright/.cache/
 # Ignore screenshots but not app icons
 *.png
 !public/*.png
+dist-scripts
