@@ -90,7 +90,6 @@ export function SpillerDetaljPage() {
             <div className="player-jersey-badge">{formatJerseyNumber(player)}</div>
             <div className="player-detail-info">
               <h1>{player.playerName}</h1>
-              <div className="player-detail-team">{player.teamName}</div>
             </div>
           </div>
         </div>

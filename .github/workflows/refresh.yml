@@ -43,6 +43,9 @@ jobs:
       - name: Fetch player stats (full)
         run: npm run fetch-player-stats
 
+      - name: Generate player aggregates
+        run: npm run generate-player-aggregates
+
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"

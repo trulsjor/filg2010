@@ -46,6 +46,9 @@ jobs:
       - name: Fetch player stats (quick)
         run: npm run fetch-player-stats:quick
 
+      - name: Generate player aggregates
+        run: npm run generate-player-aggregates
+
       - name: Commit and push if changed
         id: commit
         run: |

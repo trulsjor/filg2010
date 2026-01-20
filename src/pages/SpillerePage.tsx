@@ -3,12 +3,10 @@ import { Link, useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
 import configData from '../../config.json'
 import aggregatesData from '../../data/player-aggregates.json'
-import type { Config } from '../types'
-import type { PlayerAggregatesData } from '../types/player-stats'
 
 export function SpillerePage() {
-  const config = configData as Config
-  const aggregates = aggregatesData as PlayerAggregatesData
+  const config = configData
+  const aggregates = aggregatesData
   const ourTeamIds = new Set(config.teams.map((t) => t.lagid))
   const navigate = useNavigate()
 
@@ -25,9 +23,7 @@ export function SpillerePage() {
     const set = new Set<string>()
     const players =
       filter === 'our'
-        ? aggregates.aggregates.filter(
-            (p) => p.teamIds?.some((id) => ourTeamIds.has(id)) ?? ourTeamIds.has(p.teamId)
-          )
+        ? aggregates.aggregates.filter((p) => p.teamIds.some((id) => ourTeamIds.has(id)))
         : aggregates.aggregates
     for (const p of players) {
       for (const t of p.byTournament) {
@@ -41,9 +37,7 @@ export function SpillerePage() {
     let players = aggregates.aggregates
 
     if (filter === 'our') {
-      players = players.filter(
-        (p) => p.teamIds?.some((id) => ourTeamIds.has(id)) ?? ourTeamIds.has(p.teamId)
-      )
+      players = players.filter((p) => p.teamIds.some((id) => ourTeamIds.has(id)))
     }
 
     if (tournamentFilter) {
@@ -139,7 +133,6 @@ export function SpillerePage() {
           </div>
         </div>
 
-        {/* Filters */}
         <div className="player-filters">
           <button
             onClick={() => {
@@ -173,7 +166,6 @@ export function SpillerePage() {
           </select>
         </div>
 
-        {/* Summary */}
         <div className="player-stats-summary">
           <div className="player-stat-card">
             <div className="player-stat-value">{filteredPlayers.length}</div>
@@ -193,7 +185,6 @@ export function SpillerePage() {
           </div>
         </div>
 
-        {/* Table */}
         <div className="player-table-container">
           <div className="player-table-header">
             Toppscorere <span className="player-count">({filteredPlayers.length} spillere)</span>
@@ -204,7 +195,6 @@ export function SpillerePage() {
                 <tr>
                   <th className="col-rank">#</th>
                   <th className="col-player">Spiller</th>
-                  <th className="col-team">Lag</th>
                   <th
                     className={`col-stat sortable ${sortBy === 'goals' ? 'sorted' : ''}`}
                     onClick={() => handleSort('goals')}
@@ -239,19 +229,18 @@ export function SpillerePage() {
               </thead>
               <tbody>
                 {filteredPlayers.map((player, idx) => {
-                  const isOurPlayer =
-                    player.teamIds?.some((id) => ourTeamIds.has(id)) ??
-                    ourTeamIds.has(player.teamId)
+                  const isOurPlayer = player.teamIds.some((id) => ourTeamIds.has(id))
                   return (
                     <tr key={player.playerId} className={isOurPlayer ? 'our-player' : ''}>
                       <td className="col-rank">{idx + 1}</td>
                       <td className="col-player">
                         <Link to={`/spillere/${player.playerId}`} className="player-name-link">
-                          <span className="jersey-number">{player.jerseyNumber ?? ''}</span>
+                          {player.jerseyNumber !== undefined && (
+                            <span className="jersey-number">{player.jerseyNumber}</span>
+                          )}
                           {player.playerName}
                         </Link>
                       </td>
-                      <td className="col-team">{player.teamName}</td>
                       <td className="col-stat col-goals">{player.totalGoals}</td>
                       <td className="col-stat">{player.totalPenaltyGoals}</td>
                       <td className="col-stat">{player.totalTwoMinutes}</td>

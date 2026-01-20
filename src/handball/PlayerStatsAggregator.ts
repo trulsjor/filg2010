@@ -114,7 +114,7 @@ export class PlayerStatsService {
         name: string
         jerseyNumber?: number
         lastJerseyDate?: string
-        teamMatchCounts: Map<string, { teamName: string; matches: number }>
+        teamMatchCounts: Map<string, { teamName: string; matches: number; lastMatchDate: string }>
         totalGoals: number
         totalPenaltyGoals: number
         totalTwoMinutes: number
@@ -168,7 +168,7 @@ export class PlayerStatsService {
         name: string
         jerseyNumber?: number
         lastJerseyDate?: string
-        teamMatchCounts: Map<string, { teamName: string; matches: number }>
+        teamMatchCounts: Map<string, { teamName: string; matches: number; lastMatchDate: string }>
         totalGoals: number
         totalPenaltyGoals: number
         totalTwoMinutes: number
@@ -213,7 +213,7 @@ export class PlayerStatsService {
         playerStatsMap.set(playerStat.playerId, aggregate)
       }
 
-      this.updateTeamMatchCount(aggregate, teamId, teamName)
+      this.updateTeamMatchCount(aggregate, teamId, teamName, match.matchDate)
       this.updatePlayerTotals(aggregate, playerStat)
       this.updateJerseyNumberIfNewer(aggregate, playerStat, match.matchDate)
       this.updateTournamentStats(aggregate, match.tournament, playerStat)
@@ -221,15 +221,21 @@ export class PlayerStatsService {
   }
 
   private updateTeamMatchCount(
-    aggregate: { teamMatchCounts: Map<string, { teamName: string; matches: number }> },
+    aggregate: {
+      teamMatchCounts: Map<string, { teamName: string; matches: number; lastMatchDate: string }>
+    },
     teamId: string,
-    teamName: string
+    teamName: string,
+    matchDate: string
   ) {
     const teamCount = aggregate.teamMatchCounts.get(teamId)
     if (teamCount) {
       teamCount.matches++
+      if (compareDates(matchDate, teamCount.lastMatchDate) > 0) {
+        teamCount.lastMatchDate = matchDate
+      }
     } else {
-      aggregate.teamMatchCounts.set(teamId, { teamName, matches: 1 })
+      aggregate.teamMatchCounts.set(teamId, { teamName, matches: 1, lastMatchDate: matchDate })
     }
   }
 
@@ -323,7 +329,7 @@ export class PlayerStatsService {
       {
         name: string
         jerseyNumber?: number
-        teamMatchCounts: Map<string, { teamName: string; matches: number }>
+        teamMatchCounts: Map<string, { teamName: string; matches: number; lastMatchDate: string }>
         totalGoals: number
         totalPenaltyGoals: number
         totalTwoMinutes: number
@@ -373,7 +379,9 @@ export class PlayerStatsService {
     })
   }
 
-  private findPrimaryTeam(teamMatchCounts: Map<string, { teamName: string; matches: number }>) {
+  private findPrimaryTeam(
+    teamMatchCounts: Map<string, { teamName: string; matches: number; lastMatchDate: string }>
+  ) {
     if (teamMatchCounts.size === 0) {
       throw new Error('Player has no team match counts - data integrity error')
     }
