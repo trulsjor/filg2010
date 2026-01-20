@@ -6,7 +6,7 @@ import type { FilterState } from '../hooks/useMatches'
 import type { Metadata } from '../types'
 import metadataData from '../../data/metadata.json'
 
-const metadata = metadataData as Metadata
+const metadata: Metadata = metadataData
 
 interface HeaderProps {
   onScrollToNext?: () => void
@@ -37,7 +37,11 @@ export function Header({
 
   useEffect(() => {
     const closeDropdownOnClickOutside = (e: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+      if (
+        dropdownRef.current &&
+        e.target instanceof Node &&
+        !dropdownRef.current.contains(e.target)
+      ) {
         setIsOpen(false)
       }
     }
@@ -249,9 +253,9 @@ export function Header({
                 </svg>
                 <span className="nav-link-label">Spillere</span>
               </Link>
-            </nav>
 
-            <ThemeSelector />
+              <ThemeSelector />
+            </nav>
           </div>
         </div>
       </div>

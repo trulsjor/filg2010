@@ -219,12 +219,8 @@ a:hover {
 .header-nav {
   display: flex;
   align-items: center;
-  gap: 0;
+  gap: var(--ds-spacing-2);
   margin-left: auto;
-  background: var(--ds-color-surface-default);
-  border: 1px solid var(--ds-color-border-default);
-  border-radius: 8px;
-  overflow: hidden;
 }
 
 .nav-link {
@@ -239,11 +235,7 @@ a:hover {
   background: transparent;
   color: var(--ds-color-text-default);
   border: none;
-  border-right: 1px solid var(--ds-color-border-subtle);
-}
-
-.nav-link:last-child {
-  border-right: none;
+  border-radius: 6px;
 }
 
 .nav-link:hover {
