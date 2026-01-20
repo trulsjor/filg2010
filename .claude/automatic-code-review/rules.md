@@ -2,6 +2,10 @@
 
 These are sensible defaults for semantic code review. Copy this file to your project and customize as needed.
 
+
+## Rule 0: All tests must always pass
+
+All tests must be run and they must pass. No exceptions.
 ---
 
 ## Rule 1: No Code Comments
