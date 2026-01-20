@@ -2354,10 +2354,11 @@ a.card-action-map:hover,
 }
 
 .result-badge {
-  font-size: var(--ds-font-size-xs);
-  padding: 2px 8px;
+  font-size: var(--ds-font-size-md);
+  padding: 4px 12px;
   border-radius: var(--ds-radius-sm);
-  font-weight: 500;
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 
 .result-badge.win {
