@@ -2412,7 +2412,6 @@ a.player-match-link-icon:hover {
   justify-content: center;
   gap: var(--ds-spacing-2);
   flex-wrap: nowrap;
-  overflow: hidden;
 }
 
 .player-match-vs {
@@ -2430,7 +2429,16 @@ a.player-match-link-icon:hover {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 45%;
+  flex: 1;
+  min-width: 0;
+}
+
+.player-match-team-link:first-child {
+  text-align: right;
+}
+
+.player-match-team-link:last-child {
+  text-align: left;
 }
 
 .player-match-team-link:hover {
