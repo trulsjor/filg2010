@@ -1,96 +1,68 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from '@playwright/test'
 
 test.describe('Homepage - Terminliste', () => {
   test('should display the page title', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/')
+    await expect(page.locator('h1')).toContainText('Terminliste')
+  })
 
-    // Check for page title
-    await expect(page.locator('h1')).toContainText('Terminliste');
-  });
+  test('should display match cards', async ({ page }) => {
+    await page.goto('/')
 
-  test('should display a table with schedule data', async ({ page }) => {
-    await page.goto('/');
+    const matchGrid = page.locator('.match-grid')
+    await expect(matchGrid).toBeVisible()
 
-    // Check that table exists
-    const table = page.locator('table');
-    await expect(table).toBeVisible();
+    const cards = page.locator('.match-card')
+    const cardCount = await cards.count()
 
-    // Check for table headers (7 or 8 depending on if we have links)
-    const headers = page.locator('th');
-    const headerCount = await headers.count();
-    expect(headerCount).toBeGreaterThanOrEqual(7);
+    expect(cardCount).toBeGreaterThan(0)
+    console.log(`Found ${cardCount} match cards`)
+  })
 
-    // Should have Turnering header
-    await expect(page.locator('th:has-text("Turnering")')).toBeVisible();
+  test('should display match card with correct structure', async ({ page }) => {
+    await page.goto('/')
 
-    // Check some expected headers
-    await expect(page.locator('th:has-text("Dato")')).toBeVisible();
-    await expect(page.locator('th:has-text("Tid")')).toBeVisible();
-    await expect(page.locator('th:has-text("Hjemmelag")')).toBeVisible();
-    await expect(page.locator('th:has-text("Bortelag")')).toBeVisible();
-  });
+    const firstCard = page.locator('.match-card').first()
+    await expect(firstCard).toBeVisible()
 
-  test('should display schedule rows with data', async ({ page }) => {
-    await page.goto('/');
+    await expect(firstCard.locator('.card-header')).toBeVisible()
+    await expect(firstCard.locator('.card-teams')).toBeVisible()
+    await expect(firstCard.locator('.card-score')).toBeVisible()
+  })
 
-    // Check that we have data rows (tbody tr)
-    const rows = page.locator('tbody tr');
-    const rowCount = await rows.count();
+  test('should display team names in cards', async ({ page }) => {
+    await page.goto('/')
+    await expect(page.locator('text=Fjellhammer').first()).toBeVisible()
+  })
 
-    // Should have at least one row of data
-    expect(rowCount).toBeGreaterThan(0);
+  test('should have clickable match links if available', async ({ page }) => {
+    await page.goto('/')
 
-    console.log(`Found ${rowCount} schedule rows`);
-  });
+    const matchLinks = page.locator('.card-action-primary')
+    const count = await matchLinks.count()
 
-  test('should display team names in rows', async ({ page }) => {
-    await page.goto('/');
-
-    // Check that Fjellhammer appears in the table (they are in the data)
-    await expect(page.locator('text=Fjellhammer').first()).toBeVisible();
-  });
-
-  test('should have clickable links to matches if available', async ({ page }) => {
-    await page.goto('/');
-
-    // Check if there are any match links
-    const matchLinks = page.locator('a.match-link');
-    const count = await matchLinks.count();
-
-    // If we have the enhanced CSV, there should be match links
     if (count > 0) {
-      console.log(`Found ${count} match links`);
-
-      // Check that first link has correct attributes
-      const firstLink = matchLinks.first();
-      await expect(firstLink).toHaveAttribute('target', '_blank');
-      await expect(firstLink).toHaveAttribute('rel', 'noopener noreferrer');
-
-      // Check that link has handball.no URL
-      const href = await firstLink.getAttribute('href');
-      expect(href).toContain('handball.no');
+      console.log(`Found ${count} match links`)
+      const firstLink = matchLinks.first()
+      await expect(firstLink).toHaveAttribute('target', '_blank')
     } else {
-      console.log('No match links found (enhanced CSV not present)');
+      console.log('No match links found')
     }
-  });
+  })
 
   test('should have clickable team links if available', async ({ page }) => {
-    await page.goto('/');
+    await page.goto('/')
 
-    // Look for links within table cells (team links)
-    const teamLinks = page.locator('tbody td a:not(.match-link)');
-    const count = await teamLinks.count();
+    const teamLinks = page.locator('.card-team-link')
+    const count = await teamLinks.count()
 
     if (count > 0) {
-      console.log(`Found ${count} team links`);
-
-      // Check first team link
-      const firstLink = teamLinks.first();
-      const href = await firstLink.getAttribute('href');
-      expect(href).toContain('handball.no');
-      expect(href).toContain('lagid=');
+      console.log(`Found ${count} team links`)
+      const firstLink = teamLinks.first()
+      const href = await firstLink.getAttribute('href')
+      expect(href).toContain('/lag/')
     } else {
-      console.log('No team links found (enhanced CSV not present)');
+      console.log('No team links found')
     }
-  });
-});
+  })
+})
