@@ -1,5 +1,5 @@
 import { useMemo, useCallback } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
 import { LeagueTableCard, type LeagueTable } from '../components/LeagueTableCard'
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
@@ -9,16 +9,24 @@ import configData from '../../config.json'
 import statsData from '../../data/player-stats.json'
 import terminlisteData from '../../data/terminliste.json'
 
-import type { Config, Match } from '../types'
+import type { Config } from '../types'
 import type { PlayerStatsData } from '../types/player-stats'
 
-type ConfigTeamName = string
-type TeamLeagueTablesMap = Record<ConfigTeamName, LeagueTable[]>
+type TeamDisplayName = string
+type TeamsLeagueTablesIndex = Record<TeamDisplayName, LeagueTable[]>
+
+function hasTablesForTeam(
+  tablesByTeam: TeamsLeagueTablesIndex,
+  teamName: TeamDisplayName
+): boolean {
+  const tables = tablesByTeam[teamName]
+  return tables !== undefined && tables.length > 0
+}
 
 const typedTables: LeagueTable[] = tablesData
 const typedConfig: Config = configData
 const typedStatsData: PlayerStatsData = statsData
-const typedTerminlisteData = terminlisteData as Match[]
+const typedTerminlisteData = terminlisteData
 
 export function TabellPage() {
   const navigate = useNavigate()
@@ -32,7 +40,7 @@ export function TabellPage() {
   }, [navigate])
 
   const tablesByTeam = useMemo(() => {
-    const grouped: TeamLeagueTablesMap = {}
+    const grouped: TeamsLeagueTablesIndex = {}
 
     typedConfig.teams.forEach((team) => {
       grouped[team.name] = []
@@ -60,7 +68,7 @@ export function TabellPage() {
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
+          <button onClick={() => navigate(-1)} className="back-link" aria-label="Tilbake">
             <svg
               width="20"
               height="20"
@@ -72,7 +80,7 @@ export function TabellPage() {
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Tilbake
-          </Link>
+          </button>
           <div className="stats-page-title">
             <h1>Tabeller</h1>
             <p className="stats-subtitle">Serietabeller for Fjellhammer G2010</p>
@@ -82,8 +90,8 @@ export function TabellPage() {
         {typedTables.length > 0 && (
           <section className="league-tables-section">
             {typedConfig.teams.map((team) => {
+              if (!hasTablesForTeam(tablesByTeam, team.name)) return null
               const teamTables = tablesByTeam[team.name]
-              if (!teamTables || teamTables.length === 0) return null
 
               return (
                 <div

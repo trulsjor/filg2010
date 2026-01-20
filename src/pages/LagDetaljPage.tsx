@@ -4,18 +4,17 @@ import { Header } from '../components/Header'
 import configData from '../../config.json'
 import statsData from '../../data/player-stats.json'
 import terminlisteData from '../../data/terminliste.json'
-import type { Config } from '../types'
+import type { Config, TeamId } from '../types'
 import type { PlayerStatsData } from '../types/player-stats'
 import { TeamStatsAggregate, type TerminlisteMatch } from '../team-stats/TeamStatsAggregate'
 
 const typedStatsData: PlayerStatsData = statsData
 const typedConfig: Config = configData
 const typedTerminlisteData: TerminlisteMatch[] = terminlisteData
-const CHART_MIN_MAX_GOALS = 1
 
 export function LagDetaljPage() {
-  const params = useParams<{ lagId: string }>()
-  const lagId = params.lagId
+  const params = useParams<{ lagId: TeamId }>()
+  const lagId: TeamId | undefined = params.lagId
   const [searchParams] = useSearchParams()
   const tournamentFilter = searchParams.get('turnering')
   const navigate = useNavigate()
@@ -46,18 +45,15 @@ export function LagDetaljPage() {
   }
 
   const reversed = [...teamData.matches].reverse()
-  const maxGoals = Math.max(
-    ...reversed.map((m) => m.goalsScored),
-    ...reversed.map((m) => m.goalsConceded),
-    CHART_MIN_MAX_GOALS
-  )
+  const allGoals = [...reversed.map((m) => m.goalsScored), ...reversed.map((m) => m.goalsConceded)]
+  const maxGoals = allGoals.length > 0 ? Math.max(...allGoals) : 1
 
   return (
     <div className="app">
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
+          <button onClick={() => navigate(-1)} className="back-link" aria-label="Tilbake">
             <svg
               width="20"
               height="20"
@@ -69,7 +65,7 @@ export function LagDetaljPage() {
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Tilbake
-          </Link>
+          </button>
           <div className="team-detail-header">
             <h1>{teamData.teamName}</h1>
             {teamData.isOurTeam && <span className="our-team-badge">Vårt lag</span>}

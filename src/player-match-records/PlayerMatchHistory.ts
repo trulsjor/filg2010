@@ -1,8 +1,9 @@
 import type { PlayerStatsData, PlayerAggregateStats } from '../types/player-stats'
+import type { TeamId, TeamName, TournamentName } from '../types'
 import { NorwegianDate } from './NorwegianDate'
 import { TeamSelection } from './TeamSelection'
 
-interface TerminlisteKamp {
+export interface TerminlisteKamp {
   Kampnr: string
   'Kamp URL'?: string
   Hjemmelag: string
@@ -12,13 +13,13 @@ interface TerminlisteKamp {
 export interface MatchHistoryItem {
   matchId: string
   matchDate: string
-  homeTeam: string
-  homeTeamId: string
-  awayTeam: string
-  awayTeamId: string
-  teamName: string
-  teamId: string
-  tournament: string
+  homeTeam: TeamName
+  homeTeamId: TeamId
+  awayTeam: TeamName
+  awayTeamId: TeamId
+  teamName: TeamName
+  teamId: TeamId
+  tournament: TournamentName
   result: string
   isHome: boolean
   won: boolean
@@ -31,8 +32,8 @@ export interface MatchHistoryItem {
 }
 
 export interface TeamStatsItem {
-  teamId: string
-  teamName: string
+  teamId: TeamId
+  teamName: TeamName
   matches: number
   goals: number
   penaltyGoals: number
@@ -49,7 +50,7 @@ export interface FilteredStats {
   totalTwoMinutes: number
   totalYellowCards: number
   matchCount: number
-  goalsPerMatch: number
+  goalsPerMatch: number | null
 }
 
 export class PlayerMatchHistory {
@@ -192,7 +193,7 @@ export class PlayerMatchHistory {
       totalTwoMinutes,
       totalYellowCards,
       matchCount,
-      goalsPerMatch: matchCount > 0 ? totalGoals / matchCount : 0,
+      goalsPerMatch: matchCount > 0 ? totalGoals / matchCount : null,
     }
   }
 

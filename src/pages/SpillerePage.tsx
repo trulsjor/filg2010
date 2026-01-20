@@ -114,7 +114,7 @@ export function SpillerePage() {
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <Link to="/" className="back-link" aria-label="Tilbake til terminliste">
+          <button onClick={() => navigate(-1)} className="back-link" aria-label="Tilbake">
             <svg
               width="20"
               height="20"
@@ -126,7 +126,7 @@ export function SpillerePage() {
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
             Tilbake
-          </Link>
+          </button>
           <div className="stats-page-title">
             <h1>Spillerstatistikk</h1>
             <p className="stats-subtitle">Toppscorere og statistikk for Fjellhammer G2010</p>

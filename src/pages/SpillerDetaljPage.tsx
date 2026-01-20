@@ -5,26 +5,21 @@ import aggregatesData from '../../data/player-aggregates.json'
 import statsData from '../../data/player-stats.json'
 import terminlisteData from '../../data/terminliste.json'
 import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats'
+import type { PlayerId } from '../types'
 import {
   PlayerMatchHistory,
   formatJerseyNumber,
   getResultClass,
+  type TerminlisteKamp,
 } from '../player-match-records/PlayerMatchHistory'
 import { TeamSelection } from '../player-match-records/TeamSelection'
-
-interface TerminlisteKamp {
-  Kampnr: string
-  'Kamp URL'?: string
-  Hjemmelag: string
-  Bortelag: string
-}
 
 const typedAggregatesData: PlayerAggregatesData = aggregatesData
 const typedStatsData: PlayerStatsData = statsData
 const typedTerminlisteData: TerminlisteKamp[] = terminlisteData
 
 export function SpillerDetaljPage() {
-  const { id } = useParams<{ id?: string }>()
+  const { id } = useParams<{ id?: PlayerId }>()
   const navigate = useNavigate()
 
   const aggregates = typedAggregatesData
@@ -73,7 +68,7 @@ export function SpillerDetaljPage() {
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <Link to="/spillere" className="back-link" aria-label="Tilbake til spillere">
+          <button onClick={() => navigate(-1)} className="back-link" aria-label="Tilbake">
             <svg
               width="20"
               height="20"
@@ -84,8 +79,8 @@ export function SpillerDetaljPage() {
             >
               <path d="M19 12H5M12 19l-7-7 7-7" />
             </svg>
-            Spillere
-          </Link>
+            Tilbake
+          </button>
           <div className="player-detail-header">
             <div className="player-jersey-badge">{formatJerseyNumber(player)}</div>
             <div className="player-detail-info">
@@ -136,10 +131,12 @@ export function SpillerDetaljPage() {
             <div className="player-stat-value">{filteredStats.matchCount}</div>
             <div className="player-stat-label">Kamper</div>
           </div>
-          <div className="player-stat-card">
-            <div className="player-stat-value">{filteredStats.goalsPerMatch.toFixed(1)}</div>
-            <div className="player-stat-label">Mål/kamp</div>
-          </div>
+          {filteredStats.goalsPerMatch !== null && (
+            <div className="player-stat-card">
+              <div className="player-stat-value">{filteredStats.goalsPerMatch.toFixed(1)}</div>
+              <div className="player-stat-label">Mål/kamp</div>
+            </div>
+          )}
           <div className="player-stat-card">
             <div className="player-stat-value">{filteredStats.totalYellowCards}</div>
             <div className="player-stat-label">Advarsler</div>
@@ -154,7 +151,8 @@ export function SpillerDetaljPage() {
                 <h3>Mål per kamp ({filteredStats.matchCount} kamper)</h3>
                 {(() => {
                   const reversed = filteredMatchHistory.reverse()
-                  const maxGoals = Math.max(...reversed.map((m) => m.goals), 1)
+                  const goalValues = reversed.map((m) => m.goals)
+                  const maxGoals = goalValues.length > 0 ? Math.max(...goalValues) : 1
                   return (
                     <div className="goals-timeline-container">
                       <div className="goals-y-axis">
