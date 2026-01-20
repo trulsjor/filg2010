@@ -31,9 +31,13 @@ function createMockBrowser(page: MockPage): MockBrowser {
   }
 }
 
+const { mockLaunch } = vi.hoisted(() => ({
+  mockLaunch: vi.fn<() => Promise<MockBrowser>>(),
+}))
+
 vi.mock('playwright', () => ({
   chromium: {
-    launch: vi.fn(),
+    launch: mockLaunch,
   },
 }))
 
@@ -75,9 +79,7 @@ describe('ScraperService', () => {
 
       mockPage = createMockPage(fakeScrapedData)
       mockBrowser = createMockBrowser(mockPage)
-
-      const { chromium } = await import('playwright')
-      vi.mocked(chromium.launch).mockResolvedValue(mockBrowser)
+      mockLaunch.mockResolvedValue(mockBrowser)
 
       const result = await scraper.scrapeTeamPage({
         lagid: '12345',
@@ -107,9 +109,7 @@ describe('ScraperService', () => {
 
       mockPage = createMockPage(fakeScrapedData)
       mockBrowser = createMockBrowser(mockPage)
-
-      const { chromium } = await import('playwright')
-      vi.mocked(chromium.launch).mockResolvedValue(mockBrowser)
+      mockLaunch.mockResolvedValue(mockBrowser)
 
       const result = await scraper.scrapeTeamPage({
         lagid: '12345',
@@ -133,9 +133,7 @@ describe('ScraperService', () => {
 
       mockPage = createMockPage(fakeScrapedData)
       mockBrowser = createMockBrowser(mockPage)
-
-      const { chromium } = await import('playwright')
-      vi.mocked(chromium.launch).mockResolvedValue(mockBrowser)
+      mockLaunch.mockResolvedValue(mockBrowser)
 
       const result = await scraper.scrapeTeamPage({
         lagid: '12345',
@@ -171,9 +169,7 @@ describe('ScraperService', () => {
         newPage: vi.fn().mockImplementation(mockPageFactory),
         close: vi.fn().mockResolvedValue(undefined),
       }
-
-      const { chromium } = await import('playwright')
-      vi.mocked(chromium.launch).mockResolvedValue(mockBrowser)
+      mockLaunch.mockResolvedValue(mockBrowser)
 
       const teams = [
         { lagid: '1', name: 'Lag 1', seasonId: '2024', color: '#fff' },
@@ -193,9 +189,7 @@ describe('ScraperService', () => {
     it('lukker browser', async () => {
       mockPage = createMockPage({ matchLinks: [], tournamentLinks: [] })
       mockBrowser = createMockBrowser(mockPage)
-
-      const { chromium } = await import('playwright')
-      vi.mocked(chromium.launch).mockResolvedValue(mockBrowser)
+      mockLaunch.mockResolvedValue(mockBrowser)
 
       await scraper.scrapeTeamPage({
         lagid: '12345',
