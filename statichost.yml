@@ -6,3 +6,6 @@ command: npm ci && npm run build
 
 # Deploy Vite production output
 public: dist
+
+# SPA fallback - serve index.html for all routes
+spa: true
