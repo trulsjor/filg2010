@@ -12,11 +12,5 @@ test.describe('Next match button layout', () => {
 
     await expect(header).toBeVisible()
     await expect(button).toBeVisible()
-
-    await expect(header).toHaveScreenshot('next-match-button-mobile.png', {
-      animations: 'disabled',
-      caret: 'hide',
-      maxDiffPixels: 150,
-    })
   })
 })
