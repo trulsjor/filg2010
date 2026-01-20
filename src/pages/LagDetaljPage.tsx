@@ -1,4 +1,4 @@
-import { useMemo, useCallback } from 'react'
+import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
 import configData from '../../config.json'
@@ -11,6 +11,14 @@ import { TeamStatsAggregate, type TerminlisteMatch } from '../team-stats/TeamSta
 const typedStatsData: PlayerStatsData = statsData
 const typedConfig: Config = configData
 const typedTerminlisteData: TerminlisteMatch[] = terminlisteData
+
+type PlayerSortField =
+  | 'jerseyNumber'
+  | 'playerName'
+  | 'goals'
+  | 'penaltyGoals'
+  | 'twoMinutes'
+  | 'matches'
 
 export function LagDetaljPage() {
   const params = useParams<{ lagId: TeamId }>()
@@ -40,6 +48,34 @@ export function LagDetaljPage() {
     )
   }, [lagId, ourTeamIds, tournamentFilter])
 
+  const [sortField, setSortField] = useState<PlayerSortField>('jerseyNumber')
+  const [sortAsc, setSortAsc] = useState(true)
+
+  const sortedPlayers = useMemo(() => {
+    if (!teamData) return []
+    return [...teamData.players].sort((a, b) => {
+      if (sortField === 'playerName') {
+        const cmp = a.playerName.localeCompare(b.playerName, 'nb')
+        return sortAsc ? cmp : -cmp
+      }
+      const aVal = a[sortField] ?? 999
+      const bVal = b[sortField] ?? 999
+      return sortAsc ? aVal - bVal : bVal - aVal
+    })
+  }, [teamData, sortField, sortAsc])
+
+  const handleSort = useCallback(
+    (field: PlayerSortField) => {
+      if (field === sortField) {
+        setSortAsc((prev) => !prev)
+      } else {
+        setSortField(field)
+        setSortAsc(false)
+      }
+    },
+    [sortField]
+  )
+
   if (!teamData) {
     return <Navigate to="/" replace />
   }
@@ -53,7 +89,14 @@ export function LagDetaljPage() {
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <button onClick={() => navigate(-1)} className="back-link" aria-label="Tilbake">
+          <button
+            onClick={() => {
+              window.scrollTo(0, 0)
+              navigate(-1)
+            }}
+            className="back-link"
+            aria-label="Tilbake"
+          >
             <svg
               width="20"
               height="20"
@@ -263,26 +306,53 @@ export function LagDetaljPage() {
           <div className="team-players-section">
             <h2>Spillere ({teamData.players.length})</h2>
             <div className="player-table-wrapper">
-              <table className="player-table">
+              <table className="player-table sortable-table">
                 <thead>
                   <tr>
-                    <th className="col-rank">#</th>
-                    <th className="col-player">Spiller</th>
-                    <th className="col-stat">Mål</th>
-                    <th className="col-stat">7m</th>
-                    <th className="col-stat">2m</th>
-                    <th className="col-stat">K</th>
+                    <th
+                      className={`col-rank sortable-header ${sortField === 'jerseyNumber' ? 'sorted' : ''}`}
+                      onClick={() => handleSort('jerseyNumber')}
+                    >
+                      # {sortField === 'jerseyNumber' && (sortAsc ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className={`col-player sortable-header ${sortField === 'playerName' ? 'sorted' : ''}`}
+                      onClick={() => handleSort('playerName')}
+                    >
+                      Spiller {sortField === 'playerName' && (sortAsc ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className={`col-stat sortable-header ${sortField === 'goals' ? 'sorted' : ''}`}
+                      onClick={() => handleSort('goals')}
+                    >
+                      Mål {sortField === 'goals' && (sortAsc ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className={`col-stat sortable-header ${sortField === 'penaltyGoals' ? 'sorted' : ''}`}
+                      onClick={() => handleSort('penaltyGoals')}
+                    >
+                      7m {sortField === 'penaltyGoals' && (sortAsc ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className={`col-stat sortable-header ${sortField === 'twoMinutes' ? 'sorted' : ''}`}
+                      onClick={() => handleSort('twoMinutes')}
+                    >
+                      2m {sortField === 'twoMinutes' && (sortAsc ? '↑' : '↓')}
+                    </th>
+                    <th
+                      className={`col-stat sortable-header ${sortField === 'matches' ? 'sorted' : ''}`}
+                      onClick={() => handleSort('matches')}
+                    >
+                      K {sortField === 'matches' && (sortAsc ? '↑' : '↓')}
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
-                  {teamData.players.map((player, idx) => (
+                  {sortedPlayers.map((player) => (
                     <tr key={player.playerId}>
-                      <td className="col-rank">{idx + 1}</td>
+                      <td className="col-rank">{player.jerseyNumber ?? '-'}</td>
                       <td className="col-player">
                         <Link to={`/spillere/${player.playerId}`} className="player-name-link">
-                          {player.jerseyNumber !== undefined && (
-                            <span className="jersey-number">{player.jerseyNumber}</span>
-                          )}
                           {player.playerName}
                         </Link>
                       </td>

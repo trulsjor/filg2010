@@ -2143,12 +2143,14 @@ a.card-action-map:hover,
   white-space: nowrap;
 }
 
-.player-table th.sortable {
+.player-table th.sortable,
+.player-table th.sortable-header {
   cursor: pointer;
   user-select: none;
 }
 
 .player-table th.sortable:hover,
+.player-table th.sortable-header:hover,
 .player-table th.sorted {
   color: var(--ds-color-accent-text);
 }

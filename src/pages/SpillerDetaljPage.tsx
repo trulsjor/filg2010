@@ -68,7 +68,14 @@ export function SpillerDetaljPage() {
       <Header onScrollToNext={handleScrollToNext} />
       <div className="container">
         <div className="stats-page-header">
-          <button onClick={() => navigate(-1)} className="back-link" aria-label="Tilbake">
+          <button
+            onClick={() => {
+              window.scrollTo(0, 0)
+              navigate(-1)
+            }}
+            className="back-link"
+            aria-label="Tilbake"
+          >
             <svg
               width="20"
               height="20"
