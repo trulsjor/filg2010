@@ -1,12 +1,7 @@
-/**
- * Script to generate aggregated player statistics from raw match data
- * Run with: npx tsx src/scripts/generatePlayerAggregates.ts
- */
-
 import * as fs from 'fs'
 import * as path from 'path'
 import type { PlayerStatsData } from '../types/player-stats.js'
-import { PlayerStatsService } from '../handball/player-stats.service.js'
+import { PlayerStatsService } from '../handball/PlayerStatsAggregator.js'
 
 const DATA_DIR = path.join(process.cwd(), 'data')
 const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
@@ -31,7 +26,6 @@ async function main() {
   console.log(`💾 Lagret til ${AGGREGATES_PATH}`)
   console.log(`   - ${aggregates.aggregates.length} spillere med aggregert statistikk`)
 
-  // Print top scorers
   console.log('\n🏆 Toppscorere:')
   const topScorers = aggregates.aggregates.slice(0, 10)
   for (const player of topScorers) {
