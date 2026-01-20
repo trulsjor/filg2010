@@ -222,7 +222,9 @@ export function LagDetaljPage() {
                         {match.isHome ? match.opponent : teamData.teamName}
                       </Link>
                       <span className={`result-badge ${resultClass}`}>
-                        {match.goalsScored}–{match.goalsConceded}
+                        {match.isHome
+                          ? `${match.goalsScored}–${match.goalsConceded}`
+                          : `${match.goalsConceded}–${match.goalsScored}`}
                       </span>
                     </div>
                     <div className="player-match-meta">
