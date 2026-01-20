@@ -23,6 +23,20 @@ function hasTablesForTeam(
   return tables !== undefined && tables.length > 0
 }
 
+function isSluttspill(tournamentName: string): boolean {
+  return tournamentName.toLowerCase().includes('sluttspill')
+}
+
+function sortTablesSluttspillFirst(tables: LeagueTable[]): LeagueTable[] {
+  return [...tables].sort((a, b) => {
+    const aIsSluttspill = isSluttspill(a.tournamentName)
+    const bIsSluttspill = isSluttspill(b.tournamentName)
+    if (aIsSluttspill && !bIsSluttspill) return -1
+    if (!aIsSluttspill && bIsSluttspill) return 1
+    return a.tournamentName.localeCompare(b.tournamentName, 'nb')
+  })
+}
+
 const typedTables: LeagueTable[] = tablesData
 const typedConfig: Config = configData
 const typedStatsData: PlayerStatsData = statsData
@@ -98,7 +112,7 @@ export function TabellPage() {
           <section className="league-tables-section">
             {typedConfig.teams.map((team) => {
               if (!hasTablesForTeam(tablesByTeam, team.name)) return null
-              const teamTables = tablesByTeam[team.name]
+              const teamTables = sortTablesSluttspillFirst(tablesByTeam[team.name])
 
               return (
                 <div
