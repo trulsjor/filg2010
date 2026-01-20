@@ -2177,7 +2177,7 @@ a.card-action-map:hover,
 
 .player-table .col-club {
   text-align: left;
-  max-width: 140px;
+  max-width: 90px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2202,6 +2202,22 @@ a.card-action-map:hover,
 
 @media (max-width: 768px) {
   .player-table .col-team {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .player-name-full {
+    display: none;
+  }
+
+  .player-name-short {
+    display: inline;
+  }
+}
+
+@media (min-width: 541px) {
+  .player-name-short {
     display: none;
   }
 }

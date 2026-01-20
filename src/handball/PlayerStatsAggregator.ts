@@ -370,7 +370,7 @@ export class PlayerStatsService {
         totalRedCards: p.totalRedCards,
         matchesPlayed: p.matchesPlayed,
         goalsPerMatch:
-          p.matchesPlayed > 0 ? Math.round((p.totalGoals / p.matchesPlayed) * 100) / 100 : 0,
+          p.matchesPlayed > 0 ? Math.round((p.totalGoals / p.matchesPlayed) * 100) / 100 : null,
         byTournament: Array.from(p.byTournament.entries()).map(([tournament, stats]) => ({
           tournament,
           ...stats,
@@ -439,7 +439,7 @@ export class PlayerStatsService {
           goalsPerMatch:
             tournamentStats.matches > 0
               ? Math.round((tournamentStats.goals / tournamentStats.matches) * 100) / 100
-              : 0,
+              : null,
         }
       })
   }

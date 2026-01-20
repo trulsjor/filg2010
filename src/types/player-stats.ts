@@ -49,7 +49,7 @@ export interface PlayerAggregateStats {
   totalYellowCards: number
   totalRedCards: number
   matchesPlayed: number
-  goalsPerMatch: number
+  goalsPerMatch: number | null
   byTournament: {
     tournament: string
     goals: number

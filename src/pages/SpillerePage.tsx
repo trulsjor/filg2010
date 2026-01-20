@@ -1,8 +1,11 @@
 import { useState, useMemo, useCallback } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
 import configData from '../../config.json'
 import aggregatesData from '../../data/player-aggregates.json'
+import type { PlayerAggregatesData } from '../types/player-stats'
+
+const typedAggregatesData: PlayerAggregatesData = aggregatesData
 
 type SortField =
   | 'jerseyNumber'
@@ -18,16 +21,54 @@ function extractClubName(teamName: string): string {
   return teamName.replace(/\s*\d+$/, '').trim()
 }
 
+function shortenName(fullName: string): string {
+  const parts = fullName.trim().split(/\s+/)
+  if (parts.length < 2) return fullName
+  const lastName = parts[parts.length - 1]
+  const initials = parts.slice(0, -1).map((p) => `${p.charAt(0).toUpperCase()}.`)
+  return `${initials.join(' ')} ${lastName}`
+}
+
 export function SpillerePage() {
   const config = configData
-  const aggregates = aggregatesData
+  const aggregates = typedAggregatesData
   const ourTeamIds = new Set(config.teams.map((t) => t.lagid))
   const navigate = useNavigate()
+  const [searchParams, setSearchParams] = useSearchParams()
 
-  const [filter, setFilter] = useState<'our' | 'all'>('our')
-  const [tournamentFilter, setTournamentFilter] = useState('')
+  const filter = searchParams.get('filter') === 'all' ? 'all' : 'our'
+  const tournamentFilter = searchParams.get('turnering')
   const [sortBy, setSortBy] = useState<SortField>('goals')
   const [sortDesc, setSortDesc] = useState(true)
+
+  const setFilter = useCallback(
+    (newFilter: 'our' | 'all') => {
+      setSearchParams((params) => {
+        if (newFilter === 'our') {
+          params.delete('filter')
+        } else {
+          params.set('filter', newFilter)
+        }
+        params.delete('turnering')
+        return params
+      })
+    },
+    [setSearchParams]
+  )
+
+  const setTournamentFilter = useCallback(
+    (tournament: string) => {
+      setSearchParams((params) => {
+        if (tournament) {
+          params.set('turnering', tournament)
+        } else {
+          params.delete('turnering')
+        }
+        return params
+      })
+    },
+    [setSearchParams]
+  )
 
   const handleScrollToNext = useCallback(() => {
     navigate('/', { state: { scrollToNext: true } })
@@ -55,12 +96,11 @@ export function SpillerePage() {
     }
 
     if (tournamentFilter) {
-      players = players
-        .filter((p) => p.byTournament.some((t) => t.tournament === tournamentFilter))
-        .map((p) => {
-          const ts = p.byTournament.find((t) => t.tournament === tournamentFilter)
-          if (!ts) return p
-          return {
+      players = players.flatMap((p) => {
+        const ts = p.byTournament.find((t) => t.tournament === tournamentFilter)
+        if (!ts) return []
+        return [
+          {
             ...p,
             totalGoals: ts.goals,
             totalPenaltyGoals: ts.penaltyGoals,
@@ -68,9 +108,10 @@ export function SpillerePage() {
             totalYellowCards: ts.yellowCards,
             totalRedCards: ts.redCards,
             matchesPlayed: ts.matches,
-            goalsPerMatch: ts.matches > 0 ? Math.round((ts.goals / ts.matches) * 100) / 100 : 0,
-          }
-        })
+            goalsPerMatch: ts.matches > 0 ? Math.round((ts.goals / ts.matches) * 100) / 100 : null,
+          },
+        ]
+      })
     }
 
     const sorted = [...players].sort((a, b) => {
@@ -93,7 +134,8 @@ export function SpillerePage() {
         const diff = aNum - bNum
         return sortDesc ? -diff : diff
       }
-      let aVal: number, bVal: number
+      let aVal: number
+      let bVal: number
       switch (sortBy) {
         case 'goals':
           aVal = a.totalGoals
@@ -111,10 +153,20 @@ export function SpillerePage() {
           aVal = a.matchesPlayed
           bVal = b.matchesPlayed
           break
-        case 'avg':
-          aVal = a.goalsPerMatch
-          bVal = b.goalsPerMatch
+        case 'avg': {
+          const aAvg = a.goalsPerMatch
+          const bAvg = b.goalsPerMatch
+          if (aAvg !== null && bAvg === null) return sortDesc ? 1 : -1
+          if (aAvg === null && bAvg !== null) return sortDesc ? -1 : 1
+          if (aAvg === null || bAvg === null) return 0
+          aVal = aAvg
+          bVal = bAvg
           break
+        }
+        default: {
+          const exhaustiveCheck: never = sortBy
+          throw new Error(`Unhandled sort field: ${exhaustiveCheck}`)
+        }
       }
       return sortDesc ? bVal - aVal : aVal - bVal
     })
@@ -175,25 +227,19 @@ export function SpillerePage() {
 
         <div className="player-filters">
           <button
-            onClick={() => {
-              setFilter('our')
-              setTournamentFilter('')
-            }}
+            onClick={() => setFilter('our')}
             className={`player-filter-btn ${filter === 'our' ? 'active' : ''}`}
           >
             Fjellhammer
           </button>
           <button
-            onClick={() => {
-              setFilter('all')
-              setTournamentFilter('')
-            }}
+            onClick={() => setFilter('all')}
             className={`player-filter-btn ${filter === 'all' ? 'active' : ''}`}
           >
             Alle spillere
           </button>
           <select
-            value={tournamentFilter}
+            value={tournamentFilter ?? ''}
             onChange={(e) => setTournamentFilter(e.target.value)}
             className="player-filter-select"
           >
@@ -292,7 +338,10 @@ export function SpillerePage() {
                       <td className="col-rank">{player.jerseyNumber}</td>
                       <td className="col-player">
                         <Link to={`/spillere/${player.playerId}`} className="player-name-link">
-                          {player.playerName}
+                          <span className="player-name-full">{player.playerName}</span>
+                          <span className="player-name-short">
+                            {shortenName(player.playerName)}
+                          </span>
                         </Link>
                       </td>
                       <td className="col-club">{clubName}</td>
@@ -300,7 +349,9 @@ export function SpillerePage() {
                       <td className="col-stat">{player.totalPenaltyGoals}</td>
                       <td className="col-stat">{player.totalTwoMinutes}</td>
                       <td className="col-stat">{player.matchesPlayed}</td>
-                      <td className="col-stat col-avg">{player.goalsPerMatch.toFixed(1)}</td>
+                      <td className="col-stat col-avg">
+                        {player.goalsPerMatch !== null ? player.goalsPerMatch.toFixed(1) : '-'}
+                      </td>
                     </tr>
                   )
                 })}
