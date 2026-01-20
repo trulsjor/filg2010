@@ -33,23 +33,24 @@ export function usePullToRefresh({
   threshold = 80,
   onRefresh = () => window.location.reload(),
 }: UsePullToRefreshOptions = {}): UsePullToRefreshReturn {
-  const [isPulling, setIsPulling] = useState(false)
   const [pullDistance, setPullDistance] = useState(0)
   const startY = useRef(0)
   const currentY = useRef(0)
+  const isPullingRef = useRef(false)
 
   const isTriggered = pullDistance >= threshold
+  const isPulling = isPullingRef.current
 
   const handleTouchStart = useCallback((e: TouchEvent) => {
     if (isAtTopOfPage()) {
       startY.current = e.touches[0].clientY
-      setIsPulling(true)
+      isPullingRef.current = true
     }
   }, [])
 
   const handleTouchMove = useCallback(
     (e: TouchEvent) => {
-      if (!isPulling) return
+      if (!isPullingRef.current) return
 
       currentY.current = e.touches[0].clientY
       const diff = currentY.current - startY.current
@@ -65,18 +66,18 @@ export function usePullToRefresh({
         setPullDistance(0)
       }
     },
-    [isPulling, threshold]
+    [threshold]
   )
 
   const handleTouchEnd = useCallback(() => {
-    if (isTriggered) {
+    if (pullDistance >= threshold) {
       onRefresh()
     }
-    setIsPulling(false)
+    isPullingRef.current = false
     setPullDistance(0)
     startY.current = 0
     currentY.current = 0
-  }, [isTriggered, onRefresh])
+  }, [pullDistance, threshold, onRefresh])
 
   useEffect(() => {
     if (!isTouchDeviceAvailable()) return
