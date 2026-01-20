@@ -388,19 +388,22 @@ export class PlayerStatsService {
 
     const teamIds: string[] = []
     const teamNames: string[] = []
-    let primaryTeam = { id: '', name: '', matches: 0 }
+    let currentTeam = { id: '', name: '', lastMatchDate: '' }
 
     for (const [teamId, data] of teamMatchCounts) {
       teamIds.push(teamId)
       teamNames.push(data.teamName)
-      if (data.matches > primaryTeam.matches) {
-        primaryTeam = { id: teamId, name: data.teamName, matches: data.matches }
+      if (
+        !currentTeam.lastMatchDate ||
+        compareDates(data.lastMatchDate, currentTeam.lastMatchDate) > 0
+      ) {
+        currentTeam = { id: teamId, name: data.teamName, lastMatchDate: data.lastMatchDate }
       }
     }
 
     return {
-      primaryTeamId: primaryTeam.id,
-      primaryTeamName: primaryTeam.name,
+      primaryTeamId: currentTeam.id,
+      primaryTeamName: currentTeam.name,
       teamIds,
       teamNames,
     }

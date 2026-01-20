@@ -4,6 +4,20 @@ import { Header } from '../components/Header'
 import configData from '../../config.json'
 import aggregatesData from '../../data/player-aggregates.json'
 
+type SortField =
+  | 'jerseyNumber'
+  | 'playerName'
+  | 'club'
+  | 'goals'
+  | 'penalty'
+  | 'twoMin'
+  | 'matches'
+  | 'avg'
+
+function extractClubName(teamName: string): string {
+  return teamName.replace(/\s*\d+$/, '').trim()
+}
+
 export function SpillerePage() {
   const config = configData
   const aggregates = aggregatesData
@@ -12,7 +26,7 @@ export function SpillerePage() {
 
   const [filter, setFilter] = useState<'our' | 'all'>('our')
   const [tournamentFilter, setTournamentFilter] = useState('')
-  const [sortBy, setSortBy] = useState<'goals' | 'penalty' | 'twoMin' | 'matches' | 'avg'>('goals')
+  const [sortBy, setSortBy] = useState<SortField>('goals')
   const [sortDesc, setSortDesc] = useState(true)
 
   const handleScrollToNext = useCallback(() => {
@@ -60,6 +74,25 @@ export function SpillerePage() {
     }
 
     const sorted = [...players].sort((a, b) => {
+      if (sortBy === 'playerName') {
+        const cmp = a.playerName.localeCompare(b.playerName, 'nb')
+        return sortDesc ? -cmp : cmp
+      }
+      if (sortBy === 'club') {
+        const aClub = extractClubName(a.teamName)
+        const bClub = extractClubName(b.teamName)
+        const cmp = aClub.localeCompare(bClub, 'nb')
+        return sortDesc ? -cmp : cmp
+      }
+      if (sortBy === 'jerseyNumber') {
+        const aNum = a.jerseyNumber
+        const bNum = b.jerseyNumber
+        if (aNum !== undefined && bNum === undefined) return sortDesc ? 1 : -1
+        if (aNum === undefined && bNum !== undefined) return sortDesc ? -1 : 1
+        if (aNum === undefined || bNum === undefined) return 0
+        const diff = aNum - bNum
+        return sortDesc ? -diff : diff
+      }
       let aVal: number, bVal: number
       switch (sortBy) {
         case 'goals':
@@ -200,8 +233,24 @@ export function SpillerePage() {
             <table className="player-table">
               <thead>
                 <tr>
-                  <th className="col-rank">#</th>
-                  <th className="col-player">Spiller</th>
+                  <th
+                    className={`col-rank sortable ${sortBy === 'jerseyNumber' ? 'sorted' : ''}`}
+                    onClick={() => handleSort('jerseyNumber')}
+                  >
+                    # {sortBy === 'jerseyNumber' && (sortDesc ? '▼' : '▲')}
+                  </th>
+                  <th
+                    className={`col-player sortable ${sortBy === 'playerName' ? 'sorted' : ''}`}
+                    onClick={() => handleSort('playerName')}
+                  >
+                    Spiller {sortBy === 'playerName' && (sortDesc ? '▼' : '▲')}
+                  </th>
+                  <th
+                    className={`col-club sortable ${sortBy === 'club' ? 'sorted' : ''}`}
+                    onClick={() => handleSort('club')}
+                  >
+                    Klubb {sortBy === 'club' && (sortDesc ? '▼' : '▲')}
+                  </th>
                   <th
                     className={`col-stat sortable ${sortBy === 'goals' ? 'sorted' : ''}`}
                     onClick={() => handleSort('goals')}
@@ -235,19 +284,18 @@ export function SpillerePage() {
                 </tr>
               </thead>
               <tbody>
-                {filteredPlayers.map((player, idx) => {
+                {filteredPlayers.map((player) => {
                   const isOurPlayer = player.teamIds.some((id) => ourTeamIds.has(id))
+                  const clubName = extractClubName(player.teamName)
                   return (
                     <tr key={player.playerId} className={isOurPlayer ? 'our-player' : ''}>
-                      <td className="col-rank">{idx + 1}</td>
+                      <td className="col-rank">{player.jerseyNumber}</td>
                       <td className="col-player">
                         <Link to={`/spillere/${player.playerId}`} className="player-name-link">
-                          {player.jerseyNumber !== undefined && (
-                            <span className="jersey-number">{player.jerseyNumber}</span>
-                          )}
                           {player.playerName}
                         </Link>
                       </td>
+                      <td className="col-club">{clubName}</td>
                       <td className="col-stat col-goals">{player.totalGoals}</td>
                       <td className="col-stat">{player.totalPenaltyGoals}</td>
                       <td className="col-stat">{player.totalTwoMinutes}</td>

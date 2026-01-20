@@ -2175,6 +2175,16 @@ a.card-action-map:hover,
   font-size: var(--ds-font-size-xs);
 }
 
+.player-table .col-club {
+  text-align: left;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-font-size-sm);
+}
+
 .player-table .col-goals {
   font-weight: 600;
   color: var(--ds-color-accent-text);

@@ -247,8 +247,8 @@
     {
       "playerId": "3kbmfs",
       "playerName": "Axel Andersen Juul",
-      "teamId": "745936",
-      "teamName": "Kjelsås 2",
+      "teamId": "428928",
+      "teamName": "Kjelsås",
       "teamIds": [
         "745936",
         "428928",
@@ -957,8 +957,8 @@
     {
       "playerId": "8wxgcl",
       "playerName": "Theodor Avlesen Løfgren",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -1548,8 +1548,8 @@
     {
       "playerId": "8sq8th",
       "playerName": "Anton Enge-Torp",
-      "teamId": "603092",
-      "teamName": "Oppegård 2",
+      "teamId": "855624",
+      "teamName": "Oppegård",
       "teamIds": [
         "855624",
         "983319",
@@ -1610,8 +1610,8 @@
     {
       "playerId": "qtkltl",
       "playerName": "Henrik Helle Andresen",
-      "teamId": "497167",
-      "teamName": "Sørumsand",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
         "497167",
         "812498"
@@ -1803,8 +1803,8 @@
     {
       "playerId": "hat312",
       "playerName": "Mathias Vike Grundeland",
-      "teamId": "812498",
-      "teamName": "Fjellhammer 2",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "812498",
         "531500",
@@ -2606,8 +2606,8 @@
     {
       "playerId": "lkjevn",
       "playerName": "Herman Grinden Solheim",
-      "teamId": "855624",
-      "teamName": "Oppegård",
+      "teamId": "454777",
+      "teamName": "Ski/Langhus",
       "teamIds": [
         "855624",
         "454777"
@@ -2926,8 +2926,8 @@
     {
       "playerId": "gywtaa",
       "playerName": "Jonas Tangen Nygaard",
-      "teamId": "497167",
-      "teamName": "Sørumsand",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "497167",
         "812498",
@@ -3252,8 +3252,8 @@
     {
       "playerId": "9dyenh",
       "playerName": "Birk Fredriksen",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "531500",
         "583470"
@@ -3294,8 +3294,8 @@
     {
       "playerId": "ixb9in",
       "playerName": "Philip Nikolai Stiris-Dahl",
-      "teamId": "779812",
-      "teamName": "Gjerdrum 2",
+      "teamId": "698257",
+      "teamName": "Gjerdrum",
       "teamIds": [
         "698257",
         "779812"
@@ -3345,8 +3345,8 @@
     {
       "playerId": "4o3u7n",
       "playerName": "Julian Kihlman",
-      "teamId": "603092",
-      "teamName": "Oppegård 2",
+      "teamId": "855624",
+      "teamName": "Oppegård",
       "teamIds": [
         "855624",
         "983319",
@@ -3416,8 +3416,8 @@
     {
       "playerId": "mf51j3",
       "playerName": "Simon Lang Gleditsch",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -3671,7 +3671,7 @@
     {
       "playerId": "rndhbs",
       "playerName": "Niklas Bordi",
-      "teamId": "506889",
+      "teamId": "558785",
       "teamName": "Haslum 2",
       "teamIds": [
         "506889",
@@ -3820,8 +3820,8 @@
     {
       "playerId": "7vchv",
       "playerName": "Herman Christoffer Åstrøm",
-      "teamId": "997845",
-      "teamName": "Torp/Rolvsøy/Tindlund/Sarpsborg",
+      "teamId": "779768",
+      "teamName": "Torp/Rolvsøy/Tindlund/Sarpsborg 2",
       "teamIds": [
         "997845",
         "779768",
@@ -3922,8 +3922,8 @@
     {
       "playerId": "iqkq1w",
       "playerName": "Tobias Vaarnes Jørgensen",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "812498",
         "531500",
@@ -3984,8 +3984,8 @@
     {
       "playerId": "tybx34",
       "playerName": "William Johannes Bingen",
-      "teamId": "812498",
-      "teamName": "Fjellhammer 2",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "812498",
         "531500",
@@ -4095,8 +4095,8 @@
     {
       "playerId": "ydqkdy",
       "playerName": "Ådne Øktedalen",
-      "teamId": "745936",
-      "teamName": "Kjelsås 2",
+      "teamId": "428928",
+      "teamName": "Kjelsås",
       "teamIds": [
         "428928",
         "745936",
@@ -4725,8 +4725,8 @@
     {
       "playerId": "scc3yw",
       "playerName": "Halvor Myklebust Øfsdahl",
-      "teamId": "682691",
-      "teamName": "Lillestrøm",
+      "teamId": "695981",
+      "teamName": "Lillestrøm 2",
       "teamIds": [
         "682691",
         "695981",
@@ -4796,8 +4796,8 @@
     {
       "playerId": "m16mqr",
       "playerName": "Magnus Espeland Lie",
-      "teamId": "506889",
-      "teamName": "Haslum 2",
+      "teamId": "473135",
+      "teamName": "Haslum",
       "teamIds": [
         "473135",
         "506889",
@@ -4958,8 +4958,8 @@
     {
       "playerId": "k5vaez",
       "playerName": "Mats Leander Thai Christiansen",
-      "teamId": "558720",
-      "teamName": "Siggerud",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603078",
         "558720"
@@ -5000,8 +5000,8 @@
     {
       "playerId": "9ficz8",
       "playerName": "Kristian Seung-Jae Wolan Jacobsen",
-      "teamId": "812498",
-      "teamName": "Fjellhammer 2",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "812498",
         "583470"
@@ -5051,8 +5051,8 @@
     {
       "playerId": "kf1p35",
       "playerName": "Leonard Lefdal Simonsen",
-      "teamId": "682691",
-      "teamName": "Lillestrøm",
+      "teamId": "695981",
+      "teamName": "Lillestrøm 2",
       "teamIds": [
         "695981",
         "682691"
@@ -5384,8 +5384,8 @@
     {
       "playerId": "w806r7",
       "playerName": "Kristian Nysveen",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "531500",
         "812498",
@@ -6241,8 +6241,8 @@
     {
       "playerId": "5969l7",
       "playerName": "Erik Hjelljord Frømyhr",
-      "teamId": "855624",
-      "teamName": "Oppegård",
+      "teamId": "454777",
+      "teamName": "Ski/Langhus",
       "teamIds": [
         "855624",
         "454777"
@@ -6494,8 +6494,8 @@
     {
       "playerId": "tl17lx",
       "playerName": "Edvard Moen Kolsrud",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "454777",
         "496860",
@@ -6547,8 +6547,8 @@
     {
       "playerId": "gv3nu4",
       "playerName": "Andreas Kang-Rui Pedersen",
-      "teamId": "428829",
-      "teamName": "Bækkelaget",
+      "teamId": "611589",
+      "teamName": "Bækkelaget 2",
       "teamIds": [
         "428829",
         "611589"
@@ -6629,8 +6629,8 @@
     {
       "playerId": "kl3byx",
       "playerName": "Liam August  Hovdsveen-halvorsen",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "454777",
         "496860"
@@ -6729,8 +6729,8 @@
     {
       "playerId": "7srdhw",
       "playerName": "Neo Liam Könberg",
-      "teamId": "603092",
-      "teamName": "Oppegård 2",
+      "teamId": "855624",
+      "teamName": "Oppegård",
       "teamIds": [
         "855624",
         "603092",
@@ -6791,8 +6791,8 @@
     {
       "playerId": "7ntgt9",
       "playerName": "Mats Angard Danielsen",
-      "teamId": "603079",
-      "teamName": "Ski 3",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603078",
         "603079"
@@ -6940,8 +6940,8 @@
     {
       "playerId": "rt2sw2",
       "playerName": "Olav Lie Kvisler",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "531500",
         "583470"
@@ -6982,8 +6982,8 @@
     {
       "playerId": "hihbm7",
       "playerName": "Mathias Vedum Bøe",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "454777",
         "496860"
@@ -7317,8 +7317,8 @@
     {
       "playerId": "eyi9dp",
       "playerName": "Erlend Kristiansen Drabløs",
-      "teamId": "997845",
-      "teamName": "Torp/Rolvsøy/Tindlund/Sarpsborg",
+      "teamId": "779768",
+      "teamName": "Torp/Rolvsøy/Tindlund/Sarpsborg 2",
       "teamIds": [
         "997845",
         "779768",
@@ -7534,8 +7534,8 @@
     {
       "playerId": "bkn8ph",
       "playerName": "Vemund Barbøl Vikebak",
-      "teamId": "682691",
-      "teamName": "Lillestrøm",
+      "teamId": "695981",
+      "teamName": "Lillestrøm 2",
       "teamIds": [
         "682691",
         "695981"
@@ -7825,8 +7825,8 @@
     {
       "playerId": "uwly1m",
       "playerName": "Tor Brudeli",
-      "teamId": "603079",
-      "teamName": "Ski 3",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603079",
         "603078"
@@ -8457,8 +8457,8 @@
     {
       "playerId": "esdhlk",
       "playerName": "Erik Andreas Blix Sørensen",
-      "teamId": "603092",
-      "teamName": "Oppegård 2",
+      "teamId": "855624",
+      "teamName": "Oppegård",
       "teamIds": [
         "855624",
         "603092"
@@ -8517,8 +8517,8 @@
     {
       "playerId": "weyrxb",
       "playerName": "Hermann Ryen-Færden",
-      "teamId": "1013536",
-      "teamName": "Ullern/Njård/Monolitten 2",
+      "teamId": "682188",
+      "teamName": "Ullern/Njård/Monolitten",
       "teamIds": [
         "1013536",
         "682188"
@@ -8559,8 +8559,8 @@
     {
       "playerId": "7bu4kd",
       "playerName": "Ludvig Roar Hæhre Vilberg",
-      "teamId": "496860",
-      "teamName": "Ski/Langhus 3",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "496860",
         "817221"
@@ -8730,8 +8730,8 @@
     {
       "playerId": "aw5q6c",
       "playerName": "Hans Volden",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "812498",
         "531500",
@@ -8783,8 +8783,8 @@
     {
       "playerId": "iqp7ki",
       "playerName": "Sondre Berge",
-      "teamId": "779812",
-      "teamName": "Gjerdrum 2",
+      "teamId": "698257",
+      "teamName": "Gjerdrum",
       "teamIds": [
         "779812",
         "698257"
@@ -9388,8 +9388,8 @@
     {
       "playerId": "iq8was",
       "playerName": "Andreas Edvardsen",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -9481,8 +9481,8 @@
     {
       "playerId": "b5rvit",
       "playerName": "Aksel Kongsten Husum",
-      "teamId": "603079",
-      "teamName": "Ski 3",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603079",
         "603078"
@@ -9976,8 +9976,8 @@
     {
       "playerId": "7dk0bz",
       "playerName": "Simon Rørhus Steinsland",
-      "teamId": "428829",
-      "teamName": "Bækkelaget",
+      "teamId": "611589",
+      "teamName": "Bækkelaget 2",
       "teamIds": [
         "428829",
         "611589"
@@ -10433,8 +10433,8 @@
     {
       "playerId": "ka5ykm",
       "playerName": "Elias Sandkjær Engmark",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -10484,8 +10484,8 @@
     {
       "playerId": "85oz5k",
       "playerName": "Jakob Larsen",
-      "teamId": "428829",
-      "teamName": "Bækkelaget",
+      "teamId": "611589",
+      "teamName": "Bækkelaget 2",
       "teamIds": [
         "428829",
         "611589"
@@ -10739,8 +10739,8 @@
     {
       "playerId": "yfytb2",
       "playerName": "Johannes Klepsland",
-      "teamId": "779812",
-      "teamName": "Gjerdrum 2",
+      "teamId": "698257",
+      "teamName": "Gjerdrum",
       "teamIds": [
         "779812",
         "698257"
@@ -10921,8 +10921,8 @@
     {
       "playerId": "f07g7v",
       "playerName": "Mads Thue Holter",
-      "teamId": "966330",
-      "teamName": "Ull/Kisa 2",
+      "teamId": "814517",
+      "teamName": "Ull/Kisa",
       "teamIds": [
         "966330",
         "814517"
@@ -11021,8 +11021,8 @@
     {
       "playerId": "m768c5",
       "playerName": "Alfred Paulsen Bekkelund",
-      "teamId": "558812",
-      "teamName": "NIT-HAK/Ull/Kisa 3",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
         "812498",
         "558812",
@@ -11114,8 +11114,8 @@
     {
       "playerId": "2p0f6e",
       "playerName": "Mathias  Pettersen-ulvmoen",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "454777",
         "496860"
@@ -12239,8 +12239,8 @@
     {
       "playerId": "saqe4h",
       "playerName": "Johannes Tevik Bueie",
-      "teamId": "814517",
-      "teamName": "Ull/Kisa",
+      "teamId": "966330",
+      "teamName": "Ull/Kisa 2",
       "teamIds": [
         "814517",
         "966330"
@@ -12299,8 +12299,8 @@
     {
       "playerId": "9f3n8s",
       "playerName": "Einar Drange Nybakk",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -12450,8 +12450,8 @@
     {
       "playerId": "q4di2h",
       "playerName": "Benjamin Trebekk Olsen",
-      "teamId": "496860",
-      "teamName": "Ski/Langhus 3",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "496860",
         "817221"
@@ -13020,8 +13020,8 @@
     {
       "playerId": "d00x5u",
       "playerName": "Gard Aleksander Falkung Nylænder",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -13233,8 +13233,8 @@
     {
       "playerId": "6zjzar",
       "playerName": "Jostein Skagemo",
-      "teamId": "603078",
-      "teamName": "Ski 2",
+      "teamId": "603079",
+      "teamName": "Ski 3",
       "teamIds": [
         "603079",
         "603078"
@@ -13459,8 +13459,8 @@
     {
       "playerId": "tmdc4a",
       "playerName": "Oliver Liverød Nereng",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "454777",
         "496860"
@@ -14200,8 +14200,8 @@
     {
       "playerId": "o89q6n",
       "playerName": "Tomas Sagatun-Langleite",
-      "teamId": "817005",
-      "teamName": "Korsvoll",
+      "teamId": "531471",
+      "teamName": "Korsvoll 2",
       "teamIds": [
         "817005",
         "531471"
@@ -14353,8 +14353,8 @@
     {
       "playerId": "qzcbjz",
       "playerName": "Mateo Nicolai Dale",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -14395,8 +14395,8 @@
     {
       "playerId": "1oxpaj",
       "playerName": "Balder Melhus-Paulsen",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -14508,8 +14508,8 @@
     {
       "playerId": "7ma74i",
       "playerName": "Daniel Oscar Torgersen",
-      "teamId": "558720",
-      "teamName": "Siggerud",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "558720",
         "496860"
@@ -15007,8 +15007,8 @@
     {
       "playerId": "erygkq",
       "playerName": "Magnus Myrland",
-      "teamId": "1013536",
-      "teamName": "Ullern/Njård/Monolitten 2",
+      "teamId": "682188",
+      "teamName": "Ullern/Njård/Monolitten",
       "teamIds": [
         "682188",
         "1013536"
@@ -15828,8 +15828,8 @@
     {
       "playerId": "xddzco",
       "playerName": "Jonas Ludvig Krogstad Haaland",
-      "teamId": "682188",
-      "teamName": "Ullern/Njård/Monolitten",
+      "teamId": "1013536",
+      "teamName": "Ullern/Njård/Monolitten 2",
       "teamIds": [
         "682188",
         "1013536"
@@ -16669,8 +16669,8 @@
     {
       "playerId": "z7xhew",
       "playerName": "Aksel Høyesveen Berntsen",
-      "teamId": "817005",
-      "teamName": "Korsvoll",
+      "teamId": "531471",
+      "teamName": "Korsvoll 2",
       "teamIds": [
         "817005",
         "531471"
@@ -16946,8 +16946,8 @@
     {
       "playerId": "ewyz0e",
       "playerName": "Markus Osen-Folkvord",
-      "teamId": "558720",
-      "teamName": "Siggerud",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603078",
         "558720"
@@ -17121,8 +17121,8 @@
     {
       "playerId": "5gwdud",
       "playerName": "Mikkel Elias Øverby",
-      "teamId": "603152",
-      "teamName": "Ull/Kisa/NIT-HAK 2",
+      "teamId": "558812",
+      "teamName": "NIT-HAK/Ull/Kisa 3",
       "teamIds": [
         "603152",
         "558812"
@@ -17547,8 +17547,8 @@
     {
       "playerId": "tvjkx8",
       "playerName": "Mikkel Ween",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -18581,8 +18581,8 @@
     {
       "playerId": "vjvur9",
       "playerName": "Neo Steinlund-Thomassen",
-      "teamId": "779768",
-      "teamName": "Torp/Rolvsøy/Tindlund/Sarpsborg 2",
+      "teamId": "997845",
+      "teamName": "Torp/Rolvsøy/Tindlund/Sarpsborg",
       "teamIds": [
         "997845",
         "779768",
@@ -18674,8 +18674,8 @@
     {
       "playerId": "gmmd3g",
       "playerName": "Odd Martin Woldvik",
-      "teamId": "814517",
-      "teamName": "Ull/Kisa",
+      "teamId": "966330",
+      "teamName": "Ull/Kisa 2",
       "teamIds": [
         "814517",
         "966330"
@@ -18776,8 +18776,8 @@
     {
       "playerId": "ncw03s",
       "playerName": "Eirik Bøymo Kaarbø",
-      "teamId": "1013536",
-      "teamName": "Ullern/Njård/Monolitten 2",
+      "teamId": "682188",
+      "teamName": "Ullern/Njård/Monolitten",
       "teamIds": [
         "682188",
         "1013536"
@@ -19182,8 +19182,8 @@
     {
       "playerId": "43xmxn",
       "playerName": "Julius Tomteberget Lindberg",
-      "teamId": "695981",
-      "teamName": "Lillestrøm 2",
+      "teamId": "774256",
+      "teamName": "Lillestrøm HK 2",
       "teamIds": [
         "695981",
         "774256"
@@ -20940,8 +20940,8 @@
     {
       "playerId": "onwfmf",
       "playerName": "Lavrans Thori Bachke",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -20991,8 +20991,8 @@
     {
       "playerId": "jhm8du",
       "playerName": "Timian Xander Langedrag Refvem",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -21033,8 +21033,8 @@
     {
       "playerId": "86tb4e",
       "playerName": "Fredrik Sannerud Fjerdingstad",
-      "teamId": "428928",
-      "teamName": "Kjelsås",
+      "teamId": "745936",
+      "teamName": "Kjelsås 2",
       "teamIds": [
         "428928",
         "745936"
@@ -22502,8 +22502,8 @@
     {
       "playerId": "sowtbn",
       "playerName": "Kasper André Olsen",
-      "teamId": "496860",
-      "teamName": "Ski/Langhus 3",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "496860",
         "817221"
@@ -22881,8 +22881,8 @@
     {
       "playerId": "fts18s",
       "playerName": "Lawan Bakhtiyar Raheem",
-      "teamId": "603079",
-      "teamName": "Ski 3",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603078",
         "603079"
@@ -22932,8 +22932,8 @@
     {
       "playerId": "bxzkdy",
       "playerName": "Hermes Emil Sviu",
-      "teamId": "603079",
-      "teamName": "Ski 3",
+      "teamId": "603078",
+      "teamName": "Ski 2",
       "teamIds": [
         "603079",
         "603078"
@@ -23787,8 +23787,8 @@
     {
       "playerId": "7s6alv",
       "playerName": "Nikolai Søndenå Sanne",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -23829,8 +23829,8 @@
     {
       "playerId": "u185fn",
       "playerName": "Martin Rommetveit Assev",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -23933,8 +23933,8 @@
     {
       "playerId": "4qcdv5",
       "playerName": "Kristian Dahl Kristoffersen",
-      "teamId": "1013536",
-      "teamName": "Ullern/Njård/Monolitten 2",
+      "teamId": "682188",
+      "teamName": "Ullern/Njård/Monolitten",
       "teamIds": [
         "1013536",
         "682188"
@@ -24476,8 +24476,8 @@
     {
       "playerId": "p3hx2z",
       "playerName": "Georg Mogens Lund Håholm",
-      "teamId": "558720",
-      "teamName": "Siggerud",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "558720",
         "496860"
@@ -25152,8 +25152,8 @@
     {
       "playerId": "3a9h9c",
       "playerName": "Sander Evenrud Blien",
-      "teamId": "531471",
-      "teamName": "Korsvoll 2",
+      "teamId": "817005",
+      "teamName": "Korsvoll",
       "teamIds": [
         "817005",
         "531471"
@@ -25750,8 +25750,8 @@
     {
       "playerId": "1iv1lt",
       "playerName": "Arthur Tofte Messel",
-      "teamId": "496860",
-      "teamName": "Ski/Langhus 3",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "496860",
         "817221"
@@ -26720,8 +26720,8 @@
     {
       "playerId": "6imbbf",
       "playerName": "Emir Hertc",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "454777",
         "817221"
@@ -27106,8 +27106,8 @@
     {
       "playerId": "xqbcgd",
       "playerName": "Sebastian Boge Haugen",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "454777",
         "496860",
@@ -27385,8 +27385,8 @@
     {
       "playerId": "h6q78",
       "playerName": "Linus Angell",
-      "teamId": "814517",
-      "teamName": "Ull/Kisa",
+      "teamId": "966330",
+      "teamName": "Ull/Kisa 2",
       "teamIds": [
         "814517",
         "966330",
@@ -27961,8 +27961,8 @@
     {
       "playerId": "fq97qu",
       "playerName": "Jakob Sommer Andersen",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
+      "teamId": "1013415",
+      "teamName": "Bøler/Oppsal 3",
       "teamIds": [
         "1010355",
         "1013415"
@@ -29062,8 +29062,8 @@
     {
       "playerId": "pacp6f",
       "playerName": "Marcus Otnes Florvik",
-      "teamId": "812498",
-      "teamName": "Fjellhammer 2",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "812498",
         "531500",
@@ -29259,8 +29259,8 @@
     {
       "playerId": "u5zbw5",
       "playerName": "Viktors Karabeska",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "583470",
+      "teamName": "Fjellhammer 3",
       "teamIds": [
         "531500",
         "583470"
@@ -29301,8 +29301,8 @@
     {
       "playerId": "845hbq",
       "playerName": "Adrian Sande Edlund",
-      "teamId": "682691",
-      "teamName": "Lillestrøm",
+      "teamId": "695981",
+      "teamName": "Lillestrøm 2",
       "teamIds": [
         "682691",
         "695981"
@@ -29361,8 +29361,8 @@
     {
       "playerId": "d7d1vk",
       "playerName": "Eirik Bjørnung Spydevold",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "817221",
+      "teamName": "Ski/Langhus 2",
       "teamIds": [
         "454777",
         "817221"
@@ -29412,8 +29412,8 @@
     {
       "playerId": "lph97p",
       "playerName": "Matheo Alexander Cachago Melsether",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "454777",
         "496860"
@@ -30160,8 +30160,8 @@
     {
       "playerId": "ul4jhm",
       "playerName": "Hans Olav Philip Barsnes",
-      "teamId": "820152",
-      "teamName": "Linderud/Linje 5",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
         "812498",
         "820152",
@@ -30497,8 +30497,8 @@
     {
       "playerId": "yk4w5v",
       "playerName": "Christoffer Aarnæs Grønstvet",
-      "teamId": "454777",
-      "teamName": "Ski/Langhus",
+      "teamId": "496860",
+      "teamName": "Ski/Langhus 3",
       "teamIds": [
         "454777",
         "496860"
@@ -30599,8 +30599,8 @@
     {
       "playerId": "bimfzd",
       "playerName": "Eike Otterbein Nilsen",
-      "teamId": "817005",
-      "teamName": "Korsvoll",
+      "teamId": "531471",
+      "teamName": "Korsvoll 2",
       "teamIds": [
         "817005",
         "531471"
@@ -30659,8 +30659,8 @@
     {
       "playerId": "nnto8q",
       "playerName": "Oliver Hammergren Kvandal",
-      "teamId": "558720",
-      "teamName": "Siggerud",
+      "teamId": "454777",
+      "teamName": "Ski/Langhus",
       "teamIds": [
         "454777",
         "558720"
@@ -30834,8 +30834,8 @@
     {
       "playerId": "bn5uwl",
       "playerName": "Odin Sparby",
-      "teamId": "814517",
-      "teamName": "Ull/Kisa",
+      "teamId": "966330",
+      "teamName": "Ull/Kisa 2",
       "teamIds": [
         "814517",
         "966330",
@@ -30916,8 +30916,8 @@
     {
       "playerId": "iv3gt6",
       "playerName": "Ulrik Vidnes Araldsen",
-      "teamId": "682188",
-      "teamName": "Ullern/Njård/Monolitten",
+      "teamId": "697784",
+      "teamName": "Njård",
       "teamIds": [
         "682188",
         "697784"
@@ -31308,8 +31308,8 @@
     {
       "playerId": "9lxhlq",
       "playerName": "Torkil Syversen Lien",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -31392,8 +31392,8 @@
     {
       "playerId": "3gqqmr",
       "playerName": "Martin Røberg Antonsen",
-      "teamId": "983319",
-      "teamName": "Oppegård 3",
+      "teamId": "603092",
+      "teamName": "Oppegård 2",
       "teamIds": [
         "983319",
         "603092"
@@ -34587,5 +34587,5 @@
       ]
     }
   ],
-  "generatedAt": "2026-01-20T10:13:41.102Z"
+  "generatedAt": "2026-01-20T14:42:23.036Z"
 }
