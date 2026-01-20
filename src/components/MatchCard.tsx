@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import type { Match } from '../types'
-import { getMapsUrl } from '../utils/maps'
+import { MapLink } from './MapLink'
 import { Countdown } from './Countdown'
 
 const extractLagId = (url?: string): string | null => {
@@ -214,12 +214,7 @@ export function MatchCard({
           </button>
         )}
         {match.Bane && (
-          <a
-            href={getMapsUrl(match.Bane)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="card-action card-action-map"
-          >
+          <MapLink location={match.Bane} className="card-action card-action-map">
             <svg
               width="16"
               height="16"
@@ -232,7 +227,7 @@ export function MatchCard({
               <circle cx="12" cy="10" r="3" />
             </svg>
             Kart
-          </a>
+          </MapLink>
         )}
         {match['Kamp URL'] && (
           <a

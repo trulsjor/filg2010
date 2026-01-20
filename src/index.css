@@ -988,6 +988,50 @@ a.card-action-map:hover,
   transform: translateY(-1px);
 }
 
+.map-link-wrapper {
+  position: relative;
+  flex: 1;
+}
+
+.map-link-wrapper .card-action {
+  width: 100%;
+}
+
+.map-link-menu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  margin-bottom: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 100;
+}
+
+.map-link-option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  width: 100%;
+  padding: 8px 12px;
+  font-size: var(--ds-font-size-xs);
+  font-weight: 600;
+  white-space: nowrap;
+  background: var(--ds-color-palette-3);
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  box-shadow: var(--ds-shadow-sm);
+}
+
+.map-link-option:hover {
+  background: var(--ds-color-palette-2);
+}
+
 /* ============================================
  * NO MATCHES STATE
  * ============================================ */
