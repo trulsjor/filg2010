@@ -1,7 +1,7 @@
 import { MatchResult, type ResultType } from './MatchResult'
 import type { PlayerStatsData } from '../types/player-stats'
 import type { Config, TeamId, TeamName, PlayerId, TournamentName } from '../types'
-import { NorwegianDate } from '../player-stats/NorwegianDate'
+import { NorwegianDate } from '../player-match-records/NorwegianDate'
 
 export interface TeamMatchData {
   matchId: string
@@ -388,7 +388,6 @@ export class TeamStatsAggregate {
   ): Map<TeamName, TeamId> {
     const map = new Map<TeamName, TeamId>()
 
-    // First, add from player-stats (these are more reliable)
     for (const match of statsData.matchStats) {
       if (!map.has(match.homeTeamName)) {
         map.set(match.homeTeamName, match.homeTeamId)
@@ -398,7 +397,6 @@ export class TeamStatsAggregate {
       }
     }
 
-    // Then, add from terminliste (for teams without player-stats)
     if (terminlisteMatches) {
       for (const match of terminlisteMatches) {
         if (match.Hjemmelag && !map.has(match.Hjemmelag)) {

@@ -13,7 +13,9 @@ export interface MatchHistoryItem {
   matchId: string
   matchDate: string
   homeTeam: string
+  homeTeamId: string
   awayTeam: string
+  awayTeamId: string
   teamName: string
   teamId: string
   tournament: string
@@ -57,6 +59,10 @@ export class PlayerMatchHistory {
     this.items = items
   }
 
+  static empty(): PlayerMatchHistory {
+    return new PlayerMatchHistory([])
+  }
+
   static build(
     playerId: string,
     stats: PlayerStatsData,
@@ -80,13 +86,18 @@ export class PlayerMatchHistory {
         const teamId = isHome ? match.homeTeamId : match.awayTeamId
 
         const terminlisteMatch = terminliste.find((t) => t.Kampnr === match.matchId)
-        const matchUrl = match.matchUrl ?? terminlisteMatch?.['Kamp URL']
+        const matchUrl = PlayerMatchHistory.resolveMatchUrl(
+          match.matchUrl,
+          terminlisteMatch?.['Kamp URL']
+        )
 
         history.push({
           matchId: match.matchId,
           matchDate: match.matchDate,
           homeTeam: match.homeTeamName,
+          homeTeamId: match.homeTeamId,
           awayTeam: match.awayTeamName,
+          awayTeamId: match.awayTeamId,
           teamName,
           teamId,
           tournament: match.tournament,
@@ -110,6 +121,19 @@ export class PlayerMatchHistory {
     })
 
     return new PlayerMatchHistory(sorted)
+  }
+
+  private static resolveMatchUrl(
+    primaryUrl: string | undefined,
+    fallbackUrl: string | undefined
+  ): string | undefined {
+    if (primaryUrl !== undefined) {
+      return primaryUrl
+    }
+    if (fallbackUrl !== undefined) {
+      return fallbackUrl
+    }
+    return undefined
   }
 
   getItems(): MatchHistoryItem[] {
@@ -194,4 +218,12 @@ export function formatJerseyNumber(player: PlayerAggregateStats): string {
     return String(player.jerseyNumber)
   }
   return '#'
+}
+
+export type ResultClass = 'win' | 'loss' | 'draw'
+
+export function getResultClass(match: { won: boolean; draw: boolean }): ResultClass {
+  if (match.draw) return 'draw'
+  if (match.won) return 'win'
+  return 'loss'
 }

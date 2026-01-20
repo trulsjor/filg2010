@@ -5,8 +5,12 @@ import aggregatesData from '../../data/player-aggregates.json'
 import statsData from '../../data/player-stats.json'
 import terminlisteData from '../../data/terminliste.json'
 import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats'
-import { PlayerMatchHistory, formatJerseyNumber } from '../player-stats/PlayerMatchHistory'
-import { TeamSelection } from '../player-stats/TeamSelection'
+import {
+  PlayerMatchHistory,
+  formatJerseyNumber,
+  getResultClass,
+} from '../player-match-records/PlayerMatchHistory'
+import { TeamSelection } from '../player-match-records/TeamSelection'
 
 interface TerminlisteKamp {
   Kampnr: string
@@ -20,7 +24,7 @@ const typedStatsData: PlayerStatsData = statsData
 const typedTerminlisteData: TerminlisteKamp[] = terminlisteData
 
 export function SpillerDetaljPage() {
-  const { id } = useParams<{ id: string }>()
+  const { id } = useParams<{ id?: string }>()
   const navigate = useNavigate()
 
   const aggregates = typedAggregatesData
@@ -32,16 +36,12 @@ export function SpillerDetaljPage() {
   }, [navigate])
 
   const player = useMemo(() => {
+    if (!id) return undefined
     return aggregates.aggregates.find((p) => p.playerId === id)
   }, [aggregates, id])
 
   const matchHistory = useMemo(() => {
-    if (!id)
-      return PlayerMatchHistory.build(
-        '',
-        { players: [], matchStats: [], matchesWithoutStats: [], lastUpdated: '' },
-        []
-      )
+    if (!id) return PlayerMatchHistory.empty()
     return PlayerMatchHistory.build(id, stats, terminliste)
   }, [stats, id, terminliste])
 
@@ -164,7 +164,7 @@ export function SpillerDetaljPage() {
                       </div>
                       <div className="goals-timeline">
                         {reversed.map((match) => {
-                          const resultClass = match.draw ? 'draw' : match.won ? 'win' : 'loss'
+                          const resultClass = getResultClass(match)
                           const resultLetter = match.draw ? 'U' : match.won ? 'S' : 'T'
                           return (
                             <div key={match.matchId} className="goals-bar-wrapper">
@@ -295,19 +295,27 @@ export function SpillerDetaljPage() {
           </h2>
           <div className="player-match-list">
             {filteredMatchHistory.getItems().map((match) => {
-              const resultClass = match.draw ? 'draw' : match.won ? 'win' : 'loss'
+              const resultClass = getResultClass(match)
+              const homeTeamLink = `/lag/${match.homeTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              const awayTeamLink = `/lag/${match.awayTeamId}?turnering=${encodeURIComponent(match.tournament)}`
 
-              const cardContent = (
-                <>
+              return (
+                <div key={match.matchId} className={`player-match-card ${resultClass}-card`}>
                   <div className="player-match-info">
                     <div className="player-match-teams">
-                      <span className={match.isHome ? 'player-match-team-ours' : ''}>
+                      <Link
+                        to={homeTeamLink}
+                        className={`player-match-team-link ${match.isHome ? 'player-match-team-ours' : ''}`}
+                      >
                         {match.homeTeam}
-                      </span>
+                      </Link>
                       <span className="player-match-vs">–</span>
-                      <span className={!match.isHome ? 'player-match-team-ours' : ''}>
+                      <Link
+                        to={awayTeamLink}
+                        className={`player-match-team-link ${!match.isHome ? 'player-match-team-ours' : ''}`}
+                      >
                         {match.awayTeam}
-                      </span>
+                      </Link>
                       <span className={`result-badge ${resultClass}`}>{match.result}</span>
                     </div>
                     <div className="player-match-meta">
@@ -315,48 +323,36 @@ export function SpillerDetaljPage() {
                     </div>
                   </div>
                   <div className="player-match-stats">
-                    <div className="player-match-stat">
-                      <div className="player-match-stat-value goals">{match.goals}</div>
-                      <div className="player-match-stat-label">Mål</div>
-                    </div>
-                    {match.penaltyGoals > 0 && (
-                      <span className="stat-pill stat-pill-7m">
-                        {match.penaltyGoals} <span className="stat-pill-label">7m</span>
-                      </span>
-                    )}
-                    {match.twoMinutes > 0 && (
-                      <span className="stat-pill stat-pill-2m">
-                        {match.twoMinutes} <span className="stat-pill-label">2min</span>
-                      </span>
-                    )}
+                    <span className="stat-pill stat-pill-goals">
+                      {match.goals} <span className="stat-pill-label">mål</span>
+                    </span>
+                    <span className="stat-pill stat-pill-7m">
+                      {match.penaltyGoals} <span className="stat-pill-label">7m</span>
+                    </span>
+                    <span className="stat-pill stat-pill-2m">
+                      {match.twoMinutes} <span className="stat-pill-label">2min</span>
+                    </span>
                   </div>
-                </>
-              )
-
-              return match.matchUrl ? (
-                <a
-                  key={match.matchId}
-                  href={match.matchUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`player-match-card player-match-card-link ${resultClass}-card`}
-                >
-                  {cardContent}
-                  <svg
-                    className="player-match-link-icon"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
-                  </svg>
-                </a>
-              ) : (
-                <div key={match.matchId} className={`player-match-card ${resultClass}-card`}>
-                  {cardContent}
+                  {match.matchUrl && (
+                    <a
+                      href={match.matchUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="player-match-link-icon"
+                      aria-label="Se kampdetaljer på handball.no"
+                    >
+                      <svg
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                      >
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3" />
+                      </svg>
+                    </a>
+                  )}
                 </div>
               )
             })}
