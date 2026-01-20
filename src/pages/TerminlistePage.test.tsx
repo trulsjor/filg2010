@@ -32,8 +32,7 @@ describe('TerminlistePage', () => {
 
   it('renders match content', () => {
     renderPage()
-    // Should have either desktop or mobile view with matches
-    expect(screen.getByText(/sist oppdatert/i)).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /oppdater/i })).toBeInTheDocument()
   })
 
   it('has navigation link to tables', () => {

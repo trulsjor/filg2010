@@ -6,6 +6,7 @@ import { SpillerePage } from './pages/SpillerePage'
 import { SpillerDetaljPage } from './pages/SpillerDetaljPage'
 import { LagDetaljPage } from './pages/LagDetaljPage'
 import { InstallPrompt } from './components/InstallPrompt'
+import { PullToRefresh } from './components/PullToRefresh'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -17,7 +18,7 @@ function ScrollToTop() {
 
 export function App() {
   return (
-    <>
+    <PullToRefresh>
       <ScrollToTop />
       <Routes>
         <Route path="/" element={<TerminlistePage />} />
@@ -27,6 +28,6 @@ export function App() {
         <Route path="/lag/:lagId" element={<LagDetaljPage />} />
       </Routes>
       <InstallPrompt />
-    </>
+    </PullToRefresh>
   )
 }

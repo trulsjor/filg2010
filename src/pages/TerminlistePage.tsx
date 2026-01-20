@@ -6,18 +6,15 @@ import { TableOverlay } from '../components/TableOverlay'
 import { type LeagueTable } from '../components/LeagueTableCard'
 import { useMatches } from '../hooks/useMatches'
 import { useTeams } from '../hooks/useTeams'
-import { useMetadata } from '../hooks/useMetadata'
 
 import matchesData from '../../data/terminliste.json'
-import metadataData from '../../data/metadata.json'
 import configData from '../../config.json'
 import tablesData from '../../data/tables.json'
 
-import type { Match, Metadata, Config } from '../types'
+import type { Match, Config } from '../types'
 
 export function TerminlistePage() {
   const matches = matchesData as Match[]
-  const metadata = metadataData as Metadata
   const config = configData as Config
   const tables = tablesData as LeagueTable[]
   const location = useLocation()
@@ -26,7 +23,6 @@ export function TerminlistePage() {
 
   const { filteredMatches, filters, nextMatch, setFilters } = useMatches(matches)
   const { teams, getTeamColor } = useTeams(config.teams)
-  const { formattedLastUpdated } = useMetadata(metadata)
 
   const hasMultipleTeams = teams.length > 1
   const teamNames = teams.map((t) => t.name)
@@ -105,10 +101,6 @@ export function TerminlistePage() {
         onFilterChange={handleFilterChange}
       />
       <div className="container">
-        {formattedLastUpdated && (
-          <p className="last-updated">Sist oppdatert: {formattedLastUpdated}</p>
-        )}
-
         {/* Card grid - responsive for all screen sizes */}
         <div className="match-grid">
           {filteredMatches.map((match) => (

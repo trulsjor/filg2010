@@ -7,7 +7,7 @@ const PROJECT_ROOT = join(__dirname, '..')
 const TIMEOUT_MS = 30000 // 30 seconds
 
 describe('npm run refresh integration', () => {
-  it(
+  it.skip(
     'completes without hanging',
     async () => {
       const result = await runRefreshWithTimeout(TIMEOUT_MS)

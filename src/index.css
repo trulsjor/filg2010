@@ -3146,3 +3146,67 @@ a.player-match-link-icon:hover {
 .player-stat-value.negative {
   color: var(--ds-color-danger-base);
 }
+
+/* ============================================
+ * PULL TO REFRESH
+ * ============================================ */
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.pull-to-refresh-container {
+  position: relative;
+}
+
+.pull-to-refresh-indicator {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 99;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ds-color-surface-default);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.pull-to-refresh-indicator.visible {
+  opacity: 1;
+}
+
+.pull-to-refresh-content {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-spacing-2);
+  color: var(--ds-color-text-muted);
+  font-size: var(--ds-font-size-sm);
+}
+
+.pull-to-refresh-arrow {
+  transition: transform 0.1s ease;
+}
+
+.pull-to-refresh-spinner {
+  animation: spin 1s linear infinite;
+}
+
+.pull-to-refresh-text {
+  font-weight: 500;
+}
+
+/* ============================================
+ * DESKTOP-ONLY / MOBILE-ONLY UTILITIES
+ * ============================================ */
+.desktop-only {
+  display: inline-flex;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important;
+  }
+}
