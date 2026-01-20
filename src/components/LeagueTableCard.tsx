@@ -24,12 +24,14 @@ interface LeagueTableCardProps {
   table: LeagueTable
   showExternalLink?: boolean
   teamNameToId?: Map<TeamName, TeamId>
+  highlightColor?: string
 }
 
 export function LeagueTableCard({
   table,
   showExternalLink = true,
   teamNameToId,
+  highlightColor,
 }: LeagueTableCardProps) {
   const shortName = table.tournamentName.split(',')[0].replace('Regionserien ', '')
 
@@ -86,7 +88,11 @@ export function LeagueTableCard({
                   <span className={`position-badge position-${row.position}`}>{row.position}</span>
                 </td>
                 <td className="col-team">
-                  {isFjellhammer && <span className="team-marker">●</span>}
+                  {isFjellhammer && highlightColor && (
+                    <span className="team-marker" style={{ color: highlightColor }}>
+                      ●
+                    </span>
+                  )}
                   {teamId ? (
                     <Link to={`/lag/${teamId}`} className="table-team-link">
                       {row.team}

@@ -133,6 +133,7 @@ export function TabellPage() {
                         key={table.tournamentUrl}
                         table={table}
                         teamNameToId={teamNameToId}
+                        highlightColor={team.color}
                       />
                     ))}
                   </div>

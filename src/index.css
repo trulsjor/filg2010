@@ -1774,6 +1774,10 @@ a.card-action-map:hover,
 
 .league-table .col-team {
   min-width: 120px;
+  max-width: 160px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .league-table .col-num {
