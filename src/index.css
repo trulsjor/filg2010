@@ -2292,21 +2292,9 @@ a.card-action-map:hover,
   border-radius: var(--ds-radius-lg);
   padding: var(--ds-spacing-4);
   padding-right: 52px;
-  display: grid;
-  grid-template-columns: 1fr auto;
+  display: flex;
+  flex-direction: column;
   gap: var(--ds-spacing-3);
-  align-items: center;
-}
-
-@media (max-width: 500px) {
-  .player-match-card {
-    grid-template-columns: 1fr;
-  }
-  
-  .player-match-stats {
-    padding-top: var(--ds-spacing-3);
-    border-top: 1px solid var(--ds-color-border-default);
-  }
 }
 
 .player-match-opponent {
@@ -2326,12 +2314,20 @@ a.card-action-map:hover,
 .player-match-meta {
   font-size: var(--ds-font-size-xs);
   color: var(--ds-color-text-muted);
+  text-align: center;
+}
+
+.player-match-result {
+  text-align: center;
+  margin: var(--ds-spacing-2) 0;
 }
 
 .player-match-stats {
   display: flex;
-  gap: var(--ds-spacing-4);
+  gap: var(--ds-spacing-3);
   align-items: center;
+  justify-content: center;
+  margin-top: var(--ds-spacing-2);
 }
 
 .player-match-stat {
@@ -2354,11 +2350,11 @@ a.card-action-map:hover,
 }
 
 .result-badge {
-  font-size: var(--ds-font-size-md);
-  padding: 4px 12px;
-  border-radius: var(--ds-radius-sm);
+  font-size: var(--ds-font-size-xl);
+  padding: 6px 16px;
+  border-radius: var(--ds-radius-md);
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
 
 .result-badge.win {
@@ -2413,14 +2409,16 @@ a.player-match-link-icon:hover {
   font-weight: 500;
   display: flex;
   align-items: center;
+  justify-content: center;
   gap: var(--ds-spacing-2);
-  margin-bottom: var(--ds-spacing-1);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  overflow: hidden;
 }
 
 .player-match-vs {
   color: var(--ds-color-text-muted);
   font-weight: 400;
+  flex-shrink: 0;
 }
 
 .player-match-team-link {
@@ -2429,6 +2427,10 @@ a.player-match-link-icon:hover {
   text-underline-offset: 2px;
   text-decoration-color: var(--ds-color-border-default);
   transition: color 0.15s, text-decoration-color 0.15s;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 45%;
 }
 
 .player-match-team-link:hover {

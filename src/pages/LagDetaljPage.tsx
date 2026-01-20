@@ -200,34 +200,34 @@ export function LagDetaljPage() {
                 ? `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
                 : `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
 
+              const resultText = match.isHome
+                ? `${match.goalsScored}–${match.goalsConceded}`
+                : `${match.goalsConceded}–${match.goalsScored}`
+
               const cardContent = (
-                <>
-                  <div className="player-match-info">
-                    <div className="player-match-teams">
-                      <Link
-                        to={homeTeamLink}
-                        className={`player-match-team-link ${match.isHome ? 'player-match-team-ours' : ''}`}
-                      >
-                        {match.isHome ? teamData.teamName : match.opponent}
-                      </Link>
-                      <span className="player-match-vs">–</span>
-                      <Link
-                        to={awayTeamLink}
-                        className={`player-match-team-link ${!match.isHome ? 'player-match-team-ours' : ''}`}
-                      >
-                        {match.isHome ? match.opponent : teamData.teamName}
-                      </Link>
-                      <span className={`result-badge ${resultClass}`}>
-                        {match.isHome
-                          ? `${match.goalsScored}–${match.goalsConceded}`
-                          : `${match.goalsConceded}–${match.goalsScored}`}
-                      </span>
-                    </div>
-                    <div className="player-match-meta">
-                      {match.matchDate} &middot; {match.tournament}
-                    </div>
+                <div className="player-match-info">
+                  <div className="player-match-teams">
+                    <Link
+                      to={homeTeamLink}
+                      className={`player-match-team-link ${match.isHome ? 'player-match-team-ours' : ''}`}
+                    >
+                      {match.isHome ? teamData.teamName : match.opponent}
+                    </Link>
+                    <span className="player-match-vs">–</span>
+                    <Link
+                      to={awayTeamLink}
+                      className={`player-match-team-link ${!match.isHome ? 'player-match-team-ours' : ''}`}
+                    >
+                      {match.isHome ? match.opponent : teamData.teamName}
+                    </Link>
                   </div>
-                </>
+                  <div className="player-match-result">
+                    <span className={`result-badge ${resultClass}`}>{resultText}</span>
+                  </div>
+                  <div className="player-match-meta">
+                    {match.matchDate} &middot; {match.tournament}
+                  </div>
+                </div>
               )
 
               return (

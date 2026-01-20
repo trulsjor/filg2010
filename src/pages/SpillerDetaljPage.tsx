@@ -314,6 +314,8 @@ export function SpillerDetaljPage() {
                       >
                         {match.awayTeam}
                       </Link>
+                    </div>
+                    <div className="player-match-result">
                       <span className={`result-badge ${resultClass}`}>{match.result}</span>
                     </div>
                     <div className="player-match-meta">
