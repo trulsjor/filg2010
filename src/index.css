@@ -324,6 +324,26 @@ a:hover {
   }
 }
 
+/* Small mobile - more compact buttons */
+@media (max-width: 420px) {
+  .header-buttons {
+    gap: var(--ds-spacing-1);
+  }
+
+  .header-buttons button,
+  .header-buttons a {
+    min-height: 40px;
+    min-width: 40px;
+    padding: var(--ds-spacing-2) var(--ds-spacing-3);
+    font-size: 0.7rem;
+  }
+
+  .nav-link {
+    min-height: 40px;
+    padding: var(--ds-spacing-2);
+  }
+}
+
 /* ============================================
  * FILTER DROPDOWN
  * ============================================ */
