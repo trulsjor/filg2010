@@ -16,6 +16,7 @@
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
     "refresh": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/refresh.js",
+    "update-all": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateAll.js",
     "refresh:old": "npx tsx src/scripts/fetchAllTeamsData.ts && npx tsx src/scripts/fetchTables.ts",
     "update-results": "npx tsx src/scripts/updateResults.ts",
     "update-results:http": "npx tsx src/scripts/updateResultsHttp.ts",

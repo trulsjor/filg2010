@@ -68,7 +68,14 @@ export class HandballScraper {
 
   private async handleCookieBanner(page: Page): Promise<void> {
     if (this.cookieHandled) return
-    await this.tryClick(page, `text=${COOKIE_ACCEPT_TEXT}`, COOKIE_TIMEOUT)
+    const clicked = await this.tryClick(
+      page,
+      `button:has-text("${COOKIE_ACCEPT_TEXT}")`,
+      COOKIE_TIMEOUT
+    )
+    if (!clicked) {
+      await this.tryClick(page, `text=${COOKIE_ACCEPT_TEXT}`, COOKIE_TIMEOUT)
+    }
     this.cookieHandled = true
   }
 
@@ -598,6 +605,144 @@ export class HandballScraper {
     } finally {
       await page.close()
     }
+  }
+
+  private async extractPlayedMatchesFromPage(
+    page: Page,
+    kampnrRegex: string
+  ): Promise<Array<{ matchId: string; matchUrl: string }>> {
+    return page.evaluate(
+      ({ regex }: { regex: string }) => {
+        const results: Array<{ matchId: string; matchUrl: string }> = []
+        const seen = new Set<string>()
+
+        const rows = document.querySelectorAll('tr')
+        rows.forEach((row) => {
+          const rowText = row.textContent
+          if (!rowText) return
+          const hasScore = /\d+\s*[-–]\s*\d+/.test(rowText)
+          if (!hasScore) return
+
+          let kampnr = ''
+          let kampUrl = ''
+
+          row.querySelectorAll('a').forEach((link) => {
+            const text = link.textContent?.trim()
+            const href = link.getAttribute('href')
+            if (!text || !href) return
+
+            if (new RegExp(regex).test(text) && href.includes('/kamp/')) {
+              kampnr = text
+              kampUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`
+            }
+          })
+
+          if (!kampnr || !kampUrl) {
+            const cells = row.querySelectorAll('td')
+            cells.forEach((cell) => {
+              const text = cell.textContent?.trim()
+              if (text && new RegExp(regex).test(text)) {
+                kampnr = text
+              }
+              cell.querySelectorAll('a').forEach((link) => {
+                const href = link.getAttribute('href')
+                if (href && (href.includes('kampoppgjoer') || href.includes('/kamp/'))) {
+                  kampUrl = href.startsWith('http') ? href : `https://www.handball.no${href}`
+                }
+              })
+            })
+          }
+
+          if (kampnr && kampUrl && !seen.has(kampnr)) {
+            seen.add(kampnr)
+            results.push({ matchId: kampnr, matchUrl: kampUrl })
+          }
+        })
+
+        return results
+      },
+      { regex: kampnrRegex }
+    )
+  }
+
+  async scrapeTournamentPlayedMatches(
+    tournamentUrl: string
+  ): Promise<Array<{ matchId: string; matchUrl: string }>> {
+    const browser = await this.getBrowser()
+    const page = await browser.newPage()
+
+    try {
+      await page.goto(tournamentUrl, { waitUntil: 'domcontentloaded', timeout: 30000 })
+      await this.handleCookieBanner(page)
+
+      const extractWithRecovery = async (): Promise<
+        Array<{ matchId: string; matchUrl: string }>
+      > => {
+        try {
+          return await this.extractPlayedMatchesFromPage(page, KAMPNR_REGEX.source)
+        } catch {
+          return []
+        }
+      }
+
+      const kamperClicked = await this.tryClick(page, 'text=Kamper', 2000)
+      if (kamperClicked) {
+        await page.waitForTimeout(2000)
+        const matches = await extractWithRecovery()
+        if (matches.length > 0) {
+          return matches
+        }
+      }
+
+      await this.tryClick(page, 'text=Siste kamper', 2000)
+      await page.waitForTimeout(2000)
+      const matches = await extractWithRecovery()
+      if (matches.length > 0) {
+        return matches
+      }
+
+      await this.tryClick(page, 'text=Alle kamper', 2000)
+      await page.waitForTimeout(2000)
+      return extractWithRecovery()
+    } catch (error) {
+      console.error(`Failed to scrape tournament matches from ${tournamentUrl}:`, error)
+      return []
+    } finally {
+      await page.close().catch(() => {})
+    }
+  }
+
+  async scrapeAllTournamentPlayedMatches(
+    tournamentUrls: Map<string, string>,
+    concurrency = 3,
+    onProgress?: (tournamentName: string) => void
+  ): Promise<Array<{ matchId: string; matchUrl: string }>> {
+    const allMatches = new Map<string, { matchId: string; matchUrl: string }>()
+
+    const entries = Array.from(tournamentUrls.entries())
+    const chunks: [string, string][][] = []
+    for (let i = 0; i < entries.length; i += concurrency) {
+      chunks.push(entries.slice(i, i + concurrency))
+    }
+
+    for (const chunk of chunks) {
+      const results = await Promise.all(
+        chunk.map(async ([name, url]) => {
+          onProgress?.(name)
+          return this.scrapeTournamentPlayedMatches(url)
+        })
+      )
+
+      for (const matches of results) {
+        for (const match of matches) {
+          if (!allMatches.has(match.matchId)) {
+            allMatches.set(match.matchId, match)
+          }
+        }
+      }
+    }
+
+    return Array.from(allMatches.values())
   }
 
   async scrapeTournamentTeams(
