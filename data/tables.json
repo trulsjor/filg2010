@@ -114,7 +114,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-20T21:05:37.884Z"
+    "updatedAt": "2026-01-21T21:09:16.778Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 1 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-20T21:05:38.188Z"
+    "updatedAt": "2026-01-21T21:09:23.948Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -196,13 +196,13 @@
       {
         "position": 1,
         "team": "Haslum 2",
-        "played": 1,
-        "won": 1,
+        "played": 2,
+        "won": 2,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 24,
-        "goalsAgainst": 20,
-        "points": 2
+        "goalsFor": 50,
+        "goalsAgainst": 39,
+        "points": 4
       },
       {
         "position": 2,
@@ -251,12 +251,12 @@
       {
         "position": 6,
         "team": "Nordstrand\n (D)",
-        "played": 2,
+        "played": 3,
         "won": 0,
         "drawn": 1,
-        "lost": 1,
-        "goalsFor": 55,
-        "goalsAgainst": 58,
+        "lost": 2,
+        "goalsFor": 74,
+        "goalsAgainst": 84,
         "points": 1
       },
       {
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-20T21:05:37.498Z"
+    "updatedAt": "2026-01-21T21:09:17.412Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-20T21:05:43.500Z"
+    "updatedAt": "2026-01-21T21:09:31.472Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-20T21:05:45.985Z"
+    "updatedAt": "2026-01-21T21:09:38.498Z"
   }
 ]
