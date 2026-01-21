@@ -3,7 +3,7 @@ import type { PlayerStatsData, Player, MatchPlayerData } from '../types/player-s
 import { HandballScraper } from '../handball/handball-scraper.js'
 import { HandballApiService } from '../handball/handball-api.service.js'
 import { FileService } from '../handball/file.service.js'
-import { sortMatchesByDate } from '../utils/date.utils.js'
+import { sortMatchesByDate } from '../match/match-sorting.js'
 import * as fs from 'fs'
 import * as path from 'path'
 
@@ -199,7 +199,7 @@ function updateMatchIndexFromScraping(
   for (const [, matchLinks] of matchLinksPerTeam) {
     for (const [kampnr, link] of matchLinks) {
       const cleanKampnr = kampnr.trim()
-      if (link.kampUrl && link.hasBeenPlayed && !index[cleanKampnr]) {
+      if (link.kampUrl && !index[cleanKampnr]) {
         index[cleanKampnr] = link.kampUrl
         newCount++
       }
@@ -389,7 +389,7 @@ export async function refreshHandballData(): Promise<void> {
       const matchLinksForTeam = scrapingResult.matchLinksPerTeam.get(team.lagid)
 
       for (const row of data) {
-        const links = matchLinksForTeam?.get(row.Kampnr)
+        const links = matchLinksForTeam?.get(row.Kampnr.trim())
         const turneringUrl = scrapingResult.allTournamentLinks.get(row.Turnering)
         const match = transformToMatch(team, row, links, turneringUrl)
         allMatches.push(match)
