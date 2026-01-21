@@ -30,9 +30,9 @@ describe('TerminlistePage', () => {
     expect(screen.getByRole('button', { name: /filter/i })).toBeInTheDocument()
   })
 
-  it('renders match content', () => {
+  it('renders menu button', () => {
     renderPage()
-    expect(screen.getByRole('button', { name: /oppdater/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /meny/i })).toBeInTheDocument()
   })
 
   it('has navigation link to tables', () => {

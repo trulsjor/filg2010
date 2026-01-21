@@ -1,12 +1,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ThemeSelector } from './ThemeSelector'
-import { useMetadata } from '../hooks/useMetadata'
 import type { FilterState } from '../hooks/useMatches'
-import type { Metadata } from '../types'
-import metadataData from '../../data/metadata.json'
-
-const metadata: Metadata = metadataData
 
 interface HeaderProps {
   onScrollToNext?: () => void
@@ -26,7 +21,6 @@ export function Header({
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const showFilters = filters && onFilterChange
-  const { formattedLastUpdated } = useMetadata(metadata)
 
   const activeCount = [filters?.team, filters?.location, filters?.status].filter(Boolean).length
 
@@ -176,32 +170,6 @@ export function Header({
                 <span className="btn-label">Neste kamp</span>
               </button>
             )}
-
-            <button
-              className="refresh-btn desktop-only"
-              onClick={() => window.location.reload()}
-              aria-label="Oppdater siden"
-              title={
-                formattedLastUpdated ? `Sist oppdatert: ${formattedLastUpdated}` : 'Oppdater siden'
-              }
-            >
-              <svg
-                width="18"
-                height="18"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
-                <path d="M3 3v5h5" />
-                <path d="M3 12a9 9 0 0 0 9 9 9.75 9.75 0 0 0 6.74-2.74L21 16" />
-                <path d="M21 21v-5h-5" />
-              </svg>
-              <span className="btn-label">Oppdater</span>
-            </button>
 
             <nav className="header-nav">
               <Link

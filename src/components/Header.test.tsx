@@ -67,8 +67,8 @@ describe('Header', () => {
     )
   })
 
-  it('renders theme selector', () => {
+  it('renders menu button', () => {
     renderHeader()
-    expect(screen.getByRole('button', { name: /velg tema/i })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /meny/i })).toBeInTheDocument()
   })
 })
