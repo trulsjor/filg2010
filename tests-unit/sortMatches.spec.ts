@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { sortMatchesByDate } from '../src/utils/date.utils.js'
+import { sortMatchesByDate } from '../src/match/match-sorting.js'
 
 describe('sortMatchesByDate', () => {
   it('sorts matches by date ascending', () => {

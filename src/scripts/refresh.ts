@@ -12,7 +12,7 @@ import type { Team, Match, RawMatchData, Metadata } from '../types/index.js'
 import { HandballScraper } from '../handball/handball-scraper.js'
 import { HandballApiService } from '../handball/handball-api.service.js'
 import { FileService } from '../handball/file.service.js'
-import { sortMatchesByDate } from '../utils/date.utils.js'
+import { sortMatchesByDate } from '../match/match-sorting.js'
 import * as fs from 'fs'
 import * as path from 'path'
 
