@@ -9457,12 +9457,14 @@
     {
       "id": "9sw7m",
       "name": "Gabriel Filip Bergvins Sekala Sigurdsson",
-      "jerseyNumber": 6,
+      "jerseyNumber": 53,
       "teamIds": [
-        "558812"
+        "558812",
+        "603152"
       ],
       "teamNames": [
-        "NIT-HAK/Ull/Kisa 3"
+        "NIT-HAK/Ull/Kisa 3",
+        "Ull/Kisa/NIT-HAK 2"
       ],
       "primaryTeamId": "558812",
       "primaryTeamName": "NIT-HAK/Ull/Kisa 3"
@@ -9513,7 +9515,7 @@
     {
       "id": "fc838g",
       "name": "Ludvig Benjamin Torgersbråten Gundersen",
-      "jerseyNumber": 19,
+      "jerseyNumber": 32,
       "teamIds": [
         "558812",
         "603152"
@@ -9606,7 +9608,7 @@
     {
       "id": "jq5qm4",
       "name": "Henrik Larsen",
-      "jerseyNumber": 20,
+      "jerseyNumber": 13,
       "teamIds": [
         "603152",
         "558812"
@@ -10000,7 +10002,7 @@
     {
       "id": "6vtvhr",
       "name": "Gabriel Kraft Storengen",
-      "jerseyNumber": 40,
+      "jerseyNumber": 12,
       "teamIds": [
         "603152"
       ],
@@ -64564,9 +64566,206 @@
         }
       ],
       "scrapedAt": "2026-01-21T21:21:15.438Z"
+    },
+    {
+      "matchId": "41031609007",
+      "matchDate": "24.01.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330827",
+      "homeTeamId": "559332",
+      "homeTeamName": "Tistedal",
+      "awayTeamId": "603152",
+      "awayTeamName": "Ull/Kisa/NIT-HAK 2",
+      "homeScore": 22,
+      "awayScore": 26,
+      "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "z0wnqx",
+          "playerName": "Kyrre Ivar Refnin",
+          "jerseyNumber": 3,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "kcvrg1",
+          "playerName": "Martin Alexander Fredén",
+          "jerseyNumber": 8,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "53x6c3",
+          "playerName": "Eirik Haug-Fjellstad",
+          "jerseyNumber": 9,
+          "goals": 6,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "vvaxxd",
+          "playerName": "Paolo William Sävervall",
+          "jerseyNumber": 16,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ffvzkj",
+          "playerName": "Ulrik Jørgensen",
+          "jerseyNumber": 17,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "slaget",
+          "playerName": "Henrik Havstad Ingebrigtsen",
+          "jerseyNumber": 20,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "y0v1st",
+          "playerName": "Edvin Næss Larsen",
+          "jerseyNumber": 23,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "u57p0m",
+          "playerName": "Emil Midtfjeld Cederlund",
+          "jerseyNumber": 28,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "1g22kt",
+          "playerName": "Benjamin Schön Bjerge",
+          "jerseyNumber": 34,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "d37r23",
+          "playerName": "Sondre Stugård Bue",
+          "jerseyNumber": 8,
+          "goals": 0,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "6vtvhr",
+          "playerName": "Gabriel Kraft Storengen",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "jq5qm4",
+          "playerName": "Henrik Larsen",
+          "jerseyNumber": 13,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "mb0axq",
+          "playerName": "Håkon Toftner Kaksrud",
+          "jerseyNumber": 23,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "fc838g",
+          "playerName": "Ludvig Benjamin Torgersbråten Gundersen",
+          "jerseyNumber": 32,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ecruga",
+          "playerName": "Julian Gåsbakk Haugvik",
+          "jerseyNumber": 41,
+          "goals": 6,
+          "penaltyGoals": 3,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ork06p",
+          "playerName": "Kristian-André Nielsen Amundsen",
+          "jerseyNumber": 42,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "9sw7m",
+          "playerName": "Gabriel Filip Bergvins Sekala Sigurdsson",
+          "jerseyNumber": 53,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "iog4c2",
+          "playerName": "William Phillip Estay Hansen",
+          "jerseyNumber": 76,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-01-24T16:54:00.219Z"
     }
   ],
-  "lastUpdated": "2026-01-21T21:21:15.446Z",
+  "lastUpdated": "2026-01-24T16:54:00.227Z",
   "matchesWithoutStats": [
     "43031508005",
     "43031503003",
