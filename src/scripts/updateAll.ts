@@ -3,6 +3,7 @@ import type { PlayerStatsData, Player, MatchPlayerData } from '../types/player-s
 import { HandballScraper } from '../handball/handball-scraper.js'
 import { HandballApiService } from '../handball/handball-api.service.js'
 import { FileService } from '../handball/file.service.js'
+import { ResultScraperService } from '../handball/result-scraper.service.js'
 import { sortMatchesByDate } from '../match/match-sorting.js'
 import * as fs from 'fs'
 import * as path from 'path'
@@ -283,6 +284,33 @@ async function handleSingleUrl(url: string): Promise<void> {
   }
 }
 
+function parseMatchDate(dateStr: string): Date | null {
+  const parts = dateStr.split('.')
+  if (parts.length !== 3) return null
+
+  const day = parseInt(parts[0], 10)
+  const month = parseInt(parts[1], 10) - 1
+  const year = parseInt(parts[2], 10)
+
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return null
+
+  return new Date(year, month, day, 23, 59, 59)
+}
+
+function needsResultUpdate(match: Match, now: Date): boolean {
+  if (match['H-B'] && match['H-B'] !== '-') {
+    return false
+  }
+  if (!match['Kamp URL']) {
+    return false
+  }
+  const matchDate = parseMatchDate(match.Dato)
+  if (!matchDate) {
+    return false
+  }
+  return matchDate < now
+}
+
 function parseTilskuere(value: number | string | undefined): number {
   if (typeof value === 'number') {
     return value
@@ -399,6 +427,35 @@ export async function refreshHandballData(): Promise<void> {
     const sortedMatches = sortMatchesByDate(allMatches)
     const populatedCount = populateMatchUrlsInTerminliste(sortedMatches, matchIndex)
 
+    fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
+
+    // Oppdater resultater for spilte kamper som mangler resultat
+    console.log('\n[2/4] Oppdaterer kampresultater...')
+    const now = new Date()
+    const matchesNeedingResults = sortedMatches.filter((m) => needsResultUpdate(m, now))
+
+    let resultsUpdated = 0
+    if (matchesNeedingResults.length > 0) {
+      console.log(`  Fant ${matchesNeedingResults.length} kamper som mangler resultat`)
+      const resultScraper = new ResultScraperService()
+      const urls = matchesNeedingResults.map((m) => m['Kamp URL'])
+      const results = await resultScraper.fetchMultipleResults(urls, (current, total) => {
+        console.log(`  Henter resultat ${current}/${total}`)
+      })
+
+      for (const match of sortedMatches) {
+        const matchId = extractMatchIdFromUrl(match['Kamp URL'])
+        if (matchId && results.has(matchId)) {
+          const result = results.get(matchId)!
+          match['H-B'] = result.result
+          resultsUpdated++
+        }
+      }
+      console.log(`  Oppdaterte ${resultsUpdated} resultater`)
+    } else {
+      console.log(`  Alle kamper har resultater`)
+    }
+
     fileService.saveMatches(sortedMatches)
 
     const metadata: Metadata = {
@@ -408,9 +465,7 @@ export async function refreshHandballData(): Promise<void> {
     }
     fileService.saveMetadata(metadata)
 
-    fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
-
-    console.log('\n[2/3] Henter spilte kamper fra turneringene...')
+    console.log('\n[3/4] Henter spilte kamper fra turneringene...')
 
     let tournamentPlayedMatches: Array<{ matchId: string; matchUrl: string }>
 
@@ -456,7 +511,7 @@ export async function refreshHandballData(): Promise<void> {
       console.log(`  URL populert i terminliste: ${populatedCount}`)
     }
 
-    console.log('\n[3/3] Oppdaterer spillerstatistikk...')
+    console.log('\n[4/4] Oppdaterer spillerstatistikk...')
 
     let existingStats = createInitialPlayerStats()
 
