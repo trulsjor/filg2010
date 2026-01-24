@@ -1,20 +1,21 @@
 # Repository Guidelines
 
 ## Project Structure & Module Organization
-The app is a React + TypeScript site. The main app lives in `src/pages/` and renders the schedule, while handball-specific services live in `src/handball/`. Automation scripts (scraping, refresh, debug) are under `src/scripts/`. Public assets stay in `public/`, Playwright specs live in `tests/`, and generated datasets (`terminliste.json`, `metadata.json`) are kept in `data/` to keep git-friendly diffs.
+The app is a React + Vite + TypeScript site. The main app lives in `src/pages/` and renders the schedule, while handball-specific services live in `src/handball/`. Automation scripts (scraping, refresh, debug) are under `src/scripts/`. Public assets stay in `public/`, Playwright specs live in `tests/`, and generated datasets (`terminliste.json`, `metadata.json`) are kept in `data/` to keep git-friendly diffs.
 
 ## Build, Test, and Development Commands
-- `npm run dev` / `npm start`: launch Astro at http://localhost:4321 with hot reload.
-- `npm run refresh`: execute `src/scripts/fetchAllTeamsData.ts` to pull the latest fixtures before building.
-- `npm run build`: run `astro check` then build using the data already in `data/`.
-- `npm run build:fresh`: combine `refresh`, linting, and production build for deployment pipelines.
+- `npm run dev`: launch Vite dev server with hot reload.
+- `npm run refresh`: execute `src/scripts/refresh.ts` to pull the latest fixtures before building.
+- `npm run update-all`: smart update that fetches API data, scrapes results, updates tables and player stats.
+- `npm run build`: run TypeScript check then Vite build using the data already in `data/`.
+- `npm run build:fresh`: combine `refresh` and production build for deployment pipelines.
 - `npm run preview`: serve the built `/dist` folder locally.
 - `npm test`: run Vitest unit tests followed by the Playwright e2e suite.
 - `npm run test:unit`: execute helper/unit specs via Vitest.
-- `npm run test:e2e`, `npm run test:e2e -- --project=ui-tests`, `npm run test:ui`: run the Playwright suites headless or in UI mode.
+- `npm run test:e2e`: run the Playwright suites headless.
 
 ## Coding Style & Naming Conventions
-Use TypeScript everywhere (no implicit `any`) and prefer small pure helpers. Keep two-space indentation, double quotes in JSON, and single quotes in TS/ Astro to match the current files. Favor descriptive camelCase for variables (`teamColorsMap`) and PascalCase for types (`Match`, `HandballUrlService`). Astro components should export top-level script blocks and minimal inline styles.
+Use TypeScript everywhere (no implicit `any`) and prefer small pure helpers. Keep two-space indentation, double quotes in JSON, and single quotes in TS/TSX to match the current files. Favor descriptive camelCase for variables (`teamColorsMap`) and PascalCase for types (`Match`, `HandballUrlService`).
 
 ## Testing Guidelines
 Playwright is configured via `playwright.config.ts`. Mirror the structure `tests/*.spec.ts` and keep filenames descriptive (e.g., `homepage.spec.ts`). Every UI change should have either a new selector assertion or screenshot comparison. Run `npm test` before pushing; aim to keep coverage of both `data-tests` and `ui-tests` projects since regressions tend to arise in scraping as well as rendering.
