@@ -40,6 +40,9 @@ jobs:
       - name: Oppdater data (full discovery)
         run: npm run update-all -- --full
 
+      - name: Generer spilleraggregater
+        run: npm run generate-player-aggregates
+
       - name: Generate summary
         id: summary
         run: |
