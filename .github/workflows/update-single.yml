@@ -59,6 +59,14 @@ jobs:
             echo "changed=true" >> $GITHUB_OUTPUT
           fi
 
-      - name: Trigger Statichost build
+      - name: Build
         if: steps.commit.outputs.changed == 'true'
-        run: curl -X POST https://builder.statichost.eu/fjellhammeril-g2010
+        run: npm run build
+
+      - name: Deploy to Cloudflare Pages
+        if: steps.commit.outputs.changed == 'true'
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=fjellhammerg2010
