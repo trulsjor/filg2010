@@ -12,6 +12,27 @@ const DATA_DIR = path.join(process.cwd(), 'data')
 const TABLES_PATH = path.join(DATA_DIR, 'tables.json')
 const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
 const MATCH_INDEX_PATH = path.join(DATA_DIR, 'match-index.json')
+const UPDATE_SUMMARY_PATH = path.join(DATA_DIR, 'update-summary.json')
+
+interface UpdateSummary {
+  timestamp: string
+  resultsUpdated: Array<{ kampnr: string; hjemmelag: string; bortelag: string; resultat: string }>
+  statsUpdated: Array<{ kampnr: string; hjemmelag: string; bortelag: string; resultat: string }>
+  noChanges: boolean
+}
+
+function createEmptySummary(): UpdateSummary {
+  return {
+    timestamp: new Date().toISOString(),
+    resultsUpdated: [],
+    statsUpdated: [],
+    noChanges: true,
+  }
+}
+
+function saveSummary(summary: UpdateSummary) {
+  fs.writeFileSync(UPDATE_SUMMARY_PATH, JSON.stringify(summary, null, 2))
+}
 
 function getArgValue(flag: string): string | undefined {
   const idx = process.argv.indexOf(flag)
@@ -272,6 +293,17 @@ async function handleSingleUrl(url: string): Promise<void> {
     existingStats.lastUpdated = new Date().toISOString()
     savePlayerStats(existingStats)
 
+    // Lagre summary
+    const summary = createEmptySummary()
+    summary.statsUpdated.push({
+      kampnr: stats.matchId,
+      hjemmelag: stats.homeTeamName,
+      bortelag: stats.awayTeamName,
+      resultat: `${stats.homeScore}-${stats.awayScore}`,
+    })
+    summary.noChanges = false
+    saveSummary(summary)
+
     console.log(
       `  ${stats.homeTeamName} ${stats.homeScore} - ${stats.awayScore} ${stats.awayTeamName}`
     )
@@ -427,6 +459,18 @@ export async function refreshHandballData(): Promise<void> {
     const sortedMatches = sortMatchesByDate(allMatches)
     const populatedCount = populateMatchUrlsInTerminliste(sortedMatches, matchIndex)
 
+    // Lag lookup fra kampnr til lagnavn
+    const matchLookup = new Map<string, { hjemmelag: string; bortelag: string }>()
+    for (const match of sortedMatches) {
+      matchLookup.set(match.Kampnr.trim(), {
+        hjemmelag: match.Hjemmelag,
+        bortelag: match.Bortelag,
+      })
+    }
+
+    // Initialiser oppsummering
+    const summary = createEmptySummary()
+
     fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
 
     // Oppdater resultater for spilte kamper som mangler resultat
@@ -449,6 +493,12 @@ export async function refreshHandballData(): Promise<void> {
           const result = results.get(matchId)!
           match['H-B'] = result.result
           resultsUpdated++
+          summary.resultsUpdated.push({
+            kampnr: match.Kampnr.trim(),
+            hjemmelag: match.Hjemmelag,
+            bortelag: match.Bortelag,
+            resultat: result.result,
+          })
         }
       }
       console.log(`  Oppdaterte ${resultsUpdated} resultater`)
@@ -556,10 +606,24 @@ export async function refreshHandballData(): Promise<void> {
           await scraper.scrapeMultipleMatchStats(batch, 2, (current, _total, matchId) => {
             const globalProgress = scraped + current
             const percent = Math.round((globalProgress / matchesToScrape.length) * 100)
-            console.log(`  [${percent}%] ${globalProgress}/${matchesToScrape.length} - ${matchId}`)
+            const info = matchLookup.get(matchId)
+            const matchDesc = info ? `${info.hjemmelag} vs ${info.bortelag}` : matchId
+            console.log(
+              `  [${percent}%] ${globalProgress}/${matchesToScrape.length} - ${matchDesc}`
+            )
           })
 
         scraped += batch.length
+
+        // Samle info om nye stats
+        for (const stat of batchStats) {
+          summary.statsUpdated.push({
+            kampnr: stat.matchId,
+            hjemmelag: stat.homeTeamName,
+            bortelag: stat.awayTeamName,
+            resultat: `${stat.homeScore}-${stat.awayScore}`,
+          })
+        }
 
         existingStats.matchStats.push(...batchStats)
         existingStats.matchesWithoutStats.push(...batchNoStats)
@@ -573,6 +637,10 @@ export async function refreshHandballData(): Promise<void> {
         `  Lagret: ${existingStats.matchStats.length} kamper, ${existingStats.players.length} spillere`
       )
     }
+
+    // Oppdater og lagre oppsummering
+    summary.noChanges = summary.resultsUpdated.length === 0 && summary.statsUpdated.length === 0
+    saveSummary(summary)
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
     console.log(`\n=== Ferdig (${elapsed}s) ===\n`)

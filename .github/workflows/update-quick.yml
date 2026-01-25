@@ -43,6 +43,59 @@ jobs:
       - name: Oppdater data (quick)
         run: npm run update-all
 
+      - name: Generate summary
+        id: summary
+        run: |
+          if [ -f data/update-summary.json ]; then
+            RESULTS=$(jq -r '.resultsUpdated | length' data/update-summary.json)
+            STATS=$(jq -r '.statsUpdated | length' data/update-summary.json)
+
+            # Lag commit-melding
+            COMMIT_MSG="🤖 Oppdater data"
+            COMMIT_BODY=""
+
+            if [ "$RESULTS" -gt 0 ]; then
+              COMMIT_BODY="${COMMIT_BODY}Resultater ($RESULTS):"$'\n'
+              COMMIT_BODY="${COMMIT_BODY}$(jq -r '.resultsUpdated[] | "- \(.hjemmelag) vs \(.bortelag): \(.resultat)"' data/update-summary.json)"$'\n'
+            fi
+
+            if [ "$STATS" -gt 0 ]; then
+              if [ -n "$COMMIT_BODY" ]; then COMMIT_BODY="${COMMIT_BODY}"$'\n'; fi
+              COMMIT_BODY="${COMMIT_BODY}Spillerstatistikk ($STATS):"$'\n'
+              COMMIT_BODY="${COMMIT_BODY}$(jq -r '.statsUpdated[] | "- \(.hjemmelag) vs \(.bortelag) (\(.resultat))"' data/update-summary.json)"
+            fi
+
+            echo "commit_msg<<EOF" >> $GITHUB_OUTPUT
+            echo "$COMMIT_MSG" >> $GITHUB_OUTPUT
+            if [ -n "$COMMIT_BODY" ]; then
+              echo "" >> $GITHUB_OUTPUT
+              echo "$COMMIT_BODY" >> $GITHUB_OUTPUT
+            fi
+            echo "EOF" >> $GITHUB_OUTPUT
+
+            # Lag GitHub Actions summary
+            echo "## Oppdatering fullført" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            if [ "$RESULTS" -gt 0 ]; then
+              echo "### Resultater ($RESULTS nye)" >> $GITHUB_STEP_SUMMARY
+              jq -r '.resultsUpdated[] | "- **\(.hjemmelag)** vs **\(.bortelag)**: \(.resultat)"' data/update-summary.json >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            if [ "$STATS" -gt 0 ]; then
+              echo "### Spillerstatistikk ($STATS nye)" >> $GITHUB_STEP_SUMMARY
+              jq -r '.statsUpdated[] | "- **\(.hjemmelag)** vs **\(.bortelag)** (\(.resultat))"' data/update-summary.json >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            if [ "$RESULTS" -eq 0 ] && [ "$STATS" -eq 0 ]; then
+              echo "Ingen nye data." >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "commit_msg=🤖 Oppdater data" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit and push if changed
         id: commit
         run: |
@@ -52,7 +105,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "🤖 Oppdater kampresultater"
+            git commit -m "${{ steps.summary.outputs.commit_msg }}"
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
           fi

@@ -45,6 +45,27 @@ jobs:
       - name: Hent statistikk for enkeltkamp
         run: npm run update-all -- --url "${{ inputs.url }}"
 
+      - name: Generate summary
+        id: summary
+        run: |
+          if [ -f data/update-summary.json ]; then
+            STATS=$(jq -r '.statsUpdated | length' data/update-summary.json)
+
+            if [ "$STATS" -gt 0 ]; then
+              MATCH_INFO=$(jq -r '.statsUpdated[0] | "\(.hjemmelag) vs \(.bortelag) (\(.resultat))"' data/update-summary.json)
+              echo "commit_msg=🤖 Hent stats: $MATCH_INFO" >> $GITHUB_OUTPUT
+
+              echo "## Enkeltkamp oppdatert" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              jq -r '.statsUpdated[] | "- **\(.hjemmelag)** vs **\(.bortelag)** (\(.resultat))"' data/update-summary.json >> $GITHUB_STEP_SUMMARY
+            else
+              echo "commit_msg=🤖 Hent stats for enkeltkamp" >> $GITHUB_OUTPUT
+              echo "Ingen spillerstatistikk funnet." >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "commit_msg=🤖 Hent stats for enkeltkamp" >> $GITHUB_OUTPUT
+          fi
+
       - name: Commit and push if changed
         id: commit
         run: |
@@ -54,7 +75,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "changed=false" >> $GITHUB_OUTPUT
           else
-            git commit -m "🤖 Hent stats for enkeltkamp"
+            git commit -m "${{ steps.summary.outputs.commit_msg }}"
             git push
             echo "changed=true" >> $GITHUB_OUTPUT
           fi

@@ -33,3 +33,6 @@ playwright/.cache/
 *.png
 !public/*.png
 dist-scripts
+
+# Temporary update summary (used by workflows)
+data/update-summary.json
