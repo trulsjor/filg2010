@@ -45,6 +45,9 @@ jobs:
       - name: Hent statistikk for enkeltkamp
         run: npm run update-all -- --url "${{ inputs.url }}"
 
+      - name: Generer spilleraggregater
+        run: npm run generate-player-aggregates
+
       - name: Generate summary
         id: summary
         run: |
