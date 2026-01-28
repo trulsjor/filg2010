@@ -114,7 +114,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-27T21:03:23.591Z"
+    "updatedAt": "2026-01-28T21:06:58.662Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 1 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-27T21:03:17.516Z"
+    "updatedAt": "2026-01-28T21:06:58.614Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-27T21:03:17.252Z"
+    "updatedAt": "2026-01-28T21:06:58.796Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-27T21:03:31.004Z"
+    "updatedAt": "2026-01-28T21:07:13.972Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -418,6 +418,17 @@
       },
       {
         "position": 2,
+        "team": "Kolbotn 2",
+        "played": 2,
+        "won": 2,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 56,
+        "goalsAgainst": 39,
+        "points": 4
+      },
+      {
+        "position": 3,
         "team": "Njård",
         "played": 2,
         "won": 2,
@@ -428,7 +439,7 @@
         "points": 4
       },
       {
-        "position": 3,
+        "position": 4,
         "team": "Tistedal",
         "played": 3,
         "won": 2,
@@ -439,7 +450,7 @@
         "points": 4
       },
       {
-        "position": 4,
+        "position": 5,
         "team": "Fjellhammer 3",
         "played": 1,
         "won": 1,
@@ -450,25 +461,14 @@
         "points": 2
       },
       {
-        "position": 5,
-        "team": "Kolbotn 2",
-        "played": 1,
-        "won": 1,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 29,
-        "goalsAgainst": 19,
-        "points": 2
-      },
-      {
         "position": 6,
         "team": "Ski 2",
-        "played": 2,
+        "played": 3,
         "won": 1,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 50,
-        "goalsAgainst": 54,
+        "lost": 2,
+        "goalsFor": 70,
+        "goalsAgainst": 81,
         "points": 2
       },
       {
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-27T21:03:38.534Z"
+    "updatedAt": "2026-01-28T21:07:06.348Z"
   }
 ]
