@@ -1,0 +1,49 @@
+name: 'Commit and Deploy'
+description: 'Commit changes to data/, build, and deploy to Cloudflare Pages'
+
+inputs:
+  commit_message:
+    description: 'The commit message to use'
+    required: true
+  cloudflare_api_token:
+    description: 'Cloudflare API token'
+    required: true
+  cloudflare_account_id:
+    description: 'Cloudflare account ID'
+    required: true
+
+outputs:
+  changed:
+    description: 'Whether any changes were committed'
+    value: ${{ steps.commit.outputs.changed }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Commit and push if changed
+      id: commit
+      shell: bash
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add data/
+        if git diff --staged --quiet; then
+          echo "changed=false" >> $GITHUB_OUTPUT
+        else
+          git commit -m "${{ inputs.commit_message }}"
+          git push
+          echo "changed=true" >> $GITHUB_OUTPUT
+        fi
+
+    - name: Build
+      if: steps.commit.outputs.changed == 'true'
+      shell: bash
+      run: npm run build
+
+    - name: Deploy to Cloudflare Pages
+      if: steps.commit.outputs.changed == 'true'
+      uses: cloudflare/wrangler-action@v3
+      with:
+        apiToken: ${{ inputs.cloudflare_api_token }}
+        accountId: ${{ inputs.cloudflare_account_id }}
+        command: pages deploy dist --project-name=fjellhammerg2010 --branch=main
