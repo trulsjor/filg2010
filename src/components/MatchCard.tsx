@@ -48,32 +48,18 @@ const parseScore = (score: string): { home: number; away: number } | null => {
 interface TeamNameProps {
   name?: string
   lagId: string | null
-  tournament?: string
-  hasTable: boolean
   isOurs: boolean
   showDot: boolean
   dotColor: string
   position: 'home' | 'away'
 }
 
-function TeamName({
-  name,
-  lagId,
-  tournament,
-  hasTable,
-  isOurs,
-  showDot,
-  dotColor,
-  position,
-}: TeamNameProps) {
+function TeamName({ name, lagId, isOurs, showDot, dotColor, position }: TeamNameProps) {
   const classNames = ['card-team-name', isOurs ? 'card-team-ours' : '', `card-team-${position}`]
     .filter(Boolean)
     .join(' ')
 
-  const shouldFilterByTournament = hasTable && tournament
-  const linkUrl = lagId
-    ? `/lag/${lagId}${shouldFilterByTournament ? `?turnering=${encodeURIComponent(tournament)}` : ''}`
-    : null
+  const linkUrl = lagId ? `/lag/${lagId}` : null
 
   const nameElement = linkUrl ? (
     <Link to={linkUrl} className="card-team-link">
@@ -164,8 +150,6 @@ export function MatchCard({
             <TeamName
               name={match.Hjemmelag}
               lagId={extractLagId(match['Hjemmelag URL'])}
-              tournament={match.Turnering}
-              hasTable={hasTable}
               isOurs={isHome}
               showDot={isHome && hasMultipleTeams}
               dotColor={teamDotColor}
@@ -175,8 +159,6 @@ export function MatchCard({
             <TeamName
               name={match.Bortelag}
               lagId={extractLagId(match['Bortelag URL'])}
-              tournament={match.Turnering}
-              hasTable={hasTable}
               isOurs={isAway}
               position="away"
               showDot={isAway && hasMultipleTeams}
