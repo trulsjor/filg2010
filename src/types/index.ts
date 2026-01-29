@@ -36,13 +36,13 @@ export interface Match {
   Bortelag: string
   'H-B': string
   Bane: string
-  Tilskuere: number | string
+  Tilskuere?: number | string
   Arrangør: string
   Turnering: string
-  'Kamp URL': string
-  'Hjemmelag URL': string
-  'Bortelag URL': string
-  'Turnering URL': string
+  'Kamp URL'?: string
+  'Hjemmelag URL'?: string
+  'Bortelag URL'?: string
+  'Turnering URL'?: string
 }
 
 export interface MatchLink {

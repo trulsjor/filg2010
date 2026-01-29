@@ -78,7 +78,9 @@ export async function updateResultsHttp(deps: UpdateResultsDependencies = {}): P
   })
 
   logger.info('\nFetching results from handball.no (HTTP)...')
-  const urls = matchesNeedingUpdate.map((m) => m['Kamp URL'])
+  const urls = matchesNeedingUpdate
+    .map((m) => m['Kamp URL'])
+    .filter((url): url is string => typeof url === 'string')
   const results = await fetcherService.fetchMultipleResults(urls, (current, total) => {
     logger.info(`  Progress: ${current}/${total}`)
   })
@@ -129,8 +131,8 @@ export async function updateResultsHttp(deps: UpdateResultsDependencies = {}): P
   }
 }
 
-function extractMatchId(url: string): string | null {
-  if (!url) return null
+function extractMatchId(url: string | undefined): string | null {
+  if (typeof url !== 'string') return null
   const match = url.match(/matchid=(\d+)/)
   return match ? match[1] : null
 }

@@ -1,34 +1,40 @@
 import type { Team, Match, RawMatchData, Metadata, MatchLink } from '../types/index.js'
-import type { PlayerStatsData, Player, MatchPlayerData } from '../types/player-stats.js'
+import type { PlayerStatsData } from '../types/player-stats.js'
 import { HandballScraper } from '../handball/handball-scraper.js'
 import { HandballApiService } from '../handball/handball-api.service.js'
 import { FileService } from '../handball/file.service.js'
 import { ResultScraperService } from '../handball/result-scraper.service.js'
 import { sortMatchesByDate } from '../match/match-sorting.js'
+import { combinePlayedMatches, type PlayedMatch } from '../update/combine-matches.js'
+import { rebuildPlayerCatalog } from '../handball/player-catalog.js'
+import { PlayerStatsService } from '../handball/PlayerStatsAggregator.js'
+import {
+  needsResultUpdate,
+  extractMatchIdFromUrl,
+  parseMatchIndexFile,
+  type MatchIndex,
+} from '../update/match-parsing.js'
+import {
+  createEmptySummary,
+  finalizeSummary,
+  type UpdateSummary,
+} from '../update/update-summary.js'
 import * as fs from 'fs'
 import * as path from 'path'
+
+interface MatchTeamNames {
+  hjemmelag: string
+  bortelag: string
+}
+
+type TeamMatchLinksMap = Map<string, Map<string, MatchLink>>
 
 const DATA_DIR = path.join(process.cwd(), 'data')
 const TABLES_PATH = path.join(DATA_DIR, 'tables.json')
 const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
 const MATCH_INDEX_PATH = path.join(DATA_DIR, 'match-index.json')
 const UPDATE_SUMMARY_PATH = path.join(DATA_DIR, 'update-summary.json')
-
-interface UpdateSummary {
-  timestamp: string
-  resultsUpdated: Array<{ kampnr: string; hjemmelag: string; bortelag: string; resultat: string }>
-  statsUpdated: Array<{ kampnr: string; hjemmelag: string; bortelag: string; resultat: string }>
-  noChanges: boolean
-}
-
-function createEmptySummary(): UpdateSummary {
-  return {
-    timestamp: new Date().toISOString(),
-    resultsUpdated: [],
-    statsUpdated: [],
-    noChanges: true,
-  }
-}
+const AGGREGATES_PATH = path.join(DATA_DIR, 'player-aggregates.json')
 
 function saveSummary(summary: UpdateSummary) {
   fs.writeFileSync(UPDATE_SUMMARY_PATH, JSON.stringify(summary, null, 2))
@@ -46,75 +52,15 @@ const FORCE_STATS = process.argv.includes('--force-stats')
 const FULL_DISCOVERY = process.argv.includes('--full')
 const SINGLE_URL = getArgValue('--url')
 
-interface MatchIndex {
-  [kampnr: string]: string
-}
-
-function rebuildPlayerCatalog(matchStats: MatchPlayerData[]): Player[] {
-  const playerMap = new Map<
-    string,
-    {
-      id: string
-      name: string
-      jerseyNumber?: number
-      teamCounts: Map<string, { teamName: string; count: number }>
-    }
-  >()
-
-  for (const match of matchStats) {
-    const processStats = (stats: typeof match.homeTeamStats, teamId: string, teamName: string) => {
-      for (const stat of stats) {
-        let player = playerMap.get(stat.playerId)
-        if (!player) {
-          player = {
-            id: stat.playerId,
-            name: stat.playerName,
-            jerseyNumber: stat.jerseyNumber,
-            teamCounts: new Map(),
-          }
-          playerMap.set(stat.playerId, player)
-        }
-        if (stat.jerseyNumber !== undefined) {
-          player.jerseyNumber = stat.jerseyNumber
-        }
-        const tc = player.teamCounts.get(teamId)
-        if (tc) tc.count++
-        else player.teamCounts.set(teamId, { teamName, count: 1 })
-      }
-    }
-    processStats(match.homeTeamStats, match.homeTeamId, match.homeTeamName)
-    processStats(match.awayTeamStats, match.awayTeamId, match.awayTeamName)
-  }
-
-  return Array.from(playerMap.values()).map((p) => {
-    const teamIds: string[] = []
-    const teamNames: string[] = []
-    let primaryTeamId = ''
-    let primaryTeamName = ''
-    let maxCount = 0
-    for (const [teamId, data] of p.teamCounts) {
-      teamIds.push(teamId)
-      teamNames.push(data.teamName)
-      if (data.count > maxCount) {
-        maxCount = data.count
-        primaryTeamId = teamId
-        primaryTeamName = data.teamName
-      }
-    }
-    return {
-      id: p.id,
-      name: p.name,
-      jerseyNumber: p.jerseyNumber,
-      teamIds,
-      teamNames,
-      primaryTeamId,
-      primaryTeamName,
-    }
-  })
-}
-
 function savePlayerStats(stats: PlayerStatsData) {
   fs.writeFileSync(PLAYER_STATS_PATH, JSON.stringify(stats, null, 2))
+}
+
+function generateAndSaveAggregates(stats: PlayerStatsData) {
+  const service = new PlayerStatsService(stats)
+  const aggregates = service.generateAggregates()
+  fs.writeFileSync(AGGREGATES_PATH, JSON.stringify(aggregates, null, 2))
+  console.log(`  Aggregater: ${aggregates.aggregates.length} spillere`)
 }
 
 function createInitialPlayerStats(): PlayerStatsData {
@@ -149,54 +95,6 @@ function migrateFromLegacyMatchCache(): MatchIndex {
   return {}
 }
 
-interface OldMatchIndexEntry {
-  url: string
-  played?: boolean
-}
-
-function isOldMatchIndexEntry(value: unknown): value is OldMatchIndexEntry {
-  if (typeof value !== 'object' || value === null) {
-    return false
-  }
-  if (!('url' in value)) {
-    return false
-  }
-  const urlValue = Object.getOwnPropertyDescriptor(value, 'url')?.value
-  return typeof urlValue === 'string'
-}
-
-function parseMatchIndexFile(content: string): MatchIndex {
-  const parsed: unknown = JSON.parse(content)
-  if (typeof parsed !== 'object' || parsed === null) {
-    return {}
-  }
-
-  const entries = Object.entries(parsed)
-  if (entries.length === 0) {
-    return {}
-  }
-
-  const [, firstValue] = entries[0]
-
-  if (isOldMatchIndexEntry(firstValue)) {
-    const index: MatchIndex = {}
-    for (const [k, v] of entries) {
-      if (isOldMatchIndexEntry(v)) {
-        index[k] = v.url
-      }
-    }
-    return index
-  }
-
-  const index: MatchIndex = {}
-  for (const [k, v] of entries) {
-    if (typeof v === 'string') {
-      index[k] = v
-    }
-  }
-  return index
-}
-
 function loadMatchIndex(): MatchIndex {
   if (fs.existsSync(MATCH_INDEX_PATH)) {
     try {
@@ -214,7 +112,7 @@ function saveMatchIndex(index: MatchIndex) {
 }
 
 function updateMatchIndexFromScraping(
-  matchLinksPerTeam: Map<string, Map<string, MatchLink>>,
+  matchLinksPerTeam: TeamMatchLinksMap,
   index: MatchIndex
 ): number {
   let newCount = 0
@@ -241,11 +139,6 @@ function populateMatchUrlsInTerminliste(matches: Match[], index: MatchIndex): nu
     }
   }
   return populated
-}
-
-function extractMatchIdFromUrl(url: string): string | null {
-  const match = url.match(/matchid=(\d+)/)
-  return match ? match[1] : null
 }
 
 async function handleSingleUrl(url: string): Promise<void> {
@@ -292,8 +185,8 @@ async function handleSingleUrl(url: string): Promise<void> {
     existingStats.players = rebuildPlayerCatalog(existingStats.matchStats)
     existingStats.lastUpdated = new Date().toISOString()
     savePlayerStats(existingStats)
+    generateAndSaveAggregates(existingStats)
 
-    // Lagre summary
     const summary = createEmptySummary()
     summary.statsUpdated.push({
       kampnr: stats.matchId,
@@ -301,8 +194,7 @@ async function handleSingleUrl(url: string): Promise<void> {
       bortelag: stats.awayTeamName,
       resultat: `${stats.homeScore}-${stats.awayScore}`,
     })
-    summary.noChanges = false
-    saveSummary(summary)
+    saveSummary(finalizeSummary(summary))
 
     console.log(
       `  ${stats.homeTeamName} ${stats.homeScore} - ${stats.awayScore} ${stats.awayTeamName}`
@@ -316,54 +208,22 @@ async function handleSingleUrl(url: string): Promise<void> {
   }
 }
 
-function parseMatchDate(dateStr: string): Date | null {
-  const parts = dateStr.split('.')
-  if (parts.length !== 3) return null
-
-  const day = parseInt(parts[0], 10)
-  const month = parseInt(parts[1], 10) - 1
-  const year = parseInt(parts[2], 10)
-
-  if (isNaN(day) || isNaN(month) || isNaN(year)) return null
-
-  return new Date(year, month, day, 23, 59, 59)
-}
-
-function needsResultUpdate(match: Match, now: Date): boolean {
-  if (match['H-B'] && match['H-B'] !== '-') {
-    return false
-  }
-  if (!match['Kamp URL']) {
-    return false
-  }
-  const matchDate = parseMatchDate(match.Dato)
-  if (!matchDate) {
-    return false
-  }
-  return matchDate < now
-}
-
-function parseTilskuere(value: number | string | undefined): number {
+function parseAttendance(value: number | string | undefined): number | string | undefined {
   if (typeof value === 'number') {
     return value
   }
   if (typeof value === 'string') {
-    const parsed = parseInt(value, 10)
+    const trimmed = value.trim()
+    if (trimmed === '') {
+      return undefined
+    }
+    const parsed = parseInt(trimmed, 10)
     if (!Number.isNaN(parsed)) {
       return parsed
     }
+    return trimmed
   }
-  return 0
-}
-
-function urlToMatchField(url: string | undefined): string {
-  if (typeof url !== 'string') {
-    return ''
-  }
-  if (url.length === 0) {
-    return ''
-  }
-  return url
+  return undefined
 }
 
 function transformToMatch(
@@ -386,13 +246,13 @@ function transformToMatch(
     Bortelag: row.Bortelag,
     'H-B': row['H-B'],
     Bane: row.Bane,
-    Tilskuere: parseTilskuere(row.Tilskuere),
+    Tilskuere: parseAttendance(row.Tilskuere),
     Arrangør: arrangør,
     Turnering: row.Turnering,
-    'Kamp URL': urlToMatchField(links?.kampUrl),
-    'Hjemmelag URL': urlToMatchField(links?.hjemmelagUrl),
-    'Bortelag URL': urlToMatchField(links?.bortelagUrl),
-    'Turnering URL': urlToMatchField(turneringUrl),
+    'Kamp URL': links?.kampUrl,
+    'Hjemmelag URL': links?.hjemmelagUrl,
+    'Bortelag URL': links?.bortelagUrl,
+    'Turnering URL': turneringUrl,
   }
 }
 
@@ -459,8 +319,7 @@ export async function refreshHandballData(): Promise<void> {
     const sortedMatches = sortMatchesByDate(allMatches)
     const populatedCount = populateMatchUrlsInTerminliste(sortedMatches, matchIndex)
 
-    // Lag lookup fra kampnr til lagnavn
-    const matchLookup = new Map<string, { hjemmelag: string; bortelag: string }>()
+    const matchLookup = new Map<string, MatchTeamNames>()
     for (const match of sortedMatches) {
       matchLookup.set(match.Kampnr.trim(), {
         hjemmelag: match.Hjemmelag,
@@ -468,12 +327,10 @@ export async function refreshHandballData(): Promise<void> {
       })
     }
 
-    // Initialiser oppsummering
     const summary = createEmptySummary()
 
     fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
 
-    // Oppdater resultater for spilte kamper som mangler resultat
     console.log('\n[2/4] Oppdaterer kampresultater...')
     const now = new Date()
     const matchesNeedingResults = sortedMatches.filter((m) => needsResultUpdate(m, now))
@@ -482,15 +339,17 @@ export async function refreshHandballData(): Promise<void> {
     if (matchesNeedingResults.length > 0) {
       console.log(`  Fant ${matchesNeedingResults.length} kamper som mangler resultat`)
       const resultScraper = new ResultScraperService()
-      const urls = matchesNeedingResults.map((m) => m['Kamp URL'])
+      const urls = matchesNeedingResults
+        .map((m) => m['Kamp URL'])
+        .filter((url): url is string => typeof url === 'string')
       const results = await resultScraper.fetchMultipleResults(urls, (current, total) => {
         console.log(`  Henter resultat ${current}/${total}`)
       })
 
       for (const match of sortedMatches) {
         const matchId = extractMatchIdFromUrl(match['Kamp URL'])
-        if (matchId && results.has(matchId)) {
-          const result = results.get(matchId)!
+        const result = matchId ? results.get(matchId) : undefined
+        if (result) {
           match['H-B'] = result.result
           resultsUpdated++
           summary.resultsUpdated.push({
@@ -517,7 +376,7 @@ export async function refreshHandballData(): Promise<void> {
 
     console.log('\n[3/4] Henter spilte kamper fra turneringene...')
 
-    let tournamentPlayedMatches: Array<{ matchId: string; matchUrl: string }>
+    let tournamentPlayedMatches: PlayedMatch[]
 
     if (FULL_DISCOVERY) {
       let tournamentCount = 0
@@ -582,9 +441,11 @@ export async function refreshHandballData(): Promise<void> {
       existingStats.matchesWithoutStats = []
     }
 
+    const allPlayedMatches = combinePlayedMatches(tournamentPlayedMatches, sortedMatches)
+
     const existingMatchIds = new Set(existingStats.matchStats.map((m) => m.matchId))
     const matchesWithoutStats = new Set(existingStats.matchesWithoutStats)
-    const matchesToScrape = tournamentPlayedMatches.filter(
+    const matchesToScrape = allPlayedMatches.filter(
       (m) => !existingMatchIds.has(m.matchId) && !matchesWithoutStats.has(m.matchId)
     )
 
@@ -615,7 +476,6 @@ export async function refreshHandballData(): Promise<void> {
 
         scraped += batch.length
 
-        // Samle info om nye stats
         for (const stat of batchStats) {
           summary.statsUpdated.push({
             kampnr: stat.matchId,
@@ -628,19 +488,22 @@ export async function refreshHandballData(): Promise<void> {
         existingStats.matchStats.push(...batchStats)
         existingStats.matchesWithoutStats.push(...batchNoStats)
 
-        existingStats.players = rebuildPlayerCatalog(existingStats.matchStats)
         existingStats.lastUpdated = new Date().toISOString()
         savePlayerStats(existingStats)
       }
+
+      existingStats.players = rebuildPlayerCatalog(existingStats.matchStats)
+      existingStats.lastUpdated = new Date().toISOString()
+      savePlayerStats(existingStats)
 
       console.log(
         `  Lagret: ${existingStats.matchStats.length} kamper, ${existingStats.players.length} spillere`
       )
     }
 
-    // Oppdater og lagre oppsummering
-    summary.noChanges = summary.resultsUpdated.length === 0 && summary.statsUpdated.length === 0
-    saveSummary(summary)
+    generateAndSaveAggregates(existingStats)
+
+    saveSummary(finalizeSummary(summary))
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
     console.log(`\n=== Ferdig (${elapsed}s) ===\n`)

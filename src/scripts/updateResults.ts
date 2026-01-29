@@ -1,13 +1,3 @@
-/**
- * Smart results updater script
- *
- * Only fetches results for matches that:
- * 1. Have already been played (date has passed)
- * 2. Don't have a result yet (H-B === "-")
- *
- * Much faster than full refresh (~seconds vs ~minutes)
- */
-
 import type { Match, Metadata } from '../types/index.js'
 import { FileService } from '../handball/file.service.js'
 import { ResultScraperService } from '../handball/result-scraper.service.js'
@@ -23,52 +13,48 @@ interface ScraperServiceLike {
   fetchMultipleResults(urls: string[]): Promise<Map<string, { matchId: string; result: string }>>
 }
 
+interface Logger {
+  info: (...args: string[]) => void
+  error: (...args: string[]) => void
+}
+
 interface UpdateResultsDependencies {
   fileService?: FileServiceLike
   scraperService?: ScraperServiceLike
   now?: () => Date
-  logger?: {
-    info: (...args: unknown[]) => void
-    error: (...args: unknown[]) => void
-  }
+  logger?: Logger
 }
 
-const defaultLogger = {
-  info: (...args: unknown[]) => console.log(...args),
-  error: (...args: unknown[]) => console.error(...args),
+const defaultLogger: Logger = {
+  info: (...args: string[]) => console.log(...args),
+  error: (...args: string[]) => console.error(...args),
 }
 
-/**
- * Parses DD.MM.YYYY date string to Date object
- */
 function parseMatchDate(dateStr: string): Date | null {
   const parts = dateStr.split('.')
   if (parts.length !== 3) return null
 
   const day = parseInt(parts[0], 10)
-  const month = parseInt(parts[1], 10) - 1 // Months are 0-indexed
+  const monthIndex = parseInt(parts[1], 10) - 1
   const year = parseInt(parts[2], 10)
 
-  if (isNaN(day) || isNaN(month) || isNaN(year)) return null
+  if (isNaN(day) || isNaN(monthIndex) || isNaN(year)) return null
 
-  return new Date(year, month, day, 23, 59, 59) // End of match day
+  const END_OF_DAY_HOUR = 23
+  const END_OF_DAY_MINUTE = 59
+  const END_OF_DAY_SECOND = 59
+  return new Date(year, monthIndex, day, END_OF_DAY_HOUR, END_OF_DAY_MINUTE, END_OF_DAY_SECOND)
 }
 
-/**
- * Checks if a match needs result update
- */
 function needsResultUpdate(match: Match, now: Date): boolean {
-  // Already has result
   if (match['H-B'] && match['H-B'] !== '-') {
     return false
   }
 
-  // No match URL
   if (!match['Kamp URL']) {
     return false
   }
 
-  // Check if match date has passed
   const matchDate = parseMatchDate(match.Dato)
   if (!matchDate) {
     return false
@@ -77,9 +63,6 @@ function needsResultUpdate(match: Match, now: Date): boolean {
   return matchDate < now
 }
 
-/**
- * Main update function
- */
 export async function updateResults(deps: UpdateResultsDependencies = {}): Promise<{
   updated: number
   checked: number
@@ -93,11 +76,9 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
 
   logger.info('=== Updating match results ===\n')
 
-  // Load existing matches
   const matches = fileService.loadMatches()
   logger.info(`Loaded ${matches.length} matches from terminliste.json`)
 
-  // Find matches that need updating
   const currentDate = now()
   const matchesNeedingUpdate = matches.filter((m) => needsResultUpdate(m, currentDate))
 
@@ -111,38 +92,38 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
     logger.info(`  - ${m.Dato} ${m.Tid}: ${m.Hjemmelag} vs ${m.Bortelag}`)
   })
 
-  // Fetch results
   logger.info('\nFetching results from handball.no...')
-  const urls = matchesNeedingUpdate.map((m) => m['Kamp URL'])
+  const urls = matchesNeedingUpdate
+    .map((m) => m['Kamp URL'])
+    .filter((url): url is string => typeof url === 'string')
   const results = await scraperService.fetchMultipleResults(urls, (current, total) => {
     logger.info(`  Progress: ${current}/${total}`)
   })
 
-  // Update matches with new results and track affected tournaments
   let updatedCount = 0
   const affectedTournaments = new Map<string, string>()
   for (const match of matches) {
     const matchId = extractMatchId(match['Kamp URL'])
     if (matchId && results.has(matchId)) {
-      const result = results.get(matchId)!
-      match['H-B'] = result.result
-      updatedCount++
-      logger.info(`  Updated: ${match.Hjemmelag} vs ${match.Bortelag} = ${result.result}`)
-      if (
-        match['Turnering URL'] &&
-        match.Turnering &&
-        !match.Turnering.toLowerCase().includes('cup')
-      ) {
-        affectedTournaments.set(match['Turnering URL'], match.Turnering)
+      const result = results.get(matchId)
+      if (result) {
+        match['H-B'] = result.result
+        updatedCount++
+        logger.info(`  Updated: ${match.Hjemmelag} vs ${match.Bortelag} = ${result.result}`)
+        if (
+          match['Turnering URL'] &&
+          match.Turnering &&
+          !match.Turnering.toLowerCase().includes('cup')
+        ) {
+          affectedTournaments.set(match['Turnering URL'], match.Turnering)
+        }
       }
     }
   }
 
   if (updatedCount > 0) {
-    // Save updated matches
     fileService.saveMatches(matches)
 
-    // Update metadata
     const metadata: Metadata = {
       lastUpdated: currentDate.toISOString(),
       teamsCount: new Set(matches.map((m) => m.Lag)).size,
@@ -165,20 +146,18 @@ export async function updateResults(deps: UpdateResultsDependencies = {}): Promi
   }
 }
 
-function extractMatchId(url: string): string | null {
-  if (!url) return null
+function extractMatchId(url: string | undefined): string | null {
+  if (typeof url !== 'string') return null
   const match = url.match(/matchid=(\d+)/)
   return match ? match[1] : null
 }
 
-// Run if executed directly
 if (import.meta.url === `file://${process.argv[1]}`) {
   ;(async () => {
     try {
       const result = await updateResults()
       console.log(`\nResults: Updated ${result.updated}/${result.checked} matches.`)
 
-      // Only fetch tables for affected tournaments
       if (result.affectedTournaments.size > 0) {
         console.log(`\n📊 Oppdaterer ${result.affectedTournaments.size} berørte tabeller...`)
         const tableResult = await fetchTables(result.affectedTournaments)
