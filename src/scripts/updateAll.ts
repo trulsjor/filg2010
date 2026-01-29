@@ -7,38 +7,22 @@ import { ResultScraperService } from '../handball/result-scraper.service.js'
 import { sortMatchesByDate } from '../match/match-sorting.js'
 import { combinePlayedMatches, type PlayedMatch } from '../update/combine-matches.js'
 import { rebuildPlayerCatalog } from '../handball/player-catalog.js'
-import { PlayerStatsService } from '../handball/PlayerStatsAggregator.js'
 import {
   needsResultUpdate,
   extractMatchIdFromUrl,
-  parseMatchIndexFile,
+  populateMatchUrls,
+  Attendance,
+  MatchParticipants,
   type MatchIndex,
 } from '../update/match-parsing.js'
-import {
-  createEmptySummary,
-  finalizeSummary,
-  type UpdateSummary,
-} from '../update/update-summary.js'
+import { createEmptySummary, finalizeSummary } from '../update/update-summary.js'
 import * as fs from 'fs'
 import * as path from 'path'
-
-interface MatchTeamNames {
-  hjemmelag: string
-  bortelag: string
-}
 
 type TeamMatchLinksMap = Map<string, Map<string, MatchLink>>
 
 const DATA_DIR = path.join(process.cwd(), 'data')
 const TABLES_PATH = path.join(DATA_DIR, 'tables.json')
-const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
-const MATCH_INDEX_PATH = path.join(DATA_DIR, 'match-index.json')
-const UPDATE_SUMMARY_PATH = path.join(DATA_DIR, 'update-summary.json')
-const AGGREGATES_PATH = path.join(DATA_DIR, 'player-aggregates.json')
-
-function saveSummary(summary: UpdateSummary) {
-  fs.writeFileSync(UPDATE_SUMMARY_PATH, JSON.stringify(summary, null, 2))
-}
 
 function getArgValue(flag: string): string | undefined {
   const idx = process.argv.indexOf(flag)
@@ -52,17 +36,6 @@ const FORCE_STATS = process.argv.includes('--force-stats')
 const FULL_DISCOVERY = process.argv.includes('--full')
 const SINGLE_URL = getArgValue('--url')
 
-function savePlayerStats(stats: PlayerStatsData) {
-  fs.writeFileSync(PLAYER_STATS_PATH, JSON.stringify(stats, null, 2))
-}
-
-function generateAndSaveAggregates(stats: PlayerStatsData) {
-  const service = new PlayerStatsService(stats)
-  const aggregates = service.generateAggregates()
-  fs.writeFileSync(AGGREGATES_PATH, JSON.stringify(aggregates, null, 2))
-  console.log(`  Aggregater: ${aggregates.aggregates.length} spillere`)
-}
-
 function createInitialPlayerStats(): PlayerStatsData {
   return {
     players: [],
@@ -70,45 +43,6 @@ function createInitialPlayerStats(): PlayerStatsData {
     matchesWithoutStats: [],
     lastUpdated: new Date().toISOString(),
   }
-}
-
-const LEGACY_MATCH_CACHE_PATH = path.join(DATA_DIR, 'match-cache.json')
-
-function migrateFromLegacyMatchCache(): MatchIndex {
-  if (!fs.existsSync(LEGACY_MATCH_CACHE_PATH)) return {}
-
-  try {
-    const legacy = JSON.parse(fs.readFileSync(LEGACY_MATCH_CACHE_PATH, 'utf-8'))
-    if (legacy.matches && Array.isArray(legacy.matches)) {
-      const index: MatchIndex = {}
-      for (const m of legacy.matches) {
-        if (m.matchId && m.matchUrl) {
-          index[m.matchId] = m.matchUrl
-        }
-      }
-      console.log(`  Migrerte ${Object.keys(index).length} kamper fra match-cache.json`)
-      return index
-    }
-  } catch {
-    return {}
-  }
-  return {}
-}
-
-function loadMatchIndex(): MatchIndex {
-  if (fs.existsSync(MATCH_INDEX_PATH)) {
-    try {
-      const content = fs.readFileSync(MATCH_INDEX_PATH, 'utf-8')
-      return parseMatchIndexFile(content)
-    } catch {
-      return migrateFromLegacyMatchCache()
-    }
-  }
-  return migrateFromLegacyMatchCache()
-}
-
-function saveMatchIndex(index: MatchIndex) {
-  fs.writeFileSync(MATCH_INDEX_PATH, JSON.stringify(index, null, 2))
 }
 
 function updateMatchIndexFromScraping(
@@ -128,20 +62,7 @@ function updateMatchIndexFromScraping(
   return newCount
 }
 
-function populateMatchUrlsInTerminliste(matches: Match[], index: MatchIndex): number {
-  let populated = 0
-  for (const match of matches) {
-    const cleanKampnr = match.Kampnr.trim()
-    const url = index[cleanKampnr]
-    if (!match['Kamp URL'] && url) {
-      match['Kamp URL'] = url
-      populated++
-    }
-  }
-  return populated
-}
-
-async function handleSingleUrl(url: string): Promise<void> {
+async function handleSingleUrl(url: string, fileService: FileService): Promise<void> {
   const startTime = Date.now()
   console.log(`\n=== Enkeltkamp: ${url} ===\n`)
 
@@ -163,14 +84,12 @@ async function handleSingleUrl(url: string): Promise<void> {
       process.exit(0)
     }
 
-    let existingStats = createInitialPlayerStats()
-    if (fs.existsSync(PLAYER_STATS_PATH)) {
-      try {
-        existingStats = JSON.parse(fs.readFileSync(PLAYER_STATS_PATH, 'utf-8'))
-        if (!existingStats.matchesWithoutStats) existingStats.matchesWithoutStats = []
-      } catch {
-        existingStats = createInitialPlayerStats()
-      }
+    let existingStats = fileService.loadPlayerStats()
+    if (!existingStats) {
+      existingStats = createInitialPlayerStats()
+    }
+    if (!existingStats.matchesWithoutStats) {
+      existingStats.matchesWithoutStats = []
     }
 
     const existingIdx = existingStats.matchStats.findIndex((m) => m.matchId === matchId)
@@ -184,8 +103,9 @@ async function handleSingleUrl(url: string): Promise<void> {
 
     existingStats.players = rebuildPlayerCatalog(existingStats.matchStats)
     existingStats.lastUpdated = new Date().toISOString()
-    savePlayerStats(existingStats)
-    generateAndSaveAggregates(existingStats)
+    fileService.savePlayerStats(existingStats)
+    const aggregateCount = fileService.generateAndSaveAggregates(existingStats)
+    console.log(`  Aggregater: ${aggregateCount} spillere`)
 
     const summary = createEmptySummary()
     summary.statsUpdated.push({
@@ -194,7 +114,7 @@ async function handleSingleUrl(url: string): Promise<void> {
       bortelag: stats.awayTeamName,
       resultat: `${stats.homeScore}-${stats.awayScore}`,
     })
-    saveSummary(finalizeSummary(summary))
+    fileService.saveSummary(finalizeSummary(summary))
 
     console.log(
       `  ${stats.homeTeamName} ${stats.homeScore} - ${stats.awayScore} ${stats.awayTeamName}`
@@ -206,24 +126,6 @@ async function handleSingleUrl(url: string): Promise<void> {
   } finally {
     await scraper.close()
   }
-}
-
-function parseAttendance(value: number | string | undefined): number | string | undefined {
-  if (typeof value === 'number') {
-    return value
-  }
-  if (typeof value === 'string') {
-    const trimmed = value.trim()
-    if (trimmed === '') {
-      return undefined
-    }
-    const parsed = parseInt(trimmed, 10)
-    if (!Number.isNaN(parsed)) {
-      return parsed
-    }
-    return trimmed
-  }
-  return undefined
 }
 
 function transformToMatch(
@@ -246,7 +148,7 @@ function transformToMatch(
     Bortelag: row.Bortelag,
     'H-B': row['H-B'],
     Bane: row.Bane,
-    Tilskuere: parseAttendance(row.Tilskuere),
+    Tilskuere: Attendance.parse(row.Tilskuere).toValue(),
     Arrangør: arrangør,
     Turnering: row.Turnering,
     'Kamp URL': links?.kampUrl,
@@ -272,7 +174,7 @@ export async function refreshHandballData(): Promise<void> {
 
     fileService.ensureDataDirectory()
 
-    const matchIndex = loadMatchIndex()
+    const matchIndex = fileService.loadMatchIndex()
     const indexSizeBefore = Object.keys(matchIndex).length
 
     console.log('[1/3] Henter data fra handball.no...')
@@ -317,14 +219,11 @@ export async function refreshHandballData(): Promise<void> {
     }
 
     const sortedMatches = sortMatchesByDate(allMatches)
-    const populatedCount = populateMatchUrlsInTerminliste(sortedMatches, matchIndex)
+    const populatedCount = populateMatchUrls(sortedMatches, matchIndex)
 
-    const matchLookup = new Map<string, MatchTeamNames>()
+    const matchLookup = new Map<string, MatchParticipants>()
     for (const match of sortedMatches) {
-      matchLookup.set(match.Kampnr.trim(), {
-        hjemmelag: match.Hjemmelag,
-        bortelag: match.Bortelag,
-      })
+      matchLookup.set(match.Kampnr.trim(), new MatchParticipants(match.Hjemmelag, match.Bortelag))
     }
 
     const summary = createEmptySummary()
@@ -412,7 +311,7 @@ export async function refreshHandballData(): Promise<void> {
     )
 
     if (Object.keys(matchIndex).length > indexSizeBefore) {
-      saveMatchIndex(matchIndex)
+      fileService.saveMatchIndex(matchIndex)
     }
 
     console.log(`  Kamper i index: ${Object.keys(matchIndex).length}`)
@@ -422,17 +321,20 @@ export async function refreshHandballData(): Promise<void> {
 
     console.log('\n[4/4] Oppdaterer spillerstatistikk...')
 
-    let existingStats = createInitialPlayerStats()
+    let existingStats: PlayerStatsData
 
-    if (fs.existsSync(PLAYER_STATS_PATH) && !FORCE_STATS) {
-      try {
-        existingStats = JSON.parse(fs.readFileSync(PLAYER_STATS_PATH, 'utf-8'))
+    if (!FORCE_STATS) {
+      const loaded = fileService.loadPlayerStats()
+      if (loaded) {
+        existingStats = loaded
         if (!existingStats.matchesWithoutStats) {
           existingStats.matchesWithoutStats = []
         }
-      } catch {
-        console.log('  Kunne ikke lese eksisterende spillerdata')
+      } else {
+        existingStats = createInitialPlayerStats()
       }
+    } else {
+      existingStats = createInitialPlayerStats()
     }
 
     if (FORCE_STATS) {
@@ -468,7 +370,7 @@ export async function refreshHandballData(): Promise<void> {
             const globalProgress = scraped + current
             const percent = Math.round((globalProgress / matchesToScrape.length) * 100)
             const info = matchLookup.get(matchId)
-            const matchDesc = info ? `${info.hjemmelag} vs ${info.bortelag}` : matchId
+            const matchDesc = info ? `${info.homeTeam} vs ${info.awayTeam}` : matchId
             console.log(
               `  [${percent}%] ${globalProgress}/${matchesToScrape.length} - ${matchDesc}`
             )
@@ -489,21 +391,22 @@ export async function refreshHandballData(): Promise<void> {
         existingStats.matchesWithoutStats.push(...batchNoStats)
 
         existingStats.lastUpdated = new Date().toISOString()
-        savePlayerStats(existingStats)
+        fileService.savePlayerStats(existingStats)
       }
 
       existingStats.players = rebuildPlayerCatalog(existingStats.matchStats)
       existingStats.lastUpdated = new Date().toISOString()
-      savePlayerStats(existingStats)
+      fileService.savePlayerStats(existingStats)
 
       console.log(
         `  Lagret: ${existingStats.matchStats.length} kamper, ${existingStats.players.length} spillere`
       )
     }
 
-    generateAndSaveAggregates(existingStats)
+    const aggregateCount = fileService.generateAndSaveAggregates(existingStats)
+    console.log(`  Aggregater: ${aggregateCount} spillere`)
 
-    saveSummary(finalizeSummary(summary))
+    fileService.saveSummary(finalizeSummary(summary))
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
     console.log(`\n=== Ferdig (${elapsed}s) ===\n`)
@@ -513,7 +416,8 @@ export async function refreshHandballData(): Promise<void> {
 }
 
 if (import.meta.url === `file://${process.argv[1]}`) {
-  const main = SINGLE_URL ? () => handleSingleUrl(SINGLE_URL) : refreshHandballData
+  const fileService = new FileService()
+  const main = SINGLE_URL ? () => handleSingleUrl(SINGLE_URL, fileService) : refreshHandballData
 
   main()
     .then(() => process.exit(0))

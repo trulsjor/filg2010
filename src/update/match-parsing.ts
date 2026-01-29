@@ -4,6 +4,52 @@ export interface MatchIndex {
   [kampnr: string]: string
 }
 
+export class Attendance {
+  private constructor(private readonly value: number | string | undefined) {}
+
+  static parse(input: number | string | undefined): Attendance {
+    if (typeof input === 'number') {
+      return new Attendance(input)
+    }
+    if (typeof input === 'string') {
+      const trimmed = input.trim()
+      if (trimmed === '') {
+        return new Attendance(undefined)
+      }
+      const parsed = parseInt(trimmed, 10)
+      if (!Number.isNaN(parsed)) {
+        return new Attendance(parsed)
+      }
+      return new Attendance(trimmed)
+    }
+    return new Attendance(undefined)
+  }
+
+  toValue(): number | string | undefined {
+    return this.value
+  }
+}
+
+export class MatchParticipants {
+  constructor(
+    readonly homeTeam: string,
+    readonly awayTeam: string
+  ) {}
+}
+
+export function populateMatchUrls(matches: Match[], index: MatchIndex): number {
+  let populated = 0
+  for (const match of matches) {
+    const cleanKampnr = match.Kampnr.trim()
+    const url = index[cleanKampnr]
+    if (!match['Kamp URL'] && url) {
+      match['Kamp URL'] = url
+      populated++
+    }
+  }
+  return populated
+}
+
 interface OldMatchIndexEntry {
   url: string
   played?: boolean
