@@ -114,7 +114,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-29T21:38:44.954Z"
+    "updatedAt": "2026-01-25T19:24:01.568Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 1 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -155,14 +155,14 @@
       },
       {
         "position": 4,
-        "team": "Kråkerøy",
-        "played": 2,
-        "won": 1,
+        "team": "Bækkelaget",
+        "played": 0,
+        "won": 0,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 59,
-        "goalsAgainst": 50,
-        "points": 2
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "points": 0
       },
       {
         "position": 5,
@@ -177,17 +177,17 @@
       },
       {
         "position": 6,
-        "team": "Bækkelaget",
+        "team": "Kråkerøy",
         "played": 1,
         "won": 0,
         "drawn": 0,
         "lost": 1,
-        "goalsFor": 26,
-        "goalsAgainst": 36,
+        "goalsFor": 23,
+        "goalsAgainst": 24,
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-29T21:38:39.748Z"
+    "updatedAt": "2026-01-25T19:24:00.966Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-29T21:38:41.922Z"
+    "updatedAt": "2026-01-25T19:24:00.310Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-29T21:38:51.791Z"
+    "updatedAt": "2026-01-25T19:24:05.187Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -418,17 +418,6 @@
       },
       {
         "position": 2,
-        "team": "Kolbotn 2",
-        "played": 2,
-        "won": 2,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 56,
-        "goalsAgainst": 39,
-        "points": 4
-      },
-      {
-        "position": 3,
         "team": "Njård",
         "played": 2,
         "won": 2,
@@ -439,7 +428,7 @@
         "points": 4
       },
       {
-        "position": 4,
+        "position": 3,
         "team": "Tistedal",
         "played": 3,
         "won": 2,
@@ -450,7 +439,7 @@
         "points": 4
       },
       {
-        "position": 5,
+        "position": 4,
         "team": "Fjellhammer 3",
         "played": 1,
         "won": 1,
@@ -461,18 +450,18 @@
         "points": 2
       },
       {
-        "position": 6,
-        "team": "Ski 2",
-        "played": 3,
+        "position": 5,
+        "team": "Kolbotn 2",
+        "played": 1,
         "won": 1,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 70,
-        "goalsAgainst": 81,
+        "lost": 0,
+        "goalsFor": 29,
+        "goalsAgainst": 19,
         "points": 2
       },
       {
-        "position": 7,
+        "position": 6,
         "team": "NIT-HAK/Ull/Kisa 3",
         "played": 1,
         "won": 0,
@@ -483,7 +472,29 @@
         "points": 0
       },
       {
+        "position": 7,
+        "team": "Ski 2",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 12,
+        "goalsAgainst": 31,
+        "points": 0
+      },
+      {
         "position": 8,
+        "team": "Gml Fredrikstad 2",
+        "played": 3,
+        "won": 0,
+        "drawn": 0,
+        "lost": 3,
+        "goalsFor": 73,
+        "goalsAgainst": 94,
+        "points": 0
+      },
+      {
+        "position": 9,
         "team": "INDRE 2",
         "played": 2,
         "won": 0,
@@ -492,19 +503,8 @@
         "goalsFor": 40,
         "goalsAgainst": 61,
         "points": 0
-      },
-      {
-        "position": 9,
-        "team": "Gml Fredrikstad 2",
-        "played": 4,
-        "won": 0,
-        "drawn": 0,
-        "lost": 4,
-        "goalsFor": 96,
-        "goalsAgainst": 132,
-        "points": 0
       }
     ],
-    "updatedAt": "2026-01-29T21:38:52.137Z"
+    "updatedAt": "2026-01-25T19:24:05.333Z"
   }
 ]
