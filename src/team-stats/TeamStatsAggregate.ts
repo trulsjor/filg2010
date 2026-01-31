@@ -20,6 +20,12 @@ export interface TeamMatchData {
 export interface TerminlisteMatch {
   Kampnr: string
   'Kamp URL'?: string
+  'H-B'?: string
+}
+
+interface ParsedScore {
+  homeScore: number
+  awayScore: number
 }
 
 export interface TeamDetailStats {
@@ -52,173 +58,29 @@ export interface TeamPlayerData {
   matches: number
 }
 
-export interface TeamSummary {
-  teamId: TeamId
-  teamName: TeamName
-  matches: number
-  wins: number
-  draws: number
-  losses: number
-  goalsScored: number
-  goalsConceded: number
-  goalDiff: number
-  isOurTeam: boolean
-  tournaments: TournamentName[]
-}
-
-export interface TournamentTeamSummary extends TeamSummary {
-  tournament: TournamentName
-}
-
 export class TeamStatsAggregate {
-  static buildTeamSummaries(statsData: PlayerStatsData, ourTeamIds: Set<TeamId>): TeamSummary[] {
-    const teams = new Map<TeamId, TeamSummary>()
-
-    const getOrCreateTeam = (teamId: TeamId, teamName: TeamName): TeamSummary => {
-      const existing = teams.get(teamId)
-      if (existing) return existing
-
-      const newTeam: TeamSummary = {
-        teamId,
-        teamName,
-        matches: 0,
-        wins: 0,
-        draws: 0,
-        losses: 0,
-        goalsScored: 0,
-        goalsConceded: 0,
-        goalDiff: 0,
-        isOurTeam: ourTeamIds.has(teamId),
-        tournaments: [],
-      }
-      teams.set(teamId, newTeam)
-      return newTeam
+  static parseResultString(hb: string | undefined): ParsedScore | null {
+    if (!hb) return null
+    const match = hb.match(/^(\d+)-(\d+)$/)
+    if (!match) return null
+    return {
+      homeScore: parseInt(match[1]),
+      awayScore: parseInt(match[2]),
     }
-
-    for (const match of statsData.matchStats) {
-      const homeResult = new MatchResult(match.homeScore, match.awayScore)
-
-      const home = getOrCreateTeam(match.homeTeamId, match.homeTeamName)
-      const away = getOrCreateTeam(match.awayTeamId, match.awayTeamName)
-
-      home.matches += 1
-      home.goalsScored += match.homeScore
-      home.goalsConceded += match.awayScore
-      away.matches += 1
-      away.goalsScored += match.awayScore
-      away.goalsConceded += match.homeScore
-
-      if (homeResult.isWin()) {
-        home.wins += 1
-        away.losses += 1
-      } else if (homeResult.isDraw()) {
-        home.draws += 1
-        away.draws += 1
-      } else {
-        home.losses += 1
-        away.wins += 1
-      }
-
-      if (!home.tournaments.includes(match.tournament)) {
-        home.tournaments.push(match.tournament)
-      }
-      if (!away.tournaments.includes(match.tournament)) {
-        away.tournaments.push(match.tournament)
-      }
-    }
-
-    for (const team of teams.values()) {
-      team.goalDiff = team.goalsScored - team.goalsConceded
-    }
-
-    return Array.from(teams.values())
   }
 
-  static buildTournamentTeamSummaries(
-    statsData: PlayerStatsData,
-    ourTeamIds: Set<TeamId>
-  ): Map<TournamentName, TournamentTeamSummary[]> {
-    const tournamentTeams = new Map<TournamentName, Map<TeamId, TournamentTeamSummary>>()
-
-    const getOrCreateTeam = (
-      tournament: TournamentName,
-      teamId: TeamId,
-      teamName: TeamName
-    ): TournamentTeamSummary => {
-      let teamsInTournament = tournamentTeams.get(tournament)
-      if (!teamsInTournament) {
-        teamsInTournament = new Map()
-        tournamentTeams.set(tournament, teamsInTournament)
-      }
-
-      const existing = teamsInTournament.get(teamId)
-      if (existing) return existing
-
-      const newTeam: TournamentTeamSummary = {
-        teamId,
-        teamName,
-        tournament,
-        matches: 0,
-        wins: 0,
-        draws: 0,
-        losses: 0,
-        goalsScored: 0,
-        goalsConceded: 0,
-        goalDiff: 0,
-        isOurTeam: ourTeamIds.has(teamId),
-        tournaments: [tournament],
-      }
-      teamsInTournament.set(teamId, newTeam)
-      return newTeam
-    }
-
-    for (const match of statsData.matchStats) {
-      const homeResult = new MatchResult(match.homeScore, match.awayScore)
-
-      const home = getOrCreateTeam(match.tournament, match.homeTeamId, match.homeTeamName)
-      const away = getOrCreateTeam(match.tournament, match.awayTeamId, match.awayTeamName)
-
-      home.matches += 1
-      home.goalsScored += match.homeScore
-      home.goalsConceded += match.awayScore
-      away.matches += 1
-      away.goalsScored += match.awayScore
-      away.goalsConceded += match.homeScore
-
-      if (homeResult.isWin()) {
-        home.wins += 1
-        away.losses += 1
-      } else if (homeResult.isDraw()) {
-        home.draws += 1
-        away.draws += 1
-      } else {
-        home.losses += 1
-        away.wins += 1
+  static resolveMatchScores(
+    match: { homeScore: number; awayScore: number; matchId: string },
+    terminlisteData: TerminlisteMatch[]
+  ): { homeScore: number; awayScore: number } {
+    const terminlisteMatch = terminlisteData.find((t) => t.Kampnr.trim() === match.matchId.trim())
+    if (terminlisteMatch) {
+      const parsed = TeamStatsAggregate.parseResultString(terminlisteMatch['H-B'])
+      if (parsed) {
+        return parsed
       }
     }
-
-    for (const teamsInTournament of tournamentTeams.values()) {
-      for (const team of teamsInTournament.values()) {
-        team.goalDiff = team.goalsScored - team.goalsConceded
-      }
-    }
-
-    const result = new Map<TournamentName, TournamentTeamSummary[]>()
-    for (const [tournament, teamsMap] of tournamentTeams) {
-      const teams = Array.from(teamsMap.values()).sort(TeamStatsAggregate.compareByPriority)
-      result.set(tournament, teams)
-    }
-
-    return result
-  }
-
-  static compareByPriority(a: TeamSummary, b: TeamSummary): number {
-    if (a.isOurTeam !== b.isOurTeam) return a.isOurTeam ? -1 : 1
-    return b.matches - a.matches
-  }
-
-  static sortByPriority(teams: TeamSummary[]): TeamSummary[] {
-    return [...teams].sort(TeamStatsAggregate.compareByPriority)
+    return { homeScore: match.homeScore, awayScore: match.awayScore }
   }
 
   static createOurTeamIds(config: Config): Set<TeamId> {
@@ -303,8 +165,9 @@ export class TeamStatsAggregate {
 
       teamName = isHome ? match.homeTeamName : match.awayTeamName
 
-      const goalsScored = isHome ? match.homeScore : match.awayScore
-      const goalsConceded = isHome ? match.awayScore : match.homeScore
+      const resolvedScores = TeamStatsAggregate.resolveMatchScores(match, terminlisteData)
+      const goalsScored = isHome ? resolvedScores.homeScore : resolvedScores.awayScore
+      const goalsConceded = isHome ? resolvedScores.awayScore : resolvedScores.homeScore
       const opponent = isHome ? match.awayTeamName : match.homeTeamName
       const opponentId = isHome ? match.awayTeamId : match.homeTeamId
 
