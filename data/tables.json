@@ -70,7 +70,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T14:39:04.440Z"
+    "updatedAt": "2026-01-31T21:03:44.785Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T14:39:06.998Z"
+    "updatedAt": "2026-01-31T21:03:37.752Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -195,6 +195,17 @@
     "rows": [
       {
         "position": 1,
+        "team": "Drøbak/Nordby",
+        "played": 3,
+        "won": 2,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 77,
+        "goalsAgainst": 59,
+        "points": 5
+      },
+      {
+        "position": 2,
         "team": "Haslum 2",
         "played": 3,
         "won": 2,
@@ -205,7 +216,7 @@
         "points": 5
       },
       {
-        "position": 2,
+        "position": 3,
         "team": "Korsvoll 2",
         "played": 2,
         "won": 2,
@@ -214,17 +225,6 @@
         "goalsFor": 66,
         "goalsAgainst": 52,
         "points": 4
-      },
-      {
-        "position": 3,
-        "team": "Drøbak/Nordby",
-        "played": 2,
-        "won": 1,
-        "drawn": 1,
-        "lost": 0,
-        "goalsFor": 52,
-        "goalsAgainst": 42,
-        "points": 3
       },
       {
         "position": 4,
@@ -284,16 +284,16 @@
       {
         "position": 9,
         "team": "Kjelsås 2",
-        "played": 2,
+        "played": 3,
         "won": 0,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 43,
-        "goalsAgainst": 49,
+        "lost": 3,
+        "goalsFor": 60,
+        "goalsAgainst": 74,
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T14:39:13.988Z"
+    "updatedAt": "2026-01-31T21:03:35.394Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T14:39:20.322Z"
+    "updatedAt": "2026-01-31T21:03:58.252Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -407,14 +407,14 @@
     "rows": [
       {
         "position": 1,
-        "team": "Ull/Kisa/NIT-HAK 2",
-        "played": 2,
-        "won": 2,
+        "team": "Tistedal",
+        "played": 4,
+        "won": 3,
         "drawn": 0,
-        "lost": 0,
-        "goalsFor": 54,
-        "goalsAgainst": 47,
-        "points": 4
+        "lost": 1,
+        "goalsFor": 120,
+        "goalsAgainst": 88,
+        "points": 6
       },
       {
         "position": 2,
@@ -429,6 +429,17 @@
       },
       {
         "position": 3,
+        "team": "Ull/Kisa/NIT-HAK 2",
+        "played": 2,
+        "won": 2,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 54,
+        "goalsAgainst": 47,
+        "points": 4
+      },
+      {
+        "position": 4,
         "team": "Njård",
         "played": 2,
         "won": 2,
@@ -436,17 +447,6 @@
         "lost": 0,
         "goalsFor": 52,
         "goalsAgainst": 47,
-        "points": 4
-      },
-      {
-        "position": 4,
-        "team": "Tistedal",
-        "played": 3,
-        "won": 2,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 90,
-        "goalsAgainst": 60,
         "points": 4
       },
       {
@@ -474,12 +474,12 @@
       {
         "position": 7,
         "team": "NIT-HAK/Ull/Kisa 3",
-        "played": 1,
+        "played": 2,
         "won": 0,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 21,
-        "goalsAgainst": 23,
+        "lost": 2,
+        "goalsFor": 49,
+        "goalsAgainst": 53,
         "points": 0
       },
       {
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T14:39:28.947Z"
+    "updatedAt": "2026-01-31T21:03:51.698Z"
   }
 ]
