@@ -1,4 +1,18 @@
 import type { Match } from '../types'
+import { isFjellhammerTeam, isValidScore } from '../hooks/useMatches'
+
+const isOldMatch = (dateStr: string): boolean => {
+  if (!dateStr || !dateStr.includes('.')) return false
+  const parts = dateStr.split('.')
+  if (parts.length !== 3) return false
+  const [day, month, year] = parts.map(Number)
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return false
+  const matchDate = new Date(year, month - 1, day)
+  if (isNaN(matchDate.getTime())) return false
+  const oneDayAgo = new Date()
+  oneDayAgo.setDate(oneDayAgo.getDate() - 1)
+  return matchDate < oneDayAgo
+}
 
 interface MatchTableProps {
   matches: Match[]
@@ -7,7 +21,12 @@ interface MatchTableProps {
   nextMatch?: Match | null
 }
 
-export function MatchTable({ matches, hasMultipleTeams, getTeamColor, nextMatch }: MatchTableProps) {
+export function MatchTable({
+  matches,
+  hasMultipleTeams,
+  getTeamColor,
+  nextMatch,
+}: MatchTableProps) {
   return (
     <div className="table-container" role="region" aria-label="Kampoversikt" tabIndex={0}>
       <table aria-label="Terminliste for Fjellhammer G2010">
@@ -26,8 +45,8 @@ export function MatchTable({ matches, hasMultipleTeams, getTeamColor, nextMatch 
         </thead>
         <tbody>
           {matches.map((match, index) => {
-            const isHome = match.Hjemmelag?.toLowerCase().includes('fjellhammer')
-            const hasResult = match['H-B'] && match['H-B'].trim() !== '' && match['H-B'] !== '-'
+            const isHome = isFjellhammerTeam(match.Hjemmelag)
+            const hasResult = isValidScore(match['H-B'])
             const isNextMatch = nextMatch === match
             return (
               <tr
@@ -81,12 +100,19 @@ export function MatchTable({ matches, hasMultipleTeams, getTeamColor, nextMatch 
                 <td>
                   {match['Kamp URL'] ? (
                     <a
-                      href={match['Kamp URL']}
+                      href={
+                        isOldMatch(match.Dato)
+                          ? match['Kamp URL']
+                          : match['Kamp URL'].replace(
+                              /\/system\/kamper\/kamp\/\?matchid=/i,
+                              '/system/live-kamp/?matchId='
+                            )
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="match-link"
                     >
-                      Se kamp
+                      {isOldMatch(match.Dato) ? 'Detaljer' : 'Live'}
                     </a>
                   ) : (
                     <span>-</span>

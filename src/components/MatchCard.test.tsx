@@ -130,7 +130,7 @@ describe('MatchCard', () => {
     expect(document.getElementById('next-match-card')).toBeInTheDocument()
   })
 
-  it('renders match details link when available', () => {
+  it('renders detaljer link for old matches', () => {
     renderWithRouter(
       <MatchCard
         match={mockMatch}
@@ -141,6 +141,29 @@ describe('MatchCard', () => {
     )
     const link = screen.getByRole('link', { name: /detaljer/i })
     expect(link).toHaveAttribute('href', 'https://handball.no/kamp/123')
+  })
+
+  it('renders live link for recent/future matches', () => {
+    const tomorrow = new Date()
+    tomorrow.setDate(tomorrow.getDate() + 1)
+    const futureDate = `${tomorrow.getDate().toString().padStart(2, '0')}.${(tomorrow.getMonth() + 1).toString().padStart(2, '0')}.${tomorrow.getFullYear()}`
+
+    const futureMatch: Match = {
+      ...mockMatch,
+      Dato: futureDate,
+      'H-B': '',
+      'Kamp URL': 'https://www.handball.no/system/kamper/kamp/?matchid=123',
+    }
+    renderWithRouter(
+      <MatchCard
+        match={futureMatch}
+        isNextMatch={false}
+        hasMultipleTeams={false}
+        getTeamColor={mockGetTeamColor}
+      />
+    )
+    const link = screen.getByRole('link', { name: /live/i })
+    expect(link).toHaveAttribute('href', 'https://www.handball.no/system/live-kamp/?matchId=123')
   })
 
   it('renders map button', () => {

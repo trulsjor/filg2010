@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import type { Match } from '../types'
 
 export interface FilterState {
@@ -11,10 +11,10 @@ export interface UseMatchesOptions {
   now?: () => Date
 }
 
-const isFjellhammerTeam = (teamName?: string): boolean =>
+export const isFjellhammerTeam = (teamName?: string): boolean =>
   teamName?.toLowerCase().includes('fjellhammer') ?? false
 
-const isValidScore = (score?: string): boolean =>
+export const isValidScore = (score?: string): boolean =>
   !!score && score.trim() !== '' && score !== '-'
 
 function parseMatchDate(match: Match): Date | null {
@@ -39,12 +39,12 @@ function matchesFilter(match: Match, filters: FilterState): boolean {
 
   if (filters.location) {
     const isHome = isFjellhammerTeam(match.Hjemmelag)
-    if (filters.location === 'home' !== isHome) return false
+    if ((filters.location === 'home') !== isHome) return false
   }
 
   if (filters.status) {
     const hasResult = isValidScore(match['H-B'])
-    if (filters.status === 'played' !== hasResult) return false
+    if ((filters.status === 'played') !== hasResult) return false
   }
 
   return true
@@ -52,22 +52,22 @@ function matchesFilter(match: Match, filters: FilterState): boolean {
 
 export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
   const [filters, setFilters] = useState<FilterState>({})
-  const getNow = options.now ?? (() => new Date())
+  const getNow = useCallback(options.now ?? (() => new Date()), [options.now])
 
   const filteredMatches = useMemo(
     () => matches.filter((match) => matchesFilter(match, filters)),
     [matches, filters]
   )
 
-  // getNow is intentionally omitted from deps - we only want to compute nextMatch
-  // when matches change, not on every render (getNow returns current time)
   const nextMatch = useMemo(() => {
     const now = getNow()
-    return matches.find((match) => {
-      const matchDate = parseMatchDate(match)
-      return matchDate && matchDate >= now
-    }) ?? null
-  }, [matches]) // eslint-disable-line react-hooks/exhaustive-deps
+    return (
+      matches.find((match) => {
+        const matchDate = parseMatchDate(match)
+        return matchDate && matchDate >= now
+      }) ?? null
+    )
+  }, [matches, getNow])
 
   return {
     matches,

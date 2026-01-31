@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom'
 import type { Match } from '../types'
 import { MapLink } from './MapLink'
 import { Countdown } from './Countdown'
+import { isFjellhammerTeam, isValidScore } from '../hooks/useMatches'
 
 const extractLagId = (url?: string): string | null => {
   if (!url) return null
@@ -18,9 +19,6 @@ interface MatchCardProps {
   onOpenTable?: (teamName: string, tournamentName: string) => void
 }
 
-const isFjellhammerTeam = (teamName?: string): boolean =>
-  teamName?.toLowerCase().includes('fjellhammer') ?? false
-
 const getWeekday = (dateStr: string): string => {
   if (!dateStr || !dateStr.includes('.')) return ''
   const parts = dateStr.split('.')
@@ -32,7 +30,18 @@ const getWeekday = (dateStr: string): string => {
   return date.toLocaleDateString('nb-NO', { weekday: 'short' })
 }
 
-const isValidScore = (score?: string): boolean => !!score && score.trim() !== '' && score !== '-'
+const isOldMatch = (dateStr: string): boolean => {
+  if (!dateStr || !dateStr.includes('.')) return false
+  const parts = dateStr.split('.')
+  if (parts.length !== 3) return false
+  const [day, month, year] = parts.map(Number)
+  if (isNaN(day) || isNaN(month) || isNaN(year)) return false
+  const matchDate = new Date(year, month - 1, day)
+  if (isNaN(matchDate.getTime())) return false
+  const oneDayAgo = new Date()
+  oneDayAgo.setDate(oneDayAgo.getDate() - 1)
+  return matchDate < oneDayAgo
+}
 
 const parseScore = (score: string): { home: number; away: number } | null => {
   const parts = score.split('-')
@@ -213,7 +222,14 @@ export function MatchCard({
         )}
         {match['Kamp URL'] && (
           <a
-            href={match['Kamp URL']}
+            href={
+              isOldMatch(match.Dato)
+                ? match['Kamp URL']
+                : match['Kamp URL'].replace(
+                    /\/system\/kamper\/kamp\/\?matchid=/i,
+                    '/system/live-kamp/?matchId='
+                  )
+            }
             target="_blank"
             rel="noopener noreferrer"
             className="card-action card-action-primary"
@@ -230,7 +246,7 @@ export function MatchCard({
               <polyline points="15 3 21 3 21 9" />
               <line x1="10" y1="14" x2="21" y2="3" />
             </svg>
-            Detaljer
+            {isOldMatch(match.Dato) ? 'Detaljer' : 'Live'}
           </a>
         )}
       </div>
