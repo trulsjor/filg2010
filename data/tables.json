@@ -1,5 +1,78 @@
 [
   {
+    "tournamentName": "Gutter 15 Nivå 1 - A Sluttspill, Håndballsesongen 2025/2026",
+    "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=444098",
+    "rows": [
+      {
+        "position": 1,
+        "team": "Kråkerøy",
+        "played": 2,
+        "won": 1,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 59,
+        "goalsAgainst": 50,
+        "points": 2
+      },
+      {
+        "position": 2,
+        "team": "Sinsen-Refstad",
+        "played": 1,
+        "won": 1,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 27,
+        "goalsAgainst": 21,
+        "points": 2
+      },
+      {
+        "position": 3,
+        "team": "Asker/ROS",
+        "played": 1,
+        "won": 1,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 27,
+        "goalsAgainst": 25,
+        "points": 2
+      },
+      {
+        "position": 4,
+        "team": "Haslum",
+        "played": 3,
+        "won": 1,
+        "drawn": 0,
+        "lost": 2,
+        "goalsFor": 70,
+        "goalsAgainst": 77,
+        "points": 2
+      },
+      {
+        "position": 5,
+        "team": "Bækkelaget",
+        "played": 2,
+        "won": 1,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 57,
+        "goalsAgainst": 62,
+        "points": 2
+      },
+      {
+        "position": 6,
+        "team": "Fjellhammer",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 26,
+        "goalsAgainst": 31,
+        "points": 0
+      }
+    ],
+    "updatedAt": "2026-01-31T14:39:04.440Z"
+  },
+  {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
     "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=440238",
     "rows": [
@@ -114,80 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-30T21:05:44.717Z"
-  },
-  {
-    "tournamentName": "Gutter 15 Nivå 1 - A Sluttspill, Håndballsesongen 2025/2026",
-    "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=444098",
-    "rows": [
-      {
-        "position": 1,
-        "team": "Sinsen-Refstad",
-        "played": 1,
-        "won": 1,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 27,
-        "goalsAgainst": 21,
-        "points": 2
-      },
-      {
-        "position": 2,
-        "team": "Asker/ROS",
-        "played": 1,
-        "won": 1,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 27,
-        "goalsAgainst": 25,
-        "points": 2
-      },
-      {
-        "position": 3,
-        "team": "Haslum",
-        "played": 3,
-        "won": 1,
-        "drawn": 0,
-        "lost": 2,
-        "goalsFor": 70,
-        "goalsAgainst": 77,
-        "points": 2
-      },
-      {
-        "position": 4,
-        "team": "Kråkerøy",
-        "played": 2,
-        "won": 1,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 59,
-        "goalsAgainst": 50,
-        "points": 2
-      },
-      {
-        "position": 5,
-        "team": "Fjellhammer",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
-        "position": 6,
-        "team": "Bækkelaget",
-        "played": 1,
-        "won": 0,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 26,
-        "goalsAgainst": 36,
-        "points": 0
-      }
-    ],
-    "updatedAt": "2026-01-30T21:05:45.306Z"
+    "updatedAt": "2026-01-31T14:39:06.998Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -195,6 +195,17 @@
     "rows": [
       {
         "position": 1,
+        "team": "Haslum 2",
+        "played": 3,
+        "won": 2,
+        "drawn": 1,
+        "lost": 0,
+        "goalsFor": 75,
+        "goalsAgainst": 64,
+        "points": 5
+      },
+      {
+        "position": 2,
         "team": "Korsvoll 2",
         "played": 2,
         "won": 2,
@@ -202,17 +213,6 @@
         "lost": 0,
         "goalsFor": 66,
         "goalsAgainst": 52,
-        "points": 4
-      },
-      {
-        "position": 2,
-        "team": "Haslum 2",
-        "played": 2,
-        "won": 2,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 50,
-        "goalsAgainst": 39,
         "points": 4
       },
       {
@@ -239,28 +239,17 @@
       },
       {
         "position": 5,
-        "team": "Nordstrand\n (D)",
+        "team": "Sinsen-Refstad Idrettslag 2",
         "played": 3,
         "won": 0,
-        "drawn": 1,
-        "lost": 2,
-        "goalsFor": 74,
-        "goalsAgainst": 84,
-        "points": 1
+        "drawn": 2,
+        "lost": 1,
+        "goalsFor": 68,
+        "goalsAgainst": 79,
+        "points": 2
       },
       {
         "position": 6,
-        "team": "Sinsen-Refstad Idrettslag 2",
-        "played": 2,
-        "won": 0,
-        "drawn": 1,
-        "lost": 1,
-        "goalsFor": 43,
-        "goalsAgainst": 54,
-        "points": 1
-      },
-      {
-        "position": 7,
         "team": "Fjellhammer 2",
         "played": 1,
         "won": 0,
@@ -268,6 +257,17 @@
         "lost": 0,
         "goalsFor": 27,
         "goalsAgainst": 27,
+        "points": 1
+      },
+      {
+        "position": 7,
+        "team": "Nordstrand\n (D)",
+        "played": 3,
+        "won": 0,
+        "drawn": 1,
+        "lost": 2,
+        "goalsFor": 74,
+        "goalsAgainst": 84,
         "points": 1
       },
       {
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-30T21:05:50.859Z"
+    "updatedAt": "2026-01-31T14:39:13.988Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-30T21:05:57.936Z"
+    "updatedAt": "2026-01-31T14:39:20.322Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-30T21:05:58.195Z"
+    "updatedAt": "2026-01-31T14:39:28.947Z"
   }
 ]
