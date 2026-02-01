@@ -70,7 +70,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T21:03:44.785Z"
+    "updatedAt": "2026-02-01T11:44:42.985Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T21:03:37.752Z"
+    "updatedAt": "2026-02-01T11:44:43.432Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T21:03:35.394Z"
+    "updatedAt": "2026-02-01T11:44:44.560Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T21:03:58.252Z"
+    "updatedAt": "2026-02-01T11:44:57.001Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -429,6 +429,17 @@
       },
       {
         "position": 3,
+        "team": "Fjellhammer 3",
+        "played": 2,
+        "won": 2,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 62,
+        "goalsAgainst": 49,
+        "points": 4
+      },
+      {
+        "position": 4,
         "team": "Ull/Kisa/NIT-HAK 2",
         "played": 2,
         "won": 2,
@@ -439,7 +450,7 @@
         "points": 4
       },
       {
-        "position": 4,
+        "position": 5,
         "team": "Njård",
         "played": 2,
         "won": 2,
@@ -450,25 +461,14 @@
         "points": 4
       },
       {
-        "position": 5,
-        "team": "Fjellhammer 3",
-        "played": 1,
-        "won": 1,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 32,
-        "goalsAgainst": 21,
-        "points": 2
-      },
-      {
         "position": 6,
         "team": "Ski 2",
-        "played": 3,
+        "played": 4,
         "won": 1,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 70,
-        "goalsAgainst": 81,
+        "lost": 3,
+        "goalsFor": 98,
+        "goalsAgainst": 111,
         "points": 2
       },
       {
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-01-31T21:03:51.698Z"
+    "updatedAt": "2026-02-01T11:44:58.315Z"
   }
 ]
