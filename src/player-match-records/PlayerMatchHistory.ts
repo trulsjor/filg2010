@@ -6,6 +6,7 @@ import { TeamSelection } from './TeamSelection'
 export interface TerminlisteKamp {
   Kampnr: string
   'Kamp URL'?: string
+  'H-B'?: string
   Hjemmelag: string
   Bortelag: string
 }
@@ -81,8 +82,6 @@ export class PlayerMatchHistory {
       }
 
       if (playerStats) {
-        const playerScore = isHome ? match.homeScore : match.awayScore
-        const opponentScore = isHome ? match.awayScore : match.homeScore
         const teamName = isHome ? match.homeTeamName : match.awayTeamName
         const teamId = isHome ? match.homeTeamId : match.awayTeamId
 
@@ -91,6 +90,15 @@ export class PlayerMatchHistory {
           match.matchUrl,
           terminlisteMatch?.['Kamp URL']
         )
+
+        const resolvedResult = PlayerMatchHistory.resolveResult(
+          match.homeScore,
+          match.awayScore,
+          terminlisteMatch?.['H-B']
+        )
+
+        const resolvedPlayerScore = isHome ? resolvedResult.homeScore : resolvedResult.awayScore
+        const resolvedOpponentScore = isHome ? resolvedResult.awayScore : resolvedResult.homeScore
 
         history.push({
           matchId: match.matchId,
@@ -102,10 +110,10 @@ export class PlayerMatchHistory {
           teamName,
           teamId,
           tournament: match.tournament,
-          result: `${playerScore}-${opponentScore}`,
+          result: `${resolvedResult.homeScore}-${resolvedResult.awayScore}`,
           isHome,
-          won: playerScore > opponentScore,
-          draw: playerScore === opponentScore,
+          won: resolvedPlayerScore > resolvedOpponentScore,
+          draw: resolvedPlayerScore === resolvedOpponentScore,
           goals: playerStats.goals,
           penaltyGoals: playerStats.penaltyGoals,
           twoMinutes: playerStats.twoMinutes,
@@ -135,6 +143,23 @@ export class PlayerMatchHistory {
       return fallbackUrl
     }
     return undefined
+  }
+
+  private static resolveResult(
+    homeScore: number,
+    awayScore: number,
+    hbString: string | undefined
+  ): { homeScore: number; awayScore: number } {
+    if (hbString) {
+      const match = hbString.match(/^(\d+)-(\d+)$/)
+      if (match) {
+        return {
+          homeScore: parseInt(match[1]),
+          awayScore: parseInt(match[2]),
+        }
+      }
+    }
+    return { homeScore, awayScore }
   }
 
   getItems(): MatchHistoryItem[] {
