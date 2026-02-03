@@ -16,6 +16,20 @@
   {
     "Lag": "Fjellhammer G15 1",
     "Dato": "",
+    "Kampnr": "420315028           ",
+    "Hjemmelag": "Asker/ROS",
+    "Bortelag": "Fjellhammer",
+    "H-B": "-",
+    "Arrangør": "Asker Skiklubb",
+    "Turnering": "Mobile Regionscup G15",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263419",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
+  },
+  {
+    "Lag": "Fjellhammer G15 1",
+    "Dato": "",
     "Kampnr": "41031506001         ",
     "Hjemmelag": "Sinsen-Refstad",
     "Bortelag": "Fjellhammer",
@@ -27,6 +41,20 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997379",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+  },
+  {
+    "Lag": "Fjellhammer G15 2",
+    "Dato": "",
+    "Kampnr": "420315026           ",
+    "Hjemmelag": "Haslum",
+    "Bortelag": "Fjellhammer 2",
+    "H-B": "-",
+    "Arrangør": "Haslum Idrettslag",
+    "Turnering": "Mobile Regionscup G15",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263417",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=812498",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
     "Lag": "Fjellhammer G15 2",
