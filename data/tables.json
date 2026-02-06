@@ -70,7 +70,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-06T16:22:51.832Z"
+    "updatedAt": "2026-02-06T21:07:10.030Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-06T16:22:45.107Z"
+    "updatedAt": "2026-02-06T21:07:00.170Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -196,13 +196,13 @@
       {
         "position": 1,
         "team": "Drøbak/Nordby",
-        "played": 3,
-        "won": 2,
+        "played": 4,
+        "won": 3,
         "drawn": 1,
         "lost": 0,
-        "goalsFor": 77,
-        "goalsAgainst": 59,
-        "points": 5
+        "goalsFor": 105,
+        "goalsAgainst": 82,
+        "points": 7
       },
       {
         "position": 2,
@@ -229,12 +229,12 @@
       {
         "position": 4,
         "team": "Nordstrand\n (D)",
-        "played": 4,
+        "played": 5,
         "won": 1,
         "drawn": 1,
-        "lost": 2,
-        "goalsFor": 105,
-        "goalsAgainst": 114,
+        "lost": 3,
+        "goalsFor": 128,
+        "goalsAgainst": 142,
         "points": 3
       },
       {
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-06T16:22:45.430Z"
+    "updatedAt": "2026-02-06T21:07:00.983Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-06T16:22:58.463Z"
+    "updatedAt": "2026-02-06T21:07:18.344Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-06T16:22:58.416Z"
+    "updatedAt": "2026-02-06T21:07:14.165Z"
   }
 ]
