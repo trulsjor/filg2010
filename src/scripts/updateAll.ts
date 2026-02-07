@@ -143,7 +143,7 @@ function transformToMatch(
     Lag: team.name,
     Dato: row.Dato,
     Tid: row.Tid,
-    Kampnr: row.Kampnr,
+    Kampnr: String(row.Kampnr || '').trim(),
     Hjemmelag: row.Hjemmelag,
     Bortelag: row.Bortelag,
     'H-B': row['H-B'],
@@ -219,7 +219,6 @@ export async function refreshHandballData(): Promise<void> {
     }
 
     const sortedMatches = sortMatchesByDate(allMatches)
-    const populatedCount = populateMatchUrls(sortedMatches, matchIndex)
 
     const matchLookup = new Map<string, MatchParticipants>()
     for (const match of sortedMatches) {
@@ -230,50 +229,7 @@ export async function refreshHandballData(): Promise<void> {
 
     fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
 
-    console.log('\n[2/4] Oppdaterer kampresultater...')
-    const now = new Date()
-    const matchesNeedingResults = sortedMatches.filter((m) => needsResultUpdate(m, now))
-
-    let resultsUpdated = 0
-    if (matchesNeedingResults.length > 0) {
-      console.log(`  Fant ${matchesNeedingResults.length} kamper som mangler resultat`)
-      const resultScraper = new ResultScraperService()
-      const urls = matchesNeedingResults
-        .map((m) => m['Kamp URL'])
-        .filter((url): url is string => typeof url === 'string')
-      const results = await resultScraper.fetchMultipleResults(urls, (current, total) => {
-        console.log(`  Henter resultat ${current}/${total}`)
-      })
-
-      for (const match of sortedMatches) {
-        const matchId = extractMatchIdFromUrl(match['Kamp URL'])
-        const result = matchId ? results.get(matchId) : undefined
-        if (result) {
-          match['H-B'] = result.result
-          resultsUpdated++
-          summary.resultsUpdated.push({
-            kampnr: match.Kampnr.trim(),
-            hjemmelag: match.Hjemmelag,
-            bortelag: match.Bortelag,
-            resultat: result.result,
-          })
-        }
-      }
-      console.log(`  Oppdaterte ${resultsUpdated} resultater`)
-    } else {
-      console.log(`  Alle kamper har resultater`)
-    }
-
-    fileService.saveMatches(sortedMatches)
-
-    const metadata: Metadata = {
-      lastUpdated: new Date().toISOString(),
-      teamsCount: teams.length,
-      matchesCount: sortedMatches.length,
-    }
-    fileService.saveMetadata(metadata)
-
-    console.log('\n[3/4] Henter spilte kamper fra turneringene...')
+    console.log('\n[2/4] Henter spilte kamper fra turneringene...')
 
     let tournamentPlayedMatches: PlayedMatch[]
 
@@ -315,9 +271,54 @@ export async function refreshHandballData(): Promise<void> {
     }
 
     console.log(`  Kamper i index: ${Object.keys(matchIndex).length}`)
+
+    const populatedCount = populateMatchUrls(sortedMatches, matchIndex)
     if (populatedCount > 0) {
       console.log(`  URL populert i terminliste: ${populatedCount}`)
     }
+
+    console.log('\n[3/4] Oppdaterer kampresultater...')
+    const now = new Date()
+    const matchesNeedingResults = sortedMatches.filter((m) => needsResultUpdate(m, now))
+
+    let resultsUpdated = 0
+    if (matchesNeedingResults.length > 0) {
+      console.log(`  Fant ${matchesNeedingResults.length} kamper som mangler resultat`)
+      const resultScraper = new ResultScraperService()
+      const urls = matchesNeedingResults
+        .map((m) => m['Kamp URL'])
+        .filter((url): url is string => typeof url === 'string')
+      const results = await resultScraper.fetchMultipleResults(urls, (current, total) => {
+        console.log(`  Henter resultat ${current}/${total}`)
+      })
+
+      for (const match of sortedMatches) {
+        const matchId = extractMatchIdFromUrl(match['Kamp URL'])
+        const result = matchId ? results.get(matchId) : undefined
+        if (result) {
+          match['H-B'] = result.result
+          resultsUpdated++
+          summary.resultsUpdated.push({
+            kampnr: match.Kampnr.trim(),
+            hjemmelag: match.Hjemmelag,
+            bortelag: match.Bortelag,
+            resultat: result.result,
+          })
+        }
+      }
+      console.log(`  Oppdaterte ${resultsUpdated} resultater`)
+    } else {
+      console.log(`  Alle kamper har resultater`)
+    }
+
+    fileService.saveMatches(sortedMatches)
+
+    const metadata: Metadata = {
+      lastUpdated: new Date().toISOString(),
+      teamsCount: teams.length,
+      matchesCount: sortedMatches.length,
+    }
+    fileService.saveMetadata(metadata)
 
     console.log('\n[4/4] Oppdaterer spillerstatistikk...')
 
