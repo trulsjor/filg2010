@@ -686,7 +686,8 @@ export class HandballScraper {
       }
 
       // Try "Alle kamper" first - it has the most complete list of matches
-      const alleKamperClicked = await this.tryClick(page, 'text=Alle kamper', 2000)
+      // Use exact match (quoted) to avoid "Kamper" matching "Alle kamper" etc.
+      const alleKamperClicked = await this.tryClick(page, 'text="Alle kamper"', 2000)
       if (alleKamperClicked) {
         await page.waitForTimeout(2000)
         const matches = await extractWithRecovery()
@@ -695,7 +696,7 @@ export class HandballScraper {
         }
       }
 
-      const kamperClicked = await this.tryClick(page, 'text=Kamper', 2000)
+      const kamperClicked = await this.tryClick(page, 'text="Kamper"', 2000)
       if (kamperClicked) {
         await page.waitForTimeout(2000)
         const matches = await extractWithRecovery()
@@ -704,7 +705,7 @@ export class HandballScraper {
         }
       }
 
-      await this.tryClick(page, 'text=Siste kamper', 2000)
+      await this.tryClick(page, 'text="Siste kamper"', 2000)
       await page.waitForTimeout(2000)
       return extractWithRecovery()
     } catch (error) {
