@@ -685,6 +685,16 @@ export class HandballScraper {
         }
       }
 
+      // Try "Alle kamper" first - it has the most complete list of matches
+      const alleKamperClicked = await this.tryClick(page, 'text=Alle kamper', 2000)
+      if (alleKamperClicked) {
+        await page.waitForTimeout(2000)
+        const matches = await extractWithRecovery()
+        if (matches.length > 0) {
+          return matches
+        }
+      }
+
       const kamperClicked = await this.tryClick(page, 'text=Kamper', 2000)
       if (kamperClicked) {
         await page.waitForTimeout(2000)
@@ -695,13 +705,6 @@ export class HandballScraper {
       }
 
       await this.tryClick(page, 'text=Siste kamper', 2000)
-      await page.waitForTimeout(2000)
-      const matches = await extractWithRecovery()
-      if (matches.length > 0) {
-        return matches
-      }
-
-      await this.tryClick(page, 'text=Alle kamper', 2000)
       await page.waitForTimeout(2000)
       return extractWithRecovery()
     } catch (error) {
