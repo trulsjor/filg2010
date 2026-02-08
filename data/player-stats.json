@@ -1378,10 +1378,12 @@
       "name": "Oskar Løvli Jensen Briskelund",
       "jerseyNumber": 29,
       "teamIds": [
-        "966330"
+        "966330",
+        "603152"
       ],
       "teamNames": [
-        "Ull/Kisa 2"
+        "Ull/Kisa 2",
+        "Ull/Kisa/NIT-HAK 2"
       ],
       "primaryTeamId": "966330",
       "primaryTeamName": "Ull/Kisa 2"
@@ -1419,10 +1421,12 @@
       "name": "Ola Lund Homble",
       "jerseyNumber": 64,
       "teamIds": [
-        "966330"
+        "966330",
+        "603152"
       ],
       "teamNames": [
-        "Ull/Kisa 2"
+        "Ull/Kisa 2",
+        "Ull/Kisa/NIT-HAK 2"
       ],
       "primaryTeamId": "966330",
       "primaryTeamName": "Ull/Kisa 2"
@@ -2708,7 +2712,7 @@
     {
       "id": "frxebc",
       "name": "Gard Gaustad-Nielsen",
-      "jerseyNumber": 69,
+      "jerseyNumber": 1,
       "teamIds": [
         "1009730"
       ],
@@ -2919,13 +2923,15 @@
         "812498",
         "558812",
         "603152",
-        "531500"
+        "531500",
+        "583470"
       ],
       "teamNames": [
         "Fjellhammer 2",
         "NIT-HAK/Ull/Kisa 3",
         "Ull/Kisa/NIT-HAK 2",
-        "Fjellhammer"
+        "Fjellhammer",
+        "Fjellhammer 3"
       ],
       "primaryTeamId": "558812",
       "primaryTeamName": "NIT-HAK/Ull/Kisa 3"
@@ -3905,7 +3911,7 @@
     {
       "id": "z7xhew",
       "name": "Aksel Høyesveen Berntsen",
-      "jerseyNumber": 7,
+      "jerseyNumber": 17,
       "teamIds": [
         "817005",
         "531471"
@@ -4068,7 +4074,7 @@
     {
       "id": "bimfzd",
       "name": "Eike Otterbein Nilsen",
-      "jerseyNumber": 1,
+      "jerseyNumber": 16,
       "teamIds": [
         "817005",
         "531471"
@@ -4077,8 +4083,8 @@
         "Korsvoll",
         "Korsvoll 2"
       ],
-      "primaryTeamId": "817005",
-      "primaryTeamName": "Korsvoll"
+      "primaryTeamId": "531471",
+      "primaryTeamName": "Korsvoll 2"
     },
     {
       "id": "4c36p",
@@ -4423,11 +4429,13 @@
       "jerseyNumber": 41,
       "teamIds": [
         "997379",
-        "1009729"
+        "1009729",
+        "1009730"
       ],
       "teamNames": [
         "Sinsen-Refstad",
-        "Sinsen-Refstad"
+        "Sinsen-Refstad",
+        "Sinsen-Refstad Idrettslag 2"
       ],
       "primaryTeamId": "997379",
       "primaryTeamName": "Sinsen-Refstad"
@@ -4563,8 +4571,8 @@
         "Korsvoll",
         "Korsvoll 2"
       ],
-      "primaryTeamId": "817005",
-      "primaryTeamName": "Korsvoll"
+      "primaryTeamId": "531471",
+      "primaryTeamName": "Korsvoll 2"
     },
     {
       "id": "8ff9lw",
@@ -5761,7 +5769,7 @@
     {
       "id": "1cyh3p",
       "name": "Erlend August Mediaa Aune",
-      "jerseyNumber": 18,
+      "jerseyNumber": 57,
       "teamIds": [
         "506889"
       ],
@@ -5774,7 +5782,7 @@
     {
       "id": "pqlg9m",
       "name": "Oscar Finstad-Sollie",
-      "jerseyNumber": 35,
+      "jerseyNumber": 25,
       "teamIds": [
         "506889"
       ],
@@ -6795,10 +6803,12 @@
       "name": "Kristoffer Otterå Haugen",
       "jerseyNumber": 122,
       "teamIds": [
-        "856952"
+        "856952",
+        "813906"
       ],
       "teamNames": [
-        "Drøbak/Nordby 2"
+        "Drøbak/Nordby 2",
+        "Drøbak/Nordby"
       ],
       "primaryTeamId": "856952",
       "primaryTeamName": "Drøbak/Nordby 2"
@@ -9551,7 +9561,7 @@
     {
       "id": "rsf0qn",
       "name": "Adam Nightingale",
-      "jerseyNumber": 9,
+      "jerseyNumber": 54,
       "teamIds": [
         "558812",
         "603152"
@@ -9579,7 +9589,7 @@
     {
       "id": "fc838g",
       "name": "Ludvig Benjamin Torgersbråten Gundersen",
-      "jerseyNumber": 19,
+      "jerseyNumber": 32,
       "teamIds": [
         "558812",
         "603152"
@@ -9594,7 +9604,7 @@
     {
       "id": "ah3p6e",
       "name": "Magnus Rønning Haug",
-      "jerseyNumber": 51,
+      "jerseyNumber": 24,
       "teamIds": [
         "558812"
       ],
@@ -9607,7 +9617,7 @@
     {
       "id": "1t8ygd",
       "name": "Stefan Kuensanthia Hagabråten",
-      "jerseyNumber": 177,
+      "jerseyNumber": 27,
       "teamIds": [
         "558812"
       ],
@@ -9620,7 +9630,7 @@
     {
       "id": "wfvhc1",
       "name": "Arian Ørjansen Hild",
-      "jerseyNumber": 27,
+      "jerseyNumber": 32,
       "teamIds": [
         "558812"
       ],
@@ -9713,7 +9723,7 @@
     {
       "id": "5gwdud",
       "name": "Mikkel Elias Øverby",
-      "jerseyNumber": 11,
+      "jerseyNumber": 51,
       "teamIds": [
         "603152",
         "558812"
@@ -9910,7 +9920,7 @@
     {
       "id": "1ie1vw",
       "name": "Arian Hild",
-      "jerseyNumber": 311,
+      "jerseyNumber": 3,
       "teamIds": [
         "603152"
       ],
@@ -11829,6 +11839,19 @@
       ],
       "primaryTeamId": "428926",
       "primaryTeamName": "Nordstrand"
+    },
+    {
+      "id": "fbh8ek",
+      "name": "Bror Bækkelund Henriksen",
+      "jerseyNumber": 26,
+      "teamIds": [
+        "531471"
+      ],
+      "teamNames": [
+        "Korsvoll 2"
+      ],
+      "primaryTeamId": "531471",
+      "primaryTeamName": "Korsvoll 2"
     }
   ],
   "matchStats": [
@@ -71182,9 +71205,1154 @@
         }
       ],
       "scrapedAt": "2026-02-08T14:18:20.294Z"
+    },
+    {
+      "matchId": "41031509015",
+      "matchDate": "08.02.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330622",
+      "homeTeamId": "1010355",
+      "homeTeamName": "Bøler/Oppsal 2",
+      "awayTeamId": "1009730",
+      "awayTeamName": "Sinsen-Refstad Idrettslag 2",
+      "homeScore": 25,
+      "awayScore": 26,
+      "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "1fn4nt",
+          "playerName": "Ikenna David Chukwu",
+          "jerseyNumber": 1,
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "d5ex33",
+          "playerName": "Axel Østvik Lilleberg",
+          "jerseyNumber": 10,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ib66se",
+          "playerName": "Simon Farstad-Hareide",
+          "jerseyNumber": 11,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "76dqq8",
+          "playerName": "Jonas Storm Prestø",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "bjaffv",
+          "playerName": "Niklas Berre Aasprang",
+          "jerseyNumber": 13,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "z0fyfe",
+          "playerName": "Fredrik Straith",
+          "jerseyNumber": 16,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "vwt1qz",
+          "playerName": "Sivert Langedok Aagaard",
+          "jerseyNumber": 17,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ct7b66",
+          "playerName": "Ruben Aarum Hellemose",
+          "jerseyNumber": 21,
+          "goals": 2,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "bu1hnm",
+          "playerName": "Adam Engen Arntzen",
+          "jerseyNumber": 22,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "frxebc",
+          "playerName": "Gard Gaustad-Nielsen",
+          "jerseyNumber": 1,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "mt08b9",
+          "playerName": "Felix Johannes Kierulf Skorstad",
+          "jerseyNumber": 17,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "xfpoxv",
+          "playerName": "Jens Nordenborg Lous",
+          "jerseyNumber": 25,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "q6mc2j",
+          "playerName": "Mikkel Frisvold Skar",
+          "jerseyNumber": 32,
+          "goals": 9,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "sznhyi",
+          "playerName": "Emil Larsen Tollefsrud",
+          "jerseyNumber": 41,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "q2w1np",
+          "playerName": "Nakrob Onna",
+          "jerseyNumber": 45,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "gcgzlm",
+          "playerName": "Erik Øverland Dahl",
+          "jerseyNumber": 49,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "hndfwj",
+          "playerName": "Nikolai Alfred Igesund Nelson",
+          "jerseyNumber": 60,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "c7sm4v",
+          "playerName": "Abdulqadir Ilyaas Mahad",
+          "jerseyNumber": 63,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-02-08T19:20:25.050Z"
+    },
+    {
+      "matchId": "41031509016",
+      "matchDate": "08.02.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330623",
+      "homeTeamId": "506889",
+      "homeTeamName": "Haslum 2",
+      "awayTeamId": "531471",
+      "awayTeamName": "Korsvoll 2",
+      "homeScore": 27,
+      "awayScore": 26,
+      "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "wtr6g6",
+          "playerName": "Alfred Holdhus Fjeldstad",
+          "jerseyNumber": 1,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "m16mqr",
+          "playerName": "Magnus Espeland Lie",
+          "jerseyNumber": 6,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "oznvlj",
+          "playerName": "Mathias Gunstad",
+          "jerseyNumber": 8,
+          "goals": 12,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "trekxu",
+          "playerName": "Adam Holen Martinsen",
+          "jerseyNumber": 10,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "pe1ehf",
+          "playerName": "Nicolas Grønli Reynolds",
+          "jerseyNumber": 21,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "m1ka1q",
+          "playerName": "Mikkel Irgens Hoff",
+          "jerseyNumber": 24,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "pqlg9m",
+          "playerName": "Oscar Finstad-Sollie",
+          "jerseyNumber": 25,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "rndhbs",
+          "playerName": "Niklas Bordi",
+          "jerseyNumber": 28,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "k4ldyu",
+          "playerName": "Henrik Haukedal",
+          "jerseyNumber": 32,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "gjimx8",
+          "playerName": "Tias Torger Andresen Stubberud",
+          "jerseyNumber": 33,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "kk92aw",
+          "playerName": "Lasse Nordnes Ellingsen",
+          "jerseyNumber": 34,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "1cyh3p",
+          "playerName": "Erlend August Mediaa Aune",
+          "jerseyNumber": 57,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "pwlyje",
+          "playerName": "Frans Helmer Astrup",
+          "jerseyNumber": 2,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "3a9h9c",
+          "playerName": "Sander Evenrud Blien",
+          "jerseyNumber": 7,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "tvjkx8",
+          "playerName": "Mikkel Ween",
+          "jerseyNumber": 10,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "bimfzd",
+          "playerName": "Eike Otterbein Nilsen",
+          "jerseyNumber": 16,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "z7xhew",
+          "playerName": "Aksel Høyesveen Berntsen",
+          "jerseyNumber": 17,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "onwfmf",
+          "playerName": "Lavrans Thori Bachke",
+          "jerseyNumber": 18,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ka5ykm",
+          "playerName": "Elias Sandkjær Engmark",
+          "jerseyNumber": 25,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "fbh8ek",
+          "playerName": "Bror Bækkelund Henriksen",
+          "jerseyNumber": 26,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "gazx33",
+          "playerName": "Julius Kaasen Conradi",
+          "jerseyNumber": 28,
+          "goals": 7,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "o89q6n",
+          "playerName": "Tomas Sagatun-Langleite",
+          "jerseyNumber": 33,
+          "goals": 6,
+          "penaltyGoals": 2,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "jhm8du",
+          "playerName": "Timian Xander Langedrag Refvem",
+          "jerseyNumber": 36,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ceke62",
+          "playerName": "Fredrik Tangen",
+          "jerseyNumber": 44,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-02-08T19:20:24.887Z"
+    },
+    {
+      "matchId": "41031509014",
+      "matchDate": "06.02.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330621",
+      "homeTeamId": "813906",
+      "homeTeamName": "Drøbak/Nordby",
+      "awayTeamId": "428926",
+      "awayTeamName": "Nordstrand",
+      "homeScore": 28,
+      "awayScore": 23,
+      "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "9v317i",
+          "playerName": "Aron Noah Dale",
+          "jerseyNumber": 1,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ouwp4x",
+          "playerName": "Mathias Burud",
+          "jerseyNumber": 5,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "f5cvt2",
+          "playerName": "Noah Nielsen Vegarud",
+          "jerseyNumber": 10,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "v6njjk",
+          "playerName": "Timian Leander Kvifte",
+          "jerseyNumber": 15,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "4q96fb",
+          "playerName": "Jesper Sanden Vøyvik",
+          "jerseyNumber": 22,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "d1nrtm",
+          "playerName": "Liam Tobias Gulbrandsen Lockert",
+          "jerseyNumber": 32,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "epr32c",
+          "playerName": "Herman Hagebakken Klynderud",
+          "jerseyNumber": 38,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "lhbucu",
+          "playerName": "Kristian Marthinsen",
+          "jerseyNumber": 41,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "hqbwzt",
+          "playerName": "Mads Vindheim Johannessen",
+          "jerseyNumber": 43,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "tafhw4",
+          "playerName": "Emrian Brenna-Hansen",
+          "jerseyNumber": 46,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "f7woh9",
+          "playerName": "Theodor Söder Vegge",
+          "jerseyNumber": 99,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "4owosk",
+          "playerName": "Kristoffer Otterå Haugen",
+          "jerseyNumber": 122,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "catxry",
+          "playerName": "Anton Storaker Braaten",
+          "jerseyNumber": 1,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "9o44u9",
+          "playerName": "Oscar  Bjørtuft",
+          "jerseyNumber": 2,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "52834f",
+          "playerName": "Oliver Borgsø Larsen",
+          "jerseyNumber": 3,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "r642ng",
+          "playerName": "Fredrik Maurstad",
+          "jerseyNumber": 6,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "g39s2w",
+          "playerName": "William Hexum Reid",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "gwrrt7",
+          "playerName": "William Holtet Olafsen",
+          "jerseyNumber": 14,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "aepytx",
+          "playerName": "Aleksander Bautz-Holter",
+          "jerseyNumber": 19,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "pbfqkq",
+          "playerName": "Simon Nikolai Kolflaath Glatved",
+          "jerseyNumber": 24,
+          "goals": 9,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "omgpuv",
+          "playerName": "Henrik Bredahl",
+          "jerseyNumber": 25,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "kva09f",
+          "playerName": "Henrik Skjellevik-Heger",
+          "jerseyNumber": 26,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "yyvo1",
+          "playerName": "Nicolai  Frich",
+          "jerseyNumber": 39,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-02-08T19:20:32.134Z"
+    },
+    {
+      "matchId": "41031609015",
+      "matchDate": "08.02.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330835",
+      "homeTeamId": "583432",
+      "homeTeamName": "Kolbotn 2",
+      "awayTeamId": "558812",
+      "awayTeamName": "NIT-HAK/Ull/Kisa 3",
+      "homeScore": 28,
+      "awayScore": 23,
+      "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "k907ct",
+          "playerName": "Ola Enge-Torp",
+          "jerseyNumber": 4,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ejrbz7",
+          "playerName": "Aksel Rønning Haatuft",
+          "jerseyNumber": 11,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "tq0dik",
+          "playerName": "Nikolai Deniz Karlsen Buzlucay",
+          "jerseyNumber": 15,
+          "goals": 5,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "xjppfx",
+          "playerName": "Sverre Haug Stenbeck",
+          "jerseyNumber": 17,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ksg3gg",
+          "playerName": "Leo Hoxha",
+          "jerseyNumber": 18,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "m2g2fm",
+          "playerName": "Viljar Tverberg Mood",
+          "jerseyNumber": 21,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "7vvr9p",
+          "playerName": "Olav Østvik Lilleberg",
+          "jerseyNumber": 24,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "4023mj",
+          "playerName": "Håvard Bakk",
+          "jerseyNumber": 26,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "979dys",
+          "playerName": "William André Rosborg Bolstad",
+          "jerseyNumber": 34,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "y81m4a",
+          "playerName": "Sindre Kristiansen Hageland",
+          "jerseyNumber": 35,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "7c8j7h",
+          "playerName": "Marius Arnesen",
+          "jerseyNumber": 40,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "djf9ns",
+          "playerName": "Hans Olav Coll",
+          "jerseyNumber": 7,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "rsf0qn",
+          "playerName": "Adam Nightingale",
+          "jerseyNumber": 9,
+          "goals": 10,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "5gwdud",
+          "playerName": "Mikkel Elias Øverby",
+          "jerseyNumber": 11,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "fc838g",
+          "playerName": "Ludvig Benjamin Torgersbråten Gundersen",
+          "jerseyNumber": 19,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ah3p6e",
+          "playerName": "Magnus Rønning Haug",
+          "jerseyNumber": 24,
+          "goals": 0,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "4ybtqh",
+          "playerName": "Aleksander Wilhelm Moberg Ness",
+          "jerseyNumber": 25,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "1t8ygd",
+          "playerName": "Stefan Kuensanthia Hagabråten",
+          "jerseyNumber": 27,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "wfvhc1",
+          "playerName": "Arian Ørjansen Hild",
+          "jerseyNumber": 32,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-02-08T19:20:32.064Z"
+    },
+    {
+      "matchId": "41031609014",
+      "matchDate": "08.02.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330834",
+      "homeTeamId": "583470",
+      "homeTeamName": "Fjellhammer 3",
+      "awayTeamId": "603152",
+      "awayTeamName": "Ull/Kisa/NIT-HAK 2",
+      "homeScore": 20,
+      "awayScore": 22,
+      "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "ul4jhm",
+          "playerName": "Hans Olav Philip Barsnes",
+          "jerseyNumber": 1,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "w806r7",
+          "playerName": "Kristian Nysveen",
+          "jerseyNumber": 6,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "pacp6f",
+          "playerName": "Marcus Otnes Florvik",
+          "jerseyNumber": 10,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "jzgwyv",
+          "playerName": "Mio Revfem-Egeland",
+          "jerseyNumber": 11,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "9ficz8",
+          "playerName": "Kristian Seung-Jae Wolan Jacobsen",
+          "jerseyNumber": 13,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "54920x",
+          "playerName": "Karl Emil Skjennum Lisle",
+          "jerseyNumber": 14,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "mqvnkr",
+          "playerName": "Edvard Oliver Støvind",
+          "jerseyNumber": 15,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "9q953",
+          "playerName": "Erik Adler Bergmann Terjesen",
+          "jerseyNumber": 17,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "hat312",
+          "playerName": "Mathias Vike Grundeland",
+          "jerseyNumber": 18,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "gywtaa",
+          "playerName": "Jonas Tangen Nygaard",
+          "jerseyNumber": 19,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "da1w9l",
+          "playerName": "Eirik Tviberg Sandstad",
+          "jerseyNumber": 23,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "m768c5",
+          "playerName": "Alfred Paulsen Bekkelund",
+          "jerseyNumber": 24,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "1ie1vw",
+          "playerName": "Arian Hild",
+          "jerseyNumber": 3,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "d37r23",
+          "playerName": "Sondre Stugård Bue",
+          "jerseyNumber": 8,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "6vtvhr",
+          "playerName": "Gabriel Kraft Storengen",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "mqs7k9",
+          "playerName": "Oskar Løvli Jensen Briskelund",
+          "jerseyNumber": 29,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "rptxkd",
+          "playerName": "Gabriel Martinus Simonsen",
+          "jerseyNumber": 31,
+          "goals": 9,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "fc838g",
+          "playerName": "Ludvig Benjamin Torgersbråten Gundersen",
+          "jerseyNumber": 32,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "ork06p",
+          "playerName": "Kristian-André Nielsen Amundsen",
+          "jerseyNumber": 42,
+          "goals": 4,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "5gwdud",
+          "playerName": "Mikkel Elias Øverby",
+          "jerseyNumber": 51,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "rsf0qn",
+          "playerName": "Adam Nightingale",
+          "jerseyNumber": 54,
+          "goals": 1,
+          "penaltyGoals": 1,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "nzs412",
+          "playerName": "Ola Lund Homble",
+          "jerseyNumber": 64,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-02-08T19:20:38.622Z"
     }
   ],
-  "lastUpdated": "2026-02-08T14:18:20.306Z",
+  "lastUpdated": "2026-02-08T19:20:38.646Z",
   "matchesWithoutStats": [
     "43031508005",
     "43031503003",
