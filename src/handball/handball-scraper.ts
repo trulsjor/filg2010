@@ -3,8 +3,7 @@ import type { Team, MatchLink } from '../types/index.js'
 import type { MatchPlayerData, PlayerMatchStats } from '../types/player-stats.js'
 import { HandballUrlService } from './handball-url.service.js'
 
-const COOKIE_ACCEPT_TEXT = 'AKSEPTER'
-const COOKIE_TIMEOUT = 3000
+const COOKIE_TIMEOUT = 1500
 const KAMPNR_REGEX = /^\d{9,}/
 
 export interface TableRow {
@@ -40,7 +39,6 @@ export interface FullRefreshResult {
 export class HandballScraper {
   private urlService = new HandballUrlService()
   private browser: Browser | null = null
-  private cookieHandled = false
 
   private async getBrowser(): Promise<Browser> {
     if (!this.browser) {
@@ -53,7 +51,6 @@ export class HandballScraper {
     if (this.browser) {
       await this.browser.close()
       this.browser = null
-      this.cookieHandled = false
     }
   }
 
@@ -67,16 +64,15 @@ export class HandballScraper {
   }
 
   private async handleCookieBanner(page: Page): Promise<void> {
-    if (this.cookieHandled) return
-    const clicked = await this.tryClick(
-      page,
-      `button:has-text("${COOKIE_ACCEPT_TEXT}")`,
-      COOKIE_TIMEOUT
-    )
-    if (!clicked) {
-      await this.tryClick(page, `text=${COOKIE_ACCEPT_TEXT}`, COOKIE_TIMEOUT)
-    }
-    this.cookieHandled = true
+    await page.waitForTimeout(COOKIE_TIMEOUT)
+    await page
+      .evaluate(() => {
+        const wrapper = document.getElementById('cookie-information-template-wrapper')
+        if (wrapper) wrapper.remove()
+        const backdrop = document.querySelector('.coi-banner__page-overlay')
+        if (backdrop) backdrop.remove()
+      })
+      .catch(() => {})
   }
 
   async scrapeTeamPage(team: Team): Promise<TeamScrapingResult> {
@@ -85,8 +81,9 @@ export class HandballScraper {
 
     try {
       const url = this.urlService.buildTeamUrl(team.lagid)
-      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 })
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
       await this.handleCookieBanner(page)
+      await page.waitForTimeout(3000)
 
       const data = await page.evaluate(
         ({ kampnrRegex }: { kampnrRegex: string }) => {
@@ -349,7 +346,7 @@ export class HandballScraper {
     const page = await browser.newPage()
 
     try {
-      await page.goto(matchUrl, { waitUntil: 'networkidle', timeout: 30000 })
+      await page.goto(matchUrl, { waitUntil: 'domcontentloaded', timeout: 30000 })
       await this.handleCookieBanner(page)
       await page.waitForTimeout(2000)
 
@@ -672,9 +669,9 @@ export class HandballScraper {
     const page = await browser.newPage()
 
     try {
-      await page.goto(tournamentUrl, { waitUntil: 'networkidle', timeout: 30000 })
+      await page.goto(tournamentUrl, { waitUntil: 'domcontentloaded', timeout: 30000 })
       await this.handleCookieBanner(page)
-      await page.waitForTimeout(2000)
+      await page.waitForTimeout(3000)
 
       const extractWithRecovery = async (): Promise<
         Array<{ matchId: string; matchUrl: string }>
@@ -686,28 +683,25 @@ export class HandballScraper {
         }
       }
 
-      // Try "Alle kamper" first - it has the most complete list of matches
-      // Use exact match (quoted) to avoid "Kamper" matching "Alle kamper" etc.
-      const alleKamperClicked = await this.tryClick(page, 'text="Alle kamper"', 2000)
-      if (alleKamperClicked) {
-        await page.waitForTimeout(2000)
-        const matches = await extractWithRecovery()
-        if (matches.length > 0) {
-          return matches
+      const tabSelectors = ['text="Alle kamper"', 'text="Kamper"', 'text="Siste kamper"']
+      for (const selector of tabSelectors) {
+        const clicked = await this.tryClick(page, selector, 3000)
+        if (clicked) {
+          await page.waitForTimeout(3000)
+          const matches = await extractWithRecovery()
+          if (matches.length > 0) {
+            return matches
+          }
         }
       }
 
-      const kamperClicked = await this.tryClick(page, 'text="Kamper"', 2000)
-      if (kamperClicked) {
-        await page.waitForTimeout(2000)
-        const matches = await extractWithRecovery()
-        if (matches.length > 0) {
-          return matches
-        }
+      // Fallback: try "Terminliste" which shows all matches (played and upcoming)
+      const terminlisteClicked = await this.tryClick(page, 'text="Terminliste"', 3000)
+      if (terminlisteClicked) {
+        await page.waitForTimeout(3000)
+        return extractWithRecovery()
       }
 
-      await this.tryClick(page, 'text="Siste kamper"', 2000)
-      await page.waitForTimeout(2000)
       return extractWithRecovery()
     } catch (error) {
       console.error(`Failed to scrape tournament matches from ${tournamentUrl}:`, error)

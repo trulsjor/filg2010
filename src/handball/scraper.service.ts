@@ -2,8 +2,7 @@ import { chromium, type Browser, type Page } from 'playwright'
 import type { Team, MatchLink } from '../types/index.js'
 import { HandballUrlService } from './handball-url.service.js'
 
-const COOKIE_ACCEPT_TEXT = 'AKSEPTER'
-const COOKIE_TIMEOUT = 3000
+const COOKIE_TIMEOUT = 1500
 const KAMPNR_REGEX = /^\d{9,}/
 
 export interface TeamScrapingResult {
@@ -17,7 +16,6 @@ export interface TeamScrapingResult {
 export class ScraperService {
   private urlService = new HandballUrlService()
   private browser: Browser | null = null
-  private cookieHandled = false
 
   /**
    * Gets or creates browser instance
@@ -36,24 +34,17 @@ export class ScraperService {
     if (this.browser) {
       await this.browser.close()
       this.browser = null
-      this.cookieHandled = false
     }
   }
 
-  /**
-   * Handles cookie banner (only once per session)
-   */
   private async handleCookieBanner(page: Page): Promise<void> {
-    if (this.cookieHandled) return
-
-    try {
-      await page.click(`text=${COOKIE_ACCEPT_TEXT}`, { timeout: COOKIE_TIMEOUT })
-      await page.waitForTimeout(500)
-      this.cookieHandled = true
-    } catch {
-      // Cookie banner not present
-      this.cookieHandled = true
-    }
+    await page.waitForTimeout(COOKIE_TIMEOUT)
+    await page
+      .evaluate(() => {
+        document.getElementById('cookie-information-template-wrapper')?.remove()
+        document.querySelector('.coi-banner__page-overlay')?.remove()
+      })
+      .catch(() => {})
   }
 
   /**
@@ -65,7 +56,7 @@ export class ScraperService {
 
     try {
       const url = this.urlService.buildTeamUrl(team.lagid)
-      await page.goto(url, { waitUntil: 'networkidle', timeout: 30000 })
+      await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 })
       await this.handleCookieBanner(page)
 
       // Extract both match links and tournament links in one evaluate call

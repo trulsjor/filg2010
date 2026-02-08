@@ -50,6 +50,7 @@ describe('HandballScraper.scrapeTournamentPlayedMatches', () => {
   })
 
   function setupMockPage(clickBehavior: (selector: string) => boolean, evaluateResult: unknown) {
+    let evaluateCallCount = 0
     mockPage = {
       goto: vi.fn().mockResolvedValue(undefined),
       click: vi.fn().mockImplementation((selector: string) => {
@@ -59,7 +60,12 @@ describe('HandballScraper.scrapeTournamentPlayedMatches', () => {
         return Promise.reject(new Error('timeout'))
       }),
       waitForTimeout: vi.fn().mockResolvedValue(undefined),
-      evaluate: vi.fn().mockResolvedValue(evaluateResult),
+      evaluate: vi.fn().mockImplementation(() => {
+        evaluateCallCount++
+        // First evaluate call is cookie banner removal, rest are match extraction
+        if (evaluateCallCount === 1) return Promise.resolve(undefined)
+        return Promise.resolve(evaluateResult)
+      }),
       close: vi.fn().mockResolvedValue(undefined),
     }
     mockBrowser = {
@@ -74,32 +80,25 @@ describe('HandballScraper.scrapeTournamentPlayedMatches', () => {
 
     setupMockPage((selector) => {
       clickedSelectors.push(selector)
-      // Simulate: "Alle kamper" tab doesn't exist, "Kamper" tab exists
       return selector === 'text="Kamper"'
     }, fakeMatches)
 
     await scraper.scrapeTournamentPlayedMatches('https://handball.no/turnering?turnid=123')
 
-    // Verify exact match selectors are used (with quotes)
     expect(clickedSelectors).toContain('text="Alle kamper"')
     expect(clickedSelectors).toContain('text="Kamper"')
-    // Should NOT use substring selectors (without quotes)
     expect(clickedSelectors).not.toContain('text=Alle kamper')
     expect(clickedSelectors).not.toContain('text=Kamper')
   })
 
   it('returns matches from "Alle kamper" tab when available', async () => {
-    setupMockPage(
-      (selector) => selector === 'text="Alle kamper"' || selector.includes('AKSEPTER'),
-      fakeMatches
-    )
+    setupMockPage((selector) => selector === 'text="Alle kamper"', fakeMatches)
 
     const result = await scraper.scrapeTournamentPlayedMatches(
       'https://handball.no/turnering?turnid=123'
     )
 
     expect(result).toEqual(fakeMatches)
-    // Should not try "Kamper" since "Alle kamper" returned matches
     const clickCalls = mockPage.click.mock.calls.map((c: unknown[]) => c[0])
     expect(clickCalls).not.toContain('text="Kamper"')
   })
@@ -117,8 +116,10 @@ describe('HandballScraper.scrapeTournamentPlayedMatches', () => {
       waitForTimeout: vi.fn().mockResolvedValue(undefined),
       evaluate: vi.fn().mockImplementation(() => {
         evaluateCallCount++
-        // First call (after "Alle kamper") returns empty, second (after "Kamper") returns matches
-        return Promise.resolve(evaluateCallCount === 1 ? [] : fakeMatches)
+        // 1st: cookie removal, 2nd: after "Alle kamper" (empty), 3rd: after "Kamper" (matches)
+        if (evaluateCallCount <= 1) return Promise.resolve(undefined)
+        if (evaluateCallCount === 2) return Promise.resolve([])
+        return Promise.resolve(fakeMatches)
       }),
       close: vi.fn().mockResolvedValue(undefined),
     }
@@ -155,8 +156,10 @@ describe('HandballScraper.scrapeTournamentPlayedMatches', () => {
       waitForTimeout: vi.fn().mockResolvedValue(undefined),
       evaluate: vi.fn().mockImplementation(() => {
         evaluateCallCount++
-        // Only third call (after "Siste kamper") returns matches
-        return Promise.resolve(evaluateCallCount === 3 ? fakeMatches : [])
+        // 1st: cookie removal, 2/3: empty, 4th: after "Siste kamper" (matches)
+        if (evaluateCallCount <= 1) return Promise.resolve(undefined)
+        if (evaluateCallCount <= 3) return Promise.resolve([])
+        return Promise.resolve(fakeMatches)
       }),
       close: vi.fn().mockResolvedValue(undefined),
     }
@@ -176,10 +179,7 @@ describe('HandballScraper.scrapeTournamentPlayedMatches', () => {
   })
 
   it('falls back to "Kamper" when "Alle kamper" tab does not exist', async () => {
-    setupMockPage((selector) => {
-      // "Alle kamper" tab doesn't exist on this page, only "Kamper"
-      return selector === 'text="Kamper"'
-    }, fakeMatches)
+    setupMockPage((selector) => selector === 'text="Kamper"', fakeMatches)
 
     const result = await scraper.scrapeTournamentPlayedMatches(
       'https://handball.no/turnering?turnid=123'

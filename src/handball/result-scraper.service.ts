@@ -17,8 +17,7 @@ interface ResultScraperOptions {
   timeoutMs?: number
 }
 
-const COOKIE_ACCEPT_TEXT = 'AKSEPTER'
-const COOKIE_TIMEOUT = 3000
+const COOKIE_TIMEOUT = 1500
 
 export class ResultScraperService {
   private readonly delayMs: number
@@ -29,16 +28,14 @@ export class ResultScraperService {
     this.timeoutMs = options.timeoutMs ?? 15000
   }
 
-  /**
-   * Handles cookie banner if present
-   */
   private async handleCookieBanner(page: Page): Promise<void> {
-    try {
-      await page.click(`text=${COOKIE_ACCEPT_TEXT}`, { timeout: COOKIE_TIMEOUT })
-      await page.waitForTimeout(500)
-    } catch {
-      // Cookie banner not present or already accepted
-    }
+    await page.waitForTimeout(COOKIE_TIMEOUT)
+    await page
+      .evaluate(() => {
+        document.getElementById('cookie-information-template-wrapper')?.remove()
+        document.querySelector('.coi-banner__page-overlay')?.remove()
+      })
+      .catch(() => {})
   }
 
   /**
@@ -54,7 +51,7 @@ export class ResultScraperService {
     }
 
     try {
-      await page.goto(matchUrl, { waitUntil: 'networkidle', timeout: this.timeoutMs })
+      await page.goto(matchUrl, { waitUntil: 'domcontentloaded', timeout: this.timeoutMs })
 
       // Wait for Angular to render
       await page.waitForTimeout(2000)
@@ -119,7 +116,7 @@ export class ResultScraperService {
       const page = await browser.newPage()
 
       // Handle cookie banner on first navigation
-      await page.goto(matchUrls[0], { waitUntil: 'networkidle', timeout: this.timeoutMs })
+      await page.goto(matchUrls[0], { waitUntil: 'domcontentloaded', timeout: this.timeoutMs })
       await this.handleCookieBanner(page)
 
       for (let i = 0; i < matchUrls.length; i++) {
