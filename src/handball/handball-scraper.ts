@@ -672,8 +672,9 @@ export class HandballScraper {
     const page = await browser.newPage()
 
     try {
-      await page.goto(tournamentUrl, { waitUntil: 'domcontentloaded', timeout: 30000 })
+      await page.goto(tournamentUrl, { waitUntil: 'networkidle', timeout: 30000 })
       await this.handleCookieBanner(page)
+      await page.waitForTimeout(2000)
 
       const extractWithRecovery = async (): Promise<
         Array<{ matchId: string; matchUrl: string }>
