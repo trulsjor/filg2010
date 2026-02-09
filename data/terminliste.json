@@ -16,20 +16,6 @@
   {
     "Lag": "Fjellhammer G15 1",
     "Dato": "",
-    "Kampnr": "420315028",
-    "Hjemmelag": "Asker/ROS",
-    "Bortelag": "Fjellhammer",
-    "H-B": "-",
-    "Arrangør": "Asker Skiklubb",
-    "Turnering": "Mobile Regionscup G15",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263419",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
-  },
-  {
-    "Lag": "Fjellhammer G15 1",
-    "Dato": "",
     "Kampnr": "41031506001",
     "Hjemmelag": "Sinsen-Refstad",
     "Bortelag": "Fjellhammer",
@@ -497,6 +483,22 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=603152",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
+  },
+  {
+    "Lag": "Fjellhammer G15 1",
+    "Dato": "26.02.2026",
+    "Tid": "21:00",
+    "Kampnr": "420315028",
+    "Hjemmelag": "Asker/ROS",
+    "Bortelag": "Fjellhammer",
+    "H-B": "-",
+    "Bane": "ROS Arena",
+    "Arrangør": "Asker Skiklubb",
+    "Turnering": "Mobile Regionscup G15",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263419",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
     "Lag": "Fjellhammer G15 1",

@@ -5,6 +5,17 @@
     "rows": [
       {
         "position": 1,
+        "team": "Sinsen-Refstad",
+        "played": 2,
+        "won": 2,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 54,
+        "goalsAgainst": 41,
+        "points": 4
+      },
+      {
+        "position": 2,
         "team": "Haslum",
         "played": 4,
         "won": 2,
@@ -15,7 +26,7 @@
         "points": 4
       },
       {
-        "position": 2,
+        "position": 3,
         "team": "Kråkerøy",
         "played": 4,
         "won": 2,
@@ -26,7 +37,7 @@
         "points": 4
       },
       {
-        "position": 3,
+        "position": 4,
         "team": "Bækkelaget",
         "played": 3,
         "won": 1,
@@ -37,25 +48,14 @@
         "points": 2
       },
       {
-        "position": 4,
-        "team": "Sinsen-Refstad",
-        "played": 1,
-        "won": 1,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 27,
-        "goalsAgainst": 21,
-        "points": 2
-      },
-      {
         "position": 5,
         "team": "Asker/ROS",
-        "played": 2,
+        "played": 3,
         "won": 1,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 50,
-        "goalsAgainst": 56,
+        "lost": 2,
+        "goalsFor": 70,
+        "goalsAgainst": 83,
         "points": 2
       },
       {
@@ -70,7 +70,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-02-08T21:05:31.035Z"
+    "updatedAt": "2026-02-09T21:12:16.320Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-08T21:05:31.134Z"
+    "updatedAt": "2026-02-09T21:12:16.292Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-08T21:05:31.002Z"
+    "updatedAt": "2026-02-09T21:12:16.715Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-08T21:05:36.916Z"
+    "updatedAt": "2026-02-09T21:12:22.557Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-08T21:05:36.804Z"
+    "updatedAt": "2026-02-09T21:12:22.336Z"
   }
 ]
