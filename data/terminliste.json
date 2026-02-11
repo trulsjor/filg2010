@@ -14,21 +14,6 @@
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
-    "Lag": "Fjellhammer G15 1",
-    "Dato": "",
-    "Kampnr": "41031506001",
-    "Hjemmelag": "Sinsen-Refstad",
-    "Bortelag": "Fjellhammer",
-    "H-B": "-",
-    "Bane": "Teglverket idrettshall",
-    "Arrangør": "Sinsen-Refstad Idrettslag",
-    "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330548",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997379",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
-  },
-  {
     "Lag": "Fjellhammer G15 2",
     "Dato": "",
     "Kampnr": "420315026",
@@ -770,6 +755,22 @@
     "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330551",
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+  },
+  {
+    "Lag": "Fjellhammer G15 1",
+    "Dato": "30.04.2026",
+    "Tid": "18:15",
+    "Kampnr": "41031506001",
+    "Hjemmelag": "Sinsen-Refstad",
+    "Bortelag": "Fjellhammer",
+    "H-B": "-",
+    "Bane": "Teglverket idrettshall",
+    "Arrangør": "Sinsen-Refstad Idrettslag",
+    "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330548",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997379",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
   }
 ]
