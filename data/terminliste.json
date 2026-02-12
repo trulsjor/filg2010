@@ -15,20 +15,6 @@
   },
   {
     "Lag": "Fjellhammer G15 2",
-    "Dato": "",
-    "Kampnr": "420315026",
-    "Hjemmelag": "Haslum",
-    "Bortelag": "Fjellhammer 2",
-    "H-B": "-",
-    "Arrangør": "Haslum Idrettslag",
-    "Turnering": "Mobile Regionscup G15",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263417",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=812498",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
-  },
-  {
-    "Lag": "Fjellhammer G15 2",
     "Dato": "14.09.2025",
     "Tid": "10:00",
     "Kampnr": "41031504004",
@@ -468,6 +454,22 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=603152",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
+  },
+  {
+    "Lag": "Fjellhammer G15 2",
+    "Dato": "24.02.2026",
+    "Tid": "20:45",
+    "Kampnr": "420315026",
+    "Hjemmelag": "Haslum",
+    "Bortelag": "Fjellhammer 2",
+    "H-B": "-",
+    "Bane": "Nadderud Arena 1",
+    "Arrangør": "Haslum Idrettslag",
+    "Turnering": "Mobile Regionscup G15",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263417",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=812498",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
     "Lag": "Fjellhammer G15 1",
