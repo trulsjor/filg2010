@@ -14,6 +14,21 @@
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
+    "Lag": "Fjellhammer G16 3",
+    "Dato": "",
+    "Kampnr": "41031609018",
+    "Hjemmelag": "NIT-HAK/Ull/Kisa 3",
+    "Bortelag": "Fjellhammer 3",
+    "H-B": "-",
+    "Bane": "Lihallen",
+    "Arrangør": "NIT-HAK håndballklubb",
+    "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330838",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=558812",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
+  },
+  {
     "Lag": "Fjellhammer G15 2",
     "Dato": "14.09.2025",
     "Tid": "10:00",
@@ -502,22 +517,6 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
-  },
-  {
-    "Lag": "Fjellhammer G16 3",
-    "Dato": "01.03.2026",
-    "Tid": "0",
-    "Kampnr": "41031609018",
-    "Hjemmelag": "NIT-HAK/Ull/Kisa 3",
-    "Bortelag": "Fjellhammer 3",
-    "H-B": "-",
-    "Bane": "Lihallen",
-    "Arrangør": "NIT-HAK håndballklubb",
-    "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330838",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=558812",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
   },
   {
     "Lag": "Fjellhammer G15 2",
