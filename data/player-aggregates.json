@@ -474,6 +474,66 @@
       ]
     },
     {
+      "playerId": "g78e91",
+      "playerName": "Axel  Keim-kvalsund",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135",
+        "558785"
+      ],
+      "teamNames": [
+        "Haslum",
+        "Haslum 2"
+      ],
+      "jerseyNumber": 25,
+      "totalGoals": 73,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 2,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 16,
+      "goalsPerMatch": 4.56,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 29,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 19,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 17,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        }
+      ]
+    },
+    {
       "playerId": "ah65yi",
       "playerName": "Selmer Strengen",
       "teamId": "813771",
@@ -641,66 +701,6 @@
           "yellowCards": 2,
           "redCards": 0,
           "matches": 7
-        }
-      ]
-    },
-    {
-      "playerId": "g78e91",
-      "playerName": "Axel  Keim-kvalsund",
-      "teamId": "473135",
-      "teamName": "Haslum",
-      "teamIds": [
-        "473135",
-        "558785"
-      ],
-      "teamNames": [
-        "Haslum",
-        "Haslum 2"
-      ],
-      "jerseyNumber": 25,
-      "totalGoals": 70,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 2,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 15,
-      "goalsPerMatch": 4.67,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 29,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 19,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 14,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 16 - avd 43",
-          "goals": 8,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
         }
       ]
     },
@@ -940,6 +940,77 @@
           "goals": 6,
           "penaltyGoals": 2,
           "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "47nwyg",
+      "playerName": "Jakob Strand Mylius",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135",
+        "506889",
+        "558785"
+      ],
+      "teamNames": [
+        "Haslum",
+        "Haslum 2",
+        "Haslum 2"
+      ],
+      "jerseyNumber": 7,
+      "totalGoals": 64,
+      "totalPenaltyGoals": 6,
+      "totalTwoMinutes": 4,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 17,
+      "goalsPerMatch": 3.76,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 40,
+          "penaltyGoals": 2,
+          "twoMinutes": 0,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 10,
+          "penaltyGoals": 3,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 8,
+          "penaltyGoals": 1,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
@@ -1318,6 +1389,137 @@
       ]
     },
     {
+      "playerId": "b845hw",
+      "playerName": "Casper Gulliksen",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135",
+        "506889",
+        "558785"
+      ],
+      "teamNames": [
+        "Haslum",
+        "Haslum 2",
+        "Haslum 2"
+      ],
+      "jerseyNumber": 31,
+      "totalGoals": 60,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 7,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 17,
+      "goalsPerMatch": 3.53,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 20,
+          "penaltyGoals": 0,
+          "twoMinutes": 3,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 18,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 10,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 11,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "sod1k0",
+      "playerName": "Sigurd Ekroll Lundsrud",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135",
+        "558785"
+      ],
+      "teamNames": [
+        "Haslum",
+        "Haslum 2"
+      ],
+      "jerseyNumber": 2,
+      "totalGoals": 60,
+      "totalPenaltyGoals": 10,
+      "totalTwoMinutes": 2,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 4,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 35,
+          "penaltyGoals": 6,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 15,
+          "penaltyGoals": 3,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 5,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
       "playerId": "krtlmc",
       "playerName": "Aksel Stenersen Tveito",
       "teamId": "745936",
@@ -1425,77 +1627,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 3
-        }
-      ]
-    },
-    {
-      "playerId": "47nwyg",
-      "playerName": "Jakob Strand Mylius",
-      "teamId": "473135",
-      "teamName": "Haslum",
-      "teamIds": [
-        "473135",
-        "506889",
-        "558785"
-      ],
-      "teamNames": [
-        "Haslum",
-        "Haslum 2",
-        "Haslum 2"
-      ],
-      "jerseyNumber": 7,
-      "totalGoals": 59,
-      "totalPenaltyGoals": 6,
-      "totalTwoMinutes": 3,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 16,
-      "goalsPerMatch": 3.69,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 40,
-          "penaltyGoals": 2,
-          "twoMinutes": 0,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 10,
-          "penaltyGoals": 3,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 3,
-          "penaltyGoals": 1,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 16 - avd 43",
-          "goals": 2,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
         }
       ]
     },
@@ -1687,62 +1818,82 @@
       ]
     },
     {
-      "playerId": "sod1k0",
-      "playerName": "Sigurd Ekroll Lundsrud",
-      "teamId": "473135",
-      "teamName": "Haslum",
+      "playerId": "iqkq1w",
+      "playerName": "Tobias Vaarnes Jørgensen",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
-        "473135",
-        "558785"
+        "812498",
+        "531500",
+        "583470"
       ],
       "teamNames": [
-        "Haslum",
-        "Haslum 2"
+        "Fjellhammer 2",
+        "Fjellhammer",
+        "Fjellhammer 3"
       ],
-      "jerseyNumber": 2,
+      "jerseyNumber": 7,
       "totalGoals": 58,
-      "totalPenaltyGoals": 9,
+      "totalPenaltyGoals": 3,
       "totalTwoMinutes": 2,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 4.14,
+      "matchesPlayed": 18,
+      "goalsPerMatch": 3.22,
       "byTournament": [
         {
+          "tournament": "Regionserien Gutter 15 - avd 42",
+          "goals": 10,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
           "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 35,
-          "penaltyGoals": 6,
+          "goals": 14,
+          "penaltyGoals": 3,
           "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 8
         },
         {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 15,
-          "penaltyGoals": 3,
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 6,
+          "penaltyGoals": 0,
           "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 4
+          "matches": 2
         },
         {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 3,
+          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "goals": 11,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
-          "tournament": "Regionserien Gutter 16 - avd 43",
+          "tournament": "Mobile Regionscup G15",
           "goals": 5,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 12,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
         }
       ]
     },
@@ -2109,6 +2260,68 @@
       ]
     },
     {
+      "playerId": "9dyenh",
+      "playerName": "Birk Fredriksen",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
+      "teamIds": [
+        "531500",
+        "583470",
+        "812498"
+      ],
+      "teamNames": [
+        "Fjellhammer",
+        "Fjellhammer 3",
+        "Fjellhammer 2"
+      ],
+      "jerseyNumber": 9,
+      "totalGoals": 55,
+      "totalPenaltyGoals": 2,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 13,
+      "goalsPerMatch": 4.23,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 32,
+          "penaltyGoals": 2,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 10,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        }
+      ]
+    },
+    {
       "playerId": "60gqwx",
       "playerName": "Lucas Konglevoll Sundt",
       "teamId": "428829",
@@ -2205,86 +2418,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 10
-        }
-      ]
-    },
-    {
-      "playerId": "iqkq1w",
-      "playerName": "Tobias Vaarnes Jørgensen",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
-      "teamIds": [
-        "812498",
-        "531500",
-        "583470"
-      ],
-      "teamNames": [
-        "Fjellhammer 2",
-        "Fjellhammer",
-        "Fjellhammer 3"
-      ],
-      "jerseyNumber": 7,
-      "totalGoals": 54,
-      "totalPenaltyGoals": 3,
-      "totalTwoMinutes": 2,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 17,
-      "goalsPerMatch": 3.18,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 42",
-          "goals": 10,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 14,
-          "penaltyGoals": 3,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 6,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
-          "goals": 11,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 12,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
         }
       ]
     },
@@ -2442,64 +2575,142 @@
       ]
     },
     {
-      "playerId": "9dyenh",
-      "playerName": "Birk Fredriksen",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "playerId": "jzgwyv",
+      "playerName": "Mio Revfem-Egeland",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
+        "812498",
         "531500",
-        "583470",
-        "812498"
+        "583470"
       ],
       "teamNames": [
+        "Fjellhammer 2",
         "Fjellhammer",
-        "Fjellhammer 3",
-        "Fjellhammer 2"
+        "Fjellhammer 3"
       ],
-      "jerseyNumber": 9,
+      "jerseyNumber": 11,
       "totalGoals": 52,
       "totalPenaltyGoals": 2,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 0,
+      "totalTwoMinutes": 4,
+      "totalYellowCards": 1,
       "totalRedCards": 0,
-      "matchesPlayed": 12,
-      "goalsPerMatch": 4.33,
+      "matchesPlayed": 18,
+      "goalsPerMatch": 2.89,
       "byTournament": [
         {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 32,
+          "tournament": "Regionserien Gutter 15 - avd 42",
+          "goals": 25,
           "penaltyGoals": 2,
-          "twoMinutes": 0,
-          "yellowCards": 0,
+          "twoMinutes": 2,
+          "yellowCards": 1,
           "redCards": 0,
           "matches": 8
         },
         {
-          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "tournament": "Regionserien Gutter 15 - avd 32",
           "goals": 5,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 3
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 13,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
         },
         {
           "tournament": "Mobile Regionscup G15",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 10,
+          "goals": 3,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 2
+        },
+        {
+          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        }
+      ]
+    },
+    {
+      "playerId": "rzjx6l",
+      "playerName": "Jacob Fjørtoft Hegland",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
+      "teamIds": [
+        "531500",
+        "812498"
+      ],
+      "teamNames": [
+        "Fjellhammer",
+        "Fjellhammer 2"
+      ],
+      "jerseyNumber": 2,
+      "totalGoals": 52,
+      "totalPenaltyGoals": 10,
+      "totalTwoMinutes": 2,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 3.47,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 27,
+          "penaltyGoals": 8,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 42",
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 12,
+          "penaltyGoals": 2,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 7,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
         }
       ]
     },
@@ -2551,77 +2762,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 2
-        }
-      ]
-    },
-    {
-      "playerId": "b845hw",
-      "playerName": "Casper Gulliksen",
-      "teamId": "473135",
-      "teamName": "Haslum",
-      "teamIds": [
-        "473135",
-        "506889",
-        "558785"
-      ],
-      "teamNames": [
-        "Haslum",
-        "Haslum 2",
-        "Haslum 2"
-      ],
-      "jerseyNumber": 31,
-      "totalGoals": 52,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 6,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 16,
-      "goalsPerMatch": 3.25,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 20,
-          "penaltyGoals": 0,
-          "twoMinutes": 3,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 18,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 2,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 11,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 16 - avd 43",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
         }
       ]
     },
@@ -2697,60 +2837,51 @@
       ]
     },
     {
-      "playerId": "jzgwyv",
-      "playerName": "Mio Revfem-Egeland",
-      "teamId": "583470",
-      "teamName": "Fjellhammer 3",
+      "playerId": "w806r7",
+      "playerName": "Kristian Nysveen",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
-        "812498",
         "531500",
+        "812498",
         "583470"
       ],
       "teamNames": [
-        "Fjellhammer 2",
         "Fjellhammer",
+        "Fjellhammer 2",
         "Fjellhammer 3"
       ],
-      "jerseyNumber": 11,
-      "totalGoals": 51,
-      "totalPenaltyGoals": 2,
-      "totalTwoMinutes": 4,
-      "totalYellowCards": 1,
+      "jerseyNumber": 6,
+      "totalGoals": 50,
+      "totalPenaltyGoals": 4,
+      "totalTwoMinutes": 11,
+      "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 17,
-      "goalsPerMatch": 3,
+      "matchesPlayed": 16,
+      "goalsPerMatch": 3.13,
       "byTournament": [
         {
-          "tournament": "Regionserien Gutter 15 - avd 42",
-          "goals": 25,
-          "penaltyGoals": 2,
-          "twoMinutes": 2,
-          "yellowCards": 1,
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 13,
+          "penaltyGoals": 0,
+          "twoMinutes": 5,
+          "yellowCards": 0,
           "redCards": 0,
-          "matches": 8
+          "matches": 7
         },
         {
-          "tournament": "Regionserien Gutter 15 - avd 32",
+          "tournament": "Regionserien Gutter 15 - avd 42",
           "goals": 5,
-          "penaltyGoals": 0,
+          "penaltyGoals": 1,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 3
+          "matches": 1
         },
         {
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 13,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 3
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 2,
-          "penaltyGoals": 0,
+          "goals": 6,
+          "penaltyGoals": 2,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
@@ -2758,9 +2889,27 @@
         },
         {
           "tournament": "Gutter 16 Nivå 2 - B sluttspill",
-          "goals": 6,
+          "goals": 12,
+          "penaltyGoals": 1,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 11,
           "penaltyGoals": 0,
-          "twoMinutes": 1,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 2
@@ -2877,6 +3026,86 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 9
+        }
+      ]
+    },
+    {
+      "playerId": "3deu03",
+      "playerName": "Kristoffer Holmquist Karlsen",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135",
+        "506889",
+        "558785"
+      ],
+      "teamNames": [
+        "Haslum",
+        "Haslum 2",
+        "Haslum 2"
+      ],
+      "jerseyNumber": 20,
+      "totalGoals": 49,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 6,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 19,
+      "goalsPerMatch": 2.58,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 25,
+          "penaltyGoals": 1,
+          "twoMinutes": 2,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 5
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 9,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
         }
       ]
     },
@@ -3041,86 +3270,6 @@
       ]
     },
     {
-      "playerId": "3deu03",
-      "playerName": "Kristoffer Holmquist Karlsen",
-      "teamId": "473135",
-      "teamName": "Haslum",
-      "teamIds": [
-        "473135",
-        "506889",
-        "558785"
-      ],
-      "teamNames": [
-        "Haslum",
-        "Haslum 2",
-        "Haslum 2"
-      ],
-      "jerseyNumber": 20,
-      "totalGoals": 48,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 6,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 18,
-      "goalsPerMatch": 2.67,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 6,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 6
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 3,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 3
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 25,
-          "penaltyGoals": 1,
-          "twoMinutes": 2,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 5
-        },
-        {
-          "tournament": "Regionserien Gutter 16 - avd 43",
-          "goals": 9,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        }
-      ]
-    },
-    {
       "playerId": "r23vy2",
       "playerName": "Emil Aasbø Hytten",
       "teamId": "774268",
@@ -3261,75 +3410,6 @@
           "yellowCards": 0,
           "redCards": 1,
           "matches": 8
-        }
-      ]
-    },
-    {
-      "playerId": "rzjx6l",
-      "playerName": "Jacob Fjørtoft Hegland",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
-      "teamIds": [
-        "531500",
-        "812498"
-      ],
-      "teamNames": [
-        "Fjellhammer",
-        "Fjellhammer 2"
-      ],
-      "jerseyNumber": 2,
-      "totalGoals": 47,
-      "totalPenaltyGoals": 8,
-      "totalTwoMinutes": 2,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 3.36,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 27,
-          "penaltyGoals": 8,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 42",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 7,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 7,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
         }
       ]
     },
@@ -3551,8 +3631,8 @@
     {
       "playerId": "oznvlj",
       "playerName": "Mathias Gunstad",
-      "teamId": "506889",
-      "teamName": "Haslum 2",
+      "teamId": "473135",
+      "teamName": "Haslum",
       "teamIds": [
         "473135",
         "506889"
@@ -3567,8 +3647,8 @@
       "totalTwoMinutes": 2,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 16,
-      "goalsPerMatch": 2.88,
+      "matchesPlayed": 17,
+      "goalsPerMatch": 2.71,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 32",
@@ -3595,7 +3675,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 43",
@@ -3610,6 +3690,86 @@
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
           "goals": 18,
           "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        }
+      ]
+    },
+    {
+      "playerId": "w20fxh",
+      "playerName": "Saxon Skjold Salmila",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135",
+        "506889",
+        "558785"
+      ],
+      "teamNames": [
+        "Haslum",
+        "Haslum 2",
+        "Haslum 2"
+      ],
+      "jerseyNumber": 15,
+      "totalGoals": 46,
+      "totalPenaltyGoals": 2,
+      "totalTwoMinutes": 3,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 18,
+      "goalsPerMatch": 2.56,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 0,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 7
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 10,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 9,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 16,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 7,
+          "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
@@ -3945,166 +4105,6 @@
       ]
     },
     {
-      "playerId": "w806r7",
-      "playerName": "Kristian Nysveen",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
-      "teamIds": [
-        "531500",
-        "812498",
-        "583470"
-      ],
-      "teamNames": [
-        "Fjellhammer",
-        "Fjellhammer 2",
-        "Fjellhammer 3"
-      ],
-      "jerseyNumber": 6,
-      "totalGoals": 44,
-      "totalPenaltyGoals": 4,
-      "totalTwoMinutes": 9,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 15,
-      "goalsPerMatch": 2.93,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 13,
-          "penaltyGoals": 0,
-          "twoMinutes": 5,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 7
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 42",
-          "goals": 5,
-          "penaltyGoals": 1,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 6,
-          "penaltyGoals": 2,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
-          "goals": 12,
-          "penaltyGoals": 1,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 3
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 3,
-          "penaltyGoals": 0,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        }
-      ]
-    },
-    {
-      "playerId": "w20fxh",
-      "playerName": "Saxon Skjold Salmila",
-      "teamId": "473135",
-      "teamName": "Haslum",
-      "teamIds": [
-        "473135",
-        "506889",
-        "558785"
-      ],
-      "teamNames": [
-        "Haslum",
-        "Haslum 2",
-        "Haslum 2"
-      ],
-      "jerseyNumber": 15,
-      "totalGoals": 44,
-      "totalPenaltyGoals": 2,
-      "totalTwoMinutes": 3,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 17,
-      "goalsPerMatch": 2.59,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 0,
-          "penaltyGoals": 1,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 7
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 10,
-          "penaltyGoals": 0,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 2,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 9,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 16,
-          "penaltyGoals": 1,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 16 - avd 43",
-          "goals": 7,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        }
-      ]
-    },
-    {
       "playerId": "y3g8yg",
       "playerName": "Ola Bjæring-Houmb",
       "teamId": "779876",
@@ -4160,11 +4160,11 @@
       "jerseyNumber": 9,
       "totalGoals": 43,
       "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 0,
+      "totalTwoMinutes": 1,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 16,
-      "goalsPerMatch": 2.69,
+      "matchesPlayed": 17,
+      "goalsPerMatch": 2.53,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 32",
@@ -4188,10 +4188,10 @@
           "tournament": "Mobile Regionscup G15",
           "goals": 2,
           "penaltyGoals": 0,
-          "twoMinutes": 0,
+          "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 43",
@@ -4949,8 +4949,8 @@
     {
       "playerId": "m16mqr",
       "playerName": "Magnus Espeland Lie",
-      "teamId": "506889",
-      "teamName": "Haslum 2",
+      "teamId": "473135",
+      "teamName": "Haslum",
       "teamIds": [
         "473135",
         "506889",
@@ -4967,8 +4967,8 @@
       "totalTwoMinutes": 1,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 2.71,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 2.53,
       "byTournament": [
         {
           "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
@@ -5000,6 +5000,15 @@
         {
           "tournament": "Regionserien Gutter 16 - avd 43",
           "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 0,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
@@ -5600,6 +5609,66 @@
       ]
     },
     {
+      "playerId": "9ficz8",
+      "playerName": "Kristian Seung-Jae Wolan Jacobsen",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
+      "teamIds": [
+        "812498",
+        "583470"
+      ],
+      "teamNames": [
+        "Fjellhammer 2",
+        "Fjellhammer 3"
+      ],
+      "jerseyNumber": 13,
+      "totalGoals": 36,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 2.4,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 42",
+          "goals": 26,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        }
+      ]
+    },
+    {
       "playerId": "1fn4nt",
       "playerName": "Ikenna David Chukwu",
       "teamId": "1010355",
@@ -6038,47 +6107,49 @@
       ]
     },
     {
-      "playerId": "9ficz8",
-      "playerName": "Kristian Seung-Jae Wolan Jacobsen",
-      "teamId": "583470",
-      "teamName": "Fjellhammer 3",
+      "playerId": "k4ldyu",
+      "playerName": "Henrik Haukedal",
+      "teamId": "473135",
+      "teamName": "Haslum",
       "teamIds": [
-        "812498",
-        "583470"
+        "473135",
+        "506889",
+        "558785"
       ],
       "teamNames": [
-        "Fjellhammer 2",
-        "Fjellhammer 3"
+        "Haslum",
+        "Haslum 2",
+        "Haslum 2"
       ],
-      "jerseyNumber": 13,
+      "jerseyNumber": 32,
       "totalGoals": 34,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 1,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 4,
+      "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 2.43,
+      "matchesPlayed": 18,
+      "goalsPerMatch": 1.89,
       "byTournament": [
         {
-          "tournament": "Regionserien Gutter 15 - avd 42",
-          "goals": 26,
-          "penaltyGoals": 1,
-          "twoMinutes": 0,
-          "yellowCards": 1,
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 13,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
+          "yellowCards": 0,
           "redCards": 0,
           "matches": 8
         },
         {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 5,
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 4,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 3
+          "matches": 4
         },
         {
-          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "tournament": "Mobile Regionscup G15",
           "goals": 2,
           "penaltyGoals": 0,
           "twoMinutes": 0,
@@ -6087,10 +6158,28 @@
           "matches": 2
         },
         {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 1,
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 7,
           "penaltyGoals": 0,
           "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Regionserien Gutter 16 - avd 43",
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
@@ -6158,8 +6247,8 @@
       "totalTwoMinutes": 2,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 12,
-      "goalsPerMatch": 2.75,
+      "matchesPlayed": 13,
+      "goalsPerMatch": 2.54,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 42",
@@ -6204,7 +6293,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         }
       ]
     },
@@ -6262,86 +6351,6 @@
           "goals": 5,
           "penaltyGoals": 0,
           "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        }
-      ]
-    },
-    {
-      "playerId": "k4ldyu",
-      "playerName": "Henrik Haukedal",
-      "teamId": "506889",
-      "teamName": "Haslum 2",
-      "teamIds": [
-        "473135",
-        "506889",
-        "558785"
-      ],
-      "teamNames": [
-        "Haslum",
-        "Haslum 2",
-        "Haslum 2"
-      ],
-      "jerseyNumber": 32,
-      "totalGoals": 33,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 4,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 17,
-      "goalsPerMatch": 1.94,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 13,
-          "penaltyGoals": 0,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 7,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 16 - avd 43",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 2,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
@@ -6606,6 +6615,68 @@
       ]
     },
     {
+      "playerId": "54920x",
+      "playerName": "Karl Emil Skjennum Lisle",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
+      "teamIds": [
+        "531500",
+        "812498",
+        "583470"
+      ],
+      "teamNames": [
+        "Fjellhammer",
+        "Fjellhammer 2",
+        "Fjellhammer 3"
+      ],
+      "jerseyNumber": 14,
+      "totalGoals": 32,
+      "totalPenaltyGoals": 2,
+      "totalTwoMinutes": 3,
+      "totalYellowCards": 2,
+      "totalRedCards": 1,
+      "matchesPlayed": 13,
+      "goalsPerMatch": 2.46,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 21,
+          "penaltyGoals": 1,
+          "twoMinutes": 2,
+          "yellowCards": 2,
+          "redCards": 0,
+          "matches": 7
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 9,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 1,
+          "matches": 2
+        }
+      ]
+    },
+    {
       "playerId": "7mnxvd",
       "playerName": "Mattis Veum Ramse",
       "teamId": "682691",
@@ -6773,6 +6844,55 @@
           "yellowCards": 1,
           "redCards": 0,
           "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "p388dc",
+      "playerName": "Guttorm Søby",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "473135"
+      ],
+      "teamNames": [
+        "Haslum"
+      ],
+      "jerseyNumber": 3,
+      "totalGoals": 32,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 4,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 14,
+      "goalsPerMatch": 2.29,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 21,
+          "penaltyGoals": 0,
+          "twoMinutes": 3,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
         }
       ]
     },
@@ -7770,68 +7890,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 4
-        }
-      ]
-    },
-    {
-      "playerId": "54920x",
-      "playerName": "Karl Emil Skjennum Lisle",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
-      "teamIds": [
-        "531500",
-        "812498",
-        "583470"
-      ],
-      "teamNames": [
-        "Fjellhammer",
-        "Fjellhammer 2",
-        "Fjellhammer 3"
-      ],
-      "jerseyNumber": 14,
-      "totalGoals": 29,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 3,
-      "totalYellowCards": 2,
-      "totalRedCards": 1,
-      "matchesPlayed": 12,
-      "goalsPerMatch": 2.42,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 21,
-          "penaltyGoals": 1,
-          "twoMinutes": 2,
-          "yellowCards": 2,
-          "redCards": 0,
-          "matches": 7
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 6,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 0,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Gutter 16 Nivå 2 - B sluttspill",
-          "goals": 2,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 1,
-          "matches": 2
         }
       ]
     },
@@ -8850,55 +8908,6 @@
       ]
     },
     {
-      "playerId": "p388dc",
-      "playerName": "Guttorm Søby",
-      "teamId": "473135",
-      "teamName": "Haslum",
-      "teamIds": [
-        "473135"
-      ],
-      "teamNames": [
-        "Haslum"
-      ],
-      "jerseyNumber": 3,
-      "totalGoals": 27,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 3,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 13,
-      "goalsPerMatch": 2.08,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 21,
-          "penaltyGoals": 0,
-          "twoMinutes": 3,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        }
-      ]
-    },
-    {
       "playerId": "4aunut",
       "playerName": "Isak Solbakken Sansom",
       "teamId": "997379",
@@ -9261,8 +9270,8 @@
     {
       "playerId": "da1w9l",
       "playerName": "Eirik Tviberg Sandstad",
-      "teamId": "583470",
-      "teamName": "Fjellhammer 3",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
         "812498",
         "583470"
@@ -9274,11 +9283,11 @@
       "jerseyNumber": 23,
       "totalGoals": 26,
       "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 0,
+      "totalTwoMinutes": 1,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 13,
-      "goalsPerMatch": 2,
+      "matchesPlayed": 14,
+      "goalsPerMatch": 1.86,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 42",
@@ -9302,10 +9311,10 @@
           "tournament": "Mobile Regionscup G15",
           "goals": 1,
           "penaltyGoals": 0,
-          "twoMinutes": 0,
+          "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Gutter 16 Nivå 2 - B sluttspill",
@@ -16366,6 +16375,55 @@
       ]
     },
     {
+      "playerId": "h2c0uc",
+      "playerName": "Max Firooz Ahmadi Sveen",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
+      "teamIds": [
+        "812498"
+      ],
+      "teamNames": [
+        "Fjellhammer 2"
+      ],
+      "jerseyNumber": 18,
+      "totalGoals": 13,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 5,
+      "goalsPerMatch": 2.6,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 42",
+          "goals": 4,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
       "playerId": "qlq90j",
       "playerName": "Eirik Waldemar Håland",
       "teamId": "428928",
@@ -16884,46 +16942,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
-        }
-      ]
-    },
-    {
-      "playerId": "h2c0uc",
-      "playerName": "Max Firooz Ahmadi Sveen",
-      "teamId": "812498",
-      "teamName": "Fjellhammer 2",
-      "teamIds": [
-        "812498"
-      ],
-      "teamNames": [
-        "Fjellhammer 2"
-      ],
-      "jerseyNumber": 14,
-      "totalGoals": 12,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 4,
-      "goalsPerMatch": 3,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 42",
-          "goals": 4,
-          "penaltyGoals": 1,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 8,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
         }
       ]
     },
@@ -18614,6 +18632,57 @@
       ]
     },
     {
+      "playerId": "trekxu",
+      "playerName": "Adam Holen Martinsen",
+      "teamId": "473135",
+      "teamName": "Haslum",
+      "teamIds": [
+        "506889",
+        "473135"
+      ],
+      "teamNames": [
+        "Haslum 2",
+        "Haslum"
+      ],
+      "jerseyNumber": 10,
+      "totalGoals": 10,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 7,
+      "goalsPerMatch": 1.43,
+      "byTournament": [
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
       "playerId": "bu1hnm",
       "playerName": "Adam Engen Arntzen",
       "teamId": "1010355",
@@ -19433,46 +19502,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
-        }
-      ]
-    },
-    {
-      "playerId": "trekxu",
-      "playerName": "Adam Holen Martinsen",
-      "teamId": "506889",
-      "teamName": "Haslum 2",
-      "teamIds": [
-        "506889"
-      ],
-      "teamNames": [
-        "Haslum 2"
-      ],
-      "jerseyNumber": 10,
-      "totalGoals": 9,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 6,
-      "goalsPerMatch": 1.5,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 3,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 3
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 6,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 3
         }
       ]
     },
@@ -29138,8 +29167,8 @@
     {
       "playerId": "wtr6g6",
       "playerName": "Alfred Holdhus Fjeldstad",
-      "teamId": "506889",
-      "teamName": "Haslum 2",
+      "teamId": "473135",
+      "teamName": "Haslum",
       "teamIds": [
         "473135",
         "506889",
@@ -29156,7 +29185,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 20,
+      "matchesPlayed": 21,
       "goalsPerMatch": 0.05,
       "byTournament": [
         {
@@ -29175,7 +29204,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
@@ -31419,8 +31448,8 @@
     {
       "playerId": "pacp6f",
       "playerName": "Marcus Otnes Florvik",
-      "teamId": "583470",
-      "teamName": "Fjellhammer 3",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
         "812498",
         "531500",
@@ -31437,7 +31466,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 14,
+      "matchesPlayed": 15,
       "goalsPerMatch": 0,
       "byTournament": [
         {
@@ -31483,7 +31512,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
@@ -31652,8 +31681,8 @@
     {
       "playerId": "u5zbw5",
       "playerName": "Viktors Karabeska",
-      "teamId": "531500",
-      "teamName": "Fjellhammer",
+      "teamId": "812498",
+      "teamName": "Fjellhammer 2",
       "teamIds": [
         "531500",
         "583470",
@@ -31670,7 +31699,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 12,
+      "matchesPlayed": 13,
       "goalsPerMatch": 0,
       "byTournament": [
         {
@@ -31698,7 +31727,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
@@ -32265,7 +32294,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 17,
+      "matchesPlayed": 18,
       "goalsPerMatch": 0,
       "byTournament": [
         {
@@ -32293,7 +32322,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 43",
@@ -36925,5 +36954,5 @@
       ]
     }
   ],
-  "generatedAt": "2026-02-23T21:16:24.274Z"
+  "generatedAt": "2026-02-24T21:10:18.867Z"
 }

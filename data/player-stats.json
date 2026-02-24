@@ -1447,7 +1447,7 @@
     {
       "id": "h2c0uc",
       "name": "Max Firooz Ahmadi Sveen",
-      "jerseyNumber": 14,
+      "jerseyNumber": 18,
       "teamIds": [
         "812498"
       ],
@@ -5089,10 +5089,12 @@
       "name": "Adam Holen Martinsen",
       "jerseyNumber": 10,
       "teamIds": [
-        "506889"
+        "506889",
+        "473135"
       ],
       "teamNames": [
-        "Haslum 2"
+        "Haslum 2",
+        "Haslum"
       ],
       "primaryTeamId": "506889",
       "primaryTeamName": "Haslum 2"
@@ -72829,9 +72831,286 @@
         }
       ],
       "scrapedAt": "2026-02-12T21:09:09.030Z"
+    },
+    {
+      "matchId": "420315026",
+      "matchDate": "24.02.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8263417",
+      "homeTeamId": "473135",
+      "homeTeamName": "Haslum",
+      "awayTeamId": "812498",
+      "awayTeamName": "Fjellhammer 2",
+      "homeScore": 29,
+      "awayScore": 28,
+      "tournament": "Mobile Regionscup G15",
+      "homeTeamStats": [
+        {
+          "playerId": "wtr6g6",
+          "playerName": "Alfred Holdhus Fjeldstad",
+          "jerseyNumber": 1,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "sod1k0",
+          "playerName": "Sigurd Ekroll Lundsrud",
+          "jerseyNumber": 2,
+          "goals": 2,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "p388dc",
+          "playerName": "Guttorm Søby",
+          "jerseyNumber": 3,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "m16mqr",
+          "playerName": "Magnus Espeland Lie",
+          "jerseyNumber": 6,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "47nwyg",
+          "playerName": "Jakob Strand Mylius",
+          "jerseyNumber": 7,
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "oznvlj",
+          "playerName": "Mathias Gunstad",
+          "jerseyNumber": 8,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "b79yha",
+          "playerName": "Markus Henschien Ruzzin",
+          "jerseyNumber": 9,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "trekxu",
+          "playerName": "Adam Holen Martinsen",
+          "jerseyNumber": 10,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "grpqt9",
+          "playerName": "Ludvig Marinius Welhaven",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "w20fxh",
+          "playerName": "Saxon Skjold Salmila",
+          "jerseyNumber": 15,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "3deu03",
+          "playerName": "Kristoffer Holmquist Karlsen",
+          "jerseyNumber": 20,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "g78e91",
+          "playerName": "Axel  Keim-kvalsund",
+          "jerseyNumber": 25,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "b845hw",
+          "playerName": "Casper Gulliksen",
+          "jerseyNumber": 31,
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "k4ldyu",
+          "playerName": "Henrik Haukedal",
+          "jerseyNumber": 32,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "rzjx6l",
+          "playerName": "Jacob Fjørtoft Hegland",
+          "jerseyNumber": 2,
+          "goals": 5,
+          "penaltyGoals": 2,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "w806r7",
+          "playerName": "Kristian Nysveen",
+          "jerseyNumber": 6,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "iqkq1w",
+          "playerName": "Tobias Vaarnes Jørgensen",
+          "jerseyNumber": 7,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "9dyenh",
+          "playerName": "Birk Fredriksen",
+          "jerseyNumber": 9,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "pacp6f",
+          "playerName": "Marcus Otnes Florvik",
+          "jerseyNumber": 10,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "jzgwyv",
+          "playerName": "Mio Revfem-Egeland",
+          "jerseyNumber": 11,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "u5zbw5",
+          "playerName": "Viktors Karabeska",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "9ficz8",
+          "playerName": "Kristian Seung-Jae Wolan Jacobsen",
+          "jerseyNumber": 13,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "54920x",
+          "playerName": "Karl Emil Skjennum Lisle",
+          "jerseyNumber": 14,
+          "goals": 3,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "h2c0uc",
+          "playerName": "Max Firooz Ahmadi Sveen",
+          "jerseyNumber": 18,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "da1w9l",
+          "playerName": "Eirik Tviberg Sandstad",
+          "jerseyNumber": 23,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "tybx34",
+          "playerName": "William Johannes Bingen",
+          "jerseyNumber": 25,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-02-24T21:10:18.807Z"
     }
   ],
-  "lastUpdated": "2026-02-12T21:09:09.047Z",
+  "lastUpdated": "2026-02-24T21:10:18.829Z",
   "matchesWithoutStats": [
     "43031508005",
     "43031503003",
