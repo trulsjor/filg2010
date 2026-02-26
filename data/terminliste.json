@@ -14,6 +14,21 @@
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
+    "Lag": "Fjellhammer G15 1",
+    "Dato": "",
+    "Kampnr": "41031506016",
+    "Hjemmelag": "Asker/ROS",
+    "Bortelag": "Fjellhammer",
+    "H-B": "-",
+    "Bane": "Vollen idrettshall",
+    "Arrangør": "Asker Skiklubb",
+    "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330563",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+  },
+  {
     "Lag": "Fjellhammer G16 3",
     "Dato": "",
     "Kampnr": "41031609018",
@@ -494,8 +509,9 @@
     "Kampnr": "420315028",
     "Hjemmelag": "Asker/ROS",
     "Bortelag": "Fjellhammer",
-    "H-B": "-",
+    "H-B": "34-17",
     "Bane": "ROS Arena",
+    "Tilskuere": 68,
     "Arrangør": "Asker Skiklubb",
     "Turnering": "Mobile Regionscup G15",
     "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263419",
@@ -566,22 +582,6 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=812498",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=1009730",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444101"
-  },
-  {
-    "Lag": "Fjellhammer G15 1",
-    "Dato": "08.03.2026",
-    "Tid": "18:30",
-    "Kampnr": "41031506016",
-    "Hjemmelag": "Asker/ROS",
-    "Bortelag": "Fjellhammer",
-    "H-B": "-",
-    "Bane": "Vollen idrettshall",
-    "Arrangør": "Asker Skiklubb",
-    "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330563",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
   },
   {
     "Lag": "Fjellhammer G15 1",

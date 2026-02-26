@@ -6,13 +6,13 @@
       {
         "position": 1,
         "team": "Sinsen-Refstad",
-        "played": 2,
-        "won": 2,
+        "played": 3,
+        "won": 3,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 54,
-        "goalsAgainst": 41,
-        "points": 4
+        "goalsFor": 81,
+        "goalsAgainst": 62,
+        "points": 6
       },
       {
         "position": 2,
@@ -39,12 +39,12 @@
       {
         "position": 4,
         "team": "Bækkelaget",
-        "played": 3,
+        "played": 4,
         "won": 1,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 75,
-        "goalsAgainst": 92,
+        "lost": 3,
+        "goalsFor": 96,
+        "goalsAgainst": 119,
         "points": 2
       },
       {
@@ -70,7 +70,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-02-25T21:09:25.292Z"
+    "updatedAt": "2026-02-26T21:09:42.298Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-25T21:09:25.336Z"
+    "updatedAt": "2026-02-26T21:09:41.781Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-25T21:09:25.240Z"
+    "updatedAt": "2026-02-26T21:09:35.385Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-25T21:09:31.284Z"
+    "updatedAt": "2026-02-26T21:09:47.931Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-25T21:09:32.203Z"
+    "updatedAt": "2026-02-26T21:09:54.177Z"
   }
 ]
