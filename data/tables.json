@@ -17,13 +17,13 @@
       {
         "position": 2,
         "team": "Haslum",
-        "played": 4,
-        "won": 2,
+        "played": 5,
+        "won": 3,
         "drawn": 0,
         "lost": 2,
-        "goalsFor": 100,
-        "goalsAgainst": 95,
-        "points": 4
+        "goalsFor": 130,
+        "goalsAgainst": 120,
+        "points": 6
       },
       {
         "position": 3,
@@ -61,16 +61,16 @@
       {
         "position": 6,
         "team": "Fjellhammer",
-        "played": 2,
+        "played": 3,
         "won": 1,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 56,
-        "goalsAgainst": 51,
+        "lost": 2,
+        "goalsFor": 81,
+        "goalsAgainst": 81,
         "points": 2
       }
     ],
-    "updatedAt": "2026-02-27T21:05:53.320Z"
+    "updatedAt": "2026-02-28T14:13:31.426Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-27T21:05:53.360Z"
+    "updatedAt": "2026-02-28T14:13:31.868Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-27T21:05:53.736Z"
+    "updatedAt": "2026-02-28T14:13:31.211Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-02-27T21:06:05.174Z"
+    "updatedAt": "2026-02-28T14:13:37.476Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -473,17 +473,28 @@
       },
       {
         "position": 7,
-        "team": "NIT-HAK/Ull/Kisa 3",
-        "played": 3,
-        "won": 0,
+        "team": "Gml Fredrikstad 2",
+        "played": 5,
+        "won": 1,
         "drawn": 0,
-        "lost": 3,
-        "goalsFor": 72,
-        "goalsAgainst": 81,
-        "points": 0
+        "lost": 4,
+        "goalsFor": 131,
+        "goalsAgainst": 157,
+        "points": 2
       },
       {
         "position": 8,
+        "team": "NIT-HAK/Ull/Kisa 3",
+        "played": 4,
+        "won": 0,
+        "drawn": 0,
+        "lost": 4,
+        "goalsFor": 97,
+        "goalsAgainst": 116,
+        "points": 0
+      },
+      {
+        "position": 9,
         "team": "INDRE 2",
         "played": 3,
         "won": 0,
@@ -492,19 +503,8 @@
         "goalsFor": 57,
         "goalsAgainst": 81,
         "points": 0
-      },
-      {
-        "position": 9,
-        "team": "Gml Fredrikstad 2",
-        "played": 4,
-        "won": 0,
-        "drawn": 0,
-        "lost": 4,
-        "goalsFor": 96,
-        "goalsAgainst": 132,
-        "points": 0
       }
     ],
-    "updatedAt": "2026-02-27T21:05:59.881Z"
+    "updatedAt": "2026-02-28T14:13:37.557Z"
   }
 ]
