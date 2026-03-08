@@ -70,7 +70,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-08T15:09:55.439Z"
+    "updatedAt": "2026-03-08T17:50:32.920Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-08T15:09:55.149Z"
+    "updatedAt": "2026-03-08T17:50:33.473Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -217,14 +217,14 @@
       },
       {
         "position": 3,
-        "team": "Oppegård 2",
+        "team": "Fjellhammer 2",
         "played": 5,
-        "won": 2,
+        "won": 3,
         "drawn": 1,
-        "lost": 2,
-        "goalsFor": 129,
-        "goalsAgainst": 136,
-        "points": 5
+        "lost": 1,
+        "goalsFor": 149,
+        "goalsAgainst": 130,
+        "points": 7
       },
       {
         "position": 4,
@@ -239,13 +239,13 @@
       },
       {
         "position": 5,
-        "team": "Fjellhammer 2",
-        "played": 4,
+        "team": "Oppegård 2",
+        "played": 5,
         "won": 2,
         "drawn": 1,
-        "lost": 1,
-        "goalsFor": 118,
-        "goalsAgainst": 110,
+        "lost": 2,
+        "goalsFor": 129,
+        "goalsAgainst": 136,
         "points": 5
       },
       {
@@ -262,12 +262,12 @@
       {
         "position": 7,
         "team": "Sinsen-Refstad Idrettslag 2",
-        "played": 4,
+        "played": 5,
         "won": 1,
         "drawn": 2,
-        "lost": 1,
-        "goalsFor": 94,
-        "goalsAgainst": 104,
+        "lost": 2,
+        "goalsFor": 114,
+        "goalsAgainst": 135,
         "points": 4
       },
       {
@@ -293,7 +293,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-08T15:09:55.338Z"
+    "updatedAt": "2026-03-08T17:50:33.473Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-08T15:10:01.830Z"
+    "updatedAt": "2026-03-08T17:50:39.583Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -441,12 +441,12 @@
       {
         "position": 4,
         "team": "Ull/Kisa/NIT-HAK 2",
-        "played": 5,
+        "played": 6,
         "won": 3,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 116,
-        "goalsAgainst": 127,
+        "lost": 3,
+        "goalsFor": 142,
+        "goalsAgainst": 155,
         "points": 6
       },
       {
@@ -484,6 +484,17 @@
       },
       {
         "position": 8,
+        "team": "INDRE 2",
+        "played": 5,
+        "won": 1,
+        "drawn": 0,
+        "lost": 4,
+        "goalsFor": 108,
+        "goalsAgainst": 139,
+        "points": 2
+      },
+      {
+        "position": 9,
         "team": "NIT-HAK/Ull/Kisa 3",
         "played": 4,
         "won": 0,
@@ -492,19 +503,8 @@
         "goalsFor": 97,
         "goalsAgainst": 116,
         "points": 0
-      },
-      {
-        "position": 9,
-        "team": "INDRE 2",
-        "played": 4,
-        "won": 0,
-        "drawn": 0,
-        "lost": 4,
-        "goalsFor": 80,
-        "goalsAgainst": 113,
-        "points": 0
       }
     ],
-    "updatedAt": "2026-03-08T15:10:02.464Z"
+    "updatedAt": "2026-03-08T17:50:39.903Z"
   }
 ]
