@@ -70,7 +70,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-09T21:07:28.020Z"
+    "updatedAt": "2026-03-10T21:07:19.393Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-09T21:07:27.616Z"
+    "updatedAt": "2026-03-10T21:07:19.813Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-09T21:07:27.550Z"
+    "updatedAt": "2026-03-10T21:07:19.294Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-09T21:07:34.232Z"
+    "updatedAt": "2026-03-10T21:07:33.426Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -407,6 +407,17 @@
     "rows": [
       {
         "position": 1,
+        "team": "Kolbotn 2",
+        "played": 6,
+        "won": 5,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 173,
+        "goalsAgainst": 127,
+        "points": 10
+      },
+      {
+        "position": 2,
         "team": "Njård",
         "played": 6,
         "won": 4,
@@ -417,7 +428,7 @@
         "points": 9
       },
       {
-        "position": 2,
+        "position": 3,
         "team": "Tistedal",
         "played": 5,
         "won": 4,
@@ -425,17 +436,6 @@
         "lost": 1,
         "goalsFor": 150,
         "goalsAgainst": 114,
-        "points": 8
-      },
-      {
-        "position": 3,
-        "team": "Kolbotn 2",
-        "played": 5,
-        "won": 4,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 142,
-        "goalsAgainst": 108,
         "points": 8
       },
       {
@@ -473,17 +473,6 @@
       },
       {
         "position": 7,
-        "team": "Gml Fredrikstad 2",
-        "played": 5,
-        "won": 1,
-        "drawn": 0,
-        "lost": 4,
-        "goalsFor": 131,
-        "goalsAgainst": 157,
-        "points": 2
-      },
-      {
-        "position": 8,
         "team": "INDRE 2",
         "played": 5,
         "won": 1,
@@ -491,6 +480,17 @@
         "lost": 4,
         "goalsFor": 108,
         "goalsAgainst": 139,
+        "points": 2
+      },
+      {
+        "position": 8,
+        "team": "Gml Fredrikstad 2",
+        "played": 6,
+        "won": 1,
+        "drawn": 0,
+        "lost": 5,
+        "goalsFor": 150,
+        "goalsAgainst": 188,
         "points": 2
       },
       {
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-09T21:07:34.299Z"
+    "updatedAt": "2026-03-10T21:07:31.830Z"
   }
 ]
