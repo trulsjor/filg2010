@@ -27,6 +27,17 @@
       },
       {
         "position": 3,
+        "team": "Asker/ROS",
+        "played": 5,
+        "won": 3,
+        "drawn": 0,
+        "lost": 2,
+        "goalsFor": 121,
+        "goalsAgainst": 128,
+        "points": 6
+      },
+      {
+        "position": 4,
         "team": "Kråkerøy",
         "played": 6,
         "won": 2,
@@ -34,17 +45,6 @@
         "lost": 4,
         "goalsFor": 152,
         "goalsAgainst": 155,
-        "points": 4
-      },
-      {
-        "position": 4,
-        "team": "Asker/ROS",
-        "played": 4,
-        "won": 2,
-        "drawn": 0,
-        "lost": 2,
-        "goalsFor": 93,
-        "goalsAgainst": 105,
         "points": 4
       },
       {
@@ -61,16 +61,16 @@
       {
         "position": 6,
         "team": "Fjellhammer",
-        "played": 3,
+        "played": 4,
         "won": 1,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 81,
-        "goalsAgainst": 81,
+        "lost": 3,
+        "goalsFor": 104,
+        "goalsAgainst": 109,
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-11T21:07:28.026Z"
+    "updatedAt": "2026-03-12T20:48:41.284Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-11T21:07:35.037Z"
+    "updatedAt": "2026-03-12T20:48:47.923Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-11T21:07:28.325Z"
+    "updatedAt": "2026-03-12T20:48:41.300Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-11T21:07:41.597Z"
+    "updatedAt": "2026-03-12T20:48:54.172Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-11T21:07:41.168Z"
+    "updatedAt": "2026-03-12T20:49:00.672Z"
   }
 ]
