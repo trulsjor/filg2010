@@ -70,7 +70,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-16T21:11:12.858Z"
+    "updatedAt": "2026-03-17T21:11:02.449Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-16T21:11:12.961Z"
+    "updatedAt": "2026-03-17T21:11:02.919Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-16T21:11:19.938Z"
+    "updatedAt": "2026-03-17T21:11:02.815Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-16T21:11:25.440Z"
+    "updatedAt": "2026-03-17T21:11:09.339Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -408,12 +408,12 @@
       {
         "position": 1,
         "team": "Kolbotn 2",
-        "played": 6,
+        "played": 7,
         "won": 5,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 173,
-        "goalsAgainst": 127,
+        "lost": 2,
+        "goalsFor": 192,
+        "goalsAgainst": 151,
         "points": 10
       },
       {
@@ -440,6 +440,17 @@
       },
       {
         "position": 4,
+        "team": "Fjellhammer 3",
+        "played": 5,
+        "won": 4,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 134,
+        "goalsAgainst": 116,
+        "points": 8
+      },
+      {
+        "position": 5,
         "team": "Tistedal",
         "played": 5,
         "won": 4,
@@ -448,17 +459,6 @@
         "goalsFor": 150,
         "goalsAgainst": 114,
         "points": 8
-      },
-      {
-        "position": 5,
-        "team": "Fjellhammer 3",
-        "played": 4,
-        "won": 3,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 110,
-        "goalsAgainst": 97,
-        "points": 6
       },
       {
         "position": 6,
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-16T21:11:27.872Z"
+    "updatedAt": "2026-03-17T21:11:09.112Z"
   }
 ]
