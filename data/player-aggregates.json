@@ -350,6 +350,57 @@
       ]
     },
     {
+      "playerId": "ck9rzy",
+      "playerName": "Mathias Borge-Hansen",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906",
+        "856952"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby",
+        "Drøbak/Nordby 2"
+      ],
+      "jerseyNumber": 45,
+      "totalGoals": 83,
+      "totalPenaltyGoals": 7,
+      "totalTwoMinutes": 1,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 16,
+      "goalsPerMatch": 5.19,
+      "byTournament": [
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 29,
+          "penaltyGoals": 1,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 5
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 47,
+          "penaltyGoals": 5,
+          "twoMinutes": 0,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 10
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 7,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
       "playerId": "g78e91",
       "playerName": "Axel  Keim-kvalsund",
       "teamId": "473135",
@@ -783,8 +834,8 @@
       ]
     },
     {
-      "playerId": "ck9rzy",
-      "playerName": "Mathias Borge-Hansen",
+      "playerId": "ouwp4x",
+      "playerName": "Mathias Burud",
       "teamId": "813906",
       "teamName": "Drøbak/Nordby",
       "teamIds": [
@@ -795,41 +846,32 @@
         "Drøbak/Nordby",
         "Drøbak/Nordby 2"
       ],
-      "jerseyNumber": 45,
+      "jerseyNumber": 5,
       "totalGoals": 78,
-      "totalPenaltyGoals": 7,
-      "totalTwoMinutes": 1,
-      "totalYellowCards": 1,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 3,
+      "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 15,
-      "goalsPerMatch": 5.2,
+      "matchesPlayed": 17,
+      "goalsPerMatch": 4.59,
       "byTournament": [
         {
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 24,
-          "penaltyGoals": 1,
-          "twoMinutes": 1,
+          "goals": 16,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 4
+          "matches": 6
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 47,
-          "penaltyGoals": 5,
-          "twoMinutes": 0,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 10
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 7,
+          "goals": 62,
           "penaltyGoals": 1,
-          "twoMinutes": 0,
+          "twoMinutes": 3,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 11
         }
       ]
     },
@@ -921,48 +963,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
-        }
-      ]
-    },
-    {
-      "playerId": "ouwp4x",
-      "playerName": "Mathias Burud",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906",
-        "856952"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby",
-        "Drøbak/Nordby 2"
-      ],
-      "jerseyNumber": 5,
-      "totalGoals": 76,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 3,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 16,
-      "goalsPerMatch": 4.75,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 14,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 5
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 62,
-          "penaltyGoals": 1,
-          "twoMinutes": 3,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 11
         }
       ]
     },
@@ -1098,6 +1098,124 @@
         {
           "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
           "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "a0e48f",
+      "playerName": "Leon Myhra Wiik",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "949866",
+        "1010355"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal",
+        "Bøler/Oppsal 2"
+      ],
+      "jerseyNumber": 2,
+      "totalGoals": 73,
+      "totalPenaltyGoals": 2,
+      "totalTwoMinutes": 5,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 13,
+      "goalsPerMatch": 5.62,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 23,
+          "penaltyGoals": 1,
+          "twoMinutes": 3,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 14,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 13,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - B1 Sluttspill",
+          "goals": 5,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 18,
+          "penaltyGoals": 1,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        }
+      ]
+    },
+    {
+      "playerId": "v6njjk",
+      "playerName": "Timian Leander Kvifte",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby"
+      ],
+      "jerseyNumber": 15,
+      "totalGoals": 72,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 2,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 16,
+      "goalsPerMatch": 4.5,
+      "byTournament": [
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 31,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 38,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 9
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 3,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
@@ -1980,55 +2098,6 @@
       ]
     },
     {
-      "playerId": "v6njjk",
-      "playerName": "Timian Leander Kvifte",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby"
-      ],
-      "jerseyNumber": 15,
-      "totalGoals": 64,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 2,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 15,
-      "goalsPerMatch": 4.27,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 23,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 5
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 38,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 9
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 3,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        }
-      ]
-    },
-    {
       "playerId": "60gqwx",
       "playerName": "Lucas Konglevoll Sundt",
       "teamId": "428829",
@@ -2227,75 +2296,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 7
-        }
-      ]
-    },
-    {
-      "playerId": "a0e48f",
-      "playerName": "Leon Myhra Wiik",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
-      "teamIds": [
-        "949866",
-        "1010355"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal",
-        "Bøler/Oppsal 2"
-      ],
-      "jerseyNumber": 2,
-      "totalGoals": 63,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 4,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 12,
-      "goalsPerMatch": 5.25,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 23,
-          "penaltyGoals": 1,
-          "twoMinutes": 3,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 6
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 14,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 13,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - B1 Sluttspill",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 8,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
         }
       ]
     },
@@ -3000,6 +3000,57 @@
       ]
     },
     {
+      "playerId": "f7woh9",
+      "playerName": "Theodor Söder Vegge",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906",
+        "856952"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby",
+        "Drøbak/Nordby 2"
+      ],
+      "jerseyNumber": 99,
+      "totalGoals": 58,
+      "totalPenaltyGoals": 3,
+      "totalTwoMinutes": 9,
+      "totalYellowCards": 2,
+      "totalRedCards": 0,
+      "matchesPlayed": 16,
+      "goalsPerMatch": 3.63,
+      "byTournament": [
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 25,
+          "penaltyGoals": 3,
+          "twoMinutes": 6,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 27,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 9
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
       "playerId": "16otyy",
       "playerName": "Matias Keiserås Kronberg",
       "teamId": "774268",
@@ -3577,8 +3628,8 @@
       ]
     },
     {
-      "playerId": "f7woh9",
-      "playerName": "Theodor Söder Vegge",
+      "playerId": "lhbucu",
+      "playerName": "Kristian Marthinsen",
       "teamId": "813906",
       "teamName": "Drøbak/Nordby",
       "teamIds": [
@@ -3589,38 +3640,38 @@
         "Drøbak/Nordby",
         "Drøbak/Nordby 2"
       ],
-      "jerseyNumber": 99,
+      "jerseyNumber": 41,
       "totalGoals": 54,
-      "totalPenaltyGoals": 2,
-      "totalTwoMinutes": 8,
-      "totalYellowCards": 2,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 1,
+      "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 15,
-      "goalsPerMatch": 3.6,
+      "matchesPlayed": 17,
+      "goalsPerMatch": 3.18,
       "byTournament": [
         {
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 21,
-          "penaltyGoals": 2,
-          "twoMinutes": 5,
-          "yellowCards": 1,
+          "goals": 14,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
           "redCards": 0,
           "matches": 5
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 27,
-          "penaltyGoals": 0,
-          "twoMinutes": 2,
-          "yellowCards": 1,
+          "goals": 35,
+          "penaltyGoals": 1,
+          "twoMinutes": 1,
+          "yellowCards": 0,
           "redCards": 0,
-          "matches": 9
+          "matches": 11
         },
         {
           "tournament": "Mobile Regionscup G15",
-          "goals": 6,
+          "goals": 5,
           "penaltyGoals": 0,
-          "twoMinutes": 1,
+          "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
@@ -3906,57 +3957,6 @@
       ]
     },
     {
-      "playerId": "lhbucu",
-      "playerName": "Kristian Marthinsen",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906",
-        "856952"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby",
-        "Drøbak/Nordby 2"
-      ],
-      "jerseyNumber": 41,
-      "totalGoals": 51,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 1,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 16,
-      "goalsPerMatch": 3.19,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 11,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 35,
-          "penaltyGoals": 1,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 11
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        }
-      ]
-    },
-    {
       "playerId": "j2vcm2",
       "playerName": "William Haugland Moreskine",
       "teamId": "497227",
@@ -4164,6 +4164,75 @@
           "yellowCards": 1,
           "redCards": 0,
           "matches": 5
+        }
+      ]
+    },
+    {
+      "playerId": "ib66se",
+      "playerName": "Simon Farstad-Hareide",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "949866",
+        "1010355"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal",
+        "Bøler/Oppsal 2"
+      ],
+      "jerseyNumber": 11,
+      "totalGoals": 50,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 3.33,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 17,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 11,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 17,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Gutter 15 Nivå 1 - B1 Sluttspill",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
         }
       ]
     },
@@ -4557,75 +4626,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 2
-        }
-      ]
-    },
-    {
-      "playerId": "ib66se",
-      "playerName": "Simon Farstad-Hareide",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
-      "teamIds": [
-        "949866",
-        "1010355"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal",
-        "Bøler/Oppsal 2"
-      ],
-      "jerseyNumber": 11,
-      "totalGoals": 48,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 3.43,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 17,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 6
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 9,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 17,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 3
-        },
-        {
-          "tournament": "Gutter 15 Nivå 1 - B1 Sluttspill",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
         }
       ]
     },
@@ -7479,6 +7479,57 @@
       ]
     },
     {
+      "playerId": "d5ex33",
+      "playerName": "Axel Østvik Lilleberg",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "949866",
+        "1010355"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal",
+        "Bøler/Oppsal 2"
+      ],
+      "jerseyNumber": 10,
+      "totalGoals": 35,
+      "totalPenaltyGoals": 2,
+      "totalTwoMinutes": 2,
+      "totalYellowCards": 0,
+      "totalRedCards": 1,
+      "matchesPlayed": 16,
+      "goalsPerMatch": 2.19,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 32",
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 11,
+          "penaltyGoals": 2,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 1,
+          "matches": 8
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 24,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 7
+        }
+      ]
+    },
+    {
       "playerId": "gazx33",
       "playerName": "Julius Kaasen Conradi",
       "teamId": "531471",
@@ -7526,6 +7577,48 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "tafhw4",
+      "playerName": "Emrian Brenna-Hansen",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906",
+        "856952"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby",
+        "Drøbak/Nordby 2"
+      ],
+      "jerseyNumber": 46,
+      "totalGoals": 35,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 1,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 14,
+      "goalsPerMatch": 2.5,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 21,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 10
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 14,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
         }
       ]
     },
@@ -8294,8 +8387,8 @@
       ]
     },
     {
-      "playerId": "tafhw4",
-      "playerName": "Emrian Brenna-Hansen",
+      "playerId": "4q96fb",
+      "playerName": "Jesper Sanden Vøyvik",
       "teamId": "813906",
       "teamName": "Drøbak/Nordby",
       "teamIds": [
@@ -8306,32 +8399,32 @@
         "Drøbak/Nordby",
         "Drøbak/Nordby 2"
       ],
-      "jerseyNumber": 46,
+      "jerseyNumber": 22,
       "totalGoals": 33,
       "totalPenaltyGoals": 0,
       "totalTwoMinutes": 1,
-      "totalYellowCards": 0,
+      "totalYellowCards": 1,
       "totalRedCards": 0,
-      "matchesPlayed": 13,
-      "goalsPerMatch": 2.54,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 2.2,
       "byTournament": [
         {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 21,
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 14,
           "penaltyGoals": 0,
           "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 10
+          "matches": 5
         },
         {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 12,
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 19,
           "penaltyGoals": 0,
           "twoMinutes": 0,
-          "yellowCards": 0,
+          "yellowCards": 1,
           "redCards": 0,
-          "matches": 3
+          "matches": 10
         }
       ]
     },
@@ -9098,48 +9191,6 @@
       ]
     },
     {
-      "playerId": "4q96fb",
-      "playerName": "Jesper Sanden Vøyvik",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906",
-        "856952"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby",
-        "Drøbak/Nordby 2"
-      ],
-      "jerseyNumber": 22,
-      "totalGoals": 31,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 1,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 2.21,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 12,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 4
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 19,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 10
-        }
-      ]
-    },
-    {
       "playerId": "kcvrg1",
       "playerName": "Martin Alexander Fredén",
       "teamId": "559332",
@@ -9227,57 +9278,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 4
-        }
-      ]
-    },
-    {
-      "playerId": "d5ex33",
-      "playerName": "Axel Østvik Lilleberg",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
-      "teamIds": [
-        "949866",
-        "1010355"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal",
-        "Bøler/Oppsal 2"
-      ],
-      "jerseyNumber": 10,
-      "totalGoals": 30,
-      "totalPenaltyGoals": 2,
-      "totalTwoMinutes": 2,
-      "totalYellowCards": 0,
-      "totalRedCards": 1,
-      "matchesPlayed": 15,
-      "goalsPerMatch": 2,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 32",
-          "goals": 0,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 11,
-          "penaltyGoals": 2,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 1,
-          "matches": 8
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 19,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 6
         }
       ]
     },
@@ -9662,6 +9662,48 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "vhk83i",
+      "playerName": "Tobias Wiik-Østbye",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906",
+        "856952"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby",
+        "Drøbak/Nordby 2"
+      ],
+      "jerseyNumber": 37,
+      "totalGoals": 29,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 1,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 10,
+      "goalsPerMatch": 2.9,
+      "byTournament": [
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 21,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 7
         }
       ]
     },
@@ -10750,48 +10792,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
-        }
-      ]
-    },
-    {
-      "playerId": "vhk83i",
-      "playerName": "Tobias Wiik-Østbye",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906",
-        "856952"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby",
-        "Drøbak/Nordby 2"
-      ],
-      "jerseyNumber": 37,
-      "totalGoals": 26,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 1,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 9,
-      "goalsPerMatch": 2.89,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 5,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 21,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 7
         }
       ]
     },
@@ -13196,6 +13196,57 @@
       ]
     },
     {
+      "playerId": "z0fyfe",
+      "playerName": "Fredrik Straith",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "1010355",
+        "1013415"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal 2",
+        "Bøler/Oppsal 3"
+      ],
+      "jerseyNumber": 16,
+      "totalGoals": 20,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 15,
+      "goalsPerMatch": 1.33,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 8
+        },
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 11,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        }
+      ]
+    },
+    {
       "playerId": "d00x5u",
       "playerName": "Gard Aleksander Falkung Nylænder",
       "teamId": "603092",
@@ -13292,6 +13343,57 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 3
+        }
+      ]
+    },
+    {
+      "playerId": "hqbwzt",
+      "playerName": "Mads Vindheim Johannessen",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906",
+        "856952"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby",
+        "Drøbak/Nordby 2"
+      ],
+      "jerseyNumber": 43,
+      "totalGoals": 20,
+      "totalPenaltyGoals": 1,
+      "totalTwoMinutes": 2,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 14,
+      "goalsPerMatch": 1.43,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 13,
+          "penaltyGoals": 1,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 9
+        },
+        {
+          "tournament": "Mobile Regionscup G15",
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 7,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 4
         }
       ]
     },
@@ -13945,57 +14047,6 @@
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
           "goals": 14,
           "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 5
-        }
-      ]
-    },
-    {
-      "playerId": "z0fyfe",
-      "playerName": "Fredrik Straith",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
-      "teamIds": [
-        "1010355",
-        "1013415"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal 2",
-        "Bøler/Oppsal 3"
-      ],
-      "jerseyNumber": 16,
-      "totalGoals": 19,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 14,
-      "goalsPerMatch": 1.36,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 8,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 8
-        },
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 10,
-          "penaltyGoals": 1,
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
@@ -15238,57 +15289,6 @@
       ]
     },
     {
-      "playerId": "hqbwzt",
-      "playerName": "Mads Vindheim Johannessen",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906",
-        "856952"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby",
-        "Drøbak/Nordby 2"
-      ],
-      "jerseyNumber": 43,
-      "totalGoals": 17,
-      "totalPenaltyGoals": 1,
-      "totalTwoMinutes": 2,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 13,
-      "goalsPerMatch": 1.31,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 13,
-          "penaltyGoals": 1,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 9
-        },
-        {
-          "tournament": "Mobile Regionscup G15",
-          "goals": 0,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 4,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 3
-        }
-      ]
-    },
-    {
       "playerId": "p1w03s",
       "playerName": "Max William Saxebøl Ottesen",
       "teamId": "583432",
@@ -16339,8 +16339,8 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 1,
       "totalRedCards": 0,
-      "matchesPlayed": 13,
-      "goalsPerMatch": 1.15,
+      "matchesPlayed": 14,
+      "goalsPerMatch": 1.07,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 43",
@@ -16367,7 +16367,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 4
+          "matches": 5
         }
       ]
     },
@@ -16858,6 +16858,46 @@
         {
           "tournament": "Mobile Regionscup G15",
           "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "464l59",
+      "playerName": "Jørgen Gerhard Frøiland Hem",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "1010355"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal 2"
+      ],
+      "jerseyNumber": 7,
+      "totalGoals": 14,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 1,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 7,
+      "goalsPerMatch": 2,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 13,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 1,
           "penaltyGoals": 0,
           "twoMinutes": 0,
           "yellowCards": 0,
@@ -17517,37 +17557,6 @@
       ]
     },
     {
-      "playerId": "464l59",
-      "playerName": "Jørgen Gerhard Frøiland Hem",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
-      "teamIds": [
-        "1010355"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal 2"
-      ],
-      "jerseyNumber": 7,
-      "totalGoals": 13,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 1,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 6,
-      "goalsPerMatch": 2.17,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 13,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 6
-        }
-      ]
-    },
-    {
       "playerId": "bcih70",
       "playerName": "Thomas Ottesen Fjellheim",
       "teamId": "1013536",
@@ -17595,8 +17604,8 @@
       "totalTwoMinutes": 1,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 12,
-      "goalsPerMatch": 1.08,
+      "matchesPlayed": 13,
+      "goalsPerMatch": 1,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 43",
@@ -17614,7 +17623,7 @@
           "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 5
+          "matches": 6
         }
       ]
     },
@@ -18838,6 +18847,48 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "epr32c",
+      "playerName": "Herman Hagebakken Klynderud",
+      "teamId": "813906",
+      "teamName": "Drøbak/Nordby",
+      "teamIds": [
+        "813906",
+        "856952"
+      ],
+      "teamNames": [
+        "Drøbak/Nordby",
+        "Drøbak/Nordby 2"
+      ],
+      "jerseyNumber": 38,
+      "totalGoals": 11,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 1,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 9,
+      "goalsPerMatch": 1.22,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 41",
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 6
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 8,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 3
         }
       ]
     },
@@ -20535,48 +20586,6 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 6
-        }
-      ]
-    },
-    {
-      "playerId": "epr32c",
-      "playerName": "Herman Hagebakken Klynderud",
-      "teamId": "813906",
-      "teamName": "Drøbak/Nordby",
-      "teamIds": [
-        "813906",
-        "856952"
-      ],
-      "teamNames": [
-        "Drøbak/Nordby",
-        "Drøbak/Nordby 2"
-      ],
-      "jerseyNumber": 38,
-      "totalGoals": 9,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 1,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 8,
-      "goalsPerMatch": 1.13,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 41",
-          "goals": 3,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 6
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 6,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 2
         }
       ]
     },
@@ -26412,8 +26421,8 @@
       "totalTwoMinutes": 1,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 13,
-      "goalsPerMatch": 0.23,
+      "matchesPlayed": 14,
+      "goalsPerMatch": 0.21,
       "byTournament": [
         {
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
@@ -26422,7 +26431,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 4
+          "matches": 5
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 41",
@@ -26736,6 +26745,46 @@
           "yellowCards": 0,
           "redCards": 0,
           "matches": 5
+        }
+      ]
+    },
+    {
+      "playerId": "yljrjp",
+      "playerName": "Markus Skumsrud Staum",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "1010355"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal 2"
+      ],
+      "jerseyNumber": 20,
+      "totalGoals": 3,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 0,
+      "totalYellowCards": 1,
+      "totalRedCards": 0,
+      "matchesPlayed": 7,
+      "goalsPerMatch": 0.43,
+      "byTournament": [
+        {
+          "tournament": "Regionserien Gutter 15 - avd 43",
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 4
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 1,
+          "redCards": 0,
+          "matches": 3
         }
       ]
     },
@@ -28183,8 +28232,8 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 6,
-      "goalsPerMatch": 0.33,
+      "matchesPlayed": 7,
+      "goalsPerMatch": 0.29,
       "byTournament": [
         {
           "tournament": "Regionserien Gutter 15 - avd 43",
@@ -28202,47 +28251,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 3
-        }
-      ]
-    },
-    {
-      "playerId": "yljrjp",
-      "playerName": "Markus Skumsrud Staum",
-      "teamId": "1010355",
-      "teamName": "Bøler/Oppsal 2",
-      "teamIds": [
-        "1010355"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal 2"
-      ],
-      "jerseyNumber": 20,
-      "totalGoals": 2,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 0,
-      "totalYellowCards": 1,
-      "totalRedCards": 0,
-      "matchesPlayed": 6,
-      "goalsPerMatch": 0.33,
-      "byTournament": [
-        {
-          "tournament": "Regionserien Gutter 15 - avd 43",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
           "matches": 4
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 0,
-          "yellowCards": 1,
-          "redCards": 0,
-          "matches": 2
         }
       ]
     },
@@ -28821,6 +28830,48 @@
         {
           "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
           "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 1
+        }
+      ]
+    },
+    {
+      "playerId": "fq97qu",
+      "playerName": "Jakob Sommer Andersen",
+      "teamId": "1010355",
+      "teamName": "Bøler/Oppsal 2",
+      "teamIds": [
+        "1010355",
+        "1013415"
+      ],
+      "teamNames": [
+        "Bøler/Oppsal 2",
+        "Bøler/Oppsal 3"
+      ],
+      "jerseyNumber": 28,
+      "totalGoals": 2,
+      "totalPenaltyGoals": 0,
+      "totalTwoMinutes": 3,
+      "totalYellowCards": 0,
+      "totalRedCards": 0,
+      "matchesPlayed": 3,
+      "goalsPerMatch": 0.67,
+      "byTournament": [
+        {
+          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0,
+          "matches": 2
+        },
+        {
+          "tournament": "Gutter 15 Nivå 2 - B1 Sluttspill",
+          "goals": 0,
           "penaltyGoals": 0,
           "twoMinutes": 1,
           "yellowCards": 0,
@@ -30180,7 +30231,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 16,
+      "matchesPlayed": 17,
       "goalsPerMatch": 0.06,
       "byTournament": [
         {
@@ -30190,7 +30241,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 5
+          "matches": 6
         },
         {
           "tournament": "Regionserien Gutter 15 - avd 41",
@@ -30966,48 +31017,6 @@
           "goals": 1,
           "penaltyGoals": 0,
           "twoMinutes": 0,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        }
-      ]
-    },
-    {
-      "playerId": "fq97qu",
-      "playerName": "Jakob Sommer Andersen",
-      "teamId": "1013415",
-      "teamName": "Bøler/Oppsal 3",
-      "teamIds": [
-        "1010355",
-        "1013415"
-      ],
-      "teamNames": [
-        "Bøler/Oppsal 2",
-        "Bøler/Oppsal 3"
-      ],
-      "jerseyNumber": 35,
-      "totalGoals": 1,
-      "totalPenaltyGoals": 0,
-      "totalTwoMinutes": 3,
-      "totalYellowCards": 0,
-      "totalRedCards": 0,
-      "matchesPlayed": 2,
-      "goalsPerMatch": 0.5,
-      "byTournament": [
-        {
-          "tournament": "Gutter 15 Nivå 2 - A Sluttspill",
-          "goals": 1,
-          "penaltyGoals": 0,
-          "twoMinutes": 2,
-          "yellowCards": 0,
-          "redCards": 0,
-          "matches": 1
-        },
-        {
-          "tournament": "Gutter 15 Nivå 2 - B1 Sluttspill",
-          "goals": 0,
-          "penaltyGoals": 0,
-          "twoMinutes": 1,
           "yellowCards": 0,
           "redCards": 0,
           "matches": 1
@@ -32769,7 +32778,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 14,
+      "matchesPlayed": 15,
       "goalsPerMatch": 0,
       "byTournament": [
         {
@@ -32815,7 +32824,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 1
+          "matches": 2
         }
       ]
     },
@@ -34185,7 +34194,7 @@
       "totalTwoMinutes": 0,
       "totalYellowCards": 0,
       "totalRedCards": 0,
-      "matchesPlayed": 12,
+      "matchesPlayed": 13,
       "goalsPerMatch": 0,
       "byTournament": [
         {
@@ -34204,7 +34213,7 @@
           "twoMinutes": 0,
           "yellowCards": 0,
           "redCards": 0,
-          "matches": 4
+          "matches": 5
         }
       ]
     },
@@ -37642,5 +37651,5 @@
       ]
     }
   ],
-  "generatedAt": "2026-03-19T21:10:15.457Z"
+  "generatedAt": "2026-03-20T21:07:58.700Z"
 }
