@@ -5,25 +5,25 @@
     "rows": [
       {
         "position": 1,
-        "team": "Sinsen-Refstad",
-        "played": 6,
+        "team": "Haslum",
+        "played": 8,
         "won": 6,
         "drawn": 0,
-        "lost": 0,
-        "goalsFor": 175,
-        "goalsAgainst": 137,
+        "lost": 2,
+        "goalsFor": 213,
+        "goalsAgainst": 193,
         "points": 12
       },
       {
         "position": 2,
-        "team": "Haslum",
+        "team": "Sinsen-Refstad",
         "played": 7,
-        "won": 5,
+        "won": 6,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 189,
-        "goalsAgainst": 176,
-        "points": 10
+        "lost": 1,
+        "goalsFor": 192,
+        "goalsAgainst": 161,
+        "points": 12
       },
       {
         "position": 3,
@@ -70,7 +70,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-20T21:06:54.868Z"
+    "updatedAt": "2026-03-21T21:05:01.038Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-20T21:06:49.921Z"
+    "updatedAt": "2026-03-21T21:05:00.621Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -228,6 +228,17 @@
       },
       {
         "position": 4,
+        "team": "Oppegård 2",
+        "played": 7,
+        "won": 3,
+        "drawn": 1,
+        "lost": 3,
+        "goalsFor": 193,
+        "goalsAgainst": 189,
+        "points": 7
+      },
+      {
+        "position": 5,
         "team": "Sinsen-Refstad Idrettslag 2",
         "played": 6,
         "won": 2,
@@ -238,25 +249,14 @@
         "points": 6
       },
       {
-        "position": 5,
-        "team": "Nordstrand\n (D)",
-        "played": 7,
-        "won": 2,
-        "drawn": 1,
-        "lost": 4,
-        "goalsFor": 178,
-        "goalsAgainst": 195,
-        "points": 5
-      },
-      {
         "position": 6,
-        "team": "Oppegård 2",
-        "played": 6,
+        "team": "Nordstrand\n (D)",
+        "played": 8,
         "won": 2,
         "drawn": 1,
-        "lost": 3,
-        "goalsFor": 157,
-        "goalsAgainst": 165,
+        "lost": 5,
+        "goalsFor": 202,
+        "goalsAgainst": 231,
         "points": 5
       },
       {
@@ -293,7 +293,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-20T21:06:49.982Z"
+    "updatedAt": "2026-03-21T21:05:01.077Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-20T21:07:00.591Z"
+    "updatedAt": "2026-03-21T21:05:07.167Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -407,6 +407,17 @@
     "rows": [
       {
         "position": 1,
+        "team": "Tistedal",
+        "played": 6,
+        "won": 5,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 189,
+        "goalsAgainst": 146,
+        "points": 10
+      },
+      {
+        "position": 2,
         "team": "Kolbotn 2",
         "played": 7,
         "won": 5,
@@ -417,18 +428,18 @@
         "points": 10
       },
       {
-        "position": 2,
+        "position": 3,
         "team": "Njård",
-        "played": 6,
+        "played": 7,
         "won": 4,
         "drawn": 1,
-        "lost": 1,
-        "goalsFor": 150,
-        "goalsAgainst": 140,
+        "lost": 2,
+        "goalsFor": 182,
+        "goalsAgainst": 179,
         "points": 9
       },
       {
-        "position": 3,
+        "position": 4,
         "team": "Ull/Kisa/NIT-HAK 2",
         "played": 7,
         "won": 4,
@@ -439,7 +450,7 @@
         "points": 8
       },
       {
-        "position": 4,
+        "position": 5,
         "team": "Fjellhammer 3",
         "played": 5,
         "won": 4,
@@ -447,17 +458,6 @@
         "lost": 1,
         "goalsFor": 134,
         "goalsAgainst": 116,
-        "points": 8
-      },
-      {
-        "position": 5,
-        "team": "Tistedal",
-        "played": 5,
-        "won": 4,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 150,
-        "goalsAgainst": 114,
         "points": 8
       },
       {
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-20T21:07:00.416Z"
+    "updatedAt": "2026-03-21T21:05:07.402Z"
   }
 ]
