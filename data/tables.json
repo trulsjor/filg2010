@@ -28,13 +28,13 @@
       {
         "position": 3,
         "team": "Asker/ROS",
-        "played": 6,
-        "won": 3,
+        "played": 7,
+        "won": 4,
         "drawn": 0,
         "lost": 3,
-        "goalsFor": 150,
-        "goalsAgainst": 158,
-        "points": 6
+        "goalsFor": 179,
+        "goalsAgainst": 181,
+        "points": 8
       },
       {
         "position": 4,
@@ -50,12 +50,12 @@
       {
         "position": 5,
         "team": "Kråkerøy",
-        "played": 7,
+        "played": 8,
         "won": 2,
         "drawn": 0,
-        "lost": 5,
-        "goalsFor": 180,
-        "goalsAgainst": 186,
+        "lost": 6,
+        "goalsFor": 203,
+        "goalsAgainst": 215,
         "points": 4
       },
       {
@@ -70,7 +70,7 @@
         "points": 3
       }
     ],
-    "updatedAt": "2026-03-22T13:09:55.404Z"
+    "updatedAt": "2026-03-22T21:05:10.632Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-22T13:10:02.806Z"
+    "updatedAt": "2026-03-22T21:05:17.114Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -240,12 +240,12 @@
       {
         "position": 5,
         "team": "Sinsen-Refstad Idrettslag 2",
-        "played": 6,
+        "played": 7,
         "won": 2,
         "drawn": 2,
-        "lost": 2,
-        "goalsFor": 143,
-        "goalsAgainst": 163,
+        "lost": 3,
+        "goalsFor": 156,
+        "goalsAgainst": 186,
         "points": 6
       },
       {
@@ -272,6 +272,17 @@
       },
       {
         "position": 8,
+        "team": "Kjelsås 2",
+        "played": 7,
+        "won": 2,
+        "drawn": 0,
+        "lost": 5,
+        "goalsFor": 159,
+        "goalsAgainst": 166,
+        "points": 4
+      },
+      {
+        "position": 9,
         "team": "Korsvoll 2",
         "played": 7,
         "won": 2,
@@ -280,20 +291,9 @@
         "goalsFor": 182,
         "goalsAgainst": 202,
         "points": 4
-      },
-      {
-        "position": 9,
-        "team": "Kjelsås 2",
-        "played": 6,
-        "won": 1,
-        "drawn": 0,
-        "lost": 5,
-        "goalsFor": 136,
-        "goalsAgainst": 153,
-        "points": 2
       }
     ],
-    "updatedAt": "2026-03-22T13:10:02.841Z"
+    "updatedAt": "2026-03-22T21:05:10.900Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-22T13:10:09.369Z"
+    "updatedAt": "2026-03-22T21:05:23.114Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -463,48 +463,48 @@
       {
         "position": 6,
         "team": "Ski 2",
-        "played": 7,
-        "won": 2,
+        "played": 8,
+        "won": 3,
         "drawn": 1,
         "lost": 4,
-        "goalsFor": 182,
-        "goalsAgainst": 188,
-        "points": 5
+        "goalsFor": 213,
+        "goalsAgainst": 214,
+        "points": 7
       },
       {
         "position": 7,
         "team": "INDRE 2",
-        "played": 5,
-        "won": 1,
+        "played": 6,
+        "won": 2,
         "drawn": 0,
         "lost": 4,
-        "goalsFor": 108,
-        "goalsAgainst": 139,
-        "points": 2
+        "goalsFor": 139,
+        "goalsAgainst": 164,
+        "points": 4
       },
       {
         "position": 8,
         "team": "Gml Fredrikstad 2",
-        "played": 6,
+        "played": 7,
         "won": 1,
         "drawn": 0,
-        "lost": 5,
-        "goalsFor": 150,
-        "goalsAgainst": 188,
+        "lost": 6,
+        "goalsFor": 175,
+        "goalsAgainst": 219,
         "points": 2
       },
       {
         "position": 9,
         "team": "NIT-HAK/Ull/Kisa 3",
-        "played": 4,
+        "played": 5,
         "won": 0,
         "drawn": 0,
-        "lost": 4,
-        "goalsFor": 97,
-        "goalsAgainst": 116,
+        "lost": 5,
+        "goalsFor": 123,
+        "goalsAgainst": 147,
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-22T13:10:09.076Z"
+    "updatedAt": "2026-03-22T21:05:30.730Z"
   }
 ]
