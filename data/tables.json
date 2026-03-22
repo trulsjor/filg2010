@@ -38,6 +38,17 @@
       },
       {
         "position": 4,
+        "team": "Bækkelaget",
+        "played": 8,
+        "won": 2,
+        "drawn": 1,
+        "lost": 5,
+        "goalsFor": 205,
+        "goalsAgainst": 233,
+        "points": 5
+      },
+      {
+        "position": 5,
         "team": "Kråkerøy",
         "played": 7,
         "won": 2,
@@ -48,29 +59,18 @@
         "points": 4
       },
       {
-        "position": 5,
-        "team": "Bækkelaget",
-        "played": 7,
-        "won": 2,
-        "drawn": 0,
-        "lost": 5,
-        "goalsFor": 178,
-        "goalsAgainst": 206,
-        "points": 4
-      },
-      {
         "position": 6,
         "team": "Fjellhammer",
-        "played": 5,
+        "played": 6,
         "won": 1,
-        "drawn": 0,
+        "drawn": 1,
         "lost": 4,
-        "goalsFor": 135,
-        "goalsAgainst": 144,
-        "points": 2
+        "goalsFor": 162,
+        "goalsAgainst": 171,
+        "points": 3
       }
     ],
-    "updatedAt": "2026-03-21T21:05:01.038Z"
+    "updatedAt": "2026-03-22T13:09:55.404Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-21T21:05:00.621Z"
+    "updatedAt": "2026-03-22T13:10:02.806Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -206,24 +206,24 @@
       },
       {
         "position": 2,
-        "team": "Fjellhammer 2",
+        "team": "Haslum 2",
         "played": 6,
-        "won": 4,
+        "won": 5,
         "drawn": 1,
-        "lost": 1,
-        "goalsFor": 181,
-        "goalsAgainst": 150,
-        "points": 9
+        "lost": 0,
+        "goalsFor": 160,
+        "goalsAgainst": 139,
+        "points": 11
       },
       {
         "position": 3,
-        "team": "Haslum 2",
-        "played": 5,
+        "team": "Fjellhammer 2",
+        "played": 7,
         "won": 4,
         "drawn": 1,
-        "lost": 0,
-        "goalsFor": 133,
-        "goalsAgainst": 114,
+        "lost": 2,
+        "goalsFor": 206,
+        "goalsAgainst": 177,
         "points": 9
       },
       {
@@ -293,7 +293,7 @@
         "points": 2
       }
     ],
-    "updatedAt": "2026-03-21T21:05:01.077Z"
+    "updatedAt": "2026-03-22T13:10:02.841Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-21T21:05:07.167Z"
+    "updatedAt": "2026-03-22T13:10:09.369Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,6 +505,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-21T21:05:07.402Z"
+    "updatedAt": "2026-03-22T13:10:09.076Z"
   }
 ]
