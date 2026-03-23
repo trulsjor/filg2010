@@ -1,14 +1,12 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import type { Config, Match, Metadata } from '../types/index.js'
+import type { LeagueTable } from './handball-scraper.js'
 import type { PlayerStatsData } from '../types/player-stats.js'
 import type { UpdateSummary } from '../update/update-summary.js'
 import { parseMatchIndexFile, type MatchIndex } from '../update/match-parsing.js'
 import { PlayerStatsService } from './PlayerStatsAggregator.js'
 
-/**
- * Service for file operations
- */
 export class FileService {
   private readonly dataDir: string
   private readonly configPath: string
@@ -18,18 +16,12 @@ export class FileService {
     this.configPath = path.join(baseDir, 'config.json')
   }
 
-  /**
-   * Ensures data directory exists
-   */
   ensureDataDirectory(): void {
     if (!fs.existsSync(this.dataDir)) {
       fs.mkdirSync(this.dataDir, { recursive: true })
     }
   }
 
-  /**
-   * Loads config file
-   */
   loadConfig(): Config {
     try {
       const content = fs.readFileSync(this.configPath, 'utf-8')
@@ -39,9 +31,6 @@ export class FileService {
     }
   }
 
-  /**
-   * Saves matches to JSON file
-   */
   saveMatches(matches: Match[]): void {
     const filePath = path.join(this.dataDir, 'terminliste.json')
     try {
@@ -51,9 +40,6 @@ export class FileService {
     }
   }
 
-  /**
-   * Saves metadata to JSON file
-   */
   saveMetadata(metadata: Metadata): void {
     const filePath = path.join(this.dataDir, 'metadata.json')
     try {
@@ -63,16 +49,10 @@ export class FileService {
     }
   }
 
-  /**
-   * Gets the full path to the matches JSON file
-   */
   getMatchesPath(): string {
     return path.join(this.dataDir, 'terminliste.json')
   }
 
-  /**
-   * Loads matches from JSON file
-   */
   loadMatches(): Match[] {
     const filePath = path.join(this.dataDir, 'terminliste.json')
     try {
@@ -83,9 +63,6 @@ export class FileService {
     }
   }
 
-  /**
-   * Loads metadata from JSON file
-   */
   loadMetadata(): Metadata {
     const filePath = path.join(this.dataDir, 'metadata.json')
     try {
@@ -152,6 +129,21 @@ export class FileService {
       return {}
     }
     return {}
+  }
+
+  loadTables(): LeagueTable[] {
+    const filePath = path.join(this.dataDir, 'tables.json')
+    if (!fs.existsSync(filePath)) return []
+    try {
+      return JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+    } catch {
+      return []
+    }
+  }
+
+  saveTables(tables: LeagueTable[]): void {
+    const filePath = path.join(this.dataDir, 'tables.json')
+    fs.writeFileSync(filePath, JSON.stringify(tables, null, 2), 'utf-8')
   }
 
   saveMatchIndex(index: MatchIndex): void {

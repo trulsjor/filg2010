@@ -71,6 +71,12 @@ export function TabellPage() {
       )
       if (matchingTeam) {
         grouped[matchingTeam.name].push(table)
+        return
+      }
+
+      const matchingCup = typedConfig.cups?.find((cup) => table.tournamentName.startsWith(cup.name))
+      if (matchingCup) {
+        grouped[matchingCup.teamTag].push(table)
       }
     })
 

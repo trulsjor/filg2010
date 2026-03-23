@@ -10,8 +10,22 @@ export interface Team {
   color: string
 }
 
+export interface CupConfig {
+  name: string
+  source: 'profixio'
+  tournamentSlug: string
+  categoryId: string
+  groupId: string
+  groupName: string
+  playoffIds: number[]
+  teamName: string
+  teamTag: string
+  color: string
+}
+
 export interface Config {
   teams: Team[]
+  cups?: CupConfig[]
 }
 
 export interface RawMatchData {

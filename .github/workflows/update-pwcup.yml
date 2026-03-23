@@ -1,0 +1,30 @@
+name: Oppdater PW Cup
+
+on:
+  schedule:
+    # Hvert 15. minutt 27-29. mars 2026 (turneringsdager)
+    - cron: '*/15 * 27-29 3 *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: Oppdater PW Cup data
+        run: npm run update-pwcup
+
+      - name: Commit and deploy
+        uses: ./.github/actions/commit-and-deploy
+        with:
+          commit_message: "🏆 Oppdater PW Cup data"
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

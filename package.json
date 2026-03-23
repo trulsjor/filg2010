@@ -25,6 +25,7 @@
     "fetch-player-stats": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/fetchPlayerStats.js",
     "fetch-player-stats:quick": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/fetchPlayerStats.js --quick",
     "generate-player-aggregates": "npx tsx src/scripts/generatePlayerAggregates.ts",
+    "update-pwcup": "npx tsx src/scripts/updatePWCup.ts",
     "prepare": "husky"
   },
   "lint-staged": {

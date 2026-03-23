@@ -18,5 +18,19 @@
       "seasonId": "201060",
       "color": "#9B0098FF"
     }
+  ],
+  "cups": [
+    {
+      "name": "Peter Wessel Cup 2026",
+      "source": "profixio",
+      "tournamentSlug": "pwcup_2026",
+      "categoryId": "1179353",
+      "groupId": "3400161",
+      "groupName": "Gruppe G",
+      "playoffIds": [1, 2],
+      "teamName": "Fjellhammer IL",
+      "teamTag": "Fjellhammer G15 1",
+      "color": "#fbbf24"
+    }
   ]
 }
