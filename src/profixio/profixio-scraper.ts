@@ -27,6 +27,7 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
     const hm = xDataStr.match(/homegoals:\\s*'([^']*)'/);
     const am = xDataStr.match(/awaygoals:\\s*'([^']*)'/);
     const hr = xDataStr.match(/hasResult:\\s*(true|false)/);
+    const tsMatch = xDataStr.match(/timestamp:\\s*(\\d+)/);
     const homegoals = hm ? hm[1] : '';
     const awaygoals = am ? am[1] : '';
     const hasResult = hr ? hr[1] === 'true' : false;
@@ -47,13 +48,19 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
     }
 
     let date = '';
+    if (tsMatch) {
+      const ts = parseInt(tsMatch[1], 10) * 1000;
+      const cetOffset = 60 * 60 * 1000;
+      const cetDate = new Date(ts + cetOffset);
+      const months = ['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
+      date = cetDate.getUTCDate() + '. ' + months[cetDate.getUTCMonth()];
+    }
+
     let time = '';
     const allDivs = li.querySelectorAll('div');
     for (const d of allDivs) {
       const t = (d.textContent || '').trim();
-      if (!date && /^\\d+\\.\\s*(jan|feb|mar|apr|mai|jun|jul|aug|sep|okt|nov|des)$/i.test(t)) { date = t; }
-      if (!time && /^\\d{2}:\\d{2}$/.test(t)) { time = t; }
-      if (date && time) break;
+      if (/^\\d{2}:\\d{2}$/.test(t)) { time = t; break; }
     }
 
     const teamDivs = li.querySelectorAll('.leading-5');
@@ -141,18 +148,7 @@ export class ProfixioScraper {
 
   private async navigateAndWait(page: Page, url: string): Promise<void> {
     await page.goto(url, { waitUntil: 'networkidle' })
-    await page
-      .waitForFunction(
-        () => {
-          const li = document.querySelector('li[wire\\:key^="listkamp_"]')
-          if (!li) return false
-          const dateDiv = li.querySelector('.text-center.text-xs.flex.flex-col')
-          if (!dateDiv) return false
-          return dateDiv.querySelectorAll(':scope > div').length >= 2
-        },
-        { timeout: 10000 }
-      )
-      .catch(() => {})
+    await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
   }
 
   private async extractMatches(page: Page, year: number): Promise<ProfixioMatchData[]> {
@@ -175,23 +171,10 @@ export class ProfixioScraper {
     try {
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
-      const debug = await page.evaluate(() => {
-        const li = document.querySelector('li[wire\\:key^="listkamp_"]')
-        if (!li) return { error: 'no li found' }
-        return {
-          liHTML: li.innerHTML.substring(0, 3000),
-          hasTable: !!document.querySelector('table'),
-          h3Texts: Array.from(document.querySelectorAll('h3')).map((h) => h.textContent?.trim()),
-        }
-      })
-      console.log('  DEBUG:', JSON.stringify(debug))
       const year = new Date().getFullYear()
       const matches = await this.extractMatches(page, year)
       const table = await this.extractTable(page)
       console.log(`  Fant ${matches.length} kamper, ${table.length} rader i tabell`)
-      if (matches.length > 0) {
-        console.log('  Første kamp:', JSON.stringify(matches[0]))
-      }
       return { matches, table }
     } finally {
       await page.close()
