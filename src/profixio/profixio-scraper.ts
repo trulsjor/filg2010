@@ -136,7 +136,7 @@ export class ProfixioScraper {
   }
 
   private async navigateAndWait(page: Page, url: string): Promise<void> {
-    await page.goto(url, { waitUntil: 'domcontentloaded' })
+    await page.goto(url, { waitUntil: 'networkidle' })
     await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
   }
 
