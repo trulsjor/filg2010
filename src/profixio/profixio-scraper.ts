@@ -46,11 +46,15 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
       }
     }
 
-    const dateDivs = li.querySelector('.text-center.text-xs.flex.flex-col');
-    const dateChildren = dateDivs ? dateDivs.querySelectorAll(':scope > div') : [];
-    const dateTexts = Array.from(dateChildren).map(d => (d.textContent || '').trim());
-    const date = dateTexts.length >= 2 ? dateTexts[dateTexts.length - 2] : '';
-    const time = dateTexts.length >= 1 ? dateTexts[dateTexts.length - 1] : '';
+    let date = '';
+    let time = '';
+    const allDivs = li.querySelectorAll('div');
+    for (const d of allDivs) {
+      const t = (d.textContent || '').trim();
+      if (!date && /^\\d+\\.\\s*(jan|feb|mar|apr|mai|jun|jul|aug|sep|okt|nov|des)$/i.test(t)) { date = t; }
+      if (!time && /^\\d{2}:\\d{2}$/.test(t)) { time = t; }
+      if (date && time) break;
+    }
 
     const teamDivs = li.querySelectorAll('.leading-5');
     const homeTeam = teamDivs[0] ? (teamDivs[0].textContent || '').trim() : '';
@@ -171,10 +175,23 @@ export class ProfixioScraper {
     try {
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
+      const debug = await page.evaluate(() => {
+        const li = document.querySelector('li[wire\\:key^="listkamp_"]')
+        if (!li) return { error: 'no li found' }
+        return {
+          liHTML: li.innerHTML.substring(0, 3000),
+          hasTable: !!document.querySelector('table'),
+          h3Texts: Array.from(document.querySelectorAll('h3')).map((h) => h.textContent?.trim()),
+        }
+      })
+      console.log('  DEBUG:', JSON.stringify(debug))
       const year = new Date().getFullYear()
       const matches = await this.extractMatches(page, year)
       const table = await this.extractTable(page)
       console.log(`  Fant ${matches.length} kamper, ${table.length} rader i tabell`)
+      if (matches.length > 0) {
+        console.log('  Første kamp:', JSON.stringify(matches[0]))
+      }
       return { matches, table }
     } finally {
       await page.close()
