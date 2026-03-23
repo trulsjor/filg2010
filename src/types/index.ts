@@ -12,7 +12,7 @@ export interface Team {
 
 export interface CupConfig {
   name: string
-  source: 'profixio'
+  source: string
   tournamentSlug: string
   categoryId: string
   groupId: string
