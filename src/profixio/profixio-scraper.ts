@@ -137,7 +137,18 @@ export class ProfixioScraper {
 
   private async navigateAndWait(page: Page, url: string): Promise<void> {
     await page.goto(url, { waitUntil: 'networkidle' })
-    await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
+    await page
+      .waitForFunction(
+        () => {
+          const li = document.querySelector('li[wire\\:key^="listkamp_"]')
+          if (!li) return false
+          const dateDiv = li.querySelector('.text-center.text-xs.flex.flex-col')
+          if (!dateDiv) return false
+          return dateDiv.querySelectorAll(':scope > div').length >= 2
+        },
+        { timeout: 10000 }
+      )
+      .catch(() => {})
   }
 
   private async extractMatches(page: Page, year: number): Promise<ProfixioMatchData[]> {
