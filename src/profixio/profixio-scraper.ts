@@ -160,6 +160,7 @@ export class ProfixioScraper {
     try {
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
+      await page.waitForSelector('h3', { timeout: 5000 }).catch(() => {})
       const year = new Date().getFullYear()
       const matches = await this.extractMatches(page, year)
       const table = await this.extractTable(page)
