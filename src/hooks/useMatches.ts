@@ -61,10 +61,11 @@ export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
 
   const nextMatch = useMemo(() => {
     const now = getNow()
+    const MATCH_DURATION_MS = 60 * 60 * 1000
     return (
       matches.find((match) => {
         const matchDate = parseMatchDate(match)
-        return matchDate && matchDate >= now
+        return matchDate && matchDate.getTime() + MATCH_DURATION_MS >= now.getTime()
       }) ?? null
     )
   }, [matches, getNow])

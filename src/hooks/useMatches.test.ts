@@ -50,7 +50,6 @@ describe('useMatches', () => {
   })
 
   it('returns the next upcoming match', async () => {
-    // Mock current date to be between the two matches
     const now = new Date('2025-01-20T12:00:00')
 
     const { result } = renderHook(() => useMatches(mockMatches, { now: () => now }))
@@ -61,10 +60,30 @@ describe('useMatches', () => {
     })
   })
 
+  it('treats a match in progress as the next match', async () => {
+    const now = new Date('2025-01-22T19:30:00')
+
+    const { result } = renderHook(() => useMatches(mockMatches, { now: () => now }))
+
+    await waitFor(() => {
+      expect(result.current.nextMatch).not.toBeNull()
+      expect(result.current.nextMatch?.Kampnr).toBe('12346')
+    })
+  })
+
+  it('does not treat a finished match as the next match', async () => {
+    const now = new Date('2025-01-22T20:30:00')
+
+    const { result } = renderHook(() => useMatches(mockMatches, { now: () => now }))
+
+    await waitFor(() => {
+      expect(result.current.nextMatch).toBeNull()
+    })
+  })
+
   it('filters matches by location (home/away)', async () => {
     const { result } = renderHook(() => useMatches(mockMatches))
 
-    // Filter for home matches (Fjellhammer is home team)
     act(() => {
       result.current.setFilters({ location: 'home' })
     })
@@ -78,7 +97,6 @@ describe('useMatches', () => {
   it('filters matches by status (played/upcoming)', async () => {
     const { result } = renderHook(() => useMatches(mockMatches))
 
-    // Filter for played matches (has H-B result)
     act(() => {
       result.current.setFilters({ status: 'played' })
     })
@@ -113,7 +131,6 @@ describe('useMatches', () => {
 
     const { result } = renderHook(() => useMatches(multiTeamMatches))
 
-    // Set filter to "Fjellhammer 2"
     act(() => {
       result.current.setFilters({ team: 'Fjellhammer 2' })
     })
