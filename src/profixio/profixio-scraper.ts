@@ -158,7 +158,22 @@ export class ProfixioScraper {
     const buffer = fs.readFileSync(filePath)
     const workbook = XLSX.read(buffer, { type: 'buffer', cellDates: true })
     const sheet = workbook.Sheets[workbook.SheetNames[0]]
-    return XLSX.utils.sheet_to_json<ProfixioExcelRow>(sheet)
+    const rawRows = XLSX.utils.sheet_to_json<(string | number | Date | null)[]>(sheet, {
+      header: 1,
+    })
+    if (rawRows.length < 2) return []
+    return rawRows.slice(1).map((r) => ({
+      Kampnr: Number(r[0]),
+      Dag: String(r[1] || ''),
+      Dato: r[2] instanceof Date ? r[2] : String(r[2] || ''),
+      Tid: String(r[3] || ''),
+      League: String(r[4] || ''),
+      Hometeam: String(r[5] || ''),
+      Resultat: r[6] != null ? String(r[6]) : null,
+      Awayteam: String(r[7] || ''),
+      Venue: String(r[8] || ''),
+      'Match name': r[9] != null ? String(r[9]) : null,
+    }))
   }
 
   async scrapeGroupPage(
