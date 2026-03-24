@@ -20,7 +20,7 @@ export interface ProfixioTableRow {
 interface ProfixioExcelRow {
   Kampnr: number
   Dag: string
-  Dato: string
+  Dato: string | Date
   Tid: string
   League: string
   Hometeam: string
@@ -34,9 +34,17 @@ const BASE_URL = 'https://www.profixio.com/app'
 
 const MONTHS = ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des']
 
+function parseExcelDate(value: string | Date): { year: number; dateStr: string } {
+  const d = value instanceof Date ? value : new Date(value)
+  if (isNaN(d.getTime())) return { year: 0, dateStr: '' }
+  return {
+    year: d.getUTCFullYear(),
+    dateStr: `${d.getUTCDate()}. ${MONTHS[d.getUTCMonth()]}`,
+  }
+}
+
 function excelRowToMatchData(row: ProfixioExcelRow, tournamentSlug: string): ProfixioMatchData {
-  const [year, month, day] = String(row.Dato).split('-').map(Number)
-  const dateStr = `${day}. ${MONTHS[month - 1]}`
+  const { year, dateStr } = parseExcelDate(row.Dato)
 
   const resultMatch = row.Resultat?.match(/(\d+)\s*-\s*(\d+)/)
   const hasResult = resultMatch != null
@@ -148,7 +156,7 @@ export class ProfixioScraper {
     const filePath = await download.path()
     if (!filePath) throw new Error('Excel-nedlasting feilet: ingen filsti')
     const buffer = fs.readFileSync(filePath)
-    const workbook = XLSX.read(buffer, { type: 'buffer' })
+    const workbook = XLSX.read(buffer, { type: 'buffer', cellDates: true })
     const sheet = workbook.Sheets[workbook.SheetNames[0]]
     return XLSX.utils.sheet_to_json<ProfixioExcelRow>(sheet)
   }
