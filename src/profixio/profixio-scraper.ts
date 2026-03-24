@@ -89,47 +89,27 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
 
 const EXTRACT_TABLE_SCRIPT = `() => {
   const table = document.querySelector('table');
-  if (table) {
-    const rows = table.querySelectorAll('tbody tr');
-    const result = [];
-    for (const row of rows) {
-      const cells = row.querySelectorAll('td');
-      if (cells.length < 9) continue;
-      const goalsMatch = ((cells[6].textContent || '').trim()).match(/(\\d+)\\s*-\\s*(\\d+)/);
-      result.push({
-        position: parseInt((cells[0].textContent || '').trim() || '0', 10),
-        team: (cells[1].querySelector('a')?.textContent || '').trim(),
-        played: parseInt((cells[2].textContent || '').trim() || '0', 10),
-        won: parseInt((cells[3].textContent || '').trim() || '0', 10),
-        drawn: parseInt((cells[4].textContent || '').trim() || '0', 10),
-        lost: parseInt((cells[5].textContent || '').trim() || '0', 10),
-        goalsFor: goalsMatch ? parseInt(goalsMatch[1], 10) : 0,
-        goalsAgainst: goalsMatch ? parseInt(goalsMatch[2], 10) : 0,
-        goalDifference: parseInt((cells[7].textContent || '').trim() || '0', 10),
-        points: parseInt((cells[8].textContent || '').trim() || '0', 10),
-      });
-    }
-    return result;
+  if (!table) return [];
+  const rows = table.querySelectorAll('tbody tr');
+  const result = [];
+  for (const row of rows) {
+    const cells = row.querySelectorAll('td');
+    if (cells.length < 9) continue;
+    const goalsMatch = ((cells[6].textContent || '').trim()).match(/(\\d+)\\s*-\\s*(\\d+)/);
+    result.push({
+      position: parseInt((cells[0].textContent || '').trim() || '0', 10),
+      team: (cells[1].querySelector('a')?.textContent || '').trim(),
+      played: parseInt((cells[2].textContent || '').trim() || '0', 10),
+      won: parseInt((cells[3].textContent || '').trim() || '0', 10),
+      drawn: parseInt((cells[4].textContent || '').trim() || '0', 10),
+      lost: parseInt((cells[5].textContent || '').trim() || '0', 10),
+      goalsFor: goalsMatch ? parseInt(goalsMatch[1], 10) : 0,
+      goalsAgainst: goalsMatch ? parseInt(goalsMatch[2], 10) : 0,
+      goalDifference: parseInt((cells[7].textContent || '').trim() || '0', 10),
+      points: parseInt((cells[8].textContent || '').trim() || '0', 10),
+    });
   }
-
-  const headings = document.querySelectorAll('h3');
-  let teamList = null;
-  for (const h of headings) {
-    const t = (h.textContent || '').trim();
-    if (t === 'Lag' || t === 'Teams') {
-      teamList = h.nextElementSibling;
-      break;
-    }
-  }
-  if (!teamList) return [];
-
-  const links = teamList.querySelectorAll('a');
-  return Array.from(links).map((link, i) => ({
-    position: i + 1,
-    team: (link.textContent || '').trim(),
-    played: 0, won: 0, drawn: 0, lost: 0,
-    goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0,
-  }));
+  return result;
 }`
 
 export function deriveTableFromMatches(matches: ProfixioMatchData[]): ProfixioTableRow[] {
@@ -237,8 +217,9 @@ export class ProfixioScraper {
       await this.navigateAndWait(page, url)
       const year = new Date().getFullYear()
       const matches = await this.extractMatches(page, year)
-      const table = await this.extractTable(page)
-      console.log(`  Fant ${matches.length} kamper, ${table.length} rader i tabell`)
+      const domTable = await this.extractTable(page)
+      const table = domTable.length > 0 ? domTable : deriveTableFromMatches(matches)
+      console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
       return { matches, table }
     } finally {
       await page.close()

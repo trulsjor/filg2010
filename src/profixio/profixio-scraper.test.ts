@@ -124,4 +124,111 @@ describe('deriveTableFromMatches', () => {
     expect(table[0].team).toBe('Lag A')
     expect(table[0].points).toBe(3)
   })
+
+  it('matches Profixio table for PW Cup 2025 G15 Gruppe A', () => {
+    const matches = [
+      makeMatch({
+        matchId: '32085357',
+        matchNumber: '223',
+        homeTeam: 'Ranheim IL',
+        awayTeam: 'Kolbotn IL',
+        homeGoals: '15',
+        awayGoals: '15',
+        hasResult: true,
+      }),
+      makeMatch({
+        matchId: '32085358',
+        matchNumber: '205',
+        homeTeam: 'Viking HK 1',
+        awayTeam: 'Kjelsås IL',
+        homeGoals: '21',
+        awayGoals: '12',
+        hasResult: true,
+      }),
+      makeMatch({
+        matchId: '32085359',
+        matchNumber: '151',
+        homeTeam: 'Kolbotn IL',
+        awayTeam: 'Viking HK 1',
+        homeGoals: '25',
+        awayGoals: '15',
+        hasResult: true,
+      }),
+      makeMatch({
+        matchId: '32085360',
+        matchNumber: '133',
+        homeTeam: 'Ranheim IL',
+        awayTeam: 'Kjelsås IL',
+        homeGoals: '18',
+        awayGoals: '14',
+        hasResult: true,
+      }),
+      makeMatch({
+        matchId: '32085356',
+        matchNumber: '79',
+        homeTeam: 'Viking HK 1',
+        awayTeam: 'Ranheim IL',
+        homeGoals: '20',
+        awayGoals: '17',
+        hasResult: true,
+      }),
+      makeMatch({
+        matchId: '32085355',
+        matchNumber: '61',
+        homeTeam: 'Kjelsås IL',
+        awayTeam: 'Kolbotn IL',
+        homeGoals: '11',
+        awayGoals: '18',
+        hasResult: true,
+      }),
+    ]
+
+    const table = deriveTableFromMatches(matches)
+
+    expect(table).toHaveLength(4)
+
+    const kolbotn = table.find((r) => r.team === 'Kolbotn IL')!
+    expect(kolbotn.position).toBe(1)
+    expect(kolbotn.played).toBe(3)
+    expect(kolbotn.won).toBe(2)
+    expect(kolbotn.drawn).toBe(1)
+    expect(kolbotn.lost).toBe(0)
+    expect(kolbotn.goalsFor).toBe(58)
+    expect(kolbotn.goalsAgainst).toBe(41)
+    expect(kolbotn.goalDifference).toBe(17)
+    expect(kolbotn.points).toBe(5)
+
+    const viking = table.find((r) => r.team === 'Viking HK 1')!
+    expect(viking.position).toBe(2)
+    expect(viking.played).toBe(3)
+    expect(viking.won).toBe(2)
+    expect(viking.drawn).toBe(0)
+    expect(viking.lost).toBe(1)
+    expect(viking.goalsFor).toBe(56)
+    expect(viking.goalsAgainst).toBe(54)
+    expect(viking.goalDifference).toBe(2)
+    expect(viking.points).toBe(4)
+
+    const ranheim = table.find((r) => r.team === 'Ranheim IL')!
+    expect(ranheim.position).toBe(3)
+    expect(ranheim.played).toBe(3)
+    expect(ranheim.won).toBe(1)
+    expect(ranheim.drawn).toBe(1)
+    expect(ranheim.lost).toBe(1)
+    expect(ranheim.goalsFor).toBe(50)
+    expect(ranheim.goalsAgainst).toBe(49)
+    expect(ranheim.goalDifference).toBe(1)
+    expect(ranheim.points).toBe(3)
+
+    const kjelsas = table.find((r) => r.team === 'Kjelsås IL')!
+    expect(kjelsas.position).toBe(4)
+    expect(kjelsas.played).toBe(3)
+    expect(kjelsas.won).toBe(0)
+    expect(kjelsas.drawn).toBe(0)
+    expect(kjelsas.lost).toBe(3)
+    expect(kjelsas.goalsFor).toBe(37)
+    expect(kjelsas.goalsAgainst).toBe(57)
+    expect(kjelsas.goalDifference).toBe(-20)
+    expect(kjelsas.points).toBe(0)
+  })
 })
