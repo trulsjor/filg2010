@@ -1,5 +1,3 @@
-import * as fs from 'fs'
-import * as XLSX from 'xlsx'
 import { chromium, type Browser, type Page } from 'playwright'
 import type { CupConfig } from '../types/index.js'
 import type { ProfixioMatchData } from './profixio-parser.js'
@@ -17,58 +15,122 @@ export interface ProfixioTableRow {
   points: number
 }
 
-interface ProfixioExcelRow {
-  Kampnr: number
-  Dag: string
-  Dato: string | Date
-  Tid: string
-  League: string
-  Hometeam: string
-  Resultat: string | null
-  Awayteam: string
-  Venue: string
-  'Match name': string | null
-}
-
 const BASE_URL = 'https://www.profixio.com/app'
 
-const MONTHS = ['jan', 'feb', 'mar', 'apr', 'mai', 'jun', 'jul', 'aug', 'sep', 'okt', 'nov', 'des']
+const EXTRACT_MATCHES_SCRIPT = `(year) => {
+  const items = document.querySelectorAll('li[wire\\\\:key^="listkamp_"]');
+  const matches = [];
+  for (const li of items) {
+    const xDataEl = li.querySelector('[x-data]');
+    if (!xDataEl) continue;
+    const xDataStr = xDataEl.getAttribute('x-data') || '';
+    const hm = xDataStr.match(/homegoals:\\s*'([^']*)'/);
+    const am = xDataStr.match(/awaygoals:\\s*'([^']*)'/);
+    const hr = xDataStr.match(/hasResult:\\s*(true|false)/);
+    const tsMatch = xDataStr.match(/timestamp:\\s*(\\d+)/);
+    const homegoals = hm ? hm[1] : '';
+    const awaygoals = am ? am[1] : '';
+    const hasResult = hr ? hr[1] === 'true' : false;
 
-function parseExcelDate(value: string | Date): { year: number; dateStr: string } {
-  const d = value instanceof Date ? value : new Date(value)
-  if (isNaN(d.getTime())) return { year: 0, dateStr: '' }
-  return {
-    year: d.getUTCFullYear(),
-    dateStr: `${d.getUTCDate()}. ${MONTHS[d.getUTCMonth()]}`,
+    const wireKey = li.getAttribute('wire:key') || '';
+    const matchId = wireKey.replace('listkamp_', '');
+    if (!matchId) continue;
+    const hrefEl = li.querySelector('[href*="/match/"]');
+    const matchUrl = hrefEl ? hrefEl.getAttribute('href') : '';
+    if (!matchUrl) continue;
+
+    const textXsDivs = li.querySelectorAll('.text-xs');
+    let matchNumber = '';
+    for (const div of textXsDivs) {
+      const text = (div.textContent || '').trim();
+      if (/^\\d+$/.test(text) && !div.classList.contains('text-right') && !div.classList.contains('font-bold')) {
+        matchNumber = text;
+        break;
+      }
+    }
+
+    let date = '';
+    if (tsMatch) {
+      const ts = parseInt(tsMatch[1], 10) * 1000;
+      const cetOffset = 60 * 60 * 1000;
+      const cetDate = new Date(ts + cetOffset);
+      const months = ['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
+      date = cetDate.getUTCDate() + '. ' + months[cetDate.getUTCMonth()];
+    }
+
+    let time = '';
+    const allDivs = li.querySelectorAll('div');
+    for (const d of allDivs) {
+      const t = (d.textContent || '').trim();
+      if (/^\\d{2}:\\d{2}$/.test(t)) { time = t; break; }
+    }
+
+    const teamDivs = li.querySelectorAll('.leading-5');
+    const homeTeam = teamDivs[0] ? (teamDivs[0].textContent || '').trim() : '';
+    const awayTeam = teamDivs[1] ? (teamDivs[1].textContent || '').trim() : '';
+
+    let venue = '';
+    let facility = '';
+    if (!hasResult) {
+      const rightDivs = li.querySelectorAll('.text-right');
+      const venueTexts = Array.from(rightDivs).map(d => (d.textContent || '').trim()).filter(Boolean);
+      venue = venueTexts[0] || '';
+      facility = venueTexts[1] || '';
+    }
+
+    matches.push({
+      matchId, matchNumber, date, time, year,
+      homeTeam, awayTeam, homeGoals: homegoals, awayGoals: awaygoals,
+      hasResult, venue, facility, matchUrl: matchUrl || '',
+    });
   }
-}
+  return matches;
+}`
 
-function excelRowToMatchData(row: ProfixioExcelRow, tournamentSlug: string): ProfixioMatchData {
-  const { year, dateStr } = parseExcelDate(row.Dato)
-
-  const resultMatch = row.Resultat?.match(/(\d+)\s*-\s*(\d+)/)
-  const hasResult = resultMatch != null
-
-  const venueParts = (row.Venue || '').split(' ')
-  const facility = venueParts[0] || ''
-  const venue = venueParts.slice(1).join(' ') || ''
-
-  return {
-    matchId: String(row.Kampnr),
-    matchNumber: String(row.Kampnr),
-    date: dateStr,
-    time: String(row.Tid),
-    year,
-    homeTeam: row.Hometeam,
-    awayTeam: row.Awayteam,
-    homeGoals: resultMatch ? resultMatch[1] : '',
-    awayGoals: resultMatch ? resultMatch[2] : '',
-    hasResult,
-    venue,
-    facility,
-    matchUrl: `${BASE_URL}/${tournamentSlug}/match/${row.Kampnr}`,
+const EXTRACT_TABLE_SCRIPT = `() => {
+  const table = document.querySelector('table');
+  if (table) {
+    const rows = table.querySelectorAll('tbody tr');
+    const result = [];
+    for (const row of rows) {
+      const cells = row.querySelectorAll('td');
+      if (cells.length < 9) continue;
+      const goalsMatch = ((cells[6].textContent || '').trim()).match(/(\\d+)\\s*-\\s*(\\d+)/);
+      result.push({
+        position: parseInt((cells[0].textContent || '').trim() || '0', 10),
+        team: (cells[1].querySelector('a')?.textContent || '').trim(),
+        played: parseInt((cells[2].textContent || '').trim() || '0', 10),
+        won: parseInt((cells[3].textContent || '').trim() || '0', 10),
+        drawn: parseInt((cells[4].textContent || '').trim() || '0', 10),
+        lost: parseInt((cells[5].textContent || '').trim() || '0', 10),
+        goalsFor: goalsMatch ? parseInt(goalsMatch[1], 10) : 0,
+        goalsAgainst: goalsMatch ? parseInt(goalsMatch[2], 10) : 0,
+        goalDifference: parseInt((cells[7].textContent || '').trim() || '0', 10),
+        points: parseInt((cells[8].textContent || '').trim() || '0', 10),
+      });
+    }
+    return result;
   }
-}
+
+  const headings = document.querySelectorAll('h3');
+  let teamList = null;
+  for (const h of headings) {
+    const t = (h.textContent || '').trim();
+    if (t === 'Lag' || t === 'Teams') {
+      teamList = h.nextElementSibling;
+      break;
+    }
+  }
+  if (!teamList) return [];
+
+  const links = teamList.querySelectorAll('a');
+  return Array.from(links).map((link, i) => ({
+    position: i + 1,
+    team: (link.textContent || '').trim(),
+    played: 0, won: 0, drawn: 0, lost: 0,
+    goalsFor: 0, goalsAgainst: 0, goalDifference: 0, points: 0,
+  }));
+}`
 
 export function deriveTableFromMatches(matches: ProfixioMatchData[]): ProfixioTableRow[] {
   const stats = new Map<string, ProfixioTableRow>()
@@ -147,70 +209,62 @@ export class ProfixioScraper {
     }
   }
 
-  private async downloadExcel(page: Page, url: string): Promise<ProfixioExcelRow[]> {
+  private async navigateAndWait(page: Page, url: string): Promise<void> {
     await page.goto(url, { waitUntil: 'networkidle' })
-    await page.waitForSelector('[data-cy="excelexport"]', { timeout: 10000 })
-    const downloadPromise = page.waitForEvent('download')
-    await page.click('[data-cy="excelexport"]')
-    const download = await downloadPromise
-    const filePath = await download.path()
-    if (!filePath) throw new Error('Excel-nedlasting feilet: ingen filsti')
-    const buffer = fs.readFileSync(filePath)
-    const workbook = XLSX.read(buffer, { type: 'buffer', cellDates: true })
-    const sheet = workbook.Sheets[workbook.SheetNames[0]]
-    const rawRows = XLSX.utils.sheet_to_json<(string | number | Date | null)[]>(sheet, {
-      header: 1,
-    })
-    if (rawRows.length < 2) return []
-    return rawRows.slice(1).map((r) => ({
-      Kampnr: Number(r[0]),
-      Dag: String(r[1] || ''),
-      Dato: r[2] instanceof Date ? r[2] : String(r[2] || ''),
-      Tid: String(r[3] || ''),
-      League: String(r[4] || ''),
-      Hometeam: String(r[5] || ''),
-      Resultat: r[6] != null ? String(r[6]) : null,
-      Awayteam: String(r[7] || ''),
-      Venue: String(r[8] || ''),
-      'Match name': r[9] != null ? String(r[9]) : null,
-    }))
+    await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
+  }
+
+  private async extractMatches(page: Page, year: number): Promise<ProfixioMatchData[]> {
+    const fn = new Function('return ' + EXTRACT_MATCHES_SCRIPT)()
+    return page.evaluate(fn, year)
+  }
+
+  private async extractTable(page: Page): Promise<ProfixioTableRow[]> {
+    const fn = new Function('return ' + EXTRACT_TABLE_SCRIPT)()
+    return page.evaluate(fn)
   }
 
   async scrapeGroupPage(
     cupConfig: CupConfig
   ): Promise<{ matches: ProfixioMatchData[]; table: ProfixioTableRow[] }> {
     const browser = await this.getBrowser()
-    const page = await browser.newPage()
+    const context = await browser.newContext({ locale: 'nb-NO' })
+    const page = await context.newPage()
     const url = `${BASE_URL}/${cupConfig.tournamentSlug}/category/${cupConfig.categoryId}/group/${cupConfig.groupId}`
 
     try {
       console.log(`  Henter gruppe: ${url}`)
-      const excelRows = await this.downloadExcel(page, url)
-      const matches = excelRows.map((r) => excelRowToMatchData(r, cupConfig.tournamentSlug))
-      const table = deriveTableFromMatches(matches)
-      console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
+      await this.navigateAndWait(page, url)
+      const year = new Date().getFullYear()
+      const matches = await this.extractMatches(page, year)
+      const table = await this.extractTable(page)
+      console.log(`  Fant ${matches.length} kamper, ${table.length} rader i tabell`)
       return { matches, table }
     } finally {
       await page.close()
+      await context.close()
     }
   }
 
   async scrapePlayoffPages(cupConfig: CupConfig): Promise<ProfixioMatchData[]> {
     const browser = await this.getBrowser()
+    const year = new Date().getFullYear()
     const results: ProfixioMatchData[][] = []
 
     for (const playoffId of cupConfig.playoffIds) {
-      const page = await browser.newPage()
+      const context = await browser.newContext({ locale: 'nb-NO' })
+      const page = await context.newPage()
       const url = `${BASE_URL}/${cupConfig.tournamentSlug}/category/${cupConfig.categoryId}/playoff/${playoffId}`
 
       try {
         console.log(`  Henter sluttspill ${playoffId}: ${url}`)
-        const excelRows = await this.downloadExcel(page, url)
-        const matches = excelRows.map((r) => excelRowToMatchData(r, cupConfig.tournamentSlug))
+        await this.navigateAndWait(page, url)
+        const matches = await this.extractMatches(page, year)
         console.log(`  Fant ${matches.length} kamper i sluttspill ${playoffId}`)
         results.push(matches)
       } finally {
         await page.close()
+        await context.close()
       }
     }
 

@@ -513,17 +513,6 @@
     "rows": [
       {
         "position": 1,
-        "team": "Vikhammer HK",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "points": 0
-      },
-      {
-        "position": 2,
         "team": "Bjarg, IL",
         "played": 0,
         "won": 0,
@@ -534,7 +523,7 @@
         "points": 0
       },
       {
-        "position": 3,
+        "position": 2,
         "team": "Fjellhammer IL",
         "played": 0,
         "won": 0,
@@ -545,8 +534,19 @@
         "points": 0
       },
       {
-        "position": 4,
+        "position": 3,
         "team": "Herkules Håndball",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "points": 0
+      },
+      {
+        "position": 4,
+        "team": "Vikhammer HK",
         "played": 0,
         "won": 0,
         "drawn": 0,
@@ -567,6 +567,6 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-03-24T08:31:12.572Z"
+    "updatedAt": "2026-03-24T09:22:18.403Z"
   }
 ]
