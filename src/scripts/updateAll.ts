@@ -1,6 +1,6 @@
 import type { Team, Match, RawMatchData, Metadata, MatchLink } from '../types/index.js'
 import type { PlayerStatsData } from '../types/player-stats.js'
-import { HandballScraper } from '../handball/handball-scraper.js'
+import { HandballScraper, type LeagueTable } from '../handball/handball-scraper.js'
 import { HandballApiService } from '../handball/handball-api.service.js'
 import { FileService } from '../handball/file.service.js'
 import { ResultScraperService } from '../handball/result-scraper.service.js'
@@ -227,7 +227,15 @@ export async function refreshHandballData(): Promise<void> {
 
     const summary = createEmptySummary()
 
-    fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
+    const existingTables: LeagueTable[] = fs.existsSync(TABLES_PATH)
+      ? JSON.parse(fs.readFileSync(TABLES_PATH, 'utf-8'))
+      : []
+    const cupTables = existingTables.filter((t) => t.tournamentUrl?.includes('profixio.com'))
+    fs.writeFileSync(
+      TABLES_PATH,
+      JSON.stringify([...scrapingResult.tables, ...cupTables], null, 2),
+      'utf-8'
+    )
 
     console.log('\n[2/4] Henter spilte kamper fra turneringene...')
 
@@ -311,7 +319,10 @@ export async function refreshHandballData(): Promise<void> {
       console.log(`  Alle kamper har resultater`)
     }
 
-    fileService.saveMatches(sortedMatches)
+    const existingMatchesForCup = fileService
+      .loadMatches()
+      .filter((m) => m.Kampnr.startsWith('pwcup-'))
+    fileService.saveMatches(sortMatchesByDate([...sortedMatches, ...existingMatchesForCup]))
 
     const metadata: Metadata = {
       lastUpdated: new Date().toISOString(),

@@ -9,7 +9,7 @@
  */
 
 import type { Team, Match, RawMatchData, Metadata } from '../types/index.js'
-import { HandballScraper } from '../handball/handball-scraper.js'
+import { HandballScraper, type LeagueTable } from '../handball/handball-scraper.js'
 import { HandballApiService } from '../handball/handball-api.service.js'
 import { FileService } from '../handball/file.service.js'
 import { sortMatchesByDate } from '../match/match-sorting.js'
@@ -95,7 +95,10 @@ export async function refresh(): Promise<void> {
     // Step 3: Save everything
     console.log('\nStep 3: Saving data...')
 
-    const sortedMatches = sortMatchesByDate(allMatches)
+    const existingCupMatches = fileService
+      .loadMatches()
+      .filter((m) => m.Kampnr.startsWith('pwcup-'))
+    const sortedMatches = sortMatchesByDate([...allMatches, ...existingCupMatches])
     fileService.saveMatches(sortedMatches)
     console.log(`  ✓ ${sortedMatches.length} matches saved`)
 
@@ -107,8 +110,15 @@ export async function refresh(): Promise<void> {
     fileService.saveMetadata(metadata)
     console.log(`  ✓ Metadata saved`)
 
-    // Save tables
-    fs.writeFileSync(TABLES_PATH, JSON.stringify(scrapingResult.tables, null, 2), 'utf-8')
+    const existingTables: LeagueTable[] = fs.existsSync(TABLES_PATH)
+      ? JSON.parse(fs.readFileSync(TABLES_PATH, 'utf-8'))
+      : []
+    const cupTables = existingTables.filter((t) => t.tournamentUrl?.includes('profixio.com'))
+    fs.writeFileSync(
+      TABLES_PATH,
+      JSON.stringify([...scrapingResult.tables, ...cupTables], null, 2),
+      'utf-8'
+    )
     console.log(`  ✓ ${scrapingResult.tables.length} tables saved`)
 
     const elapsed = ((Date.now() - startTime) / 1000).toFixed(1)
