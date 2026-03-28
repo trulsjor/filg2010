@@ -723,11 +723,25 @@
     "Kampnr": "pwcup-350",
     "Hjemmelag": "Fjellhammer IL",
     "Bortelag": "Vikhammer HK",
+    "H-B": "15-9",
+    "Bane": "",
+    "Arrangør": "Peter Wessel Cup",
+    "Turnering": "Peter Wessel Cup 2026",
+    "Kamp URL": "https://www.profixio.com/app/pwcup_2026/match/32583271",
+    "Turnering URL": "https://www.profixio.com/app/pwcup_2026"
+  },
+  {
+    "Lag": "Fjellhammer G15 1",
+    "Dato": "29.03.2026",
+    "Tid": "08:40",
+    "Kampnr": "pwcup-387",
+    "Hjemmelag": "Fjellhammer IL",
+    "Bortelag": "Strindheim_Rapp_Freidig",
     "H-B": "-",
     "Bane": "Runar 1, Runarhallen",
     "Arrangør": "Peter Wessel Cup",
     "Turnering": "Peter Wessel Cup 2026",
-    "Kamp URL": "https://www.profixio.com/app/pwcup_2026/match/32583271",
+    "Kamp URL": "https://www.profixio.com/app/pwcup_2026/match/32583277",
     "Turnering URL": "https://www.profixio.com/app/pwcup_2026"
   },
   {
