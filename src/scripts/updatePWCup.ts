@@ -29,6 +29,14 @@ export async function updatePWCup(): Promise<void> {
       const playoffMatches = await scraper.scrapePlayoffPages(cupConfig)
 
       const allMatches = [...groupMatches, ...playoffMatches]
+
+      console.log(`\n  Alle gruppekamper:`)
+      for (const m of groupMatches) {
+        console.log(
+          `    #${m.matchNumber}: ${m.homeTeam} vs ${m.awayTeam} ${m.hasResult ? m.homeGoals + '-' + m.awayGoals : '(ikke spilt)'}`
+        )
+      }
+
       const teamMatches = filterTeamMatches(allMatches, cupConfig)
       const convertedMatches: Match[] = teamMatches.map((m) => profixioMatchToMatch(m, cupConfig))
 
