@@ -44,8 +44,10 @@ export function filterTeamMatches(
   matches: ProfixioMatchData[],
   cupConfig: CupConfig
 ): ProfixioMatchData[] {
-  const team = cupConfig.teamName
-  return matches.filter((m) => m.homeTeam === team || m.awayTeam === team)
+  const team = cupConfig.teamName.toLowerCase()
+  return matches.filter(
+    (m) => m.homeTeam.toLowerCase().includes(team) || m.awayTeam.toLowerCase().includes(team)
+  )
 }
 
 export function profixioMatchToMatch(raw: ProfixioMatchData, cupConfig: CupConfig): Match {

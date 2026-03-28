@@ -65,7 +65,11 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
       if (/^\\d{2}:\\d{2}$/.test(t)) { time = t; break; }
     }
 
-    const teamDivs = li.querySelectorAll('.leading-5');
+    const teamDivs = Array.from(li.querySelectorAll('.leading-5'))
+      .filter(el => {
+        const text = (el.textContent || '').trim();
+        return text.length > 0 && !/^\\d+\\s*[-:]\\s*\\d+$/.test(text) && !/^\\d+$/.test(text);
+      });
     const homeTeam = teamDivs[0] ? (teamDivs[0].textContent || '').trim() : '';
     const awayTeam = teamDivs[1] ? (teamDivs[1].textContent || '').trim() : '';
 
@@ -217,8 +221,7 @@ export class ProfixioScraper {
       await this.navigateAndWait(page, url)
       const year = new Date().getFullYear()
       const matches = await this.extractMatches(page, year)
-      const domTable = await this.extractTable(page)
-      const table = domTable.length > 0 ? domTable : deriveTableFromMatches(matches)
+      const table = deriveTableFromMatches(matches)
       console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
       return { matches, table }
     } finally {
