@@ -91,31 +91,6 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
   return matches;
 }`
 
-const EXTRACT_TABLE_SCRIPT = `() => {
-  const table = document.querySelector('table');
-  if (!table) return [];
-  const rows = table.querySelectorAll('tbody tr');
-  const result = [];
-  for (const row of rows) {
-    const cells = row.querySelectorAll('td');
-    if (cells.length < 9) continue;
-    const goalsMatch = ((cells[6].textContent || '').trim()).match(/(\\d+)\\s*-\\s*(\\d+)/);
-    result.push({
-      position: parseInt((cells[0].textContent || '').trim() || '0', 10),
-      team: (cells[1].querySelector('a')?.textContent || '').trim(),
-      played: parseInt((cells[2].textContent || '').trim() || '0', 10),
-      won: parseInt((cells[3].textContent || '').trim() || '0', 10),
-      drawn: parseInt((cells[4].textContent || '').trim() || '0', 10),
-      lost: parseInt((cells[5].textContent || '').trim() || '0', 10),
-      goalsFor: goalsMatch ? parseInt(goalsMatch[1], 10) : 0,
-      goalsAgainst: goalsMatch ? parseInt(goalsMatch[2], 10) : 0,
-      goalDifference: parseInt((cells[7].textContent || '').trim() || '0', 10),
-      points: parseInt((cells[8].textContent || '').trim() || '0', 10),
-    });
-  }
-  return result;
-}`
-
 export function deriveTableFromMatches(matches: ProfixioMatchData[]): ProfixioTableRow[] {
   const stats = new Map<string, ProfixioTableRow>()
 
@@ -201,11 +176,6 @@ export class ProfixioScraper {
   private async extractMatches(page: Page, year: number): Promise<ProfixioMatchData[]> {
     const fn = new Function('return ' + EXTRACT_MATCHES_SCRIPT)()
     return page.evaluate(fn, year)
-  }
-
-  private async extractTable(page: Page): Promise<ProfixioTableRow[]> {
-    const fn = new Function('return ' + EXTRACT_TABLE_SCRIPT)()
-    return page.evaluate(fn)
   }
 
   async scrapeGroupPage(
