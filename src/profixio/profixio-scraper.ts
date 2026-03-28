@@ -204,12 +204,30 @@ export class ProfixioScraper {
     const url = `${BASE_URL}/${cupConfig.tournamentSlug}/category/${cupConfig.categoryId}/group/${cupConfig.groupId}`
 
     try {
+      const year = new Date().getFullYear()
+
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
-      const year = new Date().getFullYear()
-      const matches = await this.extractMatches(page, year)
+      const upcomingMatches = await this.extractMatches(page, year)
+      console.log(`  Fant ${upcomingMatches.length} kommende kamper`)
+
+      const historyUrl = `${url}?segment=historikk`
+      console.log(`  Henter historikk: ${historyUrl}`)
+      await this.navigateAndWait(page, historyUrl)
+      const playedMatches = await this.extractMatches(page, year)
+      console.log(`  Fant ${playedMatches.length} spilte kamper`)
+
+      const seen = new Set<string>()
+      const matches: ProfixioMatchData[] = []
+      for (const m of [...playedMatches, ...upcomingMatches]) {
+        if (!seen.has(m.matchId)) {
+          seen.add(m.matchId)
+          matches.push(m)
+        }
+      }
+
       const table = deriveTableFromMatches(matches)
-      console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
+      console.log(`  Totalt ${matches.length} kamper, ${table.length} lag i tabell`)
       return { matches, table }
     } finally {
       await page.close()
