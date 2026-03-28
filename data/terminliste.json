@@ -677,6 +677,20 @@
   {
     "Lag": "Fjellhammer G15 1",
     "Dato": "28.03.2026",
+    "Tid": "08:00",
+    "Kampnr": "pwcup-48",
+    "Hjemmelag": "Fjellhammer IL",
+    "Bortelag": "Herkules Håndball",
+    "H-B": "24-14",
+    "Bane": "",
+    "Arrangør": "Peter Wessel Cup",
+    "Turnering": "Peter Wessel Cup 2026",
+    "Kamp URL": "https://www.profixio.com/app/pwcup_2026/match/32583264",
+    "Turnering URL": "https://www.profixio.com/app/pwcup_2026"
+  },
+  {
+    "Lag": "Fjellhammer G15 1",
+    "Dato": "28.03.2026",
     "Tid": "13:20",
     "Kampnr": "pwcup-208",
     "Hjemmelag": "Bjarg, IL",
