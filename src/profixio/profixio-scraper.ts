@@ -18,26 +18,41 @@ export interface ProfixioTableRow {
 const BASE_URL = 'https://www.profixio.com/app'
 
 const EXTRACT_MATCHES_SCRIPT = `(year) => {
-  const items = document.querySelectorAll('li[wire\\\\:key^="listkamp_"]');
+  const matchLinks = document.querySelectorAll('[href*="/match/"]');
+  const seen = new Set();
   const matches = [];
-  for (const li of items) {
-    const xDataEl = li.querySelector('[x-data]');
-    if (!xDataEl) continue;
-    const xDataStr = xDataEl.getAttribute('x-data') || '';
-    const hm = xDataStr.match(/homegoals:\\s*'([^']*)'/);
-    const am = xDataStr.match(/awaygoals:\\s*'([^']*)'/);
-    const hr = xDataStr.match(/hasResult:\\s*(true|false)/);
-    const tsMatch = xDataStr.match(/timestamp:\\s*(\\d+)/);
-    const homegoals = hm ? hm[1] : '';
-    const awaygoals = am ? am[1] : '';
-    const hasResult = hr ? hr[1] === 'true' : false;
+  for (const link of matchLinks) {
+    const matchUrl = link.getAttribute('href') || '';
+    const urlMatch = matchUrl.match(/\\/match\\/(\\d+)/);
+    if (!urlMatch) continue;
+    const matchId = urlMatch[1];
+    if (seen.has(matchId)) continue;
+    seen.add(matchId);
 
-    const wireKey = li.getAttribute('wire:key') || '';
-    const matchId = wireKey.replace('listkamp_', '');
-    if (!matchId) continue;
-    const hrefEl = li.querySelector('[href*="/match/"]');
-    const matchUrl = hrefEl ? hrefEl.getAttribute('href') : '';
-    if (!matchUrl) continue;
+    const li = link.closest('li');
+    if (!li) continue;
+
+    let homegoals = '';
+    let awaygoals = '';
+    let hasResult = false;
+    let timestamp = null;
+
+    const xDataEl = li.querySelector('[x-data]');
+    if (xDataEl) {
+      const xDataStr = xDataEl.getAttribute('x-data') || '';
+      const hm = xDataStr.match(/homegoals:\\s*'([^']*)'/);
+      const am = xDataStr.match(/awaygoals:\\s*'([^']*)'/);
+      const hr = xDataStr.match(/hasResult:\\s*(true|false)/);
+      const tsMatch = xDataStr.match(/timestamp:\\s*(\\d+)/);
+      homegoals = hm ? hm[1] : '';
+      awaygoals = am ? am[1] : '';
+      hasResult = hr ? hr[1] === 'true' : false;
+      timestamp = tsMatch ? parseInt(tsMatch[1], 10) : null;
+    }
+
+    if (!hasResult && homegoals && awaygoals) {
+      hasResult = true;
+    }
 
     const textXsDivs = li.querySelectorAll('.text-xs');
     let matchNumber = '';
@@ -50,8 +65,8 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
     }
 
     let date = '';
-    if (tsMatch) {
-      const ts = parseInt(tsMatch[1], 10) * 1000;
+    if (timestamp) {
+      const ts = timestamp * 1000;
       const cetOffset = 60 * 60 * 1000;
       const cetDate = new Date(ts + cetOffset);
       const months = ['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
@@ -72,6 +87,8 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
       });
     const homeTeam = teamDivs[0] ? (teamDivs[0].textContent || '').trim() : '';
     const awayTeam = teamDivs[1] ? (teamDivs[1].textContent || '').trim() : '';
+
+    if (!homeTeam || !awayTeam) continue;
 
     let venue = '';
     let facility = '';
@@ -170,7 +187,7 @@ export class ProfixioScraper {
 
   private async navigateAndWait(page: Page, url: string): Promise<void> {
     await page.goto(url, { waitUntil: 'networkidle' })
-    await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
+    await page.waitForSelector('[href*="/match/"]', { timeout: 10000 }).catch(() => {})
   }
 
   private async extractMatches(page: Page, year: number): Promise<ProfixioMatchData[]> {
@@ -187,12 +204,30 @@ export class ProfixioScraper {
     const url = `${BASE_URL}/${cupConfig.tournamentSlug}/category/${cupConfig.categoryId}/group/${cupConfig.groupId}`
 
     try {
+      const year = new Date().getFullYear()
+
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
-      const year = new Date().getFullYear()
-      const matches = await this.extractMatches(page, year)
+      const upcomingMatches = await this.extractMatches(page, year)
+      console.log(`  Fant ${upcomingMatches.length} kommende kamper`)
+
+      const historyUrl = `${url}?segment=historikk`
+      console.log(`  Henter historikk: ${historyUrl}`)
+      await this.navigateAndWait(page, historyUrl)
+      const playedMatches = await this.extractMatches(page, year)
+      console.log(`  Fant ${playedMatches.length} spilte kamper`)
+
+      const seen = new Set<string>()
+      const matches: ProfixioMatchData[] = []
+      for (const m of [...playedMatches, ...upcomingMatches]) {
+        if (!seen.has(m.matchId)) {
+          seen.add(m.matchId)
+          matches.push(m)
+        }
+      }
+
       const table = deriveTableFromMatches(matches)
-      console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
+      console.log(`  Totalt ${matches.length} kamper, ${table.length} lag i tabell`)
       return { matches, table }
     } finally {
       await page.close()
