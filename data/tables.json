@@ -38,6 +38,17 @@
       },
       {
         "position": 4,
+        "team": "Kråkerøy",
+        "played": 9,
+        "won": 3,
+        "drawn": 0,
+        "lost": 6,
+        "goalsFor": 232,
+        "goalsAgainst": 235,
+        "points": 6
+      },
+      {
+        "position": 5,
         "team": "Bækkelaget",
         "played": 9,
         "won": 2,
@@ -48,29 +59,18 @@
         "points": 5
       },
       {
-        "position": 5,
-        "team": "Kråkerøy",
-        "played": 8,
-        "won": 2,
-        "drawn": 0,
-        "lost": 6,
-        "goalsFor": 203,
-        "goalsAgainst": 215,
-        "points": 4
-      },
-      {
         "position": 6,
         "team": "Fjellhammer",
-        "played": 6,
+        "played": 7,
         "won": 1,
         "drawn": 1,
-        "lost": 4,
-        "goalsFor": 162,
-        "goalsAgainst": 171,
+        "lost": 5,
+        "goalsFor": 182,
+        "goalsAgainst": 200,
         "points": 3
       }
     ],
-    "updatedAt": "2026-04-11T21:07:42.191Z"
+    "updatedAt": "2026-04-12T17:26:07.899Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-11T21:07:42.413Z"
+    "updatedAt": "2026-04-12T17:26:07.714Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -196,13 +196,13 @@
       {
         "position": 1,
         "team": "Haslum 2",
-        "played": 6,
-        "won": 5,
+        "played": 7,
+        "won": 6,
         "drawn": 1,
         "lost": 0,
-        "goalsFor": 160,
-        "goalsAgainst": 139,
-        "points": 11
+        "goalsFor": 190,
+        "goalsAgainst": 164,
+        "points": 13
       },
       {
         "position": 2,
@@ -229,12 +229,12 @@
       {
         "position": 4,
         "team": "Oppegård 2",
-        "played": 7,
+        "played": 8,
         "won": 3,
         "drawn": 1,
-        "lost": 3,
-        "goalsFor": 193,
-        "goalsAgainst": 189,
+        "lost": 4,
+        "goalsFor": 218,
+        "goalsAgainst": 219,
         "points": 7
       },
       {
@@ -293,7 +293,7 @@
         "points": 4
       }
     ],
-    "updatedAt": "2026-04-11T21:07:41.640Z"
+    "updatedAt": "2026-04-12T17:26:07.734Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-11T21:07:48.538Z"
+    "updatedAt": "2026-04-12T17:26:13.426Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -407,25 +407,25 @@
     "rows": [
       {
         "position": 1,
-        "team": "Kolbotn 2",
+        "team": "Tistedal",
         "played": 7,
-        "won": 5,
+        "won": 6,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 192,
-        "goalsAgainst": 151,
-        "points": 10
+        "lost": 1,
+        "goalsFor": 222,
+        "goalsAgainst": 170,
+        "points": 12
       },
       {
         "position": 2,
-        "team": "Tistedal",
-        "played": 6,
-        "won": 5,
+        "team": "Kolbotn 2",
+        "played": 8,
+        "won": 6,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 189,
-        "goalsAgainst": 146,
-        "points": 10
+        "lost": 2,
+        "goalsFor": 225,
+        "goalsAgainst": 176,
+        "points": 12
       },
       {
         "position": 3,
@@ -441,12 +441,12 @@
       {
         "position": 4,
         "team": "Njård",
-        "played": 7,
+        "played": 8,
         "won": 4,
         "drawn": 1,
-        "lost": 2,
-        "goalsFor": 182,
-        "goalsAgainst": 179,
+        "lost": 3,
+        "goalsFor": 207,
+        "goalsAgainst": 212,
         "points": 9
       },
       {
@@ -474,12 +474,12 @@
       {
         "position": 7,
         "team": "INDRE 2",
-        "played": 6,
+        "played": 7,
         "won": 2,
         "drawn": 0,
-        "lost": 4,
-        "goalsFor": 139,
-        "goalsAgainst": 164,
+        "lost": 5,
+        "goalsFor": 163,
+        "goalsAgainst": 197,
         "points": 4
       },
       {
@@ -505,7 +505,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-11T21:07:48.637Z"
+    "updatedAt": "2026-04-12T17:26:13.528Z"
   },
   {
     "tournamentName": "Peter Wessel Cup 2026 - Gruppe G",
