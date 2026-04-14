@@ -14,21 +14,6 @@
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
-    "Lag": "Fjellhammer G16 3",
-    "Dato": "",
-    "Kampnr": "41031609018",
-    "Hjemmelag": "NIT-HAK/Ull/Kisa 3",
-    "Bortelag": "Fjellhammer 3",
-    "H-B": "-",
-    "Bane": "Lihallen",
-    "Arrangør": "NIT-HAK håndballklubb",
-    "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330838",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=558812",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
-  },
-  {
     "Lag": "Fjellhammer G15 2",
     "Dato": "14.09.2025",
     "Tid": "10:00",
@@ -813,8 +798,9 @@
     "Kampnr": "41031609023",
     "Hjemmelag": "Fjellhammer 3",
     "Bortelag": "Gml Fredrikstad 2",
-    "H-B": "-",
+    "H-B": "34-29",
     "Bane": "Fjellhamar Arena 1",
+    "Tilskuere": 40,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
     "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330843",
@@ -869,6 +855,22 @@
     "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+  },
+  {
+    "Lag": "Fjellhammer G16 3",
+    "Dato": "23.04.2026",
+    "Tid": "20:00",
+    "Kampnr": "41031609018",
+    "Hjemmelag": "NIT-HAK/Ull/Kisa 3",
+    "Bortelag": "Fjellhammer 3",
+    "H-B": "-",
+    "Bane": "Lihallen",
+    "Arrangør": "NIT-HAK håndballklubb",
+    "Turnering": "Gutter 16 Nivå 2 - B sluttspill",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330838",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=558812",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=583470",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444110"
   },
   {
     "Lag": "Fjellhammer G15 1",

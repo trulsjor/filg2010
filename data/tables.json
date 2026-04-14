@@ -70,7 +70,7 @@
         "points": 3
       }
     ],
-    "updatedAt": "2026-04-13T21:15:16.018Z"
+    "updatedAt": "2026-04-14T19:47:35.185Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-13T21:15:15.489Z"
+    "updatedAt": "2026-04-14T19:47:36.651Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 4
       }
     ],
-    "updatedAt": "2026-04-13T21:15:15.864Z"
+    "updatedAt": "2026-04-14T19:47:35.349Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-13T21:15:22.436Z"
+    "updatedAt": "2026-04-14T19:47:42.216Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -440,6 +440,17 @@
       },
       {
         "position": 4,
+        "team": "Fjellhammer 3",
+        "played": 6,
+        "won": 5,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 168,
+        "goalsAgainst": 145,
+        "points": 10
+      },
+      {
+        "position": 5,
         "team": "Njård",
         "played": 8,
         "won": 4,
@@ -448,17 +459,6 @@
         "goalsFor": 207,
         "goalsAgainst": 212,
         "points": 9
-      },
-      {
-        "position": 5,
-        "team": "Fjellhammer 3",
-        "played": 5,
-        "won": 4,
-        "drawn": 0,
-        "lost": 1,
-        "goalsFor": 134,
-        "goalsAgainst": 116,
-        "points": 8
       },
       {
         "position": 6,
@@ -485,12 +485,12 @@
       {
         "position": 8,
         "team": "Gml Fredrikstad 2",
-        "played": 7,
+        "played": 8,
         "won": 1,
         "drawn": 0,
-        "lost": 6,
-        "goalsFor": 175,
-        "goalsAgainst": 219,
+        "lost": 7,
+        "goalsFor": 204,
+        "goalsAgainst": 253,
         "points": 2
       },
       {
@@ -505,7 +505,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-13T21:15:23.405Z"
+    "updatedAt": "2026-04-14T19:47:42.548Z"
   },
   {
     "tournamentName": "Peter Wessel Cup 2026 - Gruppe G",
