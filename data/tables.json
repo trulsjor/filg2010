@@ -70,7 +70,7 @@
         "points": 3
       }
     ],
-    "updatedAt": "2026-04-17T21:14:20.058Z"
+    "updatedAt": "2026-04-18T21:08:56.213Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-17T21:14:18.332Z"
+    "updatedAt": "2026-04-18T21:08:58.864Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -196,23 +196,23 @@
       {
         "position": 1,
         "team": "Haslum 2",
-        "played": 7,
-        "won": 6,
+        "played": 8,
+        "won": 7,
         "drawn": 1,
         "lost": 0,
-        "goalsFor": 190,
-        "goalsAgainst": 164,
-        "points": 13
+        "goalsFor": 221,
+        "goalsAgainst": 191,
+        "points": 15
       },
       {
         "position": 2,
         "team": "Drøbak/Nordby",
-        "played": 6,
+        "played": 7,
         "won": 5,
         "drawn": 1,
-        "lost": 0,
-        "goalsFor": 171,
-        "goalsAgainst": 125,
+        "lost": 1,
+        "goalsFor": 198,
+        "goalsAgainst": 156,
         "points": 11
       },
       {
@@ -293,7 +293,7 @@
         "points": 4
       }
     ],
-    "updatedAt": "2026-04-17T21:14:18.540Z"
+    "updatedAt": "2026-04-18T21:08:58.526Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-17T21:14:26.058Z"
+    "updatedAt": "2026-04-18T21:09:05.817Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -408,13 +408,13 @@
       {
         "position": 1,
         "team": "Tistedal",
-        "played": 7,
-        "won": 6,
+        "played": 8,
+        "won": 7,
         "drawn": 0,
         "lost": 1,
-        "goalsFor": 222,
-        "goalsAgainst": 170,
-        "points": 12
+        "goalsFor": 257,
+        "goalsAgainst": 192,
+        "points": 14
       },
       {
         "position": 2,
@@ -441,12 +441,12 @@
       {
         "position": 4,
         "team": "Fjellhammer 3",
-        "played": 6,
+        "played": 7,
         "won": 5,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 168,
-        "goalsAgainst": 145,
+        "lost": 2,
+        "goalsFor": 190,
+        "goalsAgainst": 180,
         "points": 10
       },
       {
@@ -505,7 +505,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-17T21:14:26.342Z"
+    "updatedAt": "2026-04-18T21:09:05.577Z"
   },
   {
     "tournamentName": "Peter Wessel Cup 2026 - Gruppe G",
