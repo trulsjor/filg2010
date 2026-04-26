@@ -70,7 +70,7 @@
         "points": 5
       }
     ],
-    "updatedAt": "2026-04-25T21:10:30.063Z"
+    "updatedAt": "2026-04-26T21:10:23.562Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-25T21:10:29.908Z"
+    "updatedAt": "2026-04-26T21:10:23.522Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -207,13 +207,13 @@
       {
         "position": 2,
         "team": "Drøbak/Nordby",
-        "played": 7,
-        "won": 5,
+        "played": 8,
+        "won": 6,
         "drawn": 1,
         "lost": 1,
-        "goalsFor": 198,
-        "goalsAgainst": 156,
-        "points": 11
+        "goalsFor": 227,
+        "goalsAgainst": 177,
+        "points": 13
       },
       {
         "position": 3,
@@ -251,12 +251,12 @@
       {
         "position": 6,
         "team": "Sinsen-Refstad Idrettslag 2",
-        "played": 7,
+        "played": 8,
         "won": 2,
         "drawn": 2,
-        "lost": 3,
-        "goalsFor": 156,
-        "goalsAgainst": 186,
+        "lost": 4,
+        "goalsFor": 177,
+        "goalsAgainst": 215,
         "points": 6
       },
       {
@@ -293,7 +293,7 @@
         "points": 4
       }
     ],
-    "updatedAt": "2026-04-25T21:10:30.189Z"
+    "updatedAt": "2026-04-26T21:10:23.413Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-25T21:10:36.137Z"
+    "updatedAt": "2026-04-26T21:10:30.226Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -505,7 +505,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-25T21:10:36.289Z"
+    "updatedAt": "2026-04-26T21:10:29.643Z"
   },
   {
     "tournamentName": "Peter Wessel Cup 2026 - Gruppe G",
