@@ -6448,7 +6448,7 @@
     {
       "id": "h6v8i5",
       "name": "Daniel Kollerøy",
-      "jerseyNumber": 31,
+      "jerseyNumber": 35,
       "teamIds": [
         "611589",
         "428829"
@@ -7710,10 +7710,12 @@
       "name": "Julian André Nyhagen Størksen",
       "jerseyNumber": 12,
       "teamIds": [
-        "611589"
+        "611589",
+        "428829"
       ],
       "teamNames": [
-        "Bækkelaget 2"
+        "Bækkelaget 2",
+        "Bækkelaget"
       ],
       "primaryTeamId": "611589",
       "primaryTeamName": "Bækkelaget 2"
@@ -12096,6 +12098,19 @@
       ],
       "primaryTeamId": "583432",
       "primaryTeamName": "Kolbotn 2"
+    },
+    {
+      "id": "1i22ld",
+      "name": "Peter Edward Gibbons",
+      "jerseyNumber": 32,
+      "teamIds": [
+        "428829"
+      ],
+      "teamNames": [
+        "Bækkelaget"
+      ],
+      "primaryTeamId": "428829",
+      "primaryTeamName": "Bækkelaget"
     }
   ],
   "matchStats": [
@@ -86961,9 +86976,226 @@
         }
       ],
       "scrapedAt": "2026-04-26T21:11:09.994Z"
+    },
+    {
+      "matchId": "41031506029",
+      "matchDate": "28.04.2026",
+      "matchUrl": "https://www.handball.no/system/kamper/kamp/?matchid=8330576",
+      "homeTeamId": "497227",
+      "homeTeamName": "Asker/ROS",
+      "awayTeamId": "428829",
+      "awayTeamName": "Bækkelaget",
+      "homeScore": 24,
+      "awayScore": 20,
+      "tournament": "Gutter 15 Nivå 1 - A Sluttspill",
+      "homeTeamStats": [
+        {
+          "playerId": "4xk6q5",
+          "playerName": "Jokubas Gudirgis",
+          "jerseyNumber": 1,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "j2vcm2",
+          "playerName": "William Haugland Moreskine",
+          "jerseyNumber": 4,
+          "goals": 4,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "7isyap",
+          "playerName": "Bastian Dypevik Jansen",
+          "jerseyNumber": 7,
+          "goals": 2,
+          "penaltyGoals": 3,
+          "twoMinutes": 2,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "q4w2yw",
+          "playerName": "Olav An Binh Nguyen-Tran",
+          "jerseyNumber": 8,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "xhicwm",
+          "playerName": "Erwin Gowers Lindal",
+          "jerseyNumber": 13,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "tpbqtw",
+          "playerName": "Jonathan Eide Tobiassen",
+          "jerseyNumber": 15,
+          "goals": 6,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "xiv5vf",
+          "playerName": "Adrian Lind-Årthun",
+          "jerseyNumber": 18,
+          "goals": 4,
+          "penaltyGoals": 1,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "4a42ky",
+          "playerName": "Magnus Borgen",
+          "jerseyNumber": 30,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "awayTeamStats": [
+        {
+          "playerId": "rhaajl",
+          "playerName": "Filip Heim-Vidalon",
+          "jerseyNumber": 2,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "qyepfd",
+          "playerName": "Jonathan Falkum",
+          "jerseyNumber": 4,
+          "goals": 3,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "qjzrkt",
+          "playerName": "Julian André Nyhagen Størksen",
+          "jerseyNumber": 12,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "b925xy",
+          "playerName": "Johannes Zimmer Stensvold",
+          "jerseyNumber": 13,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "85oz5k",
+          "playerName": "Jakob Larsen",
+          "jerseyNumber": 19,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "gv3nu4",
+          "playerName": "Andreas Kang-Rui Pedersen",
+          "jerseyNumber": 22,
+          "goals": 1,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "7dk0bz",
+          "playerName": "Simon Rørhus Steinsland",
+          "jerseyNumber": 25,
+          "goals": 2,
+          "penaltyGoals": 0,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "wqnhep",
+          "playerName": "Oscar Christian Kokkim",
+          "jerseyNumber": 31,
+          "goals": 5,
+          "penaltyGoals": 4,
+          "twoMinutes": 1,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "1i22ld",
+          "playerName": "Peter Edward Gibbons",
+          "jerseyNumber": 32,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "h6v8i5",
+          "playerName": "Daniel Kollerøy",
+          "jerseyNumber": 35,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "e63uki",
+          "playerName": "Linus Engebakken Schou",
+          "jerseyNumber": 50,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        },
+        {
+          "playerId": "x14w2o",
+          "playerName": "Oliver Hauan",
+          "jerseyNumber": 99,
+          "goals": 0,
+          "penaltyGoals": 0,
+          "twoMinutes": 0,
+          "yellowCards": 0,
+          "redCards": 0
+        }
+      ],
+      "scrapedAt": "2026-04-28T21:23:03.108Z"
     }
   ],
-  "lastUpdated": "2026-04-26T21:11:10.024Z",
+  "lastUpdated": "2026-04-28T21:23:03.137Z",
   "matchesWithoutStats": [
     "43031508005",
     "43031503003",
