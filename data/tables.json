@@ -6,13 +6,13 @@
       {
         "position": 1,
         "team": "Sinsen-Refstad",
-        "played": 9,
-        "won": 8,
+        "played": 10,
+        "won": 9,
         "drawn": 0,
         "lost": 1,
-        "goalsFor": 252,
-        "goalsAgainst": 208,
-        "points": 16
+        "goalsFor": 287,
+        "goalsAgainst": 233,
+        "points": 18
       },
       {
         "position": 2,
@@ -39,12 +39,12 @@
       {
         "position": 4,
         "team": "Fjellhammer",
-        "played": 9,
+        "played": 10,
         "won": 3,
         "drawn": 1,
-        "lost": 5,
-        "goalsFor": 236,
-        "goalsAgainst": 244,
+        "lost": 6,
+        "goalsFor": 261,
+        "goalsAgainst": 279,
         "points": 7
       },
       {
@@ -70,7 +70,7 @@
         "points": 5
       }
     ],
-    "updatedAt": "2026-04-29T21:22:20.880Z"
+    "updatedAt": "2026-04-30T21:19:58.058Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 32, Håndballsesongen 2025/2026",
@@ -187,7 +187,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-29T21:22:20.530Z"
+    "updatedAt": "2026-04-30T21:19:58.025Z"
   },
   {
     "tournamentName": "Gutter 15 Nivå 2 - A Sluttspill, Håndballsesongen 2025/2026",
@@ -293,7 +293,7 @@
         "points": 4
       }
     ],
-    "updatedAt": "2026-04-29T21:22:20.486Z"
+    "updatedAt": "2026-04-30T21:19:57.340Z"
   },
   {
     "tournamentName": "Regionserien Gutter 15 - avd 42, Håndballsesongen 2025/2026",
@@ -399,7 +399,7 @@
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-29T21:22:27.624Z"
+    "updatedAt": "2026-04-30T21:20:04.005Z"
   },
   {
     "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
@@ -474,13 +474,13 @@
       {
         "position": 7,
         "team": "INDRE 2",
-        "played": 7,
-        "won": 2,
+        "played": 8,
+        "won": 3,
         "drawn": 0,
         "lost": 5,
-        "goalsFor": 163,
-        "goalsAgainst": 197,
-        "points": 4
+        "goalsFor": 201,
+        "goalsAgainst": 218,
+        "points": 6
       },
       {
         "position": 8,
@@ -496,16 +496,16 @@
       {
         "position": 9,
         "team": "NIT-HAK/Ull/Kisa 3",
-        "played": 7,
+        "played": 8,
         "won": 0,
         "drawn": 0,
-        "lost": 7,
-        "goalsFor": 151,
-        "goalsAgainst": 180,
+        "lost": 8,
+        "goalsFor": 172,
+        "goalsAgainst": 218,
         "points": 0
       }
     ],
-    "updatedAt": "2026-04-29T21:22:26.794Z"
+    "updatedAt": "2026-04-30T21:20:04.207Z"
   },
   {
     "tournamentName": "Peter Wessel Cup 2026 - Gruppe G",
