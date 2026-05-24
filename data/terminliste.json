@@ -9,8 +9,6 @@
     "Arrangør": "Torp Idrætsforening",
     "Turnering": "Mobile Regionscup G15",
     "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263393",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997845",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
@@ -42,10 +40,7 @@
     "Tilskuere": 125,
     "Arrangør": "Nordstrand Idrettsforening",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231475",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=682369",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231475"
   },
   {
     "Lag": "Fjellhammer G15 1",
@@ -59,10 +54,7 @@
     "Tilskuere": 40,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231479",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=682691",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231479"
   },
   {
     "Lag": "Fjellhammer G15 1",
@@ -76,10 +68,7 @@
     "Tilskuere": 50,
     "Arrangør": "Ski IL Håndball",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231484",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=454777",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231484"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -144,10 +133,7 @@
     "Tilskuere": 50,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231490",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=949866",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231490"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -178,10 +164,7 @@
     "Tilskuere": 97,
     "Arrangør": "Oppegård Idrettslag",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231493",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=855624",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231493"
   },
   {
     "Lag": "Fjellhammer G15 1",
@@ -195,10 +178,7 @@
     "Tilskuere": 50,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231501",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231501"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -246,10 +226,7 @@
     "Tilskuere": 1,
     "Arrangør": "Torp Idrætsforening",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231502",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997845",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231502"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -280,10 +257,7 @@
     "Tilskuere": 50,
     "Arrangør": "Kråkerøy Idrettslag",
     "Turnering": "Regionserien Gutter 15 - avd 32",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231511",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997528",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=440238"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8231511"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -349,8 +323,6 @@
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Mobile Regionscup G15",
     "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263413",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=949866",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
@@ -365,10 +337,7 @@
     "Tilskuere": 30,
     "Arrangør": "Bækkelagets Sportsklub",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330554",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=428829",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330554"
   },
   {
     "Lag": "Fjellhammer G16 3",
@@ -433,10 +402,7 @@
     "Tilskuere": 60,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330557",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997528",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330557"
   },
   {
     "Lag": "Fjellhammer G16 3",
@@ -485,8 +451,6 @@
     "Arrangør": "Asker Skiklubb",
     "Turnering": "Mobile Regionscup G15",
     "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8263419",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
     "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=439013"
   },
   {
@@ -501,10 +465,7 @@
     "Tilskuere": 50,
     "Arrangør": "Haslum Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330560",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330560"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -569,10 +530,7 @@
     "Tilskuere": 40,
     "Arrangør": "Asker Skiklubb",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330563",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330563"
   },
   {
     "Lag": "Fjellhammer G15 1",
@@ -586,10 +544,7 @@
     "Tilskuere": 50,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330566",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997379",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330566"
   },
   {
     "Lag": "Fjellhammer G15 2",
@@ -654,10 +609,7 @@
     "Tilskuere": 100,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330569",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=428829",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330569"
   },
   {
     "Lag": "Fjellhammer G15 1",
@@ -786,10 +738,7 @@
     "Tilskuere": 200,
     "Arrangør": "Kråkerøy Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330572",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997528",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330572"
   },
   {
     "Lag": "Fjellhammer G16 3",
@@ -837,10 +786,7 @@
     "Tilskuere": 40,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330575",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=473135",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330575"
   },
   {
     "Lag": "Fjellhammer G15 1",
@@ -854,10 +800,7 @@
     "Tilskuere": 57,
     "Arrangør": "Fjellhammer Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330551",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=497227",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330551"
   },
   {
     "Lag": "Fjellhammer G16 3",
@@ -886,9 +829,6 @@
     "Tilskuere": 50,
     "Arrangør": "Sinsen-Refstad Idrettslag",
     "Turnering": "Gutter 15 Nivå 1 - A Sluttspill",
-    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330548",
-    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=997379",
-    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=531500",
-    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=444098"
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8330548"
   }
 ]
