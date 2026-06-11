@@ -1,5 +1,111 @@
 [
   {
+    "tournamentName": "Gutter 16 Nivå 2 - B sluttspill, Håndballsesongen 2025/2026",
+    "tournamentUrl": "https://www.handball.no/system/kamper/turnering/?turnid=444110",
+    "rows": [
+      {
+        "position": 1,
+        "team": "Tistedal",
+        "played": 8,
+        "won": 7,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 257,
+        "goalsAgainst": 192,
+        "points": 14
+      },
+      {
+        "position": 2,
+        "team": "Fjellhammer 3",
+        "played": 8,
+        "won": 6,
+        "drawn": 0,
+        "lost": 2,
+        "goalsFor": 190,
+        "goalsAgainst": 180,
+        "points": 12
+      },
+      {
+        "position": 3,
+        "team": "Kolbotn 2",
+        "played": 8,
+        "won": 6,
+        "drawn": 0,
+        "lost": 2,
+        "goalsFor": 225,
+        "goalsAgainst": 176,
+        "points": 12
+      },
+      {
+        "position": 4,
+        "team": "Ull/Kisa/NIT-HAK 2",
+        "played": 8,
+        "won": 5,
+        "drawn": 0,
+        "lost": 3,
+        "goalsFor": 205,
+        "goalsAgainst": 211,
+        "points": 10
+      },
+      {
+        "position": 5,
+        "team": "Njård",
+        "played": 8,
+        "won": 4,
+        "drawn": 1,
+        "lost": 3,
+        "goalsFor": 207,
+        "goalsAgainst": 212,
+        "points": 9
+      },
+      {
+        "position": 6,
+        "team": "Ski 2",
+        "played": 8,
+        "won": 3,
+        "drawn": 1,
+        "lost": 4,
+        "goalsFor": 213,
+        "goalsAgainst": 214,
+        "points": 7
+      },
+      {
+        "position": 7,
+        "team": "INDRE 2",
+        "played": 8,
+        "won": 3,
+        "drawn": 0,
+        "lost": 5,
+        "goalsFor": 201,
+        "goalsAgainst": 218,
+        "points": 6
+      },
+      {
+        "position": 8,
+        "team": "Gml Fredrikstad 2",
+        "played": 8,
+        "won": 1,
+        "drawn": 0,
+        "lost": 7,
+        "goalsFor": 204,
+        "goalsAgainst": 253,
+        "points": 2
+      },
+      {
+        "position": 9,
+        "team": "NIT-HAK/Ull/Kisa 3",
+        "played": 8,
+        "won": 0,
+        "drawn": 0,
+        "lost": 8,
+        "goalsFor": 172,
+        "goalsAgainst": 218,
+        "points": 0
+      }
+    ],
+    "updatedAt": "2026-06-11T21:39:28.609Z"
+  },
+  {
     "tournamentName": "Peter Wessel Cup 2026 - Gruppe G",
     "tournamentUrl": "https://www.profixio.com/app/pwcup_2026/category/1179353/group/3400161",
     "rows": [
