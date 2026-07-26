@@ -36,7 +36,7 @@ function appearedInMatch(playerStat: { hasPlayed?: boolean }): boolean {
   return playerStat.hasPlayed !== false
 }
 
-export class PlayerStatsService {
+export class PlayerStatsAggregator {
   private data: PlayerStatsData
 
   constructor(data: PlayerStatsData) {

@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test'
 import * as fs from 'fs'
 import * as path from 'path'
-import { PlayerStatsService } from '../src/handball/PlayerStatsAggregator.js'
+import { PlayerStatsAggregator } from '../src/handball/PlayerStatsAggregator.js'
 import type { PlayerStatsData } from '../src/types/player-stats.js'
 import { combinePlayedMatches } from '../src/update/combine-matches.js'
 
@@ -115,8 +115,8 @@ test.describe('Update Workflow Integration', () => {
       return
     }
 
-    const service = new PlayerStatsService(stats)
-    const result = service.generateAggregates()
+    const aggregator = new PlayerStatsAggregator(stats)
+    const result = aggregator.generateAggregates()
 
     expect(result).toHaveProperty('aggregates')
     expect(result).toHaveProperty('generatedAt')

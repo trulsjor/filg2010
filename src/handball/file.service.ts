@@ -5,7 +5,7 @@ import type { LeagueTable } from './handball-scraper.js'
 import type { PlayerStatsData } from '../types/player-stats.js'
 import type { UpdateSummary } from '../update/update-summary.js'
 import { parseMatchIndexFile, type MatchIndex } from '../update/match-parsing.js'
-import { PlayerStatsService } from './PlayerStatsAggregator.js'
+import { PlayerStatsAggregator } from './PlayerStatsAggregator.js'
 
 export class FileService {
   private readonly dataDir: string
@@ -152,8 +152,8 @@ export class FileService {
   }
 
   generateAndSaveAggregates(stats: PlayerStatsData): number {
-    const service = new PlayerStatsService(stats)
-    const aggregates = service.generateAggregates()
+    const aggregator = new PlayerStatsAggregator(stats)
+    const aggregates = aggregator.generateAggregates()
     const filePath = path.join(this.dataDir, 'player-aggregates.json')
     fs.writeFileSync(filePath, JSON.stringify(aggregates, null, 2))
     return aggregates.aggregates.length

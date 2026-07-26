@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import type { PlayerStatsData } from '../types/player-stats.js'
-import { PlayerStatsService } from '../handball/PlayerStatsAggregator.js'
+import { PlayerStatsAggregator } from '../handball/PlayerStatsAggregator.js'
 
 const DATA_DIR = path.join(process.cwd(), 'data')
 const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
@@ -18,8 +18,8 @@ async function main() {
   const data: PlayerStatsData = JSON.parse(fs.readFileSync(PLAYER_STATS_PATH, 'utf-8'))
   console.log(`📁 Lastet ${data.matchStats.length} kamper med ${data.players.length} spillere\n`)
 
-  const service = new PlayerStatsService(data)
-  const aggregates = service.generateAggregates()
+  const aggregator = new PlayerStatsAggregator(data)
+  const aggregates = aggregator.generateAggregates()
 
   fs.writeFileSync(AGGREGATES_PATH, JSON.stringify(aggregates, null, 2))
 

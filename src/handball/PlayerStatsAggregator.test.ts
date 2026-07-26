@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { PlayerStatsService } from './PlayerStatsAggregator'
+import { PlayerStatsAggregator } from './PlayerStatsAggregator'
 import type { PlayerStatsData, MatchPlayerData, PlayerMatchStats } from '../types/player-stats.js'
 
 const createPlayerStats = (overrides: Partial<PlayerMatchStats> = {}): PlayerMatchStats => ({
@@ -37,11 +37,11 @@ const createTestData = (matchStats: MatchPlayerData[]): PlayerStatsData => ({
   lastUpdated: '2025-01-01T12:00:00Z',
 })
 
-describe('PlayerStatsService', () => {
+describe('PlayerStatsAggregator', () => {
   describe('generateAggregates', () => {
     it('genererer tom liste når ingen kamper finnes', () => {
       const data = createTestData([])
-      const service = new PlayerStatsService(data)
+      const service = new PlayerStatsAggregator(data)
 
       const result = service.generateAggregates()
 
@@ -62,7 +62,7 @@ describe('PlayerStatsService', () => {
         ],
       })
 
-      const service = new PlayerStatsService(createTestData([match]))
+      const service = new PlayerStatsAggregator(createTestData([match]))
       const result = service.generateAggregates()
 
       expect(result.aggregates).toHaveLength(1)
@@ -101,7 +101,7 @@ describe('PlayerStatsService', () => {
         ],
       })
 
-      const service = new PlayerStatsService(createTestData([match1, match2]))
+      const service = new PlayerStatsAggregator(createTestData([match1, match2]))
       const result = service.generateAggregates()
 
       expect(result.aggregates).toHaveLength(1)
@@ -122,7 +122,7 @@ describe('PlayerStatsService', () => {
         ],
       })
 
-      const service = new PlayerStatsService(createTestData([match]))
+      const service = new PlayerStatsAggregator(createTestData([match]))
       const result = service.generateAggregates()
 
       expect(result.aggregates).toHaveLength(3)
@@ -144,7 +144,7 @@ describe('PlayerStatsService', () => {
         homeTeamStats: [createPlayerStats({ playerId: 'player-1', goals: 5 })],
       })
 
-      const service = new PlayerStatsService(createTestData([serieMatch, cupMatch]))
+      const service = new PlayerStatsAggregator(createTestData([serieMatch, cupMatch]))
       const result = service.generateAggregates()
 
       expect(result.aggregates[0].byTournament).toHaveLength(2)
@@ -173,7 +173,7 @@ describe('PlayerStatsService', () => {
         awayTeamStats: [createPlayerStats({ playerId: 'player-1', goals: 3 })],
       })
 
-      const service = new PlayerStatsService(createTestData([homeMatch, awayMatch]))
+      const service = new PlayerStatsAggregator(createTestData([homeMatch, awayMatch]))
       const result = service.generateAggregates()
 
       expect(result.aggregates).toHaveLength(1)
@@ -194,7 +194,7 @@ describe('PlayerStatsService', () => {
         homeTeamStats: [createPlayerStats({ playerId: 'player-1', jerseyNumber: 10 })],
       })
 
-      const service = new PlayerStatsService(createTestData([oldMatch, newMatch]))
+      const service = new PlayerStatsAggregator(createTestData([oldMatch, newMatch]))
       const result = service.generateAggregates()
 
       expect(result.aggregates[0].jerseyNumber).toBe(10)
@@ -217,7 +217,7 @@ describe('PlayerStatsService', () => {
         awayTeamStats: [createPlayerStats({ playerId: 'player-1' })],
       })
 
-      const service = new PlayerStatsService(createTestData([oldTeamMatch, newTeamMatch]))
+      const service = new PlayerStatsAggregator(createTestData([oldTeamMatch, newTeamMatch]))
       const result = service.generateAggregates()
 
       expect(result.aggregates[0].teamId).toBe('new-team')
@@ -242,7 +242,7 @@ describe('PlayerStatsService', () => {
         }),
       ]
 
-      const service = new PlayerStatsService(createTestData(matches))
+      const service = new PlayerStatsAggregator(createTestData(matches))
       const result = service.generateAggregates()
 
       expect(result.aggregates[0].goalsPerMatch).toBe(3)
@@ -258,7 +258,7 @@ describe('PlayerStatsService', () => {
         awayTeamStats: [createPlayerStats({ playerId: 'player-2', playerName: 'Spiller B' })],
       })
 
-      const service = new PlayerStatsService(createTestData([match]))
+      const service = new PlayerStatsAggregator(createTestData([match]))
       const aggregates = service.generateAggregates()
       const filtered = service.filterByTeams(aggregates.aggregates, ['team-A'])
 
@@ -281,7 +281,7 @@ describe('PlayerStatsService', () => {
         homeTeamStats: [createPlayerStats({ playerId: 'player-1', goals: 2 })],
       })
 
-      const service = new PlayerStatsService(createTestData([serieMatch, cupMatch]))
+      const service = new PlayerStatsAggregator(createTestData([serieMatch, cupMatch]))
       const aggregates = service.generateAggregates()
       const filtered = service.filterByTournament(aggregates.aggregates, 'Regionserien')
 
@@ -292,7 +292,7 @@ describe('PlayerStatsService', () => {
   })
 })
 
-describe('PlayerStatsService og kamper spilt', () => {
+describe('PlayerStatsAggregator og kamper spilt', () => {
   const spiller = (overrides: Partial<PlayerMatchStats>): PlayerMatchStats =>
     createPlayerStats({ playerId: 'p1', playerName: 'Benket Spiller', ...overrides })
 
@@ -300,7 +300,7 @@ describe('PlayerStatsService og kamper spilt', () => {
     const matcher = stats.map((lagoppstilling, i) =>
       createMatch({ matchId: `m${i}`, homeTeamStats: lagoppstilling })
     )
-    const resultat = new PlayerStatsService(createTestData(matcher)).generateAggregates()
+    const resultat = new PlayerStatsAggregator(createTestData(matcher)).generateAggregates()
     return resultat.aggregates[0].matchesPlayed
   }
 
@@ -317,7 +317,7 @@ describe('PlayerStatsService og kamper spilt', () => {
   })
 
   it('holder mål utenfor spilt-tellingen', () => {
-    const resultat = new PlayerStatsService(
+    const resultat = new PlayerStatsAggregator(
       createTestData([
         createMatch({ matchId: 'm1', homeTeamStats: [spiller({ hasPlayed: true, goals: 5 })] }),
         createMatch({ matchId: 'm2', homeTeamStats: [spiller({ hasPlayed: false, goals: 0 })] }),
