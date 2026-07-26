@@ -32,6 +32,10 @@ function extractPlayerStats(stats: {
 
 const UNKNOWN_TOURNAMENT = 'Ukjent'
 
+function appearedInMatch(playerStat: { hasPlayed?: boolean }): boolean {
+  return playerStat.hasPlayed !== false
+}
+
 export class PlayerStatsService {
   private data: PlayerStatsData
 
@@ -254,6 +258,7 @@ export class PlayerStatsService {
       twoMinutes: number
       yellowCards: number
       redCards: number
+      hasPlayed?: boolean
     }
   ) {
     aggregate.totalGoals += playerStat.goals
@@ -261,7 +266,9 @@ export class PlayerStatsService {
     aggregate.totalTwoMinutes += playerStat.twoMinutes
     aggregate.totalYellowCards += playerStat.yellowCards
     aggregate.totalRedCards += playerStat.redCards
-    aggregate.matchesPlayed++
+    if (appearedInMatch(playerStat)) {
+      aggregate.matchesPlayed++
+    }
   }
 
   private updateJerseyNumberIfNewer(
@@ -300,6 +307,7 @@ export class PlayerStatsService {
       twoMinutes: number
       yellowCards: number
       redCards: number
+      hasPlayed?: boolean
     }
   ) {
     const tournamentName = tournament === undefined ? UNKNOWN_TOURNAMENT : tournament
@@ -320,7 +328,9 @@ export class PlayerStatsService {
     tournamentStats.twoMinutes += playerStat.twoMinutes
     tournamentStats.yellowCards += playerStat.yellowCards
     tournamentStats.redCards += playerStat.redCards
-    tournamentStats.matches++
+    if (appearedInMatch(playerStat)) {
+      tournamentStats.matches++
+    }
   }
 
   private convertToAggregateArray(

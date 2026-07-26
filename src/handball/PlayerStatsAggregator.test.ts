@@ -291,3 +291,41 @@ describe('PlayerStatsService', () => {
     })
   })
 })
+
+describe('PlayerStatsService og kamper spilt', () => {
+  const spiller = (overrides: Partial<PlayerMatchStats>): PlayerMatchStats =>
+    createPlayerStats({ playerId: 'p1', playerName: 'Benket Spiller', ...overrides })
+
+  const aggregerFor = (stats: PlayerMatchStats[][]): number => {
+    const matcher = stats.map((lagoppstilling, i) =>
+      createMatch({ matchId: `m${i}`, homeTeamStats: lagoppstilling })
+    )
+    const resultat = new PlayerStatsService(createTestData(matcher)).generateAggregates()
+    return resultat.aggregates[0].matchesPlayed
+  }
+
+  it('teller ikke kamp der spilleren satt på benken', () => {
+    expect(aggregerFor([[spiller({ hasPlayed: true })], [spiller({ hasPlayed: false })]])).toBe(1)
+  })
+
+  it('teller alle kamper der spilleren var på banen', () => {
+    expect(aggregerFor([[spiller({ hasPlayed: true })], [spiller({ hasPlayed: true })]])).toBe(2)
+  })
+
+  it('teller kamp når vi ikke vet om spilleren var på banen', () => {
+    expect(aggregerFor([[spiller({})], [spiller({})]])).toBe(2)
+  })
+
+  it('holder mål utenfor spilt-tellingen', () => {
+    const resultat = new PlayerStatsService(
+      createTestData([
+        createMatch({ matchId: 'm1', homeTeamStats: [spiller({ hasPlayed: true, goals: 5 })] }),
+        createMatch({ matchId: 'm2', homeTeamStats: [spiller({ hasPlayed: false, goals: 0 })] }),
+      ])
+    ).generateAggregates()
+
+    expect(resultat.aggregates[0].totalGoals).toBe(5)
+    expect(resultat.aggregates[0].matchesPlayed).toBe(1)
+    expect(resultat.aggregates[0].goalsPerMatch).toBe(5)
+  })
+})
