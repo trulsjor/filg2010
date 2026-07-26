@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import { usePullToRefresh } from '../hooks/usePullToRefresh'
 import { useMetadata } from '../hooks/useMetadata'
 import type { Metadata } from '../types'
-import metadataData from '../../data/metadata.json'
+import metadataData from '../../data/g2010/2025-2026/metadata.json'
 
 const metadata = metadataData as Metadata
 

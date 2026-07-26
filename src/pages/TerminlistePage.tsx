@@ -7,10 +7,10 @@ import { type LeagueTable } from '../components/LeagueTableCard'
 import { useMatches } from '../hooks/useMatches'
 import { useTeams } from '../hooks/useTeams'
 
-import matchesData from '../../data/terminliste.json'
+import matchesData from '../../data/g2010/2025-2026/terminliste.json'
 import configData from '../../config.json'
-import tablesData from '../../data/tables.json'
-import statsData from '../../data/player-stats.json'
+import tablesData from '../../data/g2010/2025-2026/tables.json'
+import statsData from '../../data/g2010/2025-2026/player-stats.json'
 
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 import type { Match, Config } from '../types'

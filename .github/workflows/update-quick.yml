@@ -1,8 +1,13 @@
 name: Oppdater (quick)
 
 on:
-  schedule:
-    - cron: '0 21 * * *'
+  # Deaktivert 26.07.2026: handball.no har lagt om, og gammel pipeline treffer et
+  # API som gir 404. Ville skrevet tomme datafiler over arkivet og committet dem.
+  # Aktiveres igjen når fase 2 (ny datainnhenting) er ferdig.
+  # Se docs/plans/sesong-2026-2027-og-j2010.md
+  #
+  # schedule:
+  #   - cron: '0 21 * * *'
   workflow_dispatch:
 
 permissions:

@@ -4,10 +4,10 @@ import { Header } from '../components/Header'
 import { LeagueTableCard, type LeagueTable } from '../components/LeagueTableCard'
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 
-import tablesData from '../../data/tables.json'
+import tablesData from '../../data/g2010/2025-2026/tables.json'
 import configData from '../../config.json'
-import statsData from '../../data/player-stats.json'
-import terminlisteData from '../../data/terminliste.json'
+import statsData from '../../data/g2010/2025-2026/player-stats.json'
+import terminlisteData from '../../data/g2010/2025-2026/terminliste.json'
 
 import type { Config } from '../types'
 import type { PlayerStatsData } from '../types/player-stats'

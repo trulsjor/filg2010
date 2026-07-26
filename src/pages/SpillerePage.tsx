@@ -2,7 +2,7 @@ import { useState, useMemo, useCallback } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
 import configData from '../../config.json'
-import aggregatesData from '../../data/player-aggregates.json'
+import aggregatesData from '../../data/g2010/2025-2026/player-aggregates.json'
 import type { PlayerAggregatesData } from '../types/player-stats'
 
 const typedAggregatesData: PlayerAggregatesData = aggregatesData

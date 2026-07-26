@@ -3,7 +3,7 @@ import { useTheme } from '../hooks/useTheme'
 import { getThemeOptions, themes, type ThemeId } from '../themes/ThemeRegistry'
 import { useMetadata } from '../hooks/useMetadata'
 import type { Metadata } from '../types'
-import metadataData from '../../data/metadata.json'
+import metadataData from '../../data/g2010/2025-2026/metadata.json'
 
 const metadata: Metadata = metadataData
 
