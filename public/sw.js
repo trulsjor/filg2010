@@ -1,65 +1,125 @@
-// Service Worker for Fjellhammer G2010 Terminliste
-const CACHE_NAME = 'terminliste-v1';
-const STATIC_ASSETS = [
-  '/',
-  '/statistikk',
-  '/calendar.ics',
-  '/fjellhammer-logo.svg',
-  '/manifest.json'
-];
+const VERSION = new URL(self.location.href).searchParams.get('v') || 'ukjent'
+const SHELL_CACHE = `terminliste-shell-${VERSION}`
+const ASSET_CACHE = 'terminliste-assets'
+const MAX_ASSET_ENTRIES = 80
+const SHELL_URL = '/index.html'
 
-// Install - cache static assets
+const SHELL_ASSETS = ['/index.html', '/manifest.json', '/fjellhammer-logo.svg']
+
 self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(STATIC_ASSETS);
-    })
-  );
-  self.skipWaiting();
-});
+    caches.open(SHELL_CACHE).then((cache) =>
+      Promise.all(
+        SHELL_ASSETS.map((url) =>
+          cache.add(url).catch(() => {
+            return undefined
+          })
+        )
+      )
+    )
+  )
+  self.skipWaiting()
+})
 
-// Activate - clean up old caches
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((cacheNames) => {
-      return Promise.all(
-        cacheNames
-          .filter((name) => name !== CACHE_NAME)
-          .map((name) => caches.delete(name))
-      );
+    caches
+      .keys()
+      .then((names) =>
+        Promise.all(
+          names
+            .filter((name) => name !== SHELL_CACHE && name !== ASSET_CACHE)
+            .map((name) => caches.delete(name))
+        )
+      )
+      .then(() => trimAssetCache())
+      .then(() => self.clients.claim())
+  )
+})
+
+function isHashedAsset(url) {
+  return url.pathname.startsWith('/assets/')
+}
+
+function isSameOrigin(url) {
+  return url.origin === self.location.origin
+}
+
+async function trimAssetCache() {
+  const cache = await caches.open(ASSET_CACHE)
+  const keys = await cache.keys()
+  const excess = keys.length - MAX_ASSET_ENTRIES
+  for (let i = 0; i < excess; i++) {
+    await cache.delete(keys[i])
+  }
+}
+
+async function networkFirst(request) {
+  const cache = await caches.open(SHELL_CACHE)
+  try {
+    const response = await fetch(request)
+    if (response.ok) cache.put(request, response.clone())
+    return response
+  } catch (error) {
+    const cached = await cache.match(request)
+    if (cached) return cached
+    const shell = await cache.match(SHELL_URL)
+    if (shell) return shell
+    throw error
+  }
+}
+
+async function cacheFirst(request) {
+  const cache = await caches.open(ASSET_CACHE)
+  const cached = await cache.match(request)
+  if (cached) return cached
+
+  const response = await fetch(request)
+  if (response.ok) {
+    await cache.put(request, response.clone())
+    await trimAssetCache()
+  }
+  return response
+}
+
+async function staleWhileRevalidate(request) {
+  const cache = await caches.open(SHELL_CACHE)
+  const cached = await cache.match(request)
+
+  const fresh = fetch(request)
+    .then((response) => {
+      if (response.ok) cache.put(request, response.clone())
+      return response
     })
-  );
-  self.clients.claim();
-});
+    .catch(() => cached)
 
-// Fetch - network first, fallback to cache
+  return cached || fresh
+}
+
 self.addEventListener('fetch', (event) => {
-  // Skip non-GET requests
-  if (event.request.method !== 'GET') return;
+  if (event.request.method !== 'GET') return
 
-  // Skip external requests
-  if (!event.request.url.startsWith(self.location.origin)) return;
+  const url = new URL(event.request.url)
+  if (!isSameOrigin(url)) return
 
-  event.respondWith(
-    fetch(event.request)
-      .then((response) => {
-        // Clone and cache the response
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then((cache) => {
-          cache.put(event.request, responseClone);
-        });
-        return response;
-      })
-      .catch(() => {
-        // Network failed, try cache
-        return caches.match(event.request).then((cached) => {
-          if (cached) return cached;
-          // Return offline page for navigation requests
-          if (event.request.mode === 'navigate') {
-            return caches.match('/');
-          }
-          return new Response('Offline', { status: 503 });
-        });
-      })
-  );
-});
+  if (event.request.mode === 'navigate') {
+    event.respondWith(networkFirst(event.request))
+    return
+  }
+
+  if (isHashedAsset(url)) {
+    event.respondWith(cacheFirst(event.request))
+    return
+  }
+
+  event.respondWith(staleWhileRevalidate(event.request))
+})
+
+self.addEventListener('message', (event) => {
+  if (event.data === 'unregister') {
+    self.registration
+      .unregister()
+      .then(() => caches.keys())
+      .then((names) => Promise.all(names.map((name) => caches.delete(name))))
+  }
+})
