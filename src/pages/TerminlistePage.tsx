@@ -7,12 +7,12 @@ import { type LeagueTable } from '../components/LeagueTableCard'
 import { useMatches } from '../hooks/useMatches'
 import { useTeams } from '../hooks/useTeams'
 
-import { activeSquadData } from '../squads/ActiveSquad'
+import { useSeason } from '../squads/SeasonAccess'
 
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 
 export function TerminlistePage() {
-  const { matches, teams: squadTeams, tables, playerStats } = activeSquadData()
+  const { matches, teams: squadTeams, tables, playerStats } = useSeason()
   const location = useLocation()
 
   const [overlayTournament, setOverlayTournament] = useState<string | null>(null)

@@ -1,19 +1,10 @@
 import { describe, it, expect } from 'vitest'
-import { render, screen } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { screen } from '@testing-library/react'
 import { TerminlistePage } from './TerminlistePage'
-import { ThemeProvider } from '../context/ThemeContext'
+import { renderInSeason } from '../test/seasonFixture'
 
 describe('TerminlistePage', () => {
-  const renderPage = () => {
-    return render(
-      <MemoryRouter>
-        <ThemeProvider>
-          <TerminlistePage />
-        </ThemeProvider>
-      </MemoryRouter>
-    )
-  }
+  const renderPage = () => renderInSeason(<TerminlistePage />)
 
   it('renders the header with logo', () => {
     renderPage()

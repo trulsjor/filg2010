@@ -1,4 +1,4 @@
-import type { Match, Metadata, SeasonManifestEntry } from '../types/index.js'
+import type { DataManifest, Match, Metadata, SeasonManifestEntry } from '../types/index.js'
 import type { LeagueTable } from './LeagueTable.js'
 import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats.js'
 
@@ -52,7 +52,15 @@ export function isSeasonManifestEntry(value: unknown): value is SeasonManifestEn
   if (!hasStringKeys(value, ['squadId', 'squadName', 'seasonId', 'seasonName', 'slug'])) {
     return false
   }
+  if (!Array.isArray(value.teams)) return false
   return value.status === 'aktiv' || value.status === 'arkivert'
+}
+
+export function isDataManifest(value: unknown): value is DataManifest {
+  if (!isRecord(value)) return false
+  if (typeof value.currentSeasonSlug !== 'string') return false
+  if (!Array.isArray(value.seasons)) return false
+  return value.seasons.every(isSeasonManifestEntry)
 }
 
 export function requireShape<T>(

@@ -1,7 +1,8 @@
 import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
-import { activeSquadData } from '../squads/ActiveSquad'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 import type { PlayerId } from '../types'
 import {
   PlayerMatchHistory,
@@ -15,12 +16,13 @@ export function SpillerDetaljPage() {
   const { id } = useParams<{ id?: PlayerId }>()
   const navigate = useNavigate()
 
-  const { aggregates, playerStats: stats, matches } = activeSquadData()
+  const { aggregates, playerStats: stats, matches } = useSeason()
+  const { squadPath } = useSquadPath()
   const terminliste = matches as TerminlisteKamp[]
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const player = useMemo(() => {
     if (!id) return undefined
@@ -52,7 +54,7 @@ export function SpillerDetaljPage() {
   const filteredStats = useMemo(() => filteredMatchHistory.calculateStats(), [filteredMatchHistory])
 
   if (!player) {
-    return <Navigate to="/spillere" replace />
+    return <Navigate to={squadPath('spillere')} replace />
   }
 
   return (

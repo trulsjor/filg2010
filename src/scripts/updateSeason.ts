@@ -91,6 +91,7 @@ export async function updateSquad(
     slug: season.slug,
     status: 'aktiv',
     lastUpdated: metadata.lastUpdated,
+    teams: squad.teams,
   })
 
   console.log(`  ferdig på ${((Date.now() - started) / 1000).toFixed(1)}s`)

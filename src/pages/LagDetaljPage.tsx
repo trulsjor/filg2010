@@ -1,7 +1,8 @@
 import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
-import { activeSquadData } from '../squads/ActiveSquad'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 import type { TeamId } from '../types'
 import { TeamStatsAggregate, type TerminlisteMatch } from '../team-stats/TeamStatsAggregate'
 
@@ -14,7 +15,8 @@ type PlayerSortField =
   | 'matches'
 
 export function LagDetaljPage() {
-  const { teams: squadTeams, playerStats: typedStatsData, matches } = activeSquadData()
+  const { teams: squadTeams, playerStats: typedStatsData, matches } = useSeason()
+  const { squadPath } = useSquadPath()
   const typedTerminlisteData = matches as TerminlisteMatch[]
   const params = useParams<{ lagId: TeamId }>()
   const lagId: TeamId | undefined = params.lagId
@@ -24,8 +26,8 @@ export function LagDetaljPage() {
   const ourTeamIds = useMemo(() => TeamStatsAggregate.createOurTeamIds(squadTeams), [squadTeams])
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const allTournaments = useMemo(() => {
     if (!lagId) return []
@@ -72,7 +74,7 @@ export function LagDetaljPage() {
   )
 
   if (!teamData) {
-    return <Navigate to="/" replace />
+    return <Navigate to={squadPath()} replace />
   }
 
   const reversed = [...teamData.matches].reverse()
@@ -113,7 +115,7 @@ export function LagDetaljPage() {
         {allTournaments.length > 1 && (
           <div className="team-chip-filter">
             <Link
-              to={`/lag/${lagId}`}
+              to={squadPath(`lag/${lagId}`)}
               className={`team-chip ${!tournamentFilter ? 'team-chip-active' : ''}`}
             >
               Alle turneringer
@@ -121,7 +123,7 @@ export function LagDetaljPage() {
             {allTournaments.map((tournament) => (
               <Link
                 key={tournament}
-                to={`/lag/${lagId}?turnering=${encodeURIComponent(tournament)}`}
+                to={squadPath(`lag/${lagId}?turnering=${encodeURIComponent(tournament)}`)}
                 className={`team-chip ${tournamentFilter === tournament ? 'team-chip-active' : ''}`}
               >
                 {tournament}
@@ -347,7 +349,10 @@ export function LagDetaljPage() {
                     <tr key={player.playerId}>
                       <td className="col-rank">{player.jerseyNumber ?? '-'}</td>
                       <td className="col-player">
-                        <Link to={`/spillere/${player.playerId}`} className="player-name-link">
+                        <Link
+                          to={squadPath(`spillere/${player.playerId}`)}
+                          className="player-name-link"
+                        >
                           {player.playerName}
                         </Link>
                       </td>

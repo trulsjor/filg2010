@@ -5,5 +5,12 @@
   "seasonName": "Håndballsesongen 2026/2027",
   "slug": "2026-2027",
   "status": "aktiv",
-  "lastUpdated": "2026-07-27T08:09:33.077Z"
+  "lastUpdated": "2026-07-27T08:32:31.177Z",
+  "teams": [
+    {
+      "name": "Fjellhammer G16 1",
+      "lagid": "558767",
+      "color": "#fbbf24"
+    }
+  ]
 }

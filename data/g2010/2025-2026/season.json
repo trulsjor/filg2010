@@ -11,15 +11,18 @@
   "teams": [
     {
       "name": "Fjellhammer G15 1",
-      "lagid": "531500"
+      "lagid": "531500",
+      "color": "#fbbf24"
     },
     {
       "name": "Fjellhammer G15 2",
-      "lagid": "812498"
+      "lagid": "812498",
+      "color": "#fbbf24"
     },
     {
       "name": "Fjellhammer G16 3",
-      "lagid": "583470"
+      "lagid": "583470",
+      "color": "#fbbf24"
     }
   ],
   "counts": {

@@ -1,6 +1,9 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ThemeSelector } from './ThemeSelector'
+import { SquadSwitcher } from './SquadSwitcher'
+import { useSquadPath } from '../squads/useSquadPath'
+import { useSeason } from '../squads/SeasonAccess'
 import type { FilterState } from '../hooks/useMatches'
 
 interface HeaderProps {
@@ -20,6 +23,8 @@ export function Header({
 }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { squadPath } = useSquadPath()
+  const { squad, seasonName, isArchived } = useSeason()
   const showFilters = filters && onFilterChange
 
   const activeCount = [filters?.team, filters?.location, filters?.status].filter(Boolean).length
@@ -50,14 +55,21 @@ export function Header({
       <div className="container">
         <div className="header-main">
           <div className="header-brand">
-            <Link to="/">
+            <Link to={squadPath()}>
               <img src="/fjellhammer-logo.svg" alt="Fjellhammer logo" className="header-logo" />
             </Link>
             <div className="header-text">
               <span>Fjellhammer IL</span>
-              <h1>Terminliste G2010</h1>
+              <h1>Terminliste {squad.name.replace('Fjellhammer ', '')}</h1>
+              {isArchived && (
+                <span className="archive-badge">
+                  Arkiv {seasonName.replace('Håndballsesongen ', '')}
+                </span>
+              )}
             </div>
           </div>
+
+          <SquadSwitcher />
 
           <div className="header-buttons">
             {showFilters && (
@@ -173,7 +185,7 @@ export function Header({
 
             <nav className="header-nav">
               <Link
-                to="/tabeller"
+                to={squadPath('tabeller')}
                 className="nav-link"
                 aria-label="Tabell"
                 title="Se serietabell"
@@ -198,7 +210,7 @@ export function Header({
               </Link>
 
               <Link
-                to="/spillere"
+                to={squadPath('spillere')}
                 className="nav-link"
                 aria-label="Spillere"
                 title="Se spillerstatistikk"

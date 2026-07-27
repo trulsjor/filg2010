@@ -1,18 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { screen, fireEvent } from '@testing-library/react'
 import { Header } from './Header'
-import { ThemeProvider } from '../context/ThemeContext'
+import { renderInSeason, testSeason } from '../test/seasonFixture'
 
-const renderHeader = (props = {}) => {
-  return render(
-    <MemoryRouter>
-      <ThemeProvider>
-        <Header {...props} />
-      </ThemeProvider>
-    </MemoryRouter>
-  )
-}
+const renderHeader = (props = {}) => renderInSeason(<Header {...props} />)
 
 describe('Header', () => {
   it('renders Fjellhammer logo', () => {
@@ -54,7 +45,7 @@ describe('Header', () => {
     renderHeader()
     const tabellLink = screen.getByTestId('tabell-link')
     expect(tabellLink).toBeInTheDocument()
-    expect(tabellLink).toHaveAttribute('href', '/tabeller')
+    expect(tabellLink).toHaveAttribute('href', '/g2010/tabeller')
   })
 
   it('has proper accessibility attributes', () => {
@@ -70,5 +61,41 @@ describe('Header', () => {
   it('renders menu button', () => {
     renderHeader()
     expect(screen.getByRole('button', { name: /meny/i })).toBeInTheDocument()
+  })
+})
+
+describe('Header og kullvalg', () => {
+  it('viser en fane per kull', () => {
+    renderInSeason(<Header />)
+
+    expect(screen.getByRole('button', { name: 'G2010' })).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'J2010' })).toBeInTheDocument()
+  })
+
+  it('markerer kullet man ser på', () => {
+    renderInSeason(<Header />)
+
+    expect(screen.getByRole('button', { name: 'G2010' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'J2010' })).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  it('viser overskrift for kullet man ser på', () => {
+    renderInSeason(<Header />, { season: testSeason() })
+
+    expect(screen.getByRole('heading', { name: 'Terminliste G2010' })).toBeInTheDocument()
+  })
+
+  it('viser arkivmerke når man ser på en tidligere sesong', () => {
+    renderInSeason(<Header />, {
+      season: testSeason({ isArchived: true, seasonName: 'Håndballsesongen 2025/2026' }),
+    })
+
+    expect(screen.getByText(/Arkiv 2025\/2026/)).toBeInTheDocument()
+  })
+
+  it('viser ikke arkivmerke for inneværende sesong', () => {
+    renderInSeason(<Header />)
+
+    expect(screen.queryByText(/Arkiv/)).not.toBeInTheDocument()
   })
 })

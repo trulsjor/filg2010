@@ -22,6 +22,7 @@ function seasonInfo(squadId: string, slug: string, status: 'aktiv' | 'arkivert')
     slug,
     status,
     lastUpdated: '2026-07-27T00:00:00.000Z',
+    teams: [{ name: 'Fjellhammer G16 1', lagid: '558767', color: '#fbbf24' }],
   }
 }
 
@@ -193,5 +194,43 @@ describe('SeasonDataStore og ødelagte datafiler', () => {
       matchStats: [{ matchId: 'm1' }],
       matchesWithoutStats: ['m2'],
     })
+  })
+})
+
+describe('SeasonDataStore og lag per sesong', () => {
+  it('husker hvilke lag som spilte i hver sesong', () => {
+    store.saveSeasonInfo({
+      ...seasonInfo('g2010', '2025-2026', 'arkivert'),
+      teams: [
+        { name: 'Fjellhammer G15 1', lagid: '531500', color: '#fbbf24' },
+        { name: 'Fjellhammer G15 2', lagid: '812498', color: '#059669' },
+      ],
+    })
+    store.saveSeasonInfo(seasonInfo('g2010', '2026-2027', 'aktiv'))
+
+    const seasons = store.listSeasons()
+    const forrige = seasons.find((s) => s.slug === '2025-2026')
+    const inneværende = seasons.find((s) => s.slug === '2026-2027')
+
+    expect(forrige?.teams.map((t) => t.lagid)).toEqual(['531500', '812498'])
+    expect(inneværende?.teams.map((t) => t.lagid)).toEqual(['558767'])
+  })
+
+  it('feiler tydelig når en sesong mangler laglisten', () => {
+    fs.mkdirSync(path.join(baseDir, 'data', 'g2010', '2024-2025'), { recursive: true })
+    fs.writeFileSync(
+      path.join(baseDir, 'data', 'g2010', '2024-2025', 'season.json'),
+      JSON.stringify({
+        squadId: 'g2010',
+        squadName: 'Fjellhammer G2010',
+        seasonId: '201034',
+        seasonName: 'Håndballsesongen 2024/2025',
+        slug: '2024-2025',
+        status: 'arkivert',
+      }),
+      'utf-8'
+    )
+
+    expect(() => store.listSeasons()).toThrow(/season.json/)
   })
 })

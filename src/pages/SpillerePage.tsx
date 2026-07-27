@@ -1,7 +1,8 @@
 import { useState, useMemo, useCallback } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
-import { activeSquadData } from '../squads/ActiveSquad'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 
 type SortField =
   | 'jerseyNumber'
@@ -26,7 +27,8 @@ function shortenName(fullName: string): string {
 }
 
 export function SpillerePage() {
-  const { teams: squadTeams, aggregates } = activeSquadData()
+  const { teams: squadTeams, aggregates } = useSeason()
+  const { squadPath } = useSquadPath()
   const ourTeamIds = useMemo(() => new Set(squadTeams.map((team) => team.lagid)), [squadTeams])
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
@@ -66,8 +68,8 @@ export function SpillerePage() {
   )
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const tournaments = useMemo(() => {
     const set = new Set<string>()
@@ -332,7 +334,10 @@ export function SpillerePage() {
                     <tr key={player.playerId} className={isOurPlayer ? 'our-player' : ''}>
                       <td className="col-rank">{player.jerseyNumber}</td>
                       <td className="col-player">
-                        <Link to={`/spillere/${player.playerId}`} className="player-name-link">
+                        <Link
+                          to={squadPath(`spillere/${player.playerId}`)}
+                          className="player-name-link"
+                        >
                           <span className="player-name-full">{player.playerName}</span>
                           <span className="player-name-short">
                             {shortenName(player.playerName)}

@@ -4,7 +4,8 @@ import { Header } from '../components/Header'
 import { LeagueTableCard, type LeagueTable } from '../components/LeagueTableCard'
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 
-import { activeSquadData } from '../squads/ActiveSquad'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 
 type TeamDisplayName = string
 type TeamsLeagueTablesIndex = Record<TeamDisplayName, LeagueTable[]>
@@ -38,7 +39,8 @@ export function TabellPage() {
     tables: typedTables,
     playerStats: typedStatsData,
     matches: typedTerminlisteData,
-  } = activeSquadData()
+  } = useSeason()
+  const { squadPath } = useSquadPath()
   const navigate = useNavigate()
   const teamNameToId = useMemo(
     () => TeamStatsAggregate.buildTeamNameToIdMap(typedStatsData, typedTerminlisteData),
@@ -46,8 +48,8 @@ export function TabellPage() {
   )
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const tablesByTeam = useMemo(() => {
     const grouped: TeamsLeagueTablesIndex = {}

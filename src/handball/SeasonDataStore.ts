@@ -1,6 +1,13 @@
 import * as fs from 'fs'
 import * as path from 'path'
-import type { Config, DataManifest, Match, Metadata, SeasonManifestEntry } from '../types/index.js'
+import type {
+  Config,
+  DataManifest,
+  Match,
+  Metadata,
+  SeasonManifestEntry,
+  Team,
+} from '../types/index.js'
 import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats.js'
 import type { LeagueTable } from './LeagueTable.js'
 import {
@@ -20,6 +27,7 @@ export interface SeasonInfo {
   slug: string
   status: 'aktiv' | 'arkivert'
   lastUpdated: string
+  teams: Team[]
 }
 
 export interface CollectedPlayerStats {
@@ -122,6 +130,7 @@ export class SeasonDataStore {
           seasonName: info.seasonName,
           slug: info.slug,
           status: info.status,
+          teams: info.teams,
         })
       }
     }

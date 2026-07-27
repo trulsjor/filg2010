@@ -49,6 +49,7 @@ export interface SeasonManifestEntry {
   seasonName: string
   slug: string
   status: 'aktiv' | 'arkivert'
+  teams: Team[]
 }
 
 export interface DataManifest {

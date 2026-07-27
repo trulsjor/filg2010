@@ -2,10 +2,7 @@ import { useState, useRef, useEffect } from 'react'
 import { useTheme } from '../hooks/useTheme'
 import { getThemeOptions, themes, type ThemeId } from '../themes/ThemeRegistry'
 import { useMetadata } from '../hooks/useMetadata'
-import type { Metadata } from '../types'
-import { activeSquadData } from '../squads/ActiveSquad'
-
-const metadata: Metadata = activeSquadData().metadata
+import { useSeason } from '../squads/SeasonAccess'
 
 function formatLoadTime(date: Date): string {
   return date.toLocaleString('no-NO', {
@@ -21,6 +18,7 @@ export function ThemeSelector() {
   const { themeId, setThemeId } = useTheme()
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const { metadata } = useSeason()
   const { formattedLastUpdated } = useMetadata(metadata)
   const [loadedAt] = useState(() => new Date())
 

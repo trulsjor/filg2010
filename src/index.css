@@ -3399,3 +3399,73 @@ a.player-match-link-icon:hover {
     display: none !important;
   }
 }
+
+.squad-switcher {
+  display: flex;
+  align-items: center;
+  gap: var(--ds-spacing-2);
+  flex-wrap: wrap;
+}
+
+.squad-tabs {
+  display: inline-flex;
+  padding: 3px;
+  gap: 2px;
+  border-radius: 10px;
+  border: 1px solid var(--ds-color-border-default);
+  background: var(--ds-color-surface-subtle, var(--ds-color-surface-default));
+}
+
+.squad-tab {
+  padding: var(--ds-spacing-2) var(--ds-spacing-3);
+  border: none;
+  border-radius: 7px;
+  background: transparent;
+  color: var(--ds-color-text-subtle, var(--ds-color-text-default));
+  font-size: var(--ds-font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: all 0.12s ease;
+}
+
+.squad-tab:hover {
+  color: var(--ds-color-text-default);
+}
+
+.squad-tab.active {
+  background: var(--ds-color-brand-default, #009b3e);
+  color: #fff;
+}
+
+.season-select {
+  padding: var(--ds-spacing-2) var(--ds-spacing-3);
+  border-radius: 8px;
+  border: 1px solid var(--ds-color-border-default);
+  background: var(--ds-color-surface-default);
+  color: var(--ds-color-text-default);
+  font-size: var(--ds-font-size-xs);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.archive-badge {
+  display: inline-block;
+  margin-top: 2px;
+  padding: 2px var(--ds-spacing-2);
+  border-radius: 6px;
+  background: var(--ds-color-warning-subtle, #fef3c7);
+  color: var(--ds-color-warning-strong, #92400e);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+@media (max-width: 640px) {
+  .squad-switcher {
+    order: 3;
+    width: 100%;
+    justify-content: space-between;
+  }
+}
