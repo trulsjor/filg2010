@@ -58,7 +58,7 @@ export async function updatePWCup(): Promise<void> {
   try {
     let cupCount = 0
     for (const squad of config.squads) {
-      for (const cup of squad.cups ?? []) {
+      for (const cup of squad.cups) {
         await updateCup(cup, squad, config.currentSeason, store, scraper)
         cupCount++
       }

@@ -2,7 +2,7 @@ import type { Match, Metadata, Season, Squad } from '../types/index.js'
 import type { PlayerStatsData } from '../types/player-stats.js'
 import { HandballHttpClient } from '../handball/HandballHttpClient.js'
 import { HandballEndpoints } from '../handball/HandballEndpoints.js'
-import { SeasonDataStore } from '../handball/SeasonDataStore.js'
+import { SeasonDataStore, type CollectedPlayerStats } from '../handball/SeasonDataStore.js'
 import { SeasonDiscovery, selectPlayedMatches } from '../handball/SeasonDiscovery.js'
 import { SeasonStatistics, selectMatchesToCollect } from '../handball/SeasonStatistics.js'
 import { parseTeamSchedule } from '../handball/TeamSchedule.js'
@@ -19,10 +19,6 @@ function readArg(flag: string): string | undefined {
   const index = process.argv.indexOf(flag)
   if (index === -1 || index + 1 >= process.argv.length) return undefined
   return process.argv[index + 1]
-}
-
-function emptyStats(): PlayerStatsData {
-  return { players: [], matchStats: [], matchesWithoutStats: [], lastUpdated: '' }
 }
 
 function isCupMatch(match: Match): boolean {
@@ -63,21 +59,22 @@ export async function updateSquad(
   store.saveTables(squad.id, season.slug, tables)
   console.log(`  [tabeller] ${tables.length}`)
 
-  const stats = SKIP_STATS
-    ? (store.loadPlayerStats(squad.id, season.slug) ?? emptyStats())
+  const collected = SKIP_STATS
+    ? store.loadCollectedStats(squad.id, season.slug)
     : await collectStatistics(squad, season, store, http, discovery, teamIds, tournaments)
 
-  const players = rebuildPlayerCatalog(stats.matchStats)
-  const withCatalog: PlayerStatsData = {
-    ...stats,
-    players,
+  const stats: PlayerStatsData = {
+    ...collected,
+    players: rebuildPlayerCatalog(collected.matchStats),
     lastUpdated: new Date().toISOString(),
   }
-  store.savePlayerStats(squad.id, season.slug, withCatalog)
+  store.savePlayerStats(squad.id, season.slug, stats)
 
-  const aggregates = new PlayerStatsAggregator(withCatalog).generateAggregates()
+  const aggregates = new PlayerStatsAggregator(stats).generateAggregates()
   store.savePlayerAggregates(squad.id, season.slug, aggregates)
-  console.log(`  [spillere] ${players.length} spillere, ${aggregates.aggregates.length} aggregater`)
+  console.log(
+    `  [spillere] ${stats.players.length} spillere, ${aggregates.aggregates.length} aggregater`
+  )
 
   const metadata: Metadata = {
     lastUpdated: new Date().toISOString(),
@@ -107,8 +104,8 @@ async function collectStatistics(
   discovery: SeasonDiscovery,
   teamIds: string[],
   tournaments: TeamTournament[]
-): Promise<PlayerStatsData> {
-  const existing = store.loadPlayerStats(squad.id, season.slug) ?? emptyStats()
+): Promise<CollectedPlayerStats> {
+  const existing = store.loadCollectedStats(squad.id, season.slug)
   const known = {
     withStats: new Set(existing.matchStats.map((match) => match.matchId)),
     withoutStats: new Set(existing.matchesWithoutStats),

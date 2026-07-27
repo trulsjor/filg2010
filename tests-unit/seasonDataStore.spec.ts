@@ -3,6 +3,7 @@ import * as fs from 'fs'
 import * as os from 'os'
 import * as path from 'path'
 import { SeasonDataStore } from '../src/handball/SeasonDataStore.js'
+import { SeasonDataError } from '../src/handball/SeasonDataFiles.js'
 import type { Match } from '../src/types/index.js'
 
 let baseDir: string
@@ -137,5 +138,60 @@ describe('SeasonDataStore og manifest', () => {
     fs.mkdirSync(path.join(baseDir, 'data', 'tomtkull', '2026-2027'), { recursive: true })
 
     expect(store.listSeasons()).toHaveLength(3)
+  })
+})
+
+describe('SeasonDataStore og ødelagte datafiler', () => {
+  function writeRaw(fileName: string, content: string): void {
+    fs.mkdirSync(path.join(baseDir, 'data', 'g2010', '2026-2027'), { recursive: true })
+    fs.writeFileSync(path.join(baseDir, 'data', 'g2010', '2026-2027', fileName), content, 'utf-8')
+  }
+
+  it('feiler tydelig når terminlisten ikke er kamper', () => {
+    writeRaw('terminliste.json', '[{"noe": "annet"}]')
+
+    expect(() => store.loadMatches('g2010', '2026-2027')).toThrow(/terminliste.json/)
+  })
+
+  it('feiler tydelig når terminlisten ikke er en liste', () => {
+    writeRaw('terminliste.json', '{}')
+
+    expect(() => store.loadMatches('g2010', '2026-2027')).toThrow(SeasonDataError)
+  })
+
+  it('feiler tydelig når tabellen mangler rader', () => {
+    writeRaw('tables.json', '[{"tournamentName": "Serie"}]')
+
+    expect(() => store.loadTables('g2010', '2026-2027')).toThrow(/tables.json/)
+  })
+
+  it('feiler tydelig når spillerstatistikken er ufullstendig', () => {
+    writeRaw('player-stats.json', '{"matchStats": []}')
+
+    expect(() => store.loadCollectedStats('g2010', '2026-2027')).toThrow(/player-stats.json/)
+  })
+
+  it('starter tomt når spillerstatistikk ikke finnes ennå', () => {
+    expect(store.loadCollectedStats('g2010', '2026-2027')).toEqual({
+      matchStats: [],
+      matchesWithoutStats: [],
+    })
+  })
+
+  it('leser innsamlet statistikk uten å ta med katalog og tidsstempel', () => {
+    writeRaw(
+      'player-stats.json',
+      JSON.stringify({
+        players: [{ id: 'p1' }],
+        matchStats: [{ matchId: 'm1' }],
+        matchesWithoutStats: ['m2'],
+        lastUpdated: '2026-07-27T00:00:00.000Z',
+      })
+    )
+
+    expect(store.loadCollectedStats('g2010', '2026-2027')).toEqual({
+      matchStats: [{ matchId: 'm1' }],
+      matchesWithoutStats: ['m2'],
+    })
   })
 })

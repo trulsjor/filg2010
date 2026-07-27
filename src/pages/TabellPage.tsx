@@ -68,7 +68,7 @@ export function TabellPage() {
         return
       }
 
-      const matchingCup = squad.cups?.find((cup) => table.tournamentName.startsWith(cup.name))
+      const matchingCup = squad.cups.find((cup) => table.tournamentName.startsWith(cup.name))
       if (matchingCup) {
         grouped[matchingCup.teamTag].push(table)
       }

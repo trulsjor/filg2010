@@ -20,7 +20,7 @@ export interface Squad {
   id: string
   name: string
   teams: Team[]
-  cups?: CupConfig[]
+  cups: CupConfig[]
 }
 
 export interface CupConfig {

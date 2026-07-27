@@ -2,6 +2,14 @@ import configData from '../../config.json'
 import type { Config, Match, Metadata, Squad, Team } from '../types'
 import type { PlayerStatsData, PlayerAggregatesData } from '../types/player-stats'
 import type { LeagueTable } from '../components/LeagueTableCard'
+import {
+  isLeagueTableArray,
+  isMatchArray,
+  isMetadata,
+  isPlayerAggregatesData,
+  isPlayerStatsData,
+  requireShape,
+} from '../handball/SeasonDataFiles'
 
 import g2010Matches from '../../data/g2010/2026-2027/terminliste.json'
 import g2010Tables from '../../data/g2010/2026-2027/tables.json'
@@ -25,37 +33,69 @@ export interface SquadData {
   metadata: Metadata
 }
 
+interface SeasonFiles {
+  matches: unknown
+  tables: unknown
+  playerStats: unknown
+  aggregates: unknown
+  metadata: unknown
+}
+
 const config: Config = configData
 
-const dataBySquadId: Record<string, Omit<SquadData, 'squad' | 'teams'>> = {
+const filesBySquadId: Record<string, SeasonFiles> = {
   g2010: {
-    matches: g2010Matches as Match[],
-    tables: g2010Tables as LeagueTable[],
-    playerStats: g2010Stats as PlayerStatsData,
-    aggregates: g2010Aggregates as PlayerAggregatesData,
-    metadata: g2010Metadata as Metadata,
+    matches: g2010Matches,
+    tables: g2010Tables,
+    playerStats: g2010Stats,
+    aggregates: g2010Aggregates,
+    metadata: g2010Metadata,
   },
   j2010: {
-    matches: j2010Matches as Match[],
-    tables: j2010Tables as LeagueTable[],
-    playerStats: j2010Stats as PlayerStatsData,
-    aggregates: j2010Aggregates as PlayerAggregatesData,
-    metadata: j2010Metadata as Metadata,
+    matches: j2010Matches,
+    tables: j2010Tables,
+    playerStats: j2010Stats,
+    aggregates: j2010Aggregates,
+    metadata: j2010Metadata,
   },
 }
+
+function readSeasonFiles(squad: Squad, files: SeasonFiles): SquadData {
+  const where = (fileName: string): string => `${squad.id}/${fileName}`
+
+  return {
+    squad,
+    teams: squad.teams,
+    matches: requireShape(files.matches, isMatchArray, where('terminliste.json')),
+    tables: requireShape(files.tables, isLeagueTableArray, where('tables.json')),
+    playerStats: requireShape(files.playerStats, isPlayerStatsData, where('player-stats.json')),
+    aggregates: requireShape(
+      files.aggregates,
+      isPlayerAggregatesData,
+      where('player-aggregates.json')
+    ),
+    metadata: requireShape(files.metadata, isMetadata, where('metadata.json')),
+  }
+}
+
+const dataBySquadId = new Map<string, SquadData>(
+  config.squads.flatMap((squad) => {
+    const files = filesBySquadId[squad.id]
+    return files === undefined ? [] : [[squad.id, readSeasonFiles(squad, files)] as const]
+  })
+)
 
 export const squads: Squad[] = config.squads
 
+export const defaultSquadId = config.squads[0].id
+
 export function squadData(squadId: string): SquadData {
-  const squad = config.squads.find((candidate) => candidate.id === squadId)
-  const data = dataBySquadId[squadId]
-  if (squad === undefined || data === undefined) {
+  const data = dataBySquadId.get(squadId)
+  if (data === undefined) {
     throw new Error(`Ukjent kull: ${squadId}`)
   }
-  return { squad, teams: squad.teams, ...data }
+  return data
 }
-
-export const defaultSquadId = config.squads[0].id
 
 export function activeSquadData(): SquadData {
   return squadData(defaultSquadId)
