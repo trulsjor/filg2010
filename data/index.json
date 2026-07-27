@@ -1,0 +1,30 @@
+{
+  "currentSeasonSlug": "2026-2027",
+  "seasons": [
+    {
+      "squadId": "g2010",
+      "squadName": "Fjellhammer G2010",
+      "seasonId": "201068",
+      "seasonName": "Håndballsesongen 2026/2027",
+      "slug": "2026-2027",
+      "status": "aktiv"
+    },
+    {
+      "squadId": "g2010",
+      "squadName": "Fjellhammer G2010",
+      "seasonId": "201060",
+      "seasonName": "Håndballsesongen 2025/2026",
+      "slug": "2025-2026",
+      "status": "arkivert"
+    },
+    {
+      "squadId": "j2010",
+      "squadName": "Fjellhammer J2010",
+      "seasonId": "201068",
+      "seasonName": "Håndballsesongen 2026/2027",
+      "slug": "2026-2027",
+      "status": "aktiv"
+    }
+  ],
+  "generatedAt": "2026-07-27T07:51:53.322Z"
+}

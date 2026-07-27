@@ -74,6 +74,10 @@ export class SeasonDiscovery {
     return Array.from(found.keys())
   }
 
+  async fetchAllSchedules(teamIds: string[], seasonId: string): Promise<ScheduledMatch[]> {
+    return dedupeMatches(await this.fetchSchedules(teamIds, seasonId))
+  }
+
   private async fetchSchedules(teamIds: string[], seasonId: string): Promise<ScheduledMatch[]> {
     const matches: ScheduledMatch[] = []
     for (const teamId of teamIds) {
@@ -83,7 +87,7 @@ export class SeasonDiscovery {
     return matches
   }
 
-  private async fetchTables(tournaments: TeamTournament[]): Promise<LeagueTable[]> {
+  async fetchTables(tournaments: TeamTournament[]): Promise<LeagueTable[]> {
     const tables: LeagueTable[] = []
     for (const tournament of tournaments) {
       if (!tournament.hasPublicTable) continue

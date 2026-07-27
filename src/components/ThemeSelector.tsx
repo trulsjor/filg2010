@@ -3,9 +3,9 @@ import { useTheme } from '../hooks/useTheme'
 import { getThemeOptions, themes, type ThemeId } from '../themes/ThemeRegistry'
 import { useMetadata } from '../hooks/useMetadata'
 import type { Metadata } from '../types'
-import metadataData from '../../data/g2010/2025-2026/metadata.json'
+import { activeSquadData } from '../squads/ActiveSquad'
 
-const metadata: Metadata = metadataData
+const metadata: Metadata = activeSquadData().metadata
 
 function formatLoadTime(date: Date): string {
   return date.toLocaleString('no-NO', {

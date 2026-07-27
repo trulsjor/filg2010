@@ -39,3 +39,6 @@ data/update-summary.json
 
 # Documentation drafts
 docs/
+
+# playwright-mcp browser-artefakter
+.playwright-mcp/

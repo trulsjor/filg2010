@@ -1,10 +1,9 @@
 import type { ReactNode } from 'react'
 import { usePullToRefresh } from '../hooks/usePullToRefresh'
 import { useMetadata } from '../hooks/useMetadata'
-import type { Metadata } from '../types'
-import metadataData from '../../data/g2010/2025-2026/metadata.json'
+import { activeSquadData } from '../squads/ActiveSquad'
 
-const metadata = metadataData as Metadata
+const metadata = activeSquadData().metadata
 
 interface PullToRefreshProps {
   children: ReactNode

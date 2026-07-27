@@ -6,8 +6,21 @@ export type TournamentName = string
 export interface Team {
   name: string
   lagid: string
-  seasonId: string
+  seasonId?: string
   color: string
+}
+
+export interface Season {
+  id: string
+  name: string
+  slug: string
+}
+
+export interface Squad {
+  id: string
+  name: string
+  teams: Team[]
+  cups?: CupConfig[]
 }
 
 export interface CupConfig {
@@ -24,8 +37,23 @@ export interface CupConfig {
 }
 
 export interface Config {
-  teams: Team[]
-  cups?: CupConfig[]
+  currentSeason: Season
+  squads: Squad[]
+}
+
+export interface SeasonManifestEntry {
+  squadId: string
+  squadName: string
+  seasonId: string
+  seasonName: string
+  slug: string
+  status: 'aktiv' | 'arkivert'
+}
+
+export interface DataManifest {
+  currentSeasonSlug: string
+  seasons: SeasonManifestEntry[]
+  generatedAt: string
 }
 
 export interface RawMatchData {

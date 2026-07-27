@@ -1,10 +1,7 @@
 import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
-import aggregatesData from '../../data/g2010/2025-2026/player-aggregates.json'
-import statsData from '../../data/g2010/2025-2026/player-stats.json'
-import terminlisteData from '../../data/g2010/2025-2026/terminliste.json'
-import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats'
+import { activeSquadData } from '../squads/ActiveSquad'
 import type { PlayerId } from '../types'
 import {
   PlayerMatchHistory,
@@ -14,17 +11,12 @@ import {
 } from '../player-match-records/PlayerMatchHistory'
 import { TeamSelection } from '../player-match-records/TeamSelection'
 
-const typedAggregatesData: PlayerAggregatesData = aggregatesData
-const typedStatsData: PlayerStatsData = statsData
-const typedTerminlisteData: TerminlisteKamp[] = terminlisteData
-
 export function SpillerDetaljPage() {
   const { id } = useParams<{ id?: PlayerId }>()
   const navigate = useNavigate()
 
-  const aggregates = typedAggregatesData
-  const stats = typedStatsData
-  const terminliste = typedTerminlisteData
+  const { aggregates, playerStats: stats, matches } = activeSquadData()
+  const terminliste = matches as TerminlisteKamp[]
 
   const handleScrollToNext = useCallback(() => {
     navigate('/', { state: { scrollToNext: true } })

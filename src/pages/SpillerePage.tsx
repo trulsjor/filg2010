@@ -1,11 +1,7 @@
 import { useState, useMemo, useCallback } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
-import configData from '../../config.json'
-import aggregatesData from '../../data/g2010/2025-2026/player-aggregates.json'
-import type { PlayerAggregatesData } from '../types/player-stats'
-
-const typedAggregatesData: PlayerAggregatesData = aggregatesData
+import { activeSquadData } from '../squads/ActiveSquad'
 
 type SortField =
   | 'jerseyNumber'
@@ -30,9 +26,8 @@ function shortenName(fullName: string): string {
 }
 
 export function SpillerePage() {
-  const config = configData
-  const aggregates = typedAggregatesData
-  const ourTeamIds = new Set(config.teams.map((t) => t.lagid))
+  const { teams: squadTeams, aggregates } = activeSquadData()
+  const ourTeamIds = useMemo(() => new Set(squadTeams.map((team) => team.lagid)), [squadTeams])
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 

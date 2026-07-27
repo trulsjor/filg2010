@@ -1,16 +1,9 @@
 import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
-import configData from '../../config.json'
-import statsData from '../../data/g2010/2025-2026/player-stats.json'
-import terminlisteData from '../../data/g2010/2025-2026/terminliste.json'
-import type { Config, TeamId } from '../types'
-import type { PlayerStatsData } from '../types/player-stats'
+import { activeSquadData } from '../squads/ActiveSquad'
+import type { TeamId } from '../types'
 import { TeamStatsAggregate, type TerminlisteMatch } from '../team-stats/TeamStatsAggregate'
-
-const typedStatsData: PlayerStatsData = statsData
-const typedConfig: Config = configData
-const typedTerminlisteData: TerminlisteMatch[] = terminlisteData
 
 type PlayerSortField =
   | 'jerseyNumber'
@@ -21,12 +14,14 @@ type PlayerSortField =
   | 'matches'
 
 export function LagDetaljPage() {
+  const { teams: squadTeams, playerStats: typedStatsData, matches } = activeSquadData()
+  const typedTerminlisteData = matches as TerminlisteMatch[]
   const params = useParams<{ lagId: TeamId }>()
   const lagId: TeamId | undefined = params.lagId
   const [searchParams] = useSearchParams()
   const tournamentFilter = searchParams.get('turnering')
   const navigate = useNavigate()
-  const ourTeamIds = useMemo(() => TeamStatsAggregate.createOurTeamIds(typedConfig), [])
+  const ourTeamIds = useMemo(() => TeamStatsAggregate.createOurTeamIds(squadTeams), [squadTeams])
 
   const handleScrollToNext = useCallback(() => {
     navigate('/', { state: { scrollToNext: true } })
@@ -35,7 +30,7 @@ export function LagDetaljPage() {
   const allTournaments = useMemo(() => {
     if (!lagId) return []
     return TeamStatsAggregate.findTeamTournaments(lagId, typedStatsData)
-  }, [lagId])
+  }, [lagId, typedStatsData])
 
   const teamData = useMemo(() => {
     if (!lagId) return null
@@ -46,7 +41,7 @@ export function LagDetaljPage() {
       ourTeamIds,
       tournamentFilter
     )
-  }, [lagId, ourTeamIds, tournamentFilter])
+  }, [lagId, ourTeamIds, tournamentFilter, typedStatsData, typedTerminlisteData])
 
   const [sortField, setSortField] = useState<PlayerSortField>('jerseyNumber')
   const [sortAsc, setSortAsc] = useState(true)
