@@ -5,6 +5,7 @@ import { SquadSwitcher } from './SquadSwitcher'
 import { useSquadPath } from '../squads/useSquadPath'
 import { useSeason } from '../squads/SeasonAccess'
 import { useDocumentTitle } from '../squads/useDocumentTitle'
+import { archiveLabel, shortSquadName } from '../squads/SeasonLabels'
 import type { FilterState } from '../hooks/useMatches'
 
 interface HeaderProps {
@@ -62,12 +63,8 @@ export function Header({
             </Link>
             <div className="header-text">
               <span>Fjellhammer IL</span>
-              <h1>Terminliste {squad.name.replace('Fjellhammer ', '')}</h1>
-              {isArchived && (
-                <span className="archive-badge">
-                  Arkiv {seasonName.replace('Håndballsesongen ', '')}
-                </span>
-              )}
+              <h1>Terminliste {shortSquadName(squad.name)}</h1>
+              {isArchived && <span className="archive-badge">{archiveLabel(seasonName)}</span>}
             </div>
           </div>
 

@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom'
 import { squads, seasonsForSquad, currentSeasonSlug } from '../squads/SeasonDataLoader'
 import { useSquadPath } from '../squads/useSquadPath'
+import { seasonOptionLabel } from '../squads/SeasonLabels'
 
 export function SquadSwitcher() {
   const { squadId, season } = useSquadPath()
@@ -45,8 +46,7 @@ export function SquadSwitcher() {
         >
           {seasons.map((choice) => (
             <option key={choice.slug} value={choice.slug}>
-              {choice.name.replace('Håndballsesongen ', '')}
-              {choice.isArchived ? ' (arkiv)' : ''}
+              {seasonOptionLabel(choice.name, choice.isArchived)}
             </option>
           ))}
         </select>
