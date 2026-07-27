@@ -35,10 +35,19 @@ function SquadRoutes() {
   )
 }
 
-function StartPage() {
+function LegacyRoute() {
+  const location = useLocation()
+  const squadId = rememberedSquadId()
+  return <Navigate to={`/${squadId}${location.pathname}${location.search}`} replace />
+}
+
+function rememberedSquadId(): string {
   const remembered = recallSquad()
-  const squadId = remembered !== null && isKnownSquad(remembered) ? remembered : defaultSquadId
-  return <Navigate to={`/${squadId}`} replace />
+  return remembered !== null && isKnownSquad(remembered) ? remembered : defaultSquadId
+}
+
+function StartPage() {
+  return <Navigate to={`/${rememberedSquadId()}`} replace />
 }
 
 export function App() {
@@ -56,12 +65,10 @@ export function App() {
           <Route path="lag/:lagId" element={<LagDetaljPage />} />
         </Route>
 
-        <Route path="/tabeller" element={<Navigate to={`/${defaultSquadId}/tabeller`} replace />} />
-        <Route path="/spillere" element={<Navigate to={`/${defaultSquadId}/spillere`} replace />} />
-        <Route
-          path="/spillere/:id"
-          element={<Navigate to={`/${defaultSquadId}/spillere`} replace />}
-        />
+        <Route path="/tabeller" element={<LegacyRoute />} />
+        <Route path="/spillere" element={<LegacyRoute />} />
+        <Route path="/spillere/:id" element={<LegacyRoute />} />
+        <Route path="/lag/:lagId" element={<LegacyRoute />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <InstallPrompt />

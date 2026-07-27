@@ -15,7 +15,31 @@
           "color": "#fbbf24"
         }
       ],
-      "cups": []
+      "cups": [],
+      "pastSeasons": [
+        {
+          "id": "201060",
+          "name": "Håndballsesongen 2025/2026",
+          "slug": "2025-2026",
+          "teams": [
+            {
+              "name": "Fjellhammer G15 1",
+              "lagid": "531500",
+              "color": "#fbbf24"
+            },
+            {
+              "name": "Fjellhammer G15 2",
+              "lagid": "812498",
+              "color": "#059669"
+            },
+            {
+              "name": "Fjellhammer G16 3",
+              "lagid": "583470",
+              "color": "#9B0098FF"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "j2010",
@@ -27,7 +51,31 @@
           "color": "#e11d48"
         }
       ],
-      "cups": []
+      "cups": [],
+      "pastSeasons": [
+        {
+          "id": "201060",
+          "name": "Håndballsesongen 2025/2026",
+          "slug": "2025-2026",
+          "teams": [
+            {
+              "name": "Fjellhammer J15 1",
+              "lagid": "443649",
+              "color": "#e11d48"
+            },
+            {
+              "name": "Fjellhammer J15 2",
+              "lagid": "496997",
+              "color": "#7c3aed"
+            },
+            {
+              "name": "Fjellhammer J15 3",
+              "lagid": "558771",
+              "color": "#0891b2"
+            }
+          ]
+        }
+      ]
     }
   ]
 }

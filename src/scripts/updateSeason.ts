@@ -1,4 +1,4 @@
-import type { Match, Metadata, Season, Squad } from '../types/index.js'
+import type { Match, Metadata, Season, Squad, Team } from '../types/index.js'
 import type { PlayerStatsData } from '../types/player-stats.js'
 import { HandballHttpClient } from '../handball/HandballHttpClient.js'
 import { HandballEndpoints } from '../handball/HandballEndpoints.js'
@@ -11,8 +11,10 @@ import { buildTournamentUrlLookup, toMatches } from '../handball/ScheduledMatchT
 import { PlayerStatsAggregator } from '../handball/PlayerStatsAggregator.js'
 import { rebuildPlayerCatalog } from '../handball/player-catalog.js'
 import { sortMatchesByDate } from '../match/match-sorting.js'
+import { isCupMatch } from '../profixio/CupMatchNumber.js'
 
 const SKIP_STATS = process.argv.includes('--no-stats')
+const INCLUDE_ARCHIVE = process.argv.includes('--archive')
 const ONLY_SQUAD = readArg('--squad')
 
 function readArg(flag: string): string | undefined {
@@ -21,20 +23,37 @@ function readArg(flag: string): string | undefined {
   return process.argv[index + 1]
 }
 
-function isCupMatch(match: Match): boolean {
-  return match.Kampnr.startsWith('pwcup-')
+interface SeasonTarget {
+  squad: Squad
+  season: Season
+  teams: Team[]
+  status: 'aktiv' | 'arkivert'
 }
 
-export async function updateSquad(
-  squad: Squad,
-  season: Season,
+function currentTarget(squad: Squad, season: Season): SeasonTarget {
+  return { squad, season, teams: squad.teams, status: 'aktiv' }
+}
+
+function archivedTargets(squad: Squad): SeasonTarget[] {
+  return squad.pastSeasons.map((past) => ({
+    squad,
+    season: { id: past.id, name: past.name, slug: past.slug },
+    teams: past.teams,
+    status: 'arkivert',
+  }))
+}
+
+export async function updateSeason(
+  target: SeasonTarget,
   store: SeasonDataStore,
   http: HandballHttpClient
 ): Promise<void> {
+  const { squad, season, teams, status } = target
   const started = Date.now()
-  console.log(`\n=== ${squad.name} — ${season.name} ===`)
+  const label = status === 'arkivert' ? ` (arkiv)` : ''
+  console.log(`\n=== ${squad.name} — ${season.name}${label} ===`)
 
-  const teamIds = squad.teams.map((team) => team.lagid)
+  const teamIds = teams.map((team) => team.lagid)
   const discovery = new SeasonDiscovery(http, (step, detail) =>
     console.log(`  [${step}] ${detail}`)
   )
@@ -44,7 +63,7 @@ export async function updateSquad(
 
   const endpoints = new HandballEndpoints()
   const ownMatches: Match[] = []
-  for (const team of squad.teams) {
+  for (const team of teams) {
     const schedule = parseTeamSchedule(
       await http.fetchJson(endpoints.teamSchedule(team.lagid, season.id))
     )
@@ -61,7 +80,7 @@ export async function updateSquad(
 
   const collected = SKIP_STATS
     ? store.loadCollectedStats(squad.id, season.slug)
-    : await collectStatistics(squad, season, store, http, discovery, teamIds, tournaments)
+    : await collectStatistics(target, store, http, discovery, teamIds, tournaments)
 
   const stats: PlayerStatsData = {
     ...collected,
@@ -78,7 +97,7 @@ export async function updateSquad(
 
   const metadata: Metadata = {
     lastUpdated: new Date().toISOString(),
-    teamsCount: squad.teams.length,
+    teamsCount: teams.length,
     matchesCount: ownMatches.length + cupMatches.length,
   }
   store.saveMetadata(squad.id, season.slug, metadata)
@@ -89,23 +108,23 @@ export async function updateSquad(
     seasonId: season.id,
     seasonName: season.name,
     slug: season.slug,
-    status: 'aktiv',
+    status,
     lastUpdated: metadata.lastUpdated,
-    teams: squad.teams,
+    teams,
   })
 
   console.log(`  ferdig på ${((Date.now() - started) / 1000).toFixed(1)}s`)
 }
 
 async function collectStatistics(
-  squad: Squad,
-  season: Season,
+  target: SeasonTarget,
   store: SeasonDataStore,
   http: HandballHttpClient,
   discovery: SeasonDiscovery,
   teamIds: string[],
   tournaments: TeamTournament[]
 ): Promise<CollectedPlayerStats> {
+  const { squad, season } = target
   const existing = store.loadCollectedStats(squad.id, season.slug)
   const known = {
     withStats: new Set(existing.matchStats.map((match) => match.matchId)),
@@ -126,7 +145,6 @@ async function collectStatistics(
   const collected = await collector.collect(toCollect)
 
   return {
-    ...existing,
     matchStats: [...existing.matchStats, ...collected.matchStats],
     matchesWithoutStats: [...existing.matchesWithoutStats, ...collected.matchesWithoutStats],
   }
@@ -146,8 +164,13 @@ export async function updateAllSquads(): Promise<void> {
     throw new Error(`Fant ingen kull å oppdatere${ONLY_SQUAD ? ` for --squad ${ONLY_SQUAD}` : ''}`)
   }
 
-  for (const squad of squads) {
-    await updateSquad(squad, config.currentSeason, store, http)
+  const targets = squads.flatMap((squad) => [
+    currentTarget(squad, config.currentSeason),
+    ...(INCLUDE_ARCHIVE ? archivedTargets(squad) : []),
+  ])
+
+  for (const target of targets) {
+    await updateSeason(target, store, http)
   }
 
   const manifest = store.saveManifest(config.currentSeason.slug)

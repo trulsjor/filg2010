@@ -1,4 +1,5 @@
 import type { Match, CupConfig } from '../types/index.js'
+import { cupMatchNumber } from './CupMatchNumber.js'
 
 export interface ProfixioMatchData {
   matchId: string
@@ -56,7 +57,7 @@ export function profixioMatchToMatch(raw: ProfixioMatchData, cupConfig: CupConfi
     Lag: cupConfig.teamTag,
     Dato: parseProfixioDate(raw.date, raw.year),
     Tid: raw.time,
-    Kampnr: `pwcup-${raw.matchNumber}`,
+    Kampnr: cupMatchNumber(raw.matchNumber),
     Hjemmelag: raw.homeTeam,
     Bortelag: raw.awayTeam,
     'H-B': result,

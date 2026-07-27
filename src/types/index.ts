@@ -22,6 +22,11 @@ export interface Squad {
   name: string
   teams: Team[]
   cups: CupConfig[]
+  pastSeasons: PastSeason[]
+}
+
+export interface PastSeason extends Season {
+  teams: Team[]
 }
 
 export interface CupConfig {

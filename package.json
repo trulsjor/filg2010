@@ -18,7 +18,8 @@
     "update-squad": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js --squad",
     "update-schedule": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js --no-stats",
     "update-pwcup": "npx tsx src/scripts/updatePWCup.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "update-archive": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js --archive"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

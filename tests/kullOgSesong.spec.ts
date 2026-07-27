@@ -32,13 +32,13 @@ test.describe('Kullvalg', () => {
 
   test('viser ulike kamper for de to kullene', async ({ page }) => {
     await page.goto('/g2010')
+    await expect(page.locator('.match-card').first()).toBeVisible()
     const guttekamper = await page.locator('.match-card').allInnerTexts()
 
     await page.goto('/j2010')
+    await expect(page.locator('.match-card').first()).toBeVisible()
     const jentekamper = await page.locator('.match-card').allInnerTexts()
 
-    expect(guttekamper.length).toBeGreaterThan(0)
-    expect(jentekamper.length).toBeGreaterThan(0)
     expect(guttekamper.join()).not.toBe(jentekamper.join())
   })
 
@@ -80,9 +80,58 @@ test.describe('Sesongarkiv', () => {
     await expect(page.locator('.archive-badge')).toBeVisible()
   })
 
-  test('viser ingen sesongvelger for kull uten arkiv', async ({ page }) => {
-    await page.goto('/j2010')
+  test('viser sesongvelger for begge kull, med begge sesongene', async ({ page }) => {
+    for (const kull of ['g2010', 'j2010']) {
+      await page.goto(`/${kull}`)
 
-    await expect(page.locator('.season-select')).toHaveCount(0)
+      const velger = page.locator('.season-select')
+      await expect(velger).toBeVisible()
+      await expect(velger.locator('option')).toHaveCount(2)
+      await expect(velger).toHaveValue('2026-2027')
+    }
+  })
+
+  test('bytter til arkivet via sesongvelgeren', async ({ page }) => {
+    await page.goto('/j2010')
+    await page.locator('.season-select').selectOption('2025-2026')
+
+    await expect(page).toHaveURL(/\/j2010\?sesong=2025-2026$/)
+    await expect(page.locator('.archive-badge')).toContainText('Arkiv 2025/2026')
+  })
+})
+
+test.describe('Lenker fra tabellen', () => {
+  test('går til lagsiden innenfor kullet, ikke til forsiden', async ({ page }) => {
+    await page.goto('/g2010/tabeller?sesong=2025-2026')
+
+    const lagLenke = page.locator('.table-team-link').first()
+    await expect(lagLenke).toBeVisible()
+    await lagLenke.click()
+
+    await expect(page).toHaveURL(/\/g2010\/lag\/\d+\?sesong=2025-2026/)
+  })
+
+  test('beholder arkivsesongen på lagsiden', async ({ page }) => {
+    await page.goto('/g2010/tabeller?sesong=2025-2026')
+    await page.locator('.table-team-link').first().click()
+
+    await expect(page.locator('.archive-badge')).toBeVisible()
+  })
+
+  test('sender gammel laglenke til kullet i stedet for forsiden', async ({ page }) => {
+    await page.goto('/lag/531500')
+
+    await expect(page).toHaveURL(/\/g2010\/lag\/531500$/)
+  })
+
+  test('beholder både spiller og sesong i gammel spillerlenke', async ({ page }) => {
+    await page.goto('/g2010/spillere?sesong=2025-2026')
+    const href = await page.locator('.player-name-link').first().getAttribute('href')
+    const id = href?.split('/').pop()?.split('?')[0]
+
+    await page.goto(`/spillere/${id}?sesong=2025-2026`)
+
+    await expect(page).toHaveURL(`/g2010/spillere/${id}?sesong=2025-2026`)
+    await expect(page.locator('.archive-badge')).toBeVisible()
   })
 })

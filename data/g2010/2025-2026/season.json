@@ -5,9 +5,7 @@
   "seasonName": "Håndballsesongen 2025/2026",
   "slug": "2025-2026",
   "status": "arkivert",
-  "frozenAt": "2026-07-26T20:17:13.451Z",
-  "lastUpdated": "2026-03-26T14:30:55.424Z",
-  "note": "Frosset før omlegging til nye handball.no-API-er. Skal ikke oppdateres av pipelinen.",
+  "lastUpdated": "2026-07-27T10:10:54.500Z",
   "teams": [
     {
       "name": "Fjellhammer G15 1",
@@ -17,19 +15,12 @@
     {
       "name": "Fjellhammer G15 2",
       "lagid": "812498",
-      "color": "#fbbf24"
+      "color": "#059669"
     },
     {
       "name": "Fjellhammer G16 3",
       "lagid": "583470",
-      "color": "#fbbf24"
+      "color": "#9B0098FF"
     }
-  ],
-  "counts": {
-    "matches": 51,
-    "tables": 6,
-    "matchesWithStats": 302,
-    "matchesWithoutStats": 66,
-    "players": 866
-  }
+  ]
 }

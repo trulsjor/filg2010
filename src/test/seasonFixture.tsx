@@ -29,6 +29,7 @@ export function testSeason(overrides: Partial<SeasonData> = {}): SeasonData {
       name: 'Fjellhammer G2010',
       teams: [{ name: 'Fjellhammer G16 1', lagid: '558767', color: '#fbbf24' }],
       cups: [],
+      pastSeasons: [],
     },
     teams: [{ name: 'Fjellhammer G16 1', lagid: '558767', color: '#fbbf24' }],
     seasonSlug: '2026-2027',

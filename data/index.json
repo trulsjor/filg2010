@@ -32,12 +32,12 @@
         {
           "name": "Fjellhammer G15 2",
           "lagid": "812498",
-          "color": "#fbbf24"
+          "color": "#059669"
         },
         {
           "name": "Fjellhammer G16 3",
           "lagid": "583470",
-          "color": "#fbbf24"
+          "color": "#9B0098FF"
         }
       ]
     },
@@ -55,7 +55,32 @@
           "color": "#e11d48"
         }
       ]
+    },
+    {
+      "squadId": "j2010",
+      "squadName": "Fjellhammer J2010",
+      "seasonId": "201060",
+      "seasonName": "Håndballsesongen 2025/2026",
+      "slug": "2025-2026",
+      "status": "arkivert",
+      "teams": [
+        {
+          "name": "Fjellhammer J15 1",
+          "lagid": "443649",
+          "color": "#e11d48"
+        },
+        {
+          "name": "Fjellhammer J15 2",
+          "lagid": "496997",
+          "color": "#7c3aed"
+        },
+        {
+          "name": "Fjellhammer J15 3",
+          "lagid": "558771",
+          "color": "#0891b2"
+        }
+      ]
     }
   ],
-  "generatedAt": "2026-07-27T08:32:34.000Z"
+  "generatedAt": "2026-07-27T10:18:18.464Z"
 }
