@@ -7,7 +7,7 @@ import { SpillerDetaljPage } from './pages/SpillerDetaljPage'
 import { LagDetaljPage } from './pages/LagDetaljPage'
 import { InstallPrompt } from './components/InstallPrompt'
 import { PullToRefresh } from './components/PullToRefresh'
-import { SeasonProvider } from './squads/SeasonContext'
+import { SeasonProvider } from './squads/SeasonProvider'
 import { recallSquad } from './squads/SeasonAccess'
 import { defaultSquadId, isKnownSquad } from './squads/SeasonDataLoader'
 
