@@ -1,8 +1,8 @@
 import { useState, useMemo } from 'react'
-import type { Match } from '../types'
+import type { Match, Score, TeamName } from '../types'
 
 export interface FilterState {
-  team?: string
+  team?: TeamName
   location?: 'home' | 'away'
   status?: 'played' | 'upcoming'
 }
@@ -11,10 +11,10 @@ export interface UseMatchesOptions {
   now?: () => Date
 }
 
-export const isFjellhammerTeam = (teamName?: string): boolean =>
+export const isFjellhammerTeam = (teamName?: TeamName): boolean =>
   teamName?.toLowerCase().includes('fjellhammer') ?? false
 
-export const isValidScore = (score?: string): boolean =>
+export const isValidScore = (score?: Score): boolean =>
   !!score && score.trim() !== '' && score !== '-'
 
 function parseMatchDate(match: Match): Date | null {

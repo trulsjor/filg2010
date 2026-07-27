@@ -2,6 +2,7 @@ export type TeamId = string
 export type TeamName = string
 export type PlayerId = string
 export type TournamentName = string
+export type Score = string
 
 export interface Team {
   name: string
