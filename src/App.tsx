@@ -7,6 +7,7 @@ import { SpillerDetaljPage } from './pages/SpillerDetaljPage'
 import { LagDetaljPage } from './pages/LagDetaljPage'
 import { InstallPrompt } from './components/InstallPrompt'
 import { PullToRefresh } from './components/PullToRefresh'
+import { ArchiveBanner } from './components/ArchiveBanner'
 import { SeasonProvider } from './squads/SeasonProvider'
 import { recallSquad } from './squads/SeasonAccess'
 import { defaultSquadId, isKnownSquad } from './squads/SeasonDataLoader'
@@ -36,6 +37,7 @@ function LegacyRoute() {
 function SeasonChrome() {
   return (
     <PullToRefresh>
+      <ArchiveBanner />
       <Outlet />
     </PullToRefresh>
   )

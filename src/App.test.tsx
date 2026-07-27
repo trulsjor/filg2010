@@ -90,7 +90,7 @@ describe('App og kullruting', () => {
     renderWithProviders(<App />, { route: '/g2010/2025-2026' })
 
     await waitFor(() => {
-      expect(screen.getByText(/Arkiv 2025\/2026/)).toBeInTheDocument()
+      expect(screen.getByText(/Du ser på sesongen 2025\/2026/)).toBeInTheDocument()
     })
   })
 
@@ -119,7 +119,7 @@ describe('App og arkivvisning', () => {
     renderWithProviders(<App />, { route: '/g2010/2025-2026' })
 
     await waitFor(() => {
-      expect(screen.getByText(/Arkiv 2025\/2026/)).toBeInTheDocument()
+      expect(screen.getByText(/Du ser på sesongen 2025\/2026/)).toBeInTheDocument()
     })
 
     expect(screen.queryByText(/iceserien G16/)).not.toBeInTheDocument()

@@ -17,7 +17,3 @@ export function useSquadPath() {
 
   return { squadId: activeSquadId, season: activeSeason, squadPath }
 }
-
-export function seasonPath(squadId: string, seasonSlug: string): string {
-  return seasonSlug === currentSeasonSlug ? `/${squadId}` : `/${squadId}/${seasonSlug}`
-}

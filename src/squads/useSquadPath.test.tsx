@@ -2,7 +2,7 @@ import { describe, it, expect } from 'vitest'
 import { renderHook } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { useSquadPath, seasonPath } from './useSquadPath'
+import { useSquadPath } from './useSquadPath'
 
 function wrapperFor(route: string, path: string) {
   return ({ children }: { children: ReactNode }) => (
@@ -70,15 +70,5 @@ describe('useSquadPath i arkivet', () => {
 
     expect(squadId).toBe('j2010')
     expect(season).toBe('2025-2026')
-  })
-})
-
-describe('seasonPath', () => {
-  it('gir kort sti for inneværende sesong', () => {
-    expect(seasonPath('g2010', '2026-2027')).toBe('/g2010')
-  })
-
-  it('gir sesongledd for arkiverte sesonger', () => {
-    expect(seasonPath('g2010', '2025-2026')).toBe('/g2010/2025-2026')
   })
 })

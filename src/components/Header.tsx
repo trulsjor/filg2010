@@ -1,11 +1,10 @@
 import { useState, useRef, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { ThemeSelector } from './ThemeSelector'
-import { SquadSwitcher } from './SquadSwitcher'
 import { useSquadPath } from '../squads/useSquadPath'
 import { useSeason } from '../squads/SeasonAccess'
 import { useDocumentTitle } from '../squads/useDocumentTitle'
-import { archiveLabel, shortSquadName } from '../squads/SeasonLabels'
+import { shortSquadName } from '../squads/SeasonLabels'
 import type { FilterState } from '../hooks/useMatches'
 
 interface HeaderProps {
@@ -26,7 +25,7 @@ export function Header({
   const [isOpen, setIsOpen] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { squadPath } = useSquadPath()
-  const { squad, seasonName, isArchived } = useSeason()
+  const { squad } = useSeason()
   useDocumentTitle()
   const showFilters = filters && onFilterChange
 
@@ -64,11 +63,8 @@ export function Header({
             <div className="header-text">
               <span>Fjellhammer IL</span>
               <h1>Terminliste {shortSquadName(squad.name)}</h1>
-              {isArchived && <span className="archive-badge">{archiveLabel(seasonName)}</span>}
             </div>
           </div>
-
-          <SquadSwitcher />
 
           <div className="header-buttons">
             {showFilters && (

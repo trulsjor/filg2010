@@ -3400,72 +3400,72 @@ a.player-match-link-icon:hover {
   }
 }
 
-.squad-switcher {
+
+
+
+
+
+
+
+
+.archive-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--ds-spacing-3);
+  padding: var(--ds-spacing-3) var(--ds-spacing-4);
+  background: var(--ds-color-warning-subtle);
+  color: var(--ds-color-warning-text);
+  font-size: var(--ds-font-size-sm);
+  font-weight: 600;
+  text-align: center;
+}
+
+.archive-banner-text::before {
+  content: '🗄️';
+  margin-right: var(--ds-spacing-2);
+}
+
+.archive-banner-exit {
+  padding: var(--ds-spacing-1) var(--ds-spacing-3);
+  border-radius: var(--ds-radius-full, 999px);
+  background: var(--ds-color-warning-base);
+  color: var(--ds-color-text-on-accent);
+  text-decoration: none;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.archive-banner-exit:hover {
+  opacity: 0.9;
+}
+
+.menu-choice {
   display: flex;
   align-items: center;
   gap: var(--ds-spacing-2);
-  flex-wrap: wrap;
-}
-
-.squad-tabs {
-  display: inline-flex;
-  padding: 3px;
-  gap: 2px;
-  border-radius: 10px;
-  border: 1px solid var(--ds-color-border-default);
-  background: var(--ds-color-surface-subtle, var(--ds-color-surface-default));
-}
-
-.squad-tab {
+  width: 100%;
   padding: var(--ds-spacing-2) var(--ds-spacing-3);
   border: none;
-  border-radius: 7px;
-  background: transparent;
-  color: var(--ds-color-text-subtle, var(--ds-color-text-default));
-  font-size: var(--ds-font-size-xs);
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  cursor: pointer;
-  transition: all 0.12s ease;
-}
-
-.squad-tab:hover {
-  color: var(--ds-color-text-default);
-}
-
-.squad-tab.active {
-  background: var(--ds-color-brand-default, #009b3e);
-  color: #fff;
-}
-
-.season-select {
-  padding: var(--ds-spacing-2) var(--ds-spacing-3);
   border-radius: 8px;
-  border: 1px solid var(--ds-color-border-default);
-  background: var(--ds-color-surface-default);
+  background: transparent;
   color: var(--ds-color-text-default);
-  font-size: var(--ds-font-size-xs);
-  font-weight: 600;
+  font-size: var(--ds-font-size-sm);
+  font-weight: 500;
+  text-align: left;
   cursor: pointer;
 }
 
-.archive-badge {
-  display: inline-block;
-  margin-top: 2px;
-  padding: 2px var(--ds-spacing-2);
-  border-radius: 6px;
-  background: var(--ds-color-warning-subtle, #fef3c7);
-  color: var(--ds-color-warning-strong, #92400e);
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
+.menu-choice:hover {
+  background: var(--ds-color-surface-hover);
 }
 
-@media (max-width: 640px) {
-  .squad-switcher {
-    order: 3;
-    width: 100%;
-    justify-content: space-between;
-  }
+.menu-choice.active {
+  font-weight: 700;
+}
+
+.menu-choice-mark {
+  color: var(--ds-color-accent-base);
+  font-weight: 700;
 }

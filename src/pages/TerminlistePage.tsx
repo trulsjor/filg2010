@@ -89,6 +89,7 @@ export function TerminlistePage() {
     <div className="app">
       <Header
         onScrollToNext={scrollToNextMatch}
+        showScrollButton={nextMatch !== null}
         teamNames={teamNames}
         filters={filters}
         onFilterChange={handleFilterChange}

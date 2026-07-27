@@ -64,38 +64,23 @@ describe('Header', () => {
   })
 })
 
-describe('Header og kullvalg', () => {
-  it('viser en fane per kull', () => {
-    renderInSeason(<Header />)
-
-    expect(screen.getByRole('button', { name: 'G2010' })).toBeInTheDocument()
-    expect(screen.getByRole('button', { name: 'J2010' })).toBeInTheDocument()
-  })
-
-  it('markerer kullet man ser på', () => {
-    renderInSeason(<Header />)
-
-    expect(screen.getByRole('button', { name: 'G2010' })).toHaveAttribute('aria-pressed', 'true')
-    expect(screen.getByRole('button', { name: 'J2010' })).toHaveAttribute('aria-pressed', 'false')
-  })
-
-  it('viser overskrift for kullet man ser på', () => {
+describe('Header viser hvilket kull du ser på', () => {
+  it('viser kullet i overskriften', () => {
     renderInSeason(<Header />, { season: testSeason() })
 
     expect(screen.getByRole('heading', { name: 'Terminliste G2010' })).toBeInTheDocument()
   })
 
-  it('viser arkivmerke når man ser på en tidligere sesong', () => {
-    renderInSeason(<Header />, {
-      season: testSeason({ isArchived: true, seasonName: 'Håndballsesongen 2025/2026' }),
-    })
-
-    expect(screen.getByText(/Arkiv 2025\/2026/)).toBeInTheDocument()
-  })
-
-  it('viser ikke arkivmerke for inneværende sesong', () => {
+  it('har ingen kullfaner, de ligger i menyen', () => {
     renderInSeason(<Header />)
 
-    expect(screen.queryByText(/Arkiv/)).not.toBeInTheDocument()
+    expect(screen.queryByRole('button', { name: 'J2010' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('group', { name: 'Velg kull' })).not.toBeInTheDocument()
+  })
+
+  it('har ingen sesongvelger, den ligger i menyen', () => {
+    renderInSeason(<Header />)
+
+    expect(screen.queryByLabelText('Velg sesong')).not.toBeInTheDocument()
   })
 })
