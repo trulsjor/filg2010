@@ -1,4 +1,4 @@
-import { currentSeasonSlug, seasonsForSquad } from './SeasonDataLoader'
+import { currentSeasonSlug, seasonsForSquad, type SeasonChoice } from './SeasonDataLoader'
 
 export function pathToSeason(squadId: string, seasonSlug: string): string {
   return seasonSlug === currentSeasonSlug ? `/${squadId}` : `/${squadId}/${seasonSlug}`
@@ -9,6 +9,6 @@ export function pathToSquad(nextSquadId: string, seasonSlug: string): string {
   return pathToSeason(nextSquadId, hasSameSeason ? seasonSlug : currentSeasonSlug)
 }
 
-export function previousSeasons(squadId: string) {
+export function previousSeasons(squadId: string): SeasonChoice[] {
   return seasonsForSquad(squadId).filter((choice) => choice.isArchived)
 }
