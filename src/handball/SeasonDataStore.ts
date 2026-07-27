@@ -1,7 +1,7 @@
 import * as fs from 'fs'
 import * as path from 'path'
 import type { Config, DataManifest, Match, Metadata, SeasonManifestEntry } from '../types/index.js'
-import type { PlayerStatsData } from '../types/player-stats.js'
+import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats.js'
 import type { LeagueTable } from './LeagueTable.js'
 import {
   SeasonDataError,
@@ -88,7 +88,7 @@ export class SeasonDataStore {
     return { matchStats: stats.matchStats, matchesWithoutStats: stats.matchesWithoutStats }
   }
 
-  savePlayerAggregates(squadId: string, slug: string, aggregates: unknown): void {
+  savePlayerAggregates(squadId: string, slug: string, aggregates: PlayerAggregatesData): void {
     this.write(squadId, slug, 'player-aggregates.json', aggregates)
   }
 

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo } from 'react'
 import type { Match } from '../types'
 
 export interface FilterState {
@@ -52,7 +52,7 @@ function matchesFilter(match: Match, filters: FilterState): boolean {
 
 export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
   const [filters, setFilters] = useState<FilterState>({})
-  const getNow = useCallback(options.now ?? (() => new Date()), [options.now])
+  const readNow = options.now
 
   const filteredMatches = useMemo(
     () => matches.filter((match) => matchesFilter(match, filters)),
@@ -60,7 +60,7 @@ export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
   )
 
   const nextMatch = useMemo(() => {
-    const now = getNow()
+    const now = readNow === undefined ? new Date() : readNow()
     const MATCH_DURATION_MS = 60 * 60 * 1000
     return (
       matches.find((match) => {
@@ -68,7 +68,7 @@ export function useMatches(matches: Match[], options: UseMatchesOptions = {}) {
         return matchDate && matchDate.getTime() + MATCH_DURATION_MS >= now.getTime()
       }) ?? null
     )
-  }, [matches, getNow])
+  }, [matches, readNow])
 
   return {
     matches,
