@@ -4,6 +4,7 @@ import { ThemeSelector } from './ThemeSelector'
 import { SquadSwitcher } from './SquadSwitcher'
 import { useSquadPath } from '../squads/useSquadPath'
 import { useSeason } from '../squads/SeasonAccess'
+import { useDocumentTitle } from '../squads/useDocumentTitle'
 import type { FilterState } from '../hooks/useMatches'
 
 interface HeaderProps {
@@ -25,6 +26,7 @@ export function Header({
   const dropdownRef = useRef<HTMLDivElement>(null)
   const { squadPath } = useSquadPath()
   const { squad, seasonName, isArchived } = useSeason()
+  useDocumentTitle()
   const showFilters = filters && onFilterChange
 
   const activeCount = [filters?.team, filters?.location, filters?.status].filter(Boolean).length

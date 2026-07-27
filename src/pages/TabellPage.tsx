@@ -106,7 +106,7 @@ export function TabellPage() {
           </button>
           <div className="stats-page-title">
             <h1>Tabeller</h1>
-            <p className="stats-subtitle">Serietabeller for Fjellhammer G2010</p>
+            <p className="stats-subtitle">Serietabeller for {squad.name}</p>
           </div>
         </div>
 

@@ -27,7 +27,7 @@ function shortenName(fullName: string): string {
 }
 
 export function SpillerePage() {
-  const { teams: squadTeams, aggregates } = useSeason()
+  const { squad, teams: squadTeams, aggregates } = useSeason()
   const { squadPath } = useSquadPath()
   const ourTeamIds = useMemo(() => new Set(squadTeams.map((team) => team.lagid)), [squadTeams])
   const navigate = useNavigate()
@@ -218,7 +218,7 @@ export function SpillerePage() {
           </button>
           <div className="stats-page-title">
             <h1>Spillerstatistikk</h1>
-            <p className="stats-subtitle">Toppscorere og statistikk for Fjellhammer G2010</p>
+            <p className="stats-subtitle">Toppscorere og statistikk for {squad.name}</p>
           </div>
         </div>
 

@@ -34,16 +34,28 @@ jobs:
       - name: Lag commit-melding
         id: summary
         run: |
-          CHANGED=$(git diff --name-only data/ | grep -c 'terminliste.json\|tables.json\|player-stats.json' || true)
-          if [ "$CHANGED" -gt 0 ]; then
-            echo "commit_msg=🤖 Oppdater data ($CHANGED datasett endret)" >> $GITHUB_OUTPUT
+          SQUADS=$(git diff --name-only data/ \
+            | grep -E 'terminliste\.json|tables\.json|player-stats\.json' \
+            | cut -d/ -f2 | sort -u | paste -sd ', ' -)
+
+          if [ -n "$SQUADS" ]; then
+            echo "commit_msg=🤖 Oppdater data ($SQUADS)" >> $GITHUB_OUTPUT
           else
             echo "commit_msg=🤖 Oppdater data" >> $GITHUB_OUTPUT
           fi
+
           {
             echo "## Oppdatering fullført"
             echo ""
-            git diff --stat data/ || echo "Ingen endringer."
+            if [ -n "$SQUADS" ]; then
+              echo "Endret: **$SQUADS**"
+            else
+              echo "Ingen endringer."
+            fi
+            echo ""
+            echo '```'
+            git diff --stat data/
+            echo '```'
           } >> $GITHUB_STEP_SUMMARY
 
       - name: Commit and deploy

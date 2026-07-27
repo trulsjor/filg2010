@@ -1,25 +1,24 @@
 # Terminliste - Fjellhammer Håndball
 
-En moderne nettside for å vise kampterminlisten for Fjellhammer håndballag (G15 1, G15 2 og G16 3). Dataene hentes automatisk fra handball.no API og vises i en responsiv tabell med klikkbare lenker.
+En nettside som viser terminliste, tabeller og spillerstatistikk for Fjellhammer-kullene G2010 og J2010. Data hentes automatisk fra handball.no og lagres per kull og sesong, slik at tidligere sesonger kan leses i arkivet.
 
 ## ✨ Hovedfunksjoner
 
-- 📊 **Multi-lag støtte** - Vis flere lag i samme oversikt
-- 🔗 **Klikkbare lenker** - Lenker til kamper, lag og turneringer
-- 🎨 **Visuell lagindikator** - Fargekodet per lag
+- 👥 **Flere kull** - G2010 og J2010 med hver sine ruter og data
+- 🗄️ **Sesongarkiv** - Tidligere sesonger er bevart og kan velges
+- 📊 **Statistikk for alle lag** - Også motstandernes spillere
+- 🔗 **Klikkbare lenker** - Til kamper, lag og turneringer
 - ⏰ **Timestamp** - Se når data sist ble oppdatert
-- 🔄 **Smart oppdatering** - Data hentes kun når nødvendig
+- 🔄 **Inkrementell oppdatering** - Kun nye kamper hentes
 - 📱 **Responsivt design** - Tabell på desktop, kort-layout på mobil
-- 📅 **Smart sortering** - Kamper sortert etter dato og klokkeslett
-- ✅ **Testet** - 8 Playwright E2E-tester
 
 ## Teknologier
 
-- **Astro** - Moderne web framework
+- **React + Vite** - Nettsiden
 - **TypeScript** - Type-sikkerhet
-- **xlsx** - Excel-parsing
-- **Playwright** - E2E testing og web scraping
-- **config.json** - Enkel lag-konfigurasjon
+- **Vitest** - Enhetstester
+- **Playwright** - E2E-tester og cup-scraping
+- **config.json** - Kull- og sesongkonfigurasjon
 
 ## Kom i gang
 
@@ -31,41 +30,46 @@ npm install
 
 ### Konfigurasjon
 
-Lag-konfigurasjonen ligger i `config.json`:
+`config.json` har gjeldende sesong på toppnivå og ett innslag per kull:
 
 ```json
 {
-  "teams": [
+  "currentSeason": {
+    "id": "201068",
+    "name": "Håndballsesongen 2026/2027",
+    "slug": "2026-2027"
+  },
+  "squads": [
     {
-      "name": "Fjellhammer G15 1",
-      "lagid": "531500",
-      "seasonId": "201060",
-      "color": "#fbbf24"
+      "id": "g2010",
+      "name": "Fjellhammer G2010",
+      "teams": [{ "name": "Fjellhammer G16 1", "lagid": "558767", "color": "#fbbf24" }],
+      "cups": []
     },
     {
-      "name": "Fjellhammer G15 2",
-      "lagid": "812498",
-      "seasonId": "201060",
-      "color": "#059669"
-    },
-    {
-      "name": "Fjellhammer G16 3",
-      "lagid": "583470",
-      "seasonId": "201060",
-      "color": "#9B0098FF"
+      "id": "j2010",
+      "name": "Fjellhammer J2010",
+      "teams": [{ "name": "Fjellhammer J16 1", "lagid": "443496", "color": "#e11d48" }],
+      "cups": []
     }
   ]
 }
 ```
 
-### Hent terminliste-data
+Sesongen ligger på toppnivå fordi den gjelder alle lag. Nye lag legges til under
+riktig kull uten kodeendring.
 
-**Anbefalt: Hent data for alle lag**
+### Hent data
+
 ```bash
-npm run refresh
+npm run update-all          # alle kull: terminliste, tabeller, spillerstatistikk
+npm run update-squad j2010  # bare ett kull
+npm run update-schedule     # hopp over spillerstatistikk, for en rask sjekk
 ```
 
-Dette henter data for alle lag definert i `config.json`, inkludert lenker til kamper, lag og turneringer.
+Data lagres under `data/<kull>/<sesong>/`, og `data/index.json` lister hvilke
+kull og sesonger nettsiden kan vise. Statistikk hentes inkrementelt: kamper som
+allerede er hentet, hentes ikke på nytt.
 
 ### Kjør utviklingsserver
 
@@ -120,62 +124,58 @@ npm test
 npm run test:unit
 ```
 
-### Kjør kun data-tester
-
-```bash
-npm run test:e2e -- --project=data-tests
-```
-
-### Kjør kun UI-tester
-
-```bash
-npm run test:e2e -- --project=ui-tests
-```
-
-### Kjør kun Playwright-suite
+### Kjør kun e2e-tester (Playwright)
 
 ```bash
 npm run test:e2e
-```
-
-### Åpne Playwright UI
-
-```bash
-npm run test:ui
 ```
 
 ## Prosjektstruktur
 
 ```
 terminliste/
-├── config.json                       # ⚙️  Lag-konfigurasjon (inkl. lagfarger)
+├── config.json                  ⚙️  Gjeldende sesong og kull
 ├── src/
-│   ├── pages/
-│   │   └── index.astro               # 🏠 Hovedside med terminliste
-│   └── scripts/
-│       ├── fetchAllTeamsData.ts      # ⭐ Hent data for alle lag (NYTT!)
-│       ├── fetchDataWithLinks.ts     # 📊 Hent data med lenker (enkelt lag)
-│       ├── scrapeLinks.ts            # 🔗 Scrape kamp- og lag-lenker
-│       ├── scrapeTournamentLinks.ts  # 🏆 Scrape turnering-lenker
-│       └── ...debug scripts...       # 🐛 Debug-verktøy
-├── tests/
-│   ├── fetchData.spec.ts             # ✅ Tester for data-henting
-│   └── homepage.spec.ts              # ✅ Tester for UI og lenker
-├── data/
-│   ├── terminliste.json              # 📄 Alle kamper (JSON format)
-│   └── metadata.json                 # ⏰ Timestamp og metadata
-├── plan.md                           # 📋 Implementeringsplan
-└── README.md                         # 📖 Denne filen
+│   ├── pages/                   🏠 Terminliste, tabeller, spillere
+│   ├── components/              🧩 Header, kampkort, kullbytter
+│   ├── handball/                🏐 Henting og parsing fra handball.no
+│   ├── squads/                  👥 Kull, sesong og datalasting
+│   ├── profixio/                🏆 Cup-scraping
+│   └── scripts/                 🤖 updateSeason, updatePWCup
+├── tests/                       ✅ Playwright e2e
+├── tests-unit/                  ✅ Vitest
+└── data/
+    ├── index.json               📇 Hvilke kull og sesonger finnes
+    ├── g2010/2026-2027/         📄 Terminliste, tabeller, statistikk
+    ├── g2010/2025-2026/         🗄️  Arkivert sesong
+    └── j2010/2026-2027/
 ```
 
 For bidragsrutiner og agentinstruksjoner, se `AGENTS.md`.
 
 ## Datakilder
 
-Terminlisten hentes fra:
-- **API**: https://www.handball.no/AjaxData/TerminlisteLag?id=531500&seasonId=201060
-- **Format**: Excel (.xlsx)
-- **Lagring**: CSV
+Data hentes fra handball.no:
+- **Terminliste og turneringer**: `/api/AjaxData/TerminListeForTeam` og
+  `/api/AjaxData/TournamentsForTeam`, som krever headeren
+  `x-requested-with: XMLHttpRequest`
+- **Tabeller og spillerstatistikk**: JSON i Vue-komponentenes props i
+  server-HTML-en (`<table-main>` og `<match-info>`)
+- **Lagring**: JSON under `data/<kull>/<sesong>/`
+
+Ingen nettleser er involvert i datahentingen. Playwright brukes bare til
+e2e-tester og til cup-scraping fra Profixio.
+
+## Ruter
+
+```
+/                       sist valgte kull
+/g2010                  terminliste for guttelaget
+/g2010/tabeller         tabeller
+/g2010/spillere         spillerstatistikk
+/j2010                  tilsvarende for jentelaget
+?sesong=2025-2026        arkivvisning, virker på alle sider
+```
 
 ## Design
 
@@ -195,14 +195,11 @@ Terminlisten hentes fra:
 
 ## Tekniske funksjoner
 
-- Viser all terminlistedata sortert etter dato og klokkeslett
-- **Klikkbare lenker til kamper, lag og turneringer**
-- **Responsivt design**: Bytter automatisk mellom tabell (desktop) og kort (mobil)
-- Moderne, fargerikt design med gradient-bakgrunn
-- Hover-effekter for bedre brukeropplevelse
-- Automatisk testing med Playwright (8 tester)
-- Type-sikkerhet med TypeScript
-- Web scraping av lenker med Playwright
+- Kamper sortert etter dato og klokkeslett, med nedtelling til neste kamp
+- Klikkbare lenker til kamper, lag og turneringer
+- Responsivt design: tabell på desktop, kort på mobil
+- Data lastes ved behov, så arkivsesonger ikke tynger førstegangslasting
+- Type-sikkerhet med TypeScript, og datafiler valideres ved innlasting
 
 ## Utvikling
 
@@ -211,5 +208,3 @@ Prosjektet følger TDD-prinsipper. Alle endringer bør:
 2. Implementere funksjonalitet
 3. Kjøre tester for å verifisere
 4. Committe med beskrivende melding
-
-Se `plan.md` for fullstendig implementeringsplan.

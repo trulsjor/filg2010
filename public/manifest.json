@@ -1,7 +1,7 @@
 {
-  "name": "Fjellhammer G2010 Terminliste",
-  "short_name": "G2010",
-  "description": "Terminliste og statistikk for Fjellhammer G2010 håndball",
+  "name": "Fjellhammer 2010 Terminliste",
+  "short_name": "Fjellhammer 2010",
+  "description": "Terminliste og statistikk for Fjellhammer 2010 håndball",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#020b05",
@@ -24,6 +24,8 @@
       "type": "image/svg+xml"
     }
   ],
-  "categories": ["sports"],
+  "categories": [
+    "sports"
+  ],
   "lang": "no"
 }
