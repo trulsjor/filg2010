@@ -87,7 +87,7 @@ describe('App og kullruting', () => {
   })
 
   it('viser arkivert sesong når den velges', async () => {
-    renderWithProviders(<App />, { route: '/g2010?sesong=2025-2026' })
+    renderWithProviders(<App />, { route: '/g2010/2025-2026' })
 
     await waitFor(() => {
       expect(screen.getByText(/Arkiv 2025\/2026/)).toBeInTheDocument()
@@ -105,7 +105,7 @@ describe('App og kullruting', () => {
 
 describe('App og arkivvisning', () => {
   it('filtrerer arkiverte spillere på lagene som spilte den sesongen', async () => {
-    renderWithProviders(<App />, { route: '/g2010/spillere?sesong=2025-2026' })
+    renderWithProviders(<App />, { route: '/g2010/2025-2026/spillere' })
 
     await waitFor(() => {
       expect(screen.getByText(/spillere\)/)).toBeInTheDocument()
@@ -116,7 +116,7 @@ describe('App og arkivvisning', () => {
   })
 
   it('viser arkivets kamper, ikke inneværende sesongs', async () => {
-    renderWithProviders(<App />, { route: '/g2010?sesong=2025-2026' })
+    renderWithProviders(<App />, { route: '/g2010/2025-2026' })
 
     await waitFor(() => {
       expect(screen.getByText(/Arkiv 2025\/2026/)).toBeInTheDocument()

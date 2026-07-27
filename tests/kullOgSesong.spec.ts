@@ -51,13 +51,13 @@ test.describe('Kullvalg', () => {
 
 test.describe('Sesongarkiv', () => {
   test('viser arkivert sesong med tydelig merke', async ({ page }) => {
-    await page.goto('/g2010?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026')
 
     await expect(page.locator('.archive-badge')).toContainText('Arkiv 2025/2026')
   })
 
   test('viser arkivets kamper, ikke inneværende sesongs', async ({ page }) => {
-    await page.goto('/g2010?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026')
 
     const kamper = page.locator('.match-card')
     await expect(kamper.first()).toBeVisible()
@@ -65,7 +65,7 @@ test.describe('Sesongarkiv', () => {
   })
 
   test('viser spillerstatistikk fra arkivsesongen', async ({ page }) => {
-    await page.goto('/g2010/spillere?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026/spillere')
 
     const rader = page.locator('.player-table tbody tr')
     await expect(rader.first()).toBeVisible()
@@ -73,10 +73,10 @@ test.describe('Sesongarkiv', () => {
   })
 
   test('tar vare på sesongvalget når man navigerer', async ({ page }) => {
-    await page.goto('/g2010?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026')
     await page.getByTestId('tabell-link').click()
 
-    await expect(page).toHaveURL(/\/g2010\/tabeller\?sesong=2025-2026$/)
+    await expect(page).toHaveURL(/\/g2010\/2025-2026\/tabeller$/)
     await expect(page.locator('.archive-badge')).toBeVisible()
   })
 
@@ -95,24 +95,24 @@ test.describe('Sesongarkiv', () => {
     await page.goto('/j2010')
     await page.locator('.season-select').selectOption('2025-2026')
 
-    await expect(page).toHaveURL(/\/j2010\?sesong=2025-2026$/)
+    await expect(page).toHaveURL(/\/j2010\/2025-2026$/)
     await expect(page.locator('.archive-badge')).toContainText('Arkiv 2025/2026')
   })
 })
 
 test.describe('Lenker fra tabellen', () => {
   test('går til lagsiden innenfor kullet, ikke til forsiden', async ({ page }) => {
-    await page.goto('/g2010/tabeller?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026/tabeller')
 
     const lagLenke = page.locator('.table-team-link').first()
     await expect(lagLenke).toBeVisible()
     await lagLenke.click()
 
-    await expect(page).toHaveURL(/\/g2010\/lag\/\d+\?sesong=2025-2026/)
+    await expect(page).toHaveURL(/\/g2010\/2025-2026\/lag\/\d+$/)
   })
 
   test('beholder arkivsesongen på lagsiden', async ({ page }) => {
-    await page.goto('/g2010/tabeller?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026/tabeller')
     await page.locator('.table-team-link').first().click()
 
     await expect(page.locator('.archive-badge')).toBeVisible()
@@ -124,24 +124,26 @@ test.describe('Lenker fra tabellen', () => {
     await expect(page).toHaveURL(/\/g2010\/lag\/531500$/)
   })
 
-  test('beholder både spiller og sesong i gammel spillerlenke', async ({ page }) => {
-    await page.goto('/g2010/spillere?sesong=2025-2026')
-    const href = await page.locator('.player-name-link').first().getAttribute('href')
-    const id = href?.split('/').pop()?.split('?')[0]
+  test('går til spillersiden i arkivet med sesongen beholdt', async ({ page }) => {
+    await page.goto('/g2010/2025-2026/spillere')
 
-    await page.goto(`/spillere/${id}?sesong=2025-2026`)
+    const spiller = page.locator('.player-name-link').first()
+    await expect(spiller).toBeVisible()
+    await spiller.click()
 
-    await expect(page).toHaveURL(`/g2010/spillere/${id}?sesong=2025-2026`)
+    await expect(page).toHaveURL(/\/g2010\/2025-2026\/spillere\/\w+$/)
     await expect(page.locator('.archive-badge')).toBeVisible()
+  })
+
+  test('gammel spillerlenke får kullprefiks', async ({ page }) => {
+    await page.goto('/spillere')
+
+    await expect(page).toHaveURL(/\/g2010\/spillere$/)
   })
 })
 
 test.describe('Interne lenker bevarer kull og sesong', () => {
-  const arkivsider = [
-    '/g2010?sesong=2025-2026',
-    '/g2010/tabeller?sesong=2025-2026',
-    '/g2010/spillere?sesong=2025-2026',
-  ]
+  const arkivsider = ['/g2010/2025-2026', '/g2010/2025-2026/tabeller', '/g2010/2025-2026/spillere']
 
   for (const side of arkivsider) {
     test(`ingen lenker mister kull eller sesong på ${side}`, async ({ page }) => {
@@ -152,22 +154,20 @@ test.describe('Interne lenker bevarer kull og sesong', () => {
         .locator('a[href^="/"]')
         .evaluateAll((lenker) => lenker.map((a) => a.getAttribute('href') ?? ''))
 
-      const utenKull = interneLenker.filter((href) => !href.startsWith('/g2010'))
-      const utenSesong = interneLenker.filter((href) => !href.includes('sesong=2025-2026'))
+      const utenSesong = interneLenker.filter((href) => !href.startsWith('/g2010/2025-2026'))
 
-      expect(utenKull, `lenker uten kull: ${utenKull.join(', ')}`).toEqual([])
-      expect(utenSesong, `lenker uten sesong: ${utenSesong.join(', ')}`).toEqual([])
+      expect(utenSesong, `lenker uten kull eller sesong: ${utenSesong.join(', ')}`).toEqual([])
     })
   }
 
   test('kamplenke fra arkivet går til lagsiden med sesongen', async ({ page }) => {
-    await page.goto('/g2010?sesong=2025-2026')
+    await page.goto('/g2010/2025-2026')
 
     const lagLenke = page.locator('.card-team-link').first()
     await expect(lagLenke).toBeVisible()
     await lagLenke.click()
 
-    await expect(page).toHaveURL(/\/g2010\/lag\/\d+\?sesong=2025-2026/)
+    await expect(page).toHaveURL(/\/g2010\/2025-2026\/lag\/\d+$/)
     await expect(page.locator('.archive-badge')).toBeVisible()
   })
 })

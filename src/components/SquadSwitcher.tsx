@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom'
-import { squads, seasonsForSquad, currentSeasonSlug } from '../squads/SeasonDataLoader'
-import { useSquadPath } from '../squads/useSquadPath'
+import { squads, seasonsForSquad } from '../squads/SeasonDataLoader'
+import { seasonPath, useSquadPath } from '../squads/useSquadPath'
 import { seasonOptionLabel } from '../squads/SeasonLabels'
 
 export function SquadSwitcher() {
@@ -8,7 +8,6 @@ export function SquadSwitcher() {
   const navigate = useNavigate()
 
   const seasons = seasonsForSquad(squadId)
-  const activeSeason = season ?? currentSeasonSlug
   const hasArchive = seasons.length > 1
 
   const goToSquad = (nextSquadId: string): void => {
@@ -16,9 +15,7 @@ export function SquadSwitcher() {
   }
 
   const goToSeason = (nextSeason: string): void => {
-    const query =
-      nextSeason === currentSeasonSlug ? '' : `?sesong=${encodeURIComponent(nextSeason)}`
-    navigate(`/${squadId}${query}`)
+    navigate(seasonPath(squadId, nextSeason))
   }
 
   return (
@@ -41,7 +38,7 @@ export function SquadSwitcher() {
         <select
           className="season-select"
           aria-label="Velg sesong"
-          value={activeSeason}
+          value={season}
           onChange={(event) => goToSeason(event.target.value)}
         >
           {seasons.map((choice) => (

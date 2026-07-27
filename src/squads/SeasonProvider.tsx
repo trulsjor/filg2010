@@ -1,29 +1,36 @@
-import { useEffect, useState, type ReactNode } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
-import { currentSeasonSlug, loadSeasonData, type SeasonData } from './SeasonDataLoader'
+import { useEffect, useState } from 'react'
+import { Navigate, Outlet, useParams } from 'react-router-dom'
+import {
+  currentSeasonSlug,
+  isKnownSquad,
+  loadSeasonData,
+  seasonsForSquad,
+  type SeasonData,
+} from './SeasonDataLoader'
 import { SeasonContext, rememberSquad } from './SeasonAccess'
 
-interface SeasonProviderProps {
-  children: ReactNode
-}
+export function SeasonProvider() {
+  const { squadId, season } = useParams<{ squadId: string; season: string }>()
+  const requestedSeason = season ?? currentSeasonSlug
 
-export function SeasonProvider({ children }: SeasonProviderProps) {
-  const { squadId } = useParams<{ squadId: string }>()
-  const [searchParams] = useSearchParams()
-  const requestedSeason = searchParams.get('sesong') ?? currentSeasonSlug
-
-  const [season, setSeason] = useState<SeasonData | null>(null)
+  const [loaded, setLoaded] = useState<SeasonData | null>(null)
   const [error, setError] = useState<string | null>(null)
 
+  const squadIsKnown = squadId !== undefined && isKnownSquad(squadId)
+  const seasonIsKnown =
+    squadIsKnown &&
+    squadId !== undefined &&
+    seasonsForSquad(squadId).some((choice) => choice.slug === requestedSeason)
+
   useEffect(() => {
-    if (squadId === undefined) return
+    if (!seasonIsKnown || squadId === undefined) return
 
     let cancelled = false
     setError(null)
 
     loadSeasonData(squadId, requestedSeason)
-      .then((loaded) => {
-        if (!cancelled) setSeason(loaded)
+      .then((data) => {
+        if (!cancelled) setLoaded(data)
       })
       .catch((cause: unknown) => {
         if (!cancelled) setError(cause instanceof Error ? cause.message : String(cause))
@@ -32,11 +39,14 @@ export function SeasonProvider({ children }: SeasonProviderProps) {
     return () => {
       cancelled = true
     }
-  }, [squadId, requestedSeason])
+  }, [squadId, requestedSeason, seasonIsKnown])
 
   useEffect(() => {
-    if (squadId !== undefined) rememberSquad(squadId)
-  }, [squadId])
+    if (squadIsKnown && squadId !== undefined) rememberSquad(squadId)
+  }, [squadId, squadIsKnown])
+
+  if (!squadIsKnown) return <Navigate to="/" replace />
+  if (!seasonIsKnown) return <Navigate to={`/${squadId}`} replace />
 
   if (error !== null) {
     return (
@@ -50,7 +60,7 @@ export function SeasonProvider({ children }: SeasonProviderProps) {
     )
   }
 
-  if (season === null) {
+  if (loaded === null) {
     return (
       <div className="app">
         <div className="container">
@@ -62,5 +72,9 @@ export function SeasonProvider({ children }: SeasonProviderProps) {
     )
   }
 
-  return <SeasonContext.Provider value={season}>{children}</SeasonContext.Provider>
+  return (
+    <SeasonContext.Provider value={loaded}>
+      <Outlet />
+    </SeasonContext.Provider>
+  )
 }

@@ -1,22 +1,23 @@
 import { useCallback } from 'react'
-import { useParams, useSearchParams } from 'react-router-dom'
-import { defaultSquadId } from './SeasonDataLoader'
+import { useParams } from 'react-router-dom'
+import { currentSeasonSlug, defaultSquadId } from './SeasonDataLoader'
 
 export function useSquadPath() {
-  const { squadId } = useParams<{ squadId: string }>()
-  const [searchParams] = useSearchParams()
+  const { squadId, season } = useParams<{ squadId: string; season: string }>()
   const activeSquadId = squadId ?? defaultSquadId
-  const season = searchParams.get('sesong')
+  const activeSeason = season ?? currentSeasonSlug
 
   const squadPath = useCallback(
     (subPath = ''): string => {
-      const base = subPath === '' ? `/${activeSquadId}` : `/${activeSquadId}/${subPath}`
-      if (season === null) return base
-      const separator = base.includes('?') ? '&' : '?'
-      return `${base}${separator}sesong=${encodeURIComponent(season)}`
+      const base = season === undefined ? `/${activeSquadId}` : `/${activeSquadId}/${season}`
+      return subPath === '' ? base : `${base}/${subPath}`
     },
     [activeSquadId, season]
   )
 
-  return { squadId: activeSquadId, season, squadPath }
+  return { squadId: activeSquadId, season: activeSeason, squadPath }
+}
+
+export function seasonPath(squadId: string, seasonSlug: string): string {
+  return seasonSlug === currentSeasonSlug ? `/${squadId}` : `/${squadId}/${seasonSlug}`
 }

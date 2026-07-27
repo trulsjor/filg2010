@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Routes, Route, useLocation, Navigate, Outlet, useParams } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate, Outlet } from 'react-router-dom'
 import { TerminlistePage } from './pages/TerminlistePage'
 import { TabellPage } from './pages/TabellPage'
 import { SpillerePage } from './pages/SpillerePage'
@@ -19,28 +19,6 @@ function ScrollToTop() {
   return null
 }
 
-function SquadRoutes() {
-  const { squadId } = useParams<{ squadId: string }>()
-
-  if (squadId === undefined || !isKnownSquad(squadId)) {
-    return <Navigate to={`/${defaultSquadId}`} replace />
-  }
-
-  return (
-    <SeasonProvider>
-      <PullToRefresh>
-        <Outlet />
-      </PullToRefresh>
-    </SeasonProvider>
-  )
-}
-
-function LegacyRoute() {
-  const location = useLocation()
-  const squadId = rememberedSquadId()
-  return <Navigate to={`/${squadId}${location.pathname}${location.search}`} replace />
-}
-
 function rememberedSquadId(): string {
   const remembered = recallSquad()
   return remembered !== null && isKnownSquad(remembered) ? remembered : defaultSquadId
@@ -50,6 +28,31 @@ function StartPage() {
   return <Navigate to={`/${rememberedSquadId()}`} replace />
 }
 
+function LegacyRoute() {
+  const location = useLocation()
+  return <Navigate to={`/${rememberedSquadId()}${location.pathname}${location.search}`} replace />
+}
+
+function SeasonChrome() {
+  return (
+    <PullToRefresh>
+      <Outlet />
+    </PullToRefresh>
+  )
+}
+
+function seasonPages() {
+  return (
+    <Route element={<SeasonChrome />}>
+      <Route index element={<TerminlistePage />} />
+      <Route path="tabeller" element={<TabellPage />} />
+      <Route path="spillere" element={<SpillerePage />} />
+      <Route path="spillere/:id" element={<SpillerDetaljPage />} />
+      <Route path="lag/:lagId" element={<LagDetaljPage />} />
+    </Route>
+  )
+}
+
 export function App() {
   return (
     <>
@@ -57,12 +60,11 @@ export function App() {
       <Routes>
         <Route path="/" element={<StartPage />} />
 
-        <Route path="/:squadId" element={<SquadRoutes />}>
-          <Route index element={<TerminlistePage />} />
-          <Route path="tabeller" element={<TabellPage />} />
-          <Route path="spillere" element={<SpillerePage />} />
-          <Route path="spillere/:id" element={<SpillerDetaljPage />} />
-          <Route path="lag/:lagId" element={<LagDetaljPage />} />
+        <Route path="/:squadId">
+          <Route element={<SeasonProvider />}>{seasonPages()}</Route>
+          <Route path=":season" element={<SeasonProvider />}>
+            {seasonPages()}
+          </Route>
         </Route>
 
         <Route path="/tabeller" element={<LegacyRoute />} />

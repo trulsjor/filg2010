@@ -2,27 +2,35 @@ import { describe, it, expect } from 'vitest'
 import { renderHook } from '@testing-library/react'
 import { MemoryRouter, Route, Routes } from 'react-router-dom'
 import type { ReactNode } from 'react'
-import { useSquadPath } from './useSquadPath'
+import { useSquadPath, seasonPath } from './useSquadPath'
 
-function wrapperFor(route: string) {
+function wrapperFor(route: string, path: string) {
   return ({ children }: { children: ReactNode }) => (
     <MemoryRouter initialEntries={[route]}>
       <Routes>
-        <Route path="/:squadId/*" element={children} />
-        <Route path="/:squadId" element={children} />
+        <Route path={path} element={children} />
       </Routes>
     </MemoryRouter>
   )
 }
 
-function pathsFor(route: string) {
-  const { result } = renderHook(() => useSquadPath(), { wrapper: wrapperFor(route) })
+function currentSeasonAt(route: string) {
+  const { result } = renderHook(() => useSquadPath(), {
+    wrapper: wrapperFor(route, '/:squadId/*'),
+  })
   return result.current
 }
 
-describe('useSquadPath', () => {
-  it('bygger sti innenfor kullet man ser på', () => {
-    const { squadPath } = pathsFor('/j2010')
+function archiveAt(route: string) {
+  const { result } = renderHook(() => useSquadPath(), {
+    wrapper: wrapperFor(route, '/:squadId/:season/*'),
+  })
+  return result.current
+}
+
+describe('useSquadPath i inneværende sesong', () => {
+  it('bygger sti uten sesongledd', () => {
+    const { squadPath } = currentSeasonAt('/j2010/tabeller')
 
     expect(squadPath()).toBe('/j2010')
     expect(squadPath('tabeller')).toBe('/j2010/tabeller')
@@ -30,28 +38,47 @@ describe('useSquadPath', () => {
   })
 
   it('leser kullet fra ruten', () => {
-    expect(pathsFor('/j2010/tabeller').squadId).toBe('j2010')
-    expect(pathsFor('/g2010/tabeller').squadId).toBe('g2010')
+    expect(currentSeasonAt('/j2010/tabeller').squadId).toBe('j2010')
+    expect(currentSeasonAt('/g2010/tabeller').squadId).toBe('g2010')
   })
 
-  it('tar vare på valgt sesong når man navigerer', () => {
-    const { squadPath } = pathsFor('/g2010?sesong=2025-2026')
+  it('beholder spørringen på undersiden', () => {
+    const { squadPath } = currentSeasonAt('/g2010/tabeller')
 
-    expect(squadPath()).toBe('/g2010?sesong=2025-2026')
-    expect(squadPath('spillere')).toBe('/g2010/spillere?sesong=2025-2026')
+    expect(squadPath('lag/531500?turnering=Serie')).toBe('/g2010/lag/531500?turnering=Serie')
+  })
+})
+
+describe('useSquadPath i arkivet', () => {
+  it('tar sesongen med i alle stier', () => {
+    const { squadPath } = archiveAt('/g2010/2025-2026/tabeller')
+
+    expect(squadPath()).toBe('/g2010/2025-2026')
+    expect(squadPath('spillere')).toBe('/g2010/2025-2026/spillere')
   })
 
-  it('legger sesongen til med & når stien har spørring fra før', () => {
-    const { squadPath } = pathsFor('/g2010?sesong=2025-2026')
+  it('setter sesongen foran spørringen, ikke etter', () => {
+    const { squadPath } = archiveAt('/g2010/2025-2026/tabeller')
 
     expect(squadPath('lag/531500?turnering=Serie')).toBe(
-      '/g2010/lag/531500?turnering=Serie&sesong=2025-2026'
+      '/g2010/2025-2026/lag/531500?turnering=Serie'
     )
   })
 
-  it('utelater sesong når man ser på inneværende', () => {
-    const { squadPath } = pathsFor('/g2010')
+  it('leser både kull og sesong fra ruten', () => {
+    const { squadId, season } = archiveAt('/j2010/2025-2026/spillere')
 
-    expect(squadPath('tabeller')).toBe('/g2010/tabeller')
+    expect(squadId).toBe('j2010')
+    expect(season).toBe('2025-2026')
+  })
+})
+
+describe('seasonPath', () => {
+  it('gir kort sti for inneværende sesong', () => {
+    expect(seasonPath('g2010', '2026-2027')).toBe('/g2010')
+  })
+
+  it('gir sesongledd for arkiverte sesonger', () => {
+    expect(seasonPath('g2010', '2025-2026')).toBe('/g2010/2025-2026')
   })
 })
