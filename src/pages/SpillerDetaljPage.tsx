@@ -295,8 +295,12 @@ export function SpillerDetaljPage() {
           <div className="player-match-list">
             {filteredMatchHistory.getItems().map((match) => {
               const resultClass = getResultClass(match)
-              const homeTeamLink = `/lag/${match.homeTeamId}?turnering=${encodeURIComponent(match.tournament)}`
-              const awayTeamLink = `/lag/${match.awayTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              const homeTeamLink = squadPath(
+                `lag/${match.homeTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              )
+              const awayTeamLink = squadPath(
+                `lag/${match.awayTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              )
 
               return (
                 <div key={match.matchId} className={`player-match-card ${resultClass}-card`}>

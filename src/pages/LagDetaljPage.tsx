@@ -234,11 +234,15 @@ export function LagDetaljPage() {
               const resultClass = match.resultType
 
               const homeTeamLink = match.isHome
-                ? `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
-                : `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                ? squadPath(`lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`)
+                : squadPath(
+                    `lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                  )
               const awayTeamLink = match.isHome
-                ? `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
-                : `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
+                ? squadPath(
+                    `lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                  )
+                : squadPath(`lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`)
 
               const resultText = match.isHome
                 ? `${match.goalsScored}–${match.goalsConceded}`
