@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @custom-variant dark (&:not(:root[data-color-scheme="light"] *));
 
@@ -6,32 +6,60 @@
  * KEYFRAME ANIMATIONS
  * ============================================ */
 @keyframes ds-fade-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes progress {
-  0% { stroke-dasharray: 0, 100; }
+  0% {
+    stroke-dasharray: 0, 100;
+  }
 }
 
 @keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 0 0 var(--ds-color-accent-base); }
-  50% { box-shadow: 0 0 12px 4px var(--ds-color-accent-base); }
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--ds-color-accent-base);
+  }
+  50% {
+    box-shadow: 0 0 12px 4px var(--ds-color-accent-base);
+  }
 }
 
 @keyframes slide-in-up {
-  from { opacity: 0; transform: translateY(8px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
 
 @keyframes bounce-subtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-2px); }
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-2px);
+  }
 }
 
 /* ============================================
@@ -71,12 +99,20 @@
   box-sizing: border-box;
 }
 
-html, body {
+html,
+body {
   overscroll-behavior-y: contain;
 }
 
 body {
-  font-family: var(--ds-font-family, 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif);
+  font-family: var(
+    --ds-font-family,
+    'Inter',
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    sans-serif
+  );
   font-size: var(--ds-font-size-base, 16px);
   line-height: var(--ds-line-height-normal, 1.5);
   -webkit-font-smoothing: antialiased;
@@ -86,7 +122,12 @@ body {
   margin: 0;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: var(--ds-font-family-heading, inherit);
   font-weight: var(--ds-font-weight-bold, 600);
   color: var(--ds-color-text-default);
@@ -531,12 +572,12 @@ a:hover {
 }
 
 /* Played matches - slightly muted */
-.table-container tbody tr[data-status="played"] {
+.table-container tbody tr[data-status='played'] {
   opacity: 0.85;
 }
 
 /* Home matches - subtle indicator */
-.table-container tbody tr[data-location="home"] td:first-child {
+.table-container tbody tr[data-location='home'] td:first-child {
   border-left: 2px solid var(--ds-color-accent-base);
 }
 
@@ -613,7 +654,9 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
   animation: slide-in-up 0.3s ease-out;
 }
 
@@ -632,8 +675,6 @@ a:hover {
 #next-match-card {
   border: 2px solid var(--ds-color-accent-base);
 }
-
-
 
 /* Card header - simple top row */
 .card-header {
@@ -1058,8 +1099,6 @@ a.card-action-map:hover,
   border-radius: var(--ds-radius-lg, 8px);
 }
 
-
-
 /* ============================================
  * STATISTIKK PAGE
  * ============================================ */
@@ -1434,7 +1473,7 @@ a.card-action-map:hover,
   background: var(--ds-color-surface-default);
   border: 1px solid var(--ds-color-border-default);
   border-radius: var(--ds-radius-sm, 4px);
-  box-shadow: var(--ds-shadow-lg, 0 8px 24px rgba(0,0,0,0.15));
+  box-shadow: var(--ds-shadow-lg, 0 8px 24px rgba(0, 0, 0, 0.15));
   z-index: 200;
 }
 
@@ -2024,8 +2063,12 @@ a.card-action-map:hover,
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .table-overlay-content {
@@ -2042,8 +2085,14 @@ a.card-action-map:hover,
 }
 
 @keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .table-overlay-close {
@@ -2593,7 +2642,9 @@ a.player-match-link-icon:hover {
   text-decoration: underline;
   text-underline-offset: 2px;
   text-decoration-color: var(--ds-color-border-default);
-  transition: color 0.15s, text-decoration-color 0.15s;
+  transition:
+    color 0.15s,
+    text-decoration-color 0.15s;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -2688,6 +2739,7 @@ a.player-match-link-icon:hover {
   border-radius: var(--ds-radius-lg);
   padding: var(--ds-spacing-4);
   overflow: visible;
+  min-width: 0;
 }
 
 .player-chart-card h3 {
@@ -2702,6 +2754,7 @@ a.player-match-link-icon:hover {
   display: flex;
   flex-direction: row;
   align-items: stretch;
+  min-width: 0;
 }
 
 .goals-y-axis {
@@ -2728,11 +2781,12 @@ a.player-match-link-icon:hover {
   gap: 3px;
   padding: var(--ds-spacing-2) 0 0 0;
   flex: 1;
+  min-width: 0;
 }
 
 .goals-bar-wrapper {
-  flex: 1;
-  min-width: 8px;
+  flex: 1 1 0;
+  min-width: 2px;
   max-width: 40px;
   display: flex;
   flex-direction: column;
@@ -2778,16 +2832,15 @@ a.player-match-link-icon:hover {
   padding: 6px 10px;
   font-size: 11px;
   white-space: nowrap;
-  opacity: 0;
+  display: none;
   pointer-events: none;
-  transition: opacity 0.15s ease;
   z-index: 10;
   box-shadow: var(--ds-shadow-md);
   line-height: 1.4;
 }
 
 .goals-bar-wrapper:hover .goals-bar-tooltip {
-  opacity: 1;
+  display: block;
 }
 
 .goals-bar-label {
@@ -2881,7 +2934,7 @@ a.player-match-link-icon:hover {
 }
 
 .goals-diverging-bar-wrapper:hover .goals-bar-tooltip {
-  opacity: 1;
+  display: block;
 }
 
 .goals-diverging-bar-wrapper .goals-bar-tooltip {
@@ -3340,8 +3393,12 @@ a.player-match-link-icon:hover {
  * PULL TO REFRESH
  * ============================================ */
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .pull-to-refresh-container {
@@ -3399,14 +3456,6 @@ a.player-match-link-icon:hover {
     display: none !important;
   }
 }
-
-
-
-
-
-
-
-
 
 .archive-banner {
   display: flex;
@@ -3468,4 +3517,24 @@ a.player-match-link-icon:hover {
 .menu-choice-mark {
   color: var(--ds-color-accent-base);
   font-weight: 700;
+}
+
+.goals-timeline-dense .goals-y-axis {
+  padding-bottom: 0;
+}
+
+.goals-timeline-dense .goals-timeline {
+  gap: 2px;
+}
+
+.goals-timeline-dense .goals-bar {
+  border-radius: 2px 2px 0 0;
+}
+
+.goals-x-axis {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--ds-spacing-2) 0 0 36px;
+  font-size: var(--ds-font-size-sm);
+  color: var(--ds-color-text-muted);
 }

@@ -130,10 +130,11 @@ test.describe('Lenker fra tabellen', () => {
     await expect(page.locator('.archive-banner')).toBeVisible()
   })
 
-  test('sender gammel laglenke til kullet i stedet for forsiden', async ({ page }) => {
+  test('sender gammel laglenke inn i kullet, ikke til rotsiden', async ({ page }) => {
     await page.goto('/lag/531500')
 
-    await expect(page).toHaveURL(/\/g2010\/lag\/531500$/)
+    await expect(page).toHaveURL(/\/g2010/)
+    await expect(page.locator('.header-text h1')).toHaveText('Terminliste G2010')
   })
 
   test('går til spillersiden i arkivet med sesongen beholdt', async ({ page }) => {

@@ -88,48 +88,6 @@ export function ThemeSelector() {
 
       {isOpen && (
         <div className="theme-selector-dropdown">
-          {squads.length > 1 && (
-            <>
-              <span className="menu-section-label">Kull</span>
-              {squads.map((other) => (
-                <button
-                  key={other.id}
-                  className={`menu-choice ${other.id === squad.id ? 'active' : ''}`}
-                  onClick={() => goTo(pathToSquad(other.id, season))}
-                >
-                  <span style={{ flex: 1 }}>{other.name.replace('Fjellhammer ', '')}</span>
-                  {other.id === squad.id && <span className="menu-choice-mark">✓</span>}
-                </button>
-              ))}
-              <div className="menu-divider" />
-            </>
-          )}
-
-          {arkiv.length > 0 && (
-            <>
-              <span className="menu-section-label">Sesong</span>
-              {isArchived ? (
-                <button
-                  className="menu-choice"
-                  onClick={() => goTo(pathToSeason(squad.id, currentSeasonSlug))}
-                >
-                  Tilbake til inneværende sesong
-                </button>
-              ) : (
-                arkiv.map((choice) => (
-                  <button
-                    key={choice.slug}
-                    className="menu-choice"
-                    onClick={() => goTo(pathToSeason(squad.id, choice.slug))}
-                  >
-                    Se sesongen {shortSeasonName(choice.name)}
-                  </button>
-                ))
-              )}
-              <div className="menu-divider" />
-            </>
-          )}
-
           <span className="menu-section-label">Tema</span>
           {options.map((option) => (
             <button
@@ -172,6 +130,48 @@ export function ThemeSelector() {
           ))}
 
           <div className="menu-divider" />
+
+          {arkiv.length > 0 && (
+            <>
+              <span className="menu-section-label">Sesong</span>
+              {isArchived ? (
+                <button
+                  className="menu-choice"
+                  onClick={() => goTo(pathToSeason(squad.id, currentSeasonSlug))}
+                >
+                  Tilbake til inneværende sesong
+                </button>
+              ) : (
+                arkiv.map((choice) => (
+                  <button
+                    key={choice.slug}
+                    className="menu-choice"
+                    onClick={() => goTo(pathToSeason(squad.id, choice.slug))}
+                  >
+                    Se sesongen {shortSeasonName(choice.name)}
+                  </button>
+                ))
+              )}
+              <div className="menu-divider" />
+            </>
+          )}
+
+          {squads.length > 1 && (
+            <>
+              <span className="menu-section-label">Gruppe</span>
+              {squads.map((other) => (
+                <button
+                  key={other.id}
+                  className={`menu-choice ${other.id === squad.id ? 'active' : ''}`}
+                  onClick={() => goTo(pathToSquad(other.id, season))}
+                >
+                  <span style={{ flex: 1 }}>{other.name.replace('Fjellhammer ', '')}</span>
+                  {other.id === squad.id && <span className="menu-choice-mark">✓</span>}
+                </button>
+              ))}
+              <div className="menu-divider" />
+            </>
+          )}
 
           <div className="menu-update-info">
             {formattedLastUpdated && (

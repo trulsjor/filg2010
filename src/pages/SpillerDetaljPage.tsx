@@ -154,51 +154,66 @@ export function SpillerDetaljPage() {
                   const reversed = filteredMatchHistory.reverse()
                   const goalValues = reversed.map((m) => m.goals)
                   const maxGoals = goalValues.length > 0 ? Math.max(...goalValues) : 1
+                  const forTettForEtiketter = reversed.length > 12
                   return (
-                    <div className="goals-timeline-container">
-                      <div className="goals-y-axis">
-                        <span className="goals-y-label">{maxGoals}</span>
-                        <span className="goals-y-label">{Math.round(maxGoals / 2)}</span>
-                        <span className="goals-y-label">0</span>
-                      </div>
-                      <div className="goals-timeline">
-                        {reversed.map((match) => {
-                          const resultClass = getResultClass(match)
-                          const resultLetter = match.draw ? 'U' : match.won ? 'S' : 'T'
-                          return (
-                            <div key={match.matchId} className="goals-bar-wrapper">
-                              <div
-                                className={`goals-bar goals-bar-${resultClass}`}
-                                style={{
-                                  height: `${(match.goals / maxGoals) * 100}%`,
-                                  minHeight: match.goals > 0 ? '8px' : '2px',
-                                }}
-                              >
-                                <div className="goals-bar-tooltip">
-                                  <strong>{player.playerName}</strong>: {match.goals} mål
-                                  <br />
-                                  {match.homeTeam} – {match.awayTeam}
-                                  <br />
-                                  {match.result} ({resultLetter})
-                                  {match.penaltyGoals > 0 && (
-                                    <>
-                                      <br />
-                                      {match.penaltyGoals} 7m
-                                    </>
-                                  )}
+                    <>
+                      <div
+                        className={`goals-timeline-container ${forTettForEtiketter ? 'goals-timeline-dense' : ''}`}
+                      >
+                        <div className="goals-y-axis">
+                          <span className="goals-y-label">{maxGoals}</span>
+                          <span className="goals-y-label">{Math.round(maxGoals / 2)}</span>
+                          <span className="goals-y-label">0</span>
+                        </div>
+                        <div className="goals-timeline">
+                          {reversed.map((match) => {
+                            const resultClass = getResultClass(match)
+                            const resultLetter = match.draw ? 'U' : match.won ? 'S' : 'T'
+                            return (
+                              <div key={match.matchId} className="goals-bar-wrapper">
+                                <div
+                                  className={`goals-bar goals-bar-${resultClass}`}
+                                  style={{
+                                    height: `${(match.goals / maxGoals) * 100}%`,
+                                    minHeight: match.goals > 0 ? '8px' : '2px',
+                                  }}
+                                >
+                                  <div className="goals-bar-tooltip">
+                                    <strong>{player.playerName}</strong>: {match.goals} mål
+                                    <br />
+                                    {match.homeTeam} – {match.awayTeam}
+                                    <br />
+                                    {match.result} ({resultLetter})
+                                    {match.penaltyGoals > 0 && (
+                                      <>
+                                        <br />
+                                        {match.penaltyGoals} 7m
+                                      </>
+                                    )}
+                                  </div>
                                 </div>
+                                {!forTettForEtiketter && (
+                                  <div
+                                    className={`goals-bar-label goals-bar-result-${resultClass}`}
+                                  >
+                                    <span className="goals-bar-date">
+                                      {match.matchDate.slice(0, 5)}
+                                    </span>
+                                    <span className="goals-bar-result">{resultLetter}</span>
+                                  </div>
+                                )}
                               </div>
-                              <div className={`goals-bar-label goals-bar-result-${resultClass}`}>
-                                <span className="goals-bar-date">
-                                  {match.matchDate.slice(0, 5)}
-                                </span>
-                                <span className="goals-bar-result">{resultLetter}</span>
-                              </div>
-                            </div>
-                          )
-                        })}
+                            )
+                          })}
+                        </div>
                       </div>
-                    </div>
+                      {forTettForEtiketter && (
+                        <div className="goals-x-axis">
+                          <span>{reversed[0]?.matchDate.slice(0, 5)}</span>
+                          <span>{reversed[reversed.length - 1]?.matchDate.slice(0, 5)}</span>
+                        </div>
+                      )}
+                    </>
                   )
                 })()}
               </div>
