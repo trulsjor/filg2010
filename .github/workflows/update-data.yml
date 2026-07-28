@@ -1,0 +1,66 @@
+name: Oppdater data
+
+on:
+  schedule:
+    - cron: '0 21 * * *'
+  workflow_dispatch:
+    inputs:
+      squad:
+        description: 'Kull å oppdatere (tomt = alle)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup project
+        uses: ./.github/actions/setup-project
+
+      - name: Oppdater data
+        run: |
+          if [ -n "${{ inputs.squad }}" ]; then
+            npm run update-all -- --squad "${{ inputs.squad }}"
+          else
+            npm run update-all
+          fi
+
+      - name: Lag commit-melding
+        id: summary
+        run: |
+          SQUADS=$(git diff --name-only data/ \
+            | grep -E 'terminliste\.json|tables\.json|player-stats\.json' \
+            | cut -d/ -f2 | sort -u | paste -sd ', ' -)
+
+          if [ -n "$SQUADS" ]; then
+            echo "commit_msg=🤖 Oppdater data ($SQUADS)" >> $GITHUB_OUTPUT
+          else
+            echo "commit_msg=🤖 Oppdater data" >> $GITHUB_OUTPUT
+          fi
+
+          {
+            echo "## Oppdatering fullført"
+            echo ""
+            if [ -n "$SQUADS" ]; then
+              echo "Endret: **$SQUADS**"
+            else
+              echo "Ingen endringer."
+            fi
+            echo ""
+            echo '```'
+            git diff --stat data/
+            echo '```'
+          } >> $GITHUB_STEP_SUMMARY
+
+      - name: Commit and deploy
+        uses: ./.github/actions/commit-and-deploy
+        with:
+          commit_message: ${{ steps.summary.outputs.commit_msg }}
+          cloudflare_api_token: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          cloudflare_account_id: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

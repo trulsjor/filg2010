@@ -1,6 +1,7 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen } from '@testing-library/react'
+import { screen } from '@testing-library/react'
 import { MatchTable } from './MatchTable'
+import { renderInSeason } from '../test/seasonFixture'
 import type { Match } from '../types'
 
 const mockMatches: Match[] = [
@@ -44,7 +45,7 @@ const mockGetTeamColor = vi.fn().mockReturnValue('#fbbf24')
 
 describe('MatchTable', () => {
   it('renders table headers', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.getByText('Dato')).toBeInTheDocument()
@@ -58,21 +59,21 @@ describe('MatchTable', () => {
   })
 
   it('renders team column when hasMultipleTeams is true', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={true} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.getByRole('columnheader', { name: 'Lag' })).toBeInTheDocument()
   })
 
   it('does not render team column when hasMultipleTeams is false', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.queryByRole('columnheader', { name: 'Lag' })).not.toBeInTheDocument()
   })
 
   it('renders match data in rows', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.getByText('15.01.2025')).toBeInTheDocument()
@@ -81,7 +82,7 @@ describe('MatchTable', () => {
   })
 
   it('renders links for team URLs', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     const link = screen.getByRole('link', { name: 'Fjellhammer' })
@@ -89,7 +90,7 @@ describe('MatchTable', () => {
   })
 
   it('renders "Detaljer" link for old matches', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.getByRole('link', { name: 'Detaljer' })).toHaveAttribute(
@@ -111,7 +112,7 @@ describe('MatchTable', () => {
         'Kamp URL': 'https://www.handball.no/system/kamper/kamp/?matchid=123',
       },
     ]
-    render(
+    renderInSeason(
       <MatchTable matches={futureMatch} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.getByRole('link', { name: 'Live' })).toHaveAttribute(
@@ -121,7 +122,7 @@ describe('MatchTable', () => {
   })
 
   it('renders dash for empty score', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     const cells = screen.getAllByRole('cell')
@@ -130,7 +131,7 @@ describe('MatchTable', () => {
   })
 
   it('has proper accessibility attributes', () => {
-    render(
+    renderInSeason(
       <MatchTable matches={mockMatches} hasMultipleTeams={false} getTeamColor={mockGetTeamColor} />
     )
     expect(screen.getByRole('table')).toHaveAttribute('aria-label')

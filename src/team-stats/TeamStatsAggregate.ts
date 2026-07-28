@@ -1,6 +1,6 @@
 import { MatchResult, type ResultType } from './MatchResult'
 import type { PlayerStatsData } from '../types/player-stats'
-import type { Config, TeamId, TeamName, PlayerId, TournamentName } from '../types'
+import type { Team, TeamId, TeamName, PlayerId, TournamentName } from '../types'
 import { NorwegianDate } from '../player-match-records/NorwegianDate'
 
 export interface TeamMatchData {
@@ -83,8 +83,8 @@ export class TeamStatsAggregate {
     return { homeScore: match.homeScore, awayScore: match.awayScore }
   }
 
-  static createOurTeamIds(config: Config): Set<TeamId> {
-    return new Set(config.teams.map((t) => t.lagid))
+  static createOurTeamIds(teams: Team[]): Set<TeamId> {
+    return new Set(teams.map((team) => team.lagid))
   }
 
   static sortMatchesByDateDescending<T extends { matchDate: string }>(matches: T[]): T[] {

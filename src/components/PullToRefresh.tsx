@@ -1,10 +1,7 @@
 import type { ReactNode } from 'react'
 import { usePullToRefresh } from '../hooks/usePullToRefresh'
 import { useMetadata } from '../hooks/useMetadata'
-import type { Metadata } from '../types'
-import metadataData from '../../data/metadata.json'
-
-const metadata = metadataData as Metadata
+import { useSeason } from '../squads/SeasonAccess'
 
 interface PullToRefreshProps {
   children: ReactNode
@@ -12,6 +9,7 @@ interface PullToRefreshProps {
 
 export function PullToRefresh({ children }: PullToRefreshProps) {
   const { pullDistance, isTriggered } = usePullToRefresh()
+  const { metadata } = useSeason()
   const { formattedLastUpdated } = useMetadata(metadata)
   const isVisible = pullDistance > 10
 

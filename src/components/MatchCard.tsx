@@ -3,6 +3,7 @@ import type { Match } from '../types'
 import { MapLink } from './MapLink'
 import { Countdown } from './Countdown'
 import { isFjellhammerTeam, isValidScore } from '../hooks/useMatches'
+import { useSquadPath } from '../squads/useSquadPath'
 
 const extractLagId = (url?: string): string | null => {
   if (!url) return null
@@ -64,11 +65,12 @@ interface TeamNameProps {
 }
 
 function TeamName({ name, lagId, isOurs, showDot, dotColor, position }: TeamNameProps) {
+  const { squadPath } = useSquadPath()
   const classNames = ['card-team-name', isOurs ? 'card-team-ours' : '', `card-team-${position}`]
     .filter(Boolean)
     .join(' ')
 
-  const linkUrl = lagId ? `/lag/${lagId}` : null
+  const linkUrl = lagId ? squadPath(`lag/${lagId}`) : null
 
   const nameElement = linkUrl ? (
     <Link to={linkUrl} className="card-team-link">

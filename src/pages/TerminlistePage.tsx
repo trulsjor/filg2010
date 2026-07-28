@@ -7,20 +7,12 @@ import { type LeagueTable } from '../components/LeagueTableCard'
 import { useMatches } from '../hooks/useMatches'
 import { useTeams } from '../hooks/useTeams'
 
-import matchesData from '../../data/terminliste.json'
-import configData from '../../config.json'
-import tablesData from '../../data/tables.json'
-import statsData from '../../data/player-stats.json'
+import { useSeason } from '../squads/SeasonAccess'
 
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
-import type { Match, Config } from '../types'
-import type { PlayerStatsData } from '../types/player-stats'
 
 export function TerminlistePage() {
-  const matches = matchesData as Match[]
-  const config = configData as Config
-  const tables = tablesData as LeagueTable[]
-  const playerStats = statsData as PlayerStatsData
+  const { matches, teams: squadTeams, tables, playerStats } = useSeason()
   const location = useLocation()
 
   const [overlayTournament, setOverlayTournament] = useState<string | null>(null)
@@ -31,7 +23,7 @@ export function TerminlistePage() {
   )
 
   const { filteredMatches, filters, nextMatch, setFilters } = useMatches(matches)
-  const { teams, getTeamColor } = useTeams(config.teams)
+  const { teams, getTeamColor } = useTeams(squadTeams)
 
   const hasMultipleTeams = teams.length > 1
   const teamNames = teams.map((t) => t.name)
@@ -97,6 +89,7 @@ export function TerminlistePage() {
     <div className="app">
       <Header
         onScrollToNext={scrollToNextMatch}
+        showScrollButton={nextMatch !== null}
         teamNames={teamNames}
         filters={filters}
         onFilterChange={handleFilterChange}

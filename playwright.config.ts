@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from '@playwright/test'
 
 export default defineConfig({
   testDir: './tests',
@@ -14,14 +14,8 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'data-tests',
-      testMatch: '**/fetchData.spec.ts',
-    },
-    {
       name: 'ui-tests',
-      testIgnore: '**/fetchData.spec.ts',
       use: { ...devices['Desktop Chrome'] },
-      dependencies: ['data-tests'],
     },
   ],
   webServer: {
@@ -30,4 +24,4 @@ export default defineConfig({
     reuseExistingServer: !process.env.CI,
     timeout: 120000,
   },
-});
+})

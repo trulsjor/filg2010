@@ -17,6 +17,8 @@ export interface PlayerMatchStats {
   twoMinutes: number
   yellowCards: number
   redCards: number
+  hasPlayed?: boolean
+  teamId?: string
 }
 
 export interface MatchPlayerData {

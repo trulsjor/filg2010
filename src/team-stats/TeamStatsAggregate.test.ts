@@ -163,8 +163,8 @@ describe('TeamStatsAggregate.buildTeamDetailData', () => {
   })
 
   it('works with real player-stats.json data', async () => {
-    const statsData: PlayerStatsData = await import('../../data/player-stats.json')
-    const terminliste = await import('../../data/terminliste.json')
+    const statsData: PlayerStatsData = await import('../../data/g2010/2025-2026/player-stats.json')
+    const terminliste = await import('../../data/g2010/2025-2026/terminliste.json')
 
     const result = TeamStatsAggregate.buildTeamDetailData(
       '428829',

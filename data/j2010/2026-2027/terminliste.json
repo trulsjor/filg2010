@@ -1,0 +1,50 @@
+[
+  {
+    "Lag": "Fjellhammer J16 1",
+    "Dato": "05.09.2026",
+    "Tid": "12:00",
+    "Kampnr": "95041603002",
+    "Hjemmelag": "Strindheim/Sverresborg ",
+    "Bortelag": "Fjellhammer",
+    "H-B": "",
+    "Bane": "Leangen Bydelshall B",
+    "Arrangør": "Strindheim Idrettslag",
+    "Turnering": "iceserien J16 - Kval Pulje 03",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8440991",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=557668",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=443496",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=449423"
+  },
+  {
+    "Lag": "Fjellhammer J16 1",
+    "Dato": "05.09.2026",
+    "Tid": "17:30",
+    "Kampnr": "95041603006",
+    "Hjemmelag": "Fjellhammer",
+    "Bortelag": "Lisleby",
+    "H-B": "",
+    "Bane": "Leangen Bydelshall B",
+    "Arrangør": "Strindheim Idrettslag",
+    "Turnering": "iceserien J16 - Kval Pulje 03",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8440995",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=443496",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=559414",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=449423"
+  },
+  {
+    "Lag": "Fjellhammer J16 1",
+    "Dato": "06.09.2026",
+    "Tid": "11:00",
+    "Kampnr": "95041603003",
+    "Hjemmelag": "Fyllingen",
+    "Bortelag": "Fjellhammer",
+    "H-B": "",
+    "Bane": "Leangen Bydelshall B",
+    "Arrangør": "Strindheim Idrettslag",
+    "Turnering": "iceserien J16 - Kval Pulje 03",
+    "Kamp URL": "https://www.handball.no/system/kamper/kamp/?matchid=8440992",
+    "Hjemmelag URL": "https://www.handball.no/system/kamper/lag/?lagid=453579",
+    "Bortelag URL": "https://www.handball.no/system/kamper/lag/?lagid=443496",
+    "Turnering URL": "https://www.handball.no/system/kamper/turnering/?turnid=449423"
+  }
+]

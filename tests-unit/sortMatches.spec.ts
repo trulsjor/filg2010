@@ -75,7 +75,7 @@ describe('sortMatchesByDate', () => {
   })
 
   it('handles empty array', () => {
-    const matches: { Dato: string; Tid?: string }[] = []
+    const matches: { Dato: string; Tid: string }[] = []
     const sorted = sortMatchesByDate(matches)
 
     expect(sorted).toEqual([])

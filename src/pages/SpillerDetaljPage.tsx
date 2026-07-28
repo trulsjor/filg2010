@@ -1,10 +1,8 @@
 import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
-import aggregatesData from '../../data/player-aggregates.json'
-import statsData from '../../data/player-stats.json'
-import terminlisteData from '../../data/terminliste.json'
-import type { PlayerAggregatesData, PlayerStatsData } from '../types/player-stats'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 import type { PlayerId } from '../types'
 import {
   PlayerMatchHistory,
@@ -14,21 +12,17 @@ import {
 } from '../player-match-records/PlayerMatchHistory'
 import { TeamSelection } from '../player-match-records/TeamSelection'
 
-const typedAggregatesData: PlayerAggregatesData = aggregatesData
-const typedStatsData: PlayerStatsData = statsData
-const typedTerminlisteData: TerminlisteKamp[] = terminlisteData
-
 export function SpillerDetaljPage() {
   const { id } = useParams<{ id?: PlayerId }>()
   const navigate = useNavigate()
 
-  const aggregates = typedAggregatesData
-  const stats = typedStatsData
-  const terminliste = typedTerminlisteData
+  const { aggregates, playerStats: stats, matches } = useSeason()
+  const { squadPath } = useSquadPath()
+  const terminliste = matches as TerminlisteKamp[]
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const player = useMemo(() => {
     if (!id) return undefined
@@ -60,7 +54,7 @@ export function SpillerDetaljPage() {
   const filteredStats = useMemo(() => filteredMatchHistory.calculateStats(), [filteredMatchHistory])
 
   if (!player) {
-    return <Navigate to="/spillere" replace />
+    return <Navigate to={squadPath('spillere')} replace />
   }
 
   return (
@@ -160,51 +154,66 @@ export function SpillerDetaljPage() {
                   const reversed = filteredMatchHistory.reverse()
                   const goalValues = reversed.map((m) => m.goals)
                   const maxGoals = goalValues.length > 0 ? Math.max(...goalValues) : 1
+                  const forTettForEtiketter = reversed.length > 12
                   return (
-                    <div className="goals-timeline-container">
-                      <div className="goals-y-axis">
-                        <span className="goals-y-label">{maxGoals}</span>
-                        <span className="goals-y-label">{Math.round(maxGoals / 2)}</span>
-                        <span className="goals-y-label">0</span>
-                      </div>
-                      <div className="goals-timeline">
-                        {reversed.map((match) => {
-                          const resultClass = getResultClass(match)
-                          const resultLetter = match.draw ? 'U' : match.won ? 'S' : 'T'
-                          return (
-                            <div key={match.matchId} className="goals-bar-wrapper">
-                              <div
-                                className={`goals-bar goals-bar-${resultClass}`}
-                                style={{
-                                  height: `${(match.goals / maxGoals) * 100}%`,
-                                  minHeight: match.goals > 0 ? '8px' : '2px',
-                                }}
-                              >
-                                <div className="goals-bar-tooltip">
-                                  <strong>{player.playerName}</strong>: {match.goals} mål
-                                  <br />
-                                  {match.homeTeam} – {match.awayTeam}
-                                  <br />
-                                  {match.result} ({resultLetter})
-                                  {match.penaltyGoals > 0 && (
-                                    <>
-                                      <br />
-                                      {match.penaltyGoals} 7m
-                                    </>
-                                  )}
+                    <>
+                      <div
+                        className={`goals-timeline-container ${forTettForEtiketter ? 'goals-timeline-dense' : ''}`}
+                      >
+                        <div className="goals-y-axis">
+                          <span className="goals-y-label">{maxGoals}</span>
+                          <span className="goals-y-label">{Math.round(maxGoals / 2)}</span>
+                          <span className="goals-y-label">0</span>
+                        </div>
+                        <div className="goals-timeline">
+                          {reversed.map((match) => {
+                            const resultClass = getResultClass(match)
+                            const resultLetter = match.draw ? 'U' : match.won ? 'S' : 'T'
+                            return (
+                              <div key={match.matchId} className="goals-bar-wrapper">
+                                <div
+                                  className={`goals-bar goals-bar-${resultClass}`}
+                                  style={{
+                                    height: `${(match.goals / maxGoals) * 100}%`,
+                                    minHeight: match.goals > 0 ? '8px' : '2px',
+                                  }}
+                                >
+                                  <div className="goals-bar-tooltip">
+                                    <strong>{player.playerName}</strong>: {match.goals} mål
+                                    <br />
+                                    {match.homeTeam} – {match.awayTeam}
+                                    <br />
+                                    {match.result} ({resultLetter})
+                                    {match.penaltyGoals > 0 && (
+                                      <>
+                                        <br />
+                                        {match.penaltyGoals} 7m
+                                      </>
+                                    )}
+                                  </div>
                                 </div>
+                                {!forTettForEtiketter && (
+                                  <div
+                                    className={`goals-bar-label goals-bar-result-${resultClass}`}
+                                  >
+                                    <span className="goals-bar-date">
+                                      {match.matchDate.slice(0, 5)}
+                                    </span>
+                                    <span className="goals-bar-result">{resultLetter}</span>
+                                  </div>
+                                )}
                               </div>
-                              <div className={`goals-bar-label goals-bar-result-${resultClass}`}>
-                                <span className="goals-bar-date">
-                                  {match.matchDate.slice(0, 5)}
-                                </span>
-                                <span className="goals-bar-result">{resultLetter}</span>
-                              </div>
-                            </div>
-                          )
-                        })}
+                            )
+                          })}
+                        </div>
                       </div>
-                    </div>
+                      {forTettForEtiketter && (
+                        <div className="goals-x-axis">
+                          <span>{reversed[0]?.matchDate.slice(0, 5)}</span>
+                          <span>{reversed[reversed.length - 1]?.matchDate.slice(0, 5)}</span>
+                        </div>
+                      )}
+                    </>
                   )
                 })()}
               </div>
@@ -301,8 +310,12 @@ export function SpillerDetaljPage() {
           <div className="player-match-list">
             {filteredMatchHistory.getItems().map((match) => {
               const resultClass = getResultClass(match)
-              const homeTeamLink = `/lag/${match.homeTeamId}?turnering=${encodeURIComponent(match.tournament)}`
-              const awayTeamLink = `/lag/${match.awayTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              const homeTeamLink = squadPath(
+                `lag/${match.homeTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              )
+              const awayTeamLink = squadPath(
+                `lag/${match.awayTeamId}?turnering=${encodeURIComponent(match.tournament)}`
+              )
 
               return (
                 <div key={match.matchId} className={`player-match-card ${resultClass}-card`}>

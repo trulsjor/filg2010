@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
+import { useSquadPath } from '../squads/useSquadPath'
 import type { TeamId, TeamName } from '../types'
 
 interface LeagueTableRow {
@@ -33,6 +34,7 @@ export function LeagueTableCard({
   teamNameToId,
   highlightColor,
 }: LeagueTableCardProps) {
+  const { squadPath } = useSquadPath()
   const shortName = table.tournamentName.split(',')[0].replace('Regionserien ', '')
 
   return (
@@ -94,7 +96,7 @@ export function LeagueTableCard({
                     </span>
                   )}
                   {teamId ? (
-                    <Link to={`/lag/${teamId}`} className="table-team-link">
+                    <Link to={squadPath(`lag/${teamId}`)} className="table-team-link">
                       {row.team}
                     </Link>
                   ) : (

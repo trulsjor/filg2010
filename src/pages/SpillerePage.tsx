@@ -1,11 +1,8 @@
 import { useState, useMemo, useCallback } from 'react'
 import { Link, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
-import configData from '../../config.json'
-import aggregatesData from '../../data/player-aggregates.json'
-import type { PlayerAggregatesData } from '../types/player-stats'
-
-const typedAggregatesData: PlayerAggregatesData = aggregatesData
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 
 type SortField =
   | 'jerseyNumber'
@@ -30,9 +27,9 @@ function shortenName(fullName: string): string {
 }
 
 export function SpillerePage() {
-  const config = configData
-  const aggregates = typedAggregatesData
-  const ourTeamIds = new Set(config.teams.map((t) => t.lagid))
+  const { squad, teams: squadTeams, aggregates } = useSeason()
+  const { squadPath } = useSquadPath()
+  const ourTeamIds = useMemo(() => new Set(squadTeams.map((team) => team.lagid)), [squadTeams])
   const navigate = useNavigate()
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -71,8 +68,8 @@ export function SpillerePage() {
   )
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const tournaments = useMemo(() => {
     const set = new Set<string>()
@@ -221,7 +218,7 @@ export function SpillerePage() {
           </button>
           <div className="stats-page-title">
             <h1>Spillerstatistikk</h1>
-            <p className="stats-subtitle">Toppscorere og statistikk for Fjellhammer G2010</p>
+            <p className="stats-subtitle">Toppscorere og statistikk for {squad.name}</p>
           </div>
         </div>
 
@@ -337,7 +334,10 @@ export function SpillerePage() {
                     <tr key={player.playerId} className={isOurPlayer ? 'our-player' : ''}>
                       <td className="col-rank">{player.jerseyNumber}</td>
                       <td className="col-player">
-                        <Link to={`/spillere/${player.playerId}`} className="player-name-link">
+                        <Link
+                          to={squadPath(`spillere/${player.playerId}`)}
+                          className="player-name-link"
+                        >
                           <span className="player-name-full">{player.playerName}</span>
                           <span className="player-name-short">
                             {shortenName(player.playerName)}

@@ -1,18 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
-import { render, screen, fireEvent } from '@testing-library/react'
-import { MemoryRouter } from 'react-router-dom'
+import { screen, fireEvent } from '@testing-library/react'
 import { Header } from './Header'
-import { ThemeProvider } from '../context/ThemeContext'
+import { renderInSeason, testSeason } from '../test/seasonFixture'
 
-const renderHeader = (props = {}) => {
-  return render(
-    <MemoryRouter>
-      <ThemeProvider>
-        <Header {...props} />
-      </ThemeProvider>
-    </MemoryRouter>
-  )
-}
+const renderHeader = (props = {}) => renderInSeason(<Header {...props} />)
 
 describe('Header', () => {
   it('renders Fjellhammer logo', () => {
@@ -54,7 +45,7 @@ describe('Header', () => {
     renderHeader()
     const tabellLink = screen.getByTestId('tabell-link')
     expect(tabellLink).toBeInTheDocument()
-    expect(tabellLink).toHaveAttribute('href', '/tabeller')
+    expect(tabellLink).toHaveAttribute('href', '/g2010/tabeller')
   })
 
   it('has proper accessibility attributes', () => {
@@ -70,5 +61,26 @@ describe('Header', () => {
   it('renders menu button', () => {
     renderHeader()
     expect(screen.getByRole('button', { name: /meny/i })).toBeInTheDocument()
+  })
+})
+
+describe('Header viser hvilket kull du ser på', () => {
+  it('viser kullet i overskriften', () => {
+    renderInSeason(<Header />, { season: testSeason() })
+
+    expect(screen.getByRole('heading', { name: 'Terminliste G2010' })).toBeInTheDocument()
+  })
+
+  it('har ingen kullfaner, de ligger i menyen', () => {
+    renderInSeason(<Header />)
+
+    expect(screen.queryByRole('button', { name: 'J2010' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('group', { name: 'Velg kull' })).not.toBeInTheDocument()
+  })
+
+  it('har ingen sesongvelger, den ligger i menyen', () => {
+    renderInSeason(<Header />)
+
+    expect(screen.queryByLabelText('Velg sesong')).not.toBeInTheDocument()
   })
 })

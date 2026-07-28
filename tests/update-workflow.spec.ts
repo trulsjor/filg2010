@@ -1,20 +1,14 @@
 import { test, expect } from '@playwright/test'
 import * as fs from 'fs'
 import * as path from 'path'
-import { PlayerStatsService } from '../src/handball/PlayerStatsAggregator.js'
+import { PlayerStatsAggregator } from '../src/handball/PlayerStatsAggregator.js'
 import type { PlayerStatsData } from '../src/types/player-stats.js'
 import { combinePlayedMatches } from '../src/update/combine-matches.js'
 
-const DATA_DIR = path.join(process.cwd(), 'data')
-const PLAYER_STATS_PATH = path.join(DATA_DIR, 'player-stats.json')
-const AGGREGATES_PATH = path.join(DATA_DIR, 'player-aggregates.json')
-const TERMINLISTE_PATH = path.join(DATA_DIR, 'terminliste.json')
-
-function loadPlayerStats(): PlayerStatsData | null {
-  if (!fs.existsSync(PLAYER_STATS_PATH)) return null
-  const content = fs.readFileSync(PLAYER_STATS_PATH, 'utf-8')
-  return JSON.parse(content) as PlayerStatsData
-}
+const ARCHIVED_SEASON_DIR = path.join(process.cwd(), 'data', 'g2010', '2025-2026')
+const PLAYER_STATS_PATH = path.join(ARCHIVED_SEASON_DIR, 'player-stats.json')
+const AGGREGATES_PATH = path.join(ARCHIVED_SEASON_DIR, 'player-aggregates.json')
+const TERMINLISTE_PATH = path.join(ARCHIVED_SEASON_DIR, 'terminliste.json')
 
 interface TerminlisteMatch {
   Kampnr: string
@@ -22,10 +16,50 @@ interface TerminlisteMatch {
   'H-B'?: string
 }
 
+function readJsonFile(filePath: string): unknown {
+  if (!fs.existsSync(filePath)) return null
+  return JSON.parse(fs.readFileSync(filePath, 'utf-8'))
+}
+
+function isPlayerStatsData(value: unknown): value is PlayerStatsData {
+  if (typeof value !== 'object' || value === null) return false
+  if (!('players' in value) || !Array.isArray(value.players)) return false
+  if (!('matchStats' in value) || !Array.isArray(value.matchStats)) return false
+  return 'lastUpdated' in value && typeof value.lastUpdated === 'string'
+}
+
+function isTerminlisteMatchArray(value: unknown): value is TerminlisteMatch[] {
+  if (!Array.isArray(value)) return false
+  return value.every(
+    (item) =>
+      typeof item === 'object' &&
+      item !== null &&
+      'Kampnr' in item &&
+      typeof item.Kampnr === 'string'
+  )
+}
+
+function hasAggregatesArray(value: unknown): value is { aggregates: unknown[] } {
+  if (typeof value !== 'object' || value === null) return false
+  return 'aggregates' in value && Array.isArray(value.aggregates)
+}
+
+function loadPlayerStats(): PlayerStatsData | null {
+  const parsed = readJsonFile(PLAYER_STATS_PATH)
+  if (parsed === null) return null
+  if (!isPlayerStatsData(parsed)) {
+    throw new Error(`${PLAYER_STATS_PATH} har ugyldig struktur`)
+  }
+  return parsed
+}
+
 function loadTerminliste(): TerminlisteMatch[] {
-  if (!fs.existsSync(TERMINLISTE_PATH)) return []
-  const content = fs.readFileSync(TERMINLISTE_PATH, 'utf-8')
-  return JSON.parse(content) as TerminlisteMatch[]
+  const parsed = readJsonFile(TERMINLISTE_PATH)
+  if (parsed === null) return []
+  if (!isTerminlisteMatchArray(parsed)) {
+    throw new Error(`${TERMINLISTE_PATH} har ugyldig struktur`)
+  }
+  return parsed
 }
 
 test.describe('Update Workflow Integration', () => {
@@ -48,18 +82,14 @@ test.describe('Update Workflow Integration', () => {
   })
 
   test('player-stats.json has valid structure if exists', () => {
-    const stats = loadPlayerStats()
+    const parsed = readJsonFile(PLAYER_STATS_PATH)
 
-    if (stats === null) {
+    if (parsed === null) {
       test.skip()
       return
     }
 
-    expect(stats).toHaveProperty('players')
-    expect(stats).toHaveProperty('matchStats')
-    expect(stats).toHaveProperty('lastUpdated')
-    expect(Array.isArray(stats.players)).toBe(true)
-    expect(Array.isArray(stats.matchStats)).toBe(true)
+    expect(isPlayerStatsData(parsed)).toBe(true)
   })
 
   test('player-aggregates.json is consistent with player-stats.json', () => {
@@ -69,15 +99,13 @@ test.describe('Update Workflow Integration', () => {
       return
     }
 
-    if (!fs.existsSync(AGGREGATES_PATH)) {
+    const aggregates = readJsonFile(AGGREGATES_PATH)
+    if (aggregates === null) {
       test.skip()
       return
     }
 
-    const aggregatesContent = fs.readFileSync(AGGREGATES_PATH, 'utf-8')
-    const aggregates = JSON.parse(aggregatesContent) as { aggregates: unknown[] }
-
-    expect(Array.isArray(aggregates.aggregates)).toBe(true)
+    expect(hasAggregatesArray(aggregates)).toBe(true)
   })
 
   test('generateAggregates produces correct structure', () => {
@@ -87,8 +115,8 @@ test.describe('Update Workflow Integration', () => {
       return
     }
 
-    const service = new PlayerStatsService(stats)
-    const result = service.generateAggregates()
+    const aggregator = new PlayerStatsAggregator(stats)
+    const result = aggregator.generateAggregates()
 
     expect(result).toHaveProperty('aggregates')
     expect(result).toHaveProperty('generatedAt')

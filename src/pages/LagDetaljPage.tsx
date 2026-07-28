@@ -1,16 +1,10 @@
 import { useMemo, useCallback, useState } from 'react'
 import { Link, useParams, Navigate, useNavigate, useSearchParams } from 'react-router-dom'
 import { Header } from '../components/Header'
-import configData from '../../config.json'
-import statsData from '../../data/player-stats.json'
-import terminlisteData from '../../data/terminliste.json'
-import type { Config, TeamId } from '../types'
-import type { PlayerStatsData } from '../types/player-stats'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
+import type { TeamId } from '../types'
 import { TeamStatsAggregate, type TerminlisteMatch } from '../team-stats/TeamStatsAggregate'
-
-const typedStatsData: PlayerStatsData = statsData
-const typedConfig: Config = configData
-const typedTerminlisteData: TerminlisteMatch[] = terminlisteData
 
 type PlayerSortField =
   | 'jerseyNumber'
@@ -21,21 +15,24 @@ type PlayerSortField =
   | 'matches'
 
 export function LagDetaljPage() {
+  const { teams: squadTeams, playerStats: typedStatsData, matches } = useSeason()
+  const { squadPath } = useSquadPath()
+  const typedTerminlisteData = matches as TerminlisteMatch[]
   const params = useParams<{ lagId: TeamId }>()
   const lagId: TeamId | undefined = params.lagId
   const [searchParams] = useSearchParams()
   const tournamentFilter = searchParams.get('turnering')
   const navigate = useNavigate()
-  const ourTeamIds = useMemo(() => TeamStatsAggregate.createOurTeamIds(typedConfig), [])
+  const ourTeamIds = useMemo(() => TeamStatsAggregate.createOurTeamIds(squadTeams), [squadTeams])
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const allTournaments = useMemo(() => {
     if (!lagId) return []
     return TeamStatsAggregate.findTeamTournaments(lagId, typedStatsData)
-  }, [lagId])
+  }, [lagId, typedStatsData])
 
   const teamData = useMemo(() => {
     if (!lagId) return null
@@ -46,7 +43,7 @@ export function LagDetaljPage() {
       ourTeamIds,
       tournamentFilter
     )
-  }, [lagId, ourTeamIds, tournamentFilter])
+  }, [lagId, ourTeamIds, tournamentFilter, typedStatsData, typedTerminlisteData])
 
   const [sortField, setSortField] = useState<PlayerSortField>('jerseyNumber')
   const [sortAsc, setSortAsc] = useState(true)
@@ -77,7 +74,7 @@ export function LagDetaljPage() {
   )
 
   if (!teamData) {
-    return <Navigate to="/" replace />
+    return <Navigate to={squadPath()} replace />
   }
 
   const reversed = [...teamData.matches].reverse()
@@ -118,7 +115,7 @@ export function LagDetaljPage() {
         {allTournaments.length > 1 && (
           <div className="team-chip-filter">
             <Link
-              to={`/lag/${lagId}`}
+              to={squadPath(`lag/${lagId}`)}
               className={`team-chip ${!tournamentFilter ? 'team-chip-active' : ''}`}
             >
               Alle turneringer
@@ -126,7 +123,7 @@ export function LagDetaljPage() {
             {allTournaments.map((tournament) => (
               <Link
                 key={tournament}
-                to={`/lag/${lagId}?turnering=${encodeURIComponent(tournament)}`}
+                to={squadPath(`lag/${lagId}?turnering=${encodeURIComponent(tournament)}`)}
                 className={`team-chip ${tournamentFilter === tournament ? 'team-chip-active' : ''}`}
               >
                 {tournament}
@@ -237,11 +234,15 @@ export function LagDetaljPage() {
               const resultClass = match.resultType
 
               const homeTeamLink = match.isHome
-                ? `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
-                : `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                ? squadPath(`lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`)
+                : squadPath(
+                    `lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                  )
               const awayTeamLink = match.isHome
-                ? `/lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
-                : `/lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`
+                ? squadPath(
+                    `lag/${match.opponentId}?turnering=${encodeURIComponent(match.tournament)}`
+                  )
+                : squadPath(`lag/${lagId}?turnering=${encodeURIComponent(match.tournament)}`)
 
               const resultText = match.isHome
                 ? `${match.goalsScored}–${match.goalsConceded}`
@@ -352,7 +353,10 @@ export function LagDetaljPage() {
                     <tr key={player.playerId}>
                       <td className="col-rank">{player.jerseyNumber ?? '-'}</td>
                       <td className="col-player">
-                        <Link to={`/spillere/${player.playerId}`} className="player-name-link">
+                        <Link
+                          to={squadPath(`spillere/${player.playerId}`)}
+                          className="player-name-link"
+                        >
                           {player.playerName}
                         </Link>
                       </td>

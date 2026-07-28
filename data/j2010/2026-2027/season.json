@@ -1,0 +1,16 @@
+{
+  "squadId": "j2010",
+  "squadName": "Fjellhammer J2010",
+  "seasonId": "201068",
+  "seasonName": "Håndballsesongen 2026/2027",
+  "slug": "2026-2027",
+  "status": "aktiv",
+  "lastUpdated": "2026-07-27T09:36:26.915Z",
+  "teams": [
+    {
+      "name": "Fjellhammer J16 1",
+      "lagid": "443496",
+      "color": "#e11d48"
+    }
+  ]
+}

@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "build:fresh": "npm run refresh && npm run build",
-    "build:update": "npm run update-results && npm run fetch-tables && npm run build",
+    "build:fresh": "npm run update-all && npm run build",
     "preview": "vite preview",
     "test": "npm run test:unit && npm run test:e2e",
     "test:e2e": "playwright test",
@@ -15,18 +14,12 @@
     "lint": "eslint . --ext .ts,.tsx",
     "format": "prettier --write \"src/**/*.{ts,tsx}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx}\"",
-    "refresh": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/refresh.js",
-    "update-all": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateAll.js",
-    "refresh:old": "npx tsx src/scripts/fetchAllTeamsData.ts && npx tsx src/scripts/fetchTables.ts",
-    "update-results": "npx tsx src/scripts/updateResults.ts",
-    "update-results:http": "npx tsx src/scripts/updateResultsHttp.ts",
-    "fetch-tables": "npx tsx src/scripts/fetchTables.ts",
-    "fetch-tables:http": "npx tsx src/scripts/fetchTablesHttp.ts",
-    "fetch-player-stats": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/fetchPlayerStats.js",
-    "fetch-player-stats:quick": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/fetchPlayerStats.js --quick",
-    "generate-player-aggregates": "npx tsx src/scripts/generatePlayerAggregates.ts",
+    "update-all": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js",
+    "update-squad": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js --squad",
+    "update-schedule": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js --no-stats",
     "update-pwcup": "npx tsx src/scripts/updatePWCup.ts",
-    "prepare": "husky"
+    "prepare": "husky",
+    "update-archive": "tsc -p tsconfig.scripts.json && node dist-scripts/scripts/updateSeason.js --archive"
   },
   "lint-staged": {
     "*.{ts,tsx}": [

@@ -96,7 +96,7 @@ export function extractMatchIdFromUrl(url: string | undefined): string | null {
   return match ? match[1] : null
 }
 
-export function isOldMatchIndexEntry(value: MatchIndexValue): value is OldMatchIndexEntry {
+export function isOldMatchIndexEntry(value: unknown): value is OldMatchIndexEntry {
   if (typeof value !== 'object' || value === null) {
     return false
   }

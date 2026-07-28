@@ -2,7 +2,15 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
+const buildId = new Date()
+  .toISOString()
+  .replace(/[^0-9]/g, '')
+  .slice(0, 14)
+
 export default defineConfig({
+  define: {
+    __BUILD_ID__: JSON.stringify(buildId),
+  },
   plugins: [react(), tailwindcss()],
   server: {
     port: 4321,

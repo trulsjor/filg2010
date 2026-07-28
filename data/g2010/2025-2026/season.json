@@ -1,0 +1,26 @@
+{
+  "squadId": "g2010",
+  "squadName": "Fjellhammer G2010",
+  "seasonId": "201060",
+  "seasonName": "Håndballsesongen 2025/2026",
+  "slug": "2025-2026",
+  "status": "arkivert",
+  "lastUpdated": "2026-07-27T10:10:54.500Z",
+  "teams": [
+    {
+      "name": "Fjellhammer G15 1",
+      "lagid": "531500",
+      "color": "#fbbf24"
+    },
+    {
+      "name": "Fjellhammer G15 2",
+      "lagid": "812498",
+      "color": "#059669"
+    },
+    {
+      "name": "Fjellhammer G16 3",
+      "lagid": "583470",
+      "color": "#9B0098FF"
+    }
+  ]
+}

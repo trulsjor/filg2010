@@ -1,5 +1,6 @@
 import type { Match } from '../types'
 import { isFjellhammerTeam, isValidScore } from '../hooks/useMatches'
+import { useSeason } from '../squads/SeasonAccess'
 
 const isOldMatch = (dateStr: string): boolean => {
   if (!dateStr || !dateStr.includes('.')) return false
@@ -27,9 +28,11 @@ export function MatchTable({
   getTeamColor,
   nextMatch,
 }: MatchTableProps) {
+  const { squad } = useSeason()
+
   return (
     <div className="table-container" role="region" aria-label="Kampoversikt" tabIndex={0}>
-      <table aria-label="Terminliste for Fjellhammer G2010">
+      <table aria-label={`Terminliste for ${squad.name}`}>
         <thead>
           <tr>
             {hasMultipleTeams && <th>Lag</th>}

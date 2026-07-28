@@ -4,13 +4,8 @@ import { Header } from '../components/Header'
 import { LeagueTableCard, type LeagueTable } from '../components/LeagueTableCard'
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
 
-import tablesData from '../../data/tables.json'
-import configData from '../../config.json'
-import statsData from '../../data/player-stats.json'
-import terminlisteData from '../../data/terminliste.json'
-
-import type { Config } from '../types'
-import type { PlayerStatsData } from '../types/player-stats'
+import { useSeason } from '../squads/SeasonAccess'
+import { useSquadPath } from '../squads/useSquadPath'
 
 type TeamDisplayName = string
 type TeamsLeagueTablesIndex = Record<TeamDisplayName, LeagueTable[]>
@@ -37,32 +32,33 @@ function sortTablesSluttspillFirst(tables: LeagueTable[]): LeagueTable[] {
   })
 }
 
-const typedTables: LeagueTable[] = tablesData
-const typedConfig: Config = configData
-const typedStatsData: PlayerStatsData = statsData
-const typedTerminlisteData = terminlisteData
-
 export function TabellPage() {
+  const {
+    squad,
+    teams: squadTeams,
+    tables: typedTables,
+    playerStats: typedStatsData,
+    matches: typedTerminlisteData,
+  } = useSeason()
+  const { squadPath } = useSquadPath()
   const navigate = useNavigate()
   const teamNameToId = useMemo(
     () => TeamStatsAggregate.buildTeamNameToIdMap(typedStatsData, typedTerminlisteData),
-    []
+    [typedStatsData, typedTerminlisteData]
   )
 
   const handleScrollToNext = useCallback(() => {
-    navigate('/', { state: { scrollToNext: true } })
-  }, [navigate])
+    navigate(squadPath(), { state: { scrollToNext: true } })
+  }, [navigate, squadPath])
 
   const tablesByTeam = useMemo(() => {
     const grouped: TeamsLeagueTablesIndex = {}
 
-    typedConfig.teams.forEach((team) => {
+    squadTeams.forEach((team) => {
       grouped[team.name] = []
     })
 
-    const teamsSortedBySpecificity = TeamStatsAggregate.sortTeamsByNameLengthDescending(
-      typedConfig.teams
-    )
+    const teamsSortedBySpecificity = TeamStatsAggregate.sortTeamsByNameLengthDescending(squadTeams)
 
     typedTables.forEach((table) => {
       const matchingTeam = TeamStatsAggregate.findConfigTeamInTable(
@@ -74,14 +70,14 @@ export function TabellPage() {
         return
       }
 
-      const matchingCup = typedConfig.cups?.find((cup) => table.tournamentName.startsWith(cup.name))
+      const matchingCup = squad.cups.find((cup) => table.tournamentName.startsWith(cup.name))
       if (matchingCup) {
         grouped[matchingCup.teamTag].push(table)
       }
     })
 
     return grouped
-  }, [])
+  }, [squad.cups, squadTeams, typedTables])
 
   return (
     <div className="app">
@@ -110,13 +106,13 @@ export function TabellPage() {
           </button>
           <div className="stats-page-title">
             <h1>Tabeller</h1>
-            <p className="stats-subtitle">Serietabeller for Fjellhammer G2010</p>
+            <p className="stats-subtitle">Serietabeller for {squad.name}</p>
           </div>
         </div>
 
         {typedTables.length > 0 && (
           <section className="league-tables-section">
-            {typedConfig.teams.map((team) => {
+            {squadTeams.map((team) => {
               if (!hasTablesForTeam(tablesByTeam, team.name)) return null
               const teamTables = sortTablesSluttspillFirst(tablesByTeam[team.name])
 
