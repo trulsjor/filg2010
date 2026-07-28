@@ -1,15 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import { rebuildPlayerCatalog } from '../src/handball/player-catalog.js'
-import type { MatchPlayerData, PlayerStats } from '../src/types/player-stats.js'
+import type { MatchPlayerData, PlayerMatchStats } from '../src/types/player-stats.js'
 
-function createPlayerStats(overrides: Partial<PlayerStats> = {}): PlayerStats {
+function createPlayerStats(overrides: Partial<PlayerMatchStats> = {}): PlayerMatchStats {
   return {
     playerId: '1',
     playerName: 'Test Player',
     jerseyNumber: 10,
     goals: 5,
-    assists: 3,
-    saves: 0,
+    penaltyGoals: 0,
     yellowCards: 0,
     redCards: 0,
     twoMinutes: 0,
@@ -27,6 +26,8 @@ function createMatchPlayerData(overrides: Partial<MatchPlayerData> = {}): MatchP
     awayTeamName: 'Team B',
     homeScore: 25,
     awayScore: 20,
+    tournament: 'Regionserien',
+    scrapedAt: '2025-01-01T12:00:00.000Z',
     homeTeamStats: [],
     awayTeamStats: [],
     ...overrides,
