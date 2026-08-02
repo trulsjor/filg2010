@@ -13,9 +13,39 @@
           "name": "Fjellhammer G16 1",
           "lagid": "558767",
           "color": "#fbbf24"
+        },
+        {
+          "name": "Fjellhammer G16 2",
+          "lagid": "583469",
+          "color": "#059669"
         }
       ],
-      "cups": [],
+      "cups": [
+        {
+          "name": "Skjærgårdslekene Elite",
+          "source": "profixio",
+          "tournamentSlug": "skjargardslekene-2026",
+          "categoryId": "1182560",
+          "groupId": "3406923",
+          "groupName": "G2010",
+          "playoffIds": [],
+          "teamName": "Fjellhammer IL",
+          "teamTag": "Fjellhammer G16 1",
+          "color": "#fbbf24"
+        },
+        {
+          "name": "Skjærgårdslekene Åpen",
+          "source": "profixio",
+          "tournamentSlug": "skjargardslekene-2026",
+          "categoryId": "1182559",
+          "groupId": "3406920",
+          "groupName": "G2010",
+          "playoffIds": [],
+          "teamName": "Fjellhammer IL",
+          "teamTag": "Fjellhammer G16 2",
+          "color": "#059669"
+        }
+      ],
       "pastSeasons": [
         {
           "id": "201060",
@@ -49,9 +79,39 @@
           "name": "Fjellhammer J16 1",
           "lagid": "443496",
           "color": "#e11d48"
+        },
+        {
+          "name": "Fjellhammer J16 2",
+          "lagid": "454099",
+          "color": "#7c3aed"
         }
       ],
-      "cups": [],
+      "cups": [
+        {
+          "name": "Skjærgårdslekene Elite",
+          "source": "profixio",
+          "tournamentSlug": "skjargardslekene-2026",
+          "categoryId": "1182563",
+          "groupId": "3406936",
+          "groupName": "J2010",
+          "playoffIds": [],
+          "teamName": "Fjellhammer IL",
+          "teamTag": "Fjellhammer J16 1",
+          "color": "#e11d48"
+        },
+        {
+          "name": "Skjærgårdslekene Åpen",
+          "source": "profixio",
+          "tournamentSlug": "skjargardslekene-2026",
+          "categoryId": "1182562",
+          "groupId": "3406929",
+          "groupName": "J2010",
+          "playoffIds": [],
+          "teamName": "Fjellhammer IL",
+          "teamTag": "Fjellhammer J16 2",
+          "color": "#7c3aed"
+        }
+      ],
       "pastSeasons": [
         {
           "id": "201060",
