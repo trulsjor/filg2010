@@ -20,6 +20,19 @@ test.describe('Service worker, statisk gjennomgang', () => {
     expect(swSource).toContain('caches.delete')
   })
 
+  test('også asset-cachen er versjonert, så gamle/forgiftede oppføringer ryddes', () => {
+    expect(swSource).toContain('terminliste-assets-${VERSION}')
+  })
+
+  test('cacher aldri SPA-fallbackens HTML for en manglende chunk', () => {
+    // cacheFirst må sjekke content-type før den lagrer, ellers forgiftes cachen
+    // med index.html og dynamiske import() feiler på «text/html is not a valid
+    // JavaScript MIME type».
+    expect(swSource).toContain('isHtmlResponse')
+    expect(swSource).toMatch(/response\.ok && !isHtmlResponse\(response\)/)
+    expect(swSource).toContain("type.includes('text/html')")
+  })
+
   test('cachen for filer har en øvre grense', () => {
     expect(swSource).toContain('MAX_ASSET_ENTRIES')
     expect(swSource).toMatch(/trimAssetCache/)

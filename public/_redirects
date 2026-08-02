@@ -1,1 +1,6 @@
-/*    /index.html    200
+# Manglende hash-assets (etter en deploy) skal gi ekte 404, ikke SPA-fallbackens
+# index.html (200). Ellers får en gammel/cachet chunk HTML tilbake og dynamisk
+# import() feiler med «text/html is not a valid JavaScript MIME type».
+# Eksisterende statiske filer serveres uansett før disse reglene.
+/assets/*    /index.html    404
+/*           /index.html    200

@@ -1,6 +1,6 @@
 const VERSION = new URL(self.location.href).searchParams.get('v') || 'ukjent'
 const SHELL_CACHE = `terminliste-shell-${VERSION}`
-const ASSET_CACHE = 'terminliste-assets'
+const ASSET_CACHE = `terminliste-assets-${VERSION}`
 const MAX_ASSET_ENTRIES = 80
 const SHELL_URL = '/index.html'
 
@@ -45,6 +45,15 @@ function isSameOrigin(url) {
   return url.origin === self.location.origin
 }
 
+// Etter en deploy bytter alle hash-filnavn. En forespørsel etter en gammel chunk
+// treffer SPA-fallbacken (/* -> /index.html) og får HTML tilbake. Den må aldri
+// caches eller behandles som en gyldig asset – ellers forgiftes cachen og
+// dynamiske import() feiler med «text/html is not a valid JavaScript MIME type».
+function isHtmlResponse(response) {
+  const type = response.headers.get('content-type') || ''
+  return type.includes('text/html')
+}
+
 async function trimAssetCache() {
   const cache = await caches.open(ASSET_CACHE)
   const keys = await cache.keys()
@@ -75,7 +84,8 @@ async function cacheFirst(request) {
   if (cached) return cached
 
   const response = await fetch(request)
-  if (response.ok) {
+  // Cache kun ekte asset-svar – aldri SPA-fallbackens HTML for en manglende chunk.
+  if (response.ok && !isHtmlResponse(response)) {
     await cache.put(request, response.clone())
     await trimAssetCache()
   }
