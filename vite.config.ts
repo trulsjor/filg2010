@@ -1,17 +1,30 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
-
-const buildId = new Date()
-  .toISOString()
-  .replace(/[^0-9]/g, '')
-  .slice(0, 14)
+import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-  define: {
-    __BUILD_ID__: JSON.stringify(buildId),
-  },
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    react(),
+    tailwindcss(),
+    VitePWA({
+      // Workbox genererer service workeren. Precaching gjør at en kjørende versjon
+      // holder seg selvkonsistent (alle chunks den refererer finnes i cachen), så
+      // «gammel index → manglende chunk → text/html MIME-feil» ikke kan oppstå.
+      registerType: 'autoUpdate',
+      manifest: false, // behold eksisterende public/manifest.json
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
+        // De store statistikk-chunkene endres hver natt (data) og er store; å
+        // precache dem ville betydd megabytes ny nedlasting per bruker hver natt.
+        // De hentes fra nett; vite:preloadError-reloaden dekker deploy-bytter.
+        globIgnores: ['**/player-stats-*.js', '**/player-aggregates-*.js'],
+        navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/assets\//],
+        cleanupOutdatedCaches: true,
+      },
+    }),
+  ],
   server: {
     port: 4321,
   },
