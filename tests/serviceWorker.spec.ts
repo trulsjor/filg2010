@@ -2,45 +2,27 @@ import { test, expect } from '@playwright/test'
 import * as fs from 'fs'
 import * as path from 'path'
 
-const swSource = fs.readFileSync(path.join(process.cwd(), 'public', 'sw.js'), 'utf-8')
+const viteConfig = fs.readFileSync(path.join(process.cwd(), 'vite.config.ts'), 'utf-8')
 
-test.describe('Service worker, statisk gjennomgang', () => {
-  test('navigasjon hentes fra nett først, så nye utgivelser når fram', () => {
-    expect(swSource).toContain("event.request.mode === 'navigate'")
-    expect(swSource).toMatch(/navigate[\s\S]*networkFirst/)
+test.describe('PWA / service worker-oppsett (vite-plugin-pwa)', () => {
+  test('service workeren genereres av Workbox (vite-plugin-pwa)', () => {
+    expect(viteConfig).toContain('VitePWA')
   })
 
-  test('bare filer med innholdshash serveres fra cache først', () => {
-    expect(swSource).toMatch(/isHashedAsset[\s\S]*cacheFirst/)
-    expect(swSource).toContain("url.pathname.startsWith('/assets/')")
+  test('nye utgivelser tas i bruk automatisk', () => {
+    expect(viteConfig).toContain("registerType: 'autoUpdate'")
+    expect(viteConfig).toContain('cleanupOutdatedCaches: true')
   })
 
-  test('cachen er versjonert, så en ny utgivelse rydder opp', () => {
-    expect(swSource).toContain('terminliste-shell-${VERSION}')
-    expect(swSource).toContain('caches.delete')
+  test('precacher bygg-assets, så en kjørende versjon holder seg selvkonsistent', () => {
+    // Precaching er kjernen i fiksen: en gammel fane har alle chunkene sine i
+    // cachen, så «gammel index → manglende chunk → text/html MIME-feil» kan ikke skje.
+    expect(viteConfig).toContain('globPatterns')
+    expect(viteConfig).toMatch(/navigateFallback:\s*'\/index\.html'/)
   })
 
-  test('cachen for filer har en øvre grense', () => {
-    expect(swSource).toContain('MAX_ASSET_ENTRIES')
-    expect(swSource).toMatch(/trimAssetCache/)
-  })
-
-  test('tar over med en gang, uten å vente på at faner lukkes', () => {
-    expect(swSource).toContain('self.skipWaiting()')
-    expect(swSource).toContain('self.clients.claim()')
-  })
-
-  test('har en nødbryter som avregistrerer og tømmer cachen', () => {
-    expect(swSource).toContain("event.data === 'unregister'")
-    expect(swSource).toContain('self.registration')
-  })
-
-  test('rører ikke forespørsler til andre domener', () => {
-    expect(swSource).toContain('if (!isSameOrigin(url)) return')
-  })
-
-  test('rører ikke annet enn GET', () => {
-    expect(swSource).toContain("event.request.method !== 'GET'")
+  test('navigasjons-fallback gjelder ikke /assets/, så manglende chunks feiler rent', () => {
+    expect(viteConfig).toContain('navigateFallbackDenylist')
   })
 })
 

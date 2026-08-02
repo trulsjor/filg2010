@@ -3,10 +3,11 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router-dom'
 import { ThemeProvider } from './context/ThemeContext'
 import { App } from './App'
-import { registerServiceWorker } from './registerServiceWorker'
+import { recoverFromStalePreload } from './pwa'
 import './index.css'
 
-registerServiceWorker()
+// Service worker-registrering injiseres av vite-plugin-pwa (registerType: autoUpdate).
+recoverFromStalePreload()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
