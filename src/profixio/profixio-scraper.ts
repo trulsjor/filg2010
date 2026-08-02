@@ -17,7 +17,7 @@ export interface ProfixioTableRow {
 
 const BASE_URL = 'https://www.profixio.com/app'
 
-const EXTRACT_MATCHES_SCRIPT = `(year) => {
+const EXTRACT_MATCHES_SCRIPT = `() => {
   const items = document.querySelectorAll('li[wire\\\\:key^="listkamp_"]');
   const matches = [];
   for (const li of items) {
@@ -49,14 +49,7 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
       }
     }
 
-    let date = '';
-    if (tsMatch) {
-      const ts = parseInt(tsMatch[1], 10) * 1000;
-      const cetOffset = 60 * 60 * 1000;
-      const cetDate = new Date(ts + cetOffset);
-      const months = ['jan','feb','mar','apr','mai','jun','jul','aug','sep','okt','nov','des'];
-      date = cetDate.getUTCDate() + '. ' + months[cetDate.getUTCMonth()];
-    }
+    const timestamp = tsMatch ? parseInt(tsMatch[1], 10) : 0;
 
     let time = '';
     const allDivs = li.querySelectorAll('div');
@@ -79,7 +72,7 @@ const EXTRACT_MATCHES_SCRIPT = `(year) => {
     }
 
     matches.push({
-      matchId, matchNumber, date, time, year,
+      matchId, matchNumber, timestamp, time,
       homeTeam, awayTeam, homeGoals: homegoals, awayGoals: awaygoals,
       hasResult, venue, facility, matchUrl: matchUrl || '',
     });
@@ -194,9 +187,9 @@ export class ProfixioScraper {
     await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
   }
 
-  private async extractMatches(page: Page, year: number): Promise<ProfixioMatchData[]> {
+  private async extractMatches(page: Page): Promise<ProfixioMatchData[]> {
     const fn = new Function('return ' + EXTRACT_MATCHES_SCRIPT)()
-    return page.evaluate(fn, year)
+    return page.evaluate(fn)
   }
 
   private async extractTable(page: Page): Promise<ProfixioTableRow[]> {
@@ -215,8 +208,7 @@ export class ProfixioScraper {
     try {
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
-      const year = new Date().getFullYear()
-      const matches = await this.extractMatches(page, year)
+      const matches = await this.extractMatches(page)
       const domTable = await this.extractTable(page)
       const table = domTable.length > 0 ? domTable : deriveTableFromMatches(matches)
       console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
@@ -229,7 +221,6 @@ export class ProfixioScraper {
 
   async scrapePlayoffPages(cupConfig: CupConfig): Promise<ProfixioMatchData[]> {
     const browser = await this.getBrowser()
-    const year = new Date().getFullYear()
     const results: ProfixioMatchData[][] = []
 
     for (const playoffId of cupConfig.playoffIds) {
@@ -240,7 +231,7 @@ export class ProfixioScraper {
       try {
         console.log(`  Henter sluttspill ${playoffId}: ${url}`)
         await this.navigateAndWait(page, url)
-        const matches = await this.extractMatches(page, year)
+        const matches = await this.extractMatches(page)
         console.log(`  Fant ${matches.length} kamper i sluttspill ${playoffId}`)
         results.push(matches)
       } finally {
