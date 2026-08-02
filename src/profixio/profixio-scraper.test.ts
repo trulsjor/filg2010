@@ -6,9 +6,8 @@ function makeMatch(overrides: Partial<ProfixioMatchData> = {}): ProfixioMatchDat
   return {
     matchId: '1',
     matchNumber: '1',
-    date: '28. mar',
+    timestamp: 1774681200,
     time: '08:00',
-    year: 2026,
     homeTeam: 'Lag A',
     awayTeam: 'Lag B',
     homeGoals: '',

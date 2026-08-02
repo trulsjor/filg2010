@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Header } from '../components/Header'
 import { LeagueTableCard, type LeagueTable } from '../components/LeagueTableCard'
 import { TeamStatsAggregate } from '../team-stats/TeamStatsAggregate'
+import { groupTablesByTeam } from '../team-stats/groupTablesByTeam'
 
 import { useSeason } from '../squads/SeasonAccess'
 import { useSquadPath } from '../squads/useSquadPath'
@@ -51,33 +52,10 @@ export function TabellPage() {
     navigate(squadPath(), { state: { scrollToNext: true } })
   }, [navigate, squadPath])
 
-  const tablesByTeam = useMemo(() => {
-    const grouped: TeamsLeagueTablesIndex = {}
-
-    squadTeams.forEach((team) => {
-      grouped[team.name] = []
-    })
-
-    const teamsSortedBySpecificity = TeamStatsAggregate.sortTeamsByNameLengthDescending(squadTeams)
-
-    typedTables.forEach((table) => {
-      const matchingTeam = TeamStatsAggregate.findConfigTeamInTable(
-        table.rows,
-        teamsSortedBySpecificity
-      )
-      if (matchingTeam) {
-        grouped[matchingTeam.name].push(table)
-        return
-      }
-
-      const matchingCup = squad.cups.find((cup) => table.tournamentName.startsWith(cup.name))
-      if (matchingCup) {
-        grouped[matchingCup.teamTag].push(table)
-      }
-    })
-
-    return grouped
-  }, [squad.cups, squadTeams, typedTables])
+  const tablesByTeam = useMemo(
+    () => groupTablesByTeam(typedTables, squadTeams, squad.cups),
+    [squad.cups, squadTeams, typedTables]
+  )
 
   return (
     <div className="app">

@@ -1,6 +1,19 @@
 import { describe, it, expect } from 'vitest'
-import { profixioMatchToMatch, filterTeamMatches, type ProfixioMatchData } from './profixio-parser'
+import {
+  profixioMatchToMatch,
+  filterTeamMatches,
+  formatProfixioDate,
+  type ProfixioMatchData,
+} from './profixio-parser'
 import type { CupConfig } from '../types/index'
+
+// Oslo-midnatt på kampdagen, uttrykt som UTC (kilden til off-by-one-buggen):
+// om sommeren er Norge CEST (+2), så midnatt = 22:00 UTC dagen før.
+const osloMidnight = (y: number, m: number, d: number, utcHourDayBefore: number): number =>
+  Math.floor(Date.UTC(y, m, d, utcHourDayBefore) / 1000)
+
+const noonUtc = (y: number, m: number, d: number): number =>
+  Math.floor(Date.UTC(y, m, d, 12) / 1000)
 
 const cupConfig: CupConfig = {
   name: 'Peter Wessel Cup 2026',
@@ -15,14 +28,33 @@ const cupConfig: CupConfig = {
   color: '#fbbf24',
 }
 
+describe('formatProfixioDate', () => {
+  it('viser riktig dag for en sommer-midnattskamp (off-by-one-buggen)', () => {
+    // lør 8. aug 2026 00:00 norsk tid = fre 7. aug 22:00 UTC
+    expect(formatProfixioDate(osloMidnight(2026, 7, 7, 22))).toBe('08.08.2026')
+  })
+
+  it('viser riktig dag for en vinter-midnattskamp', () => {
+    // 10. jan 2026 00:00 norsk tid (CET, +1) = 9. jan 23:00 UTC
+    expect(formatProfixioDate(osloMidnight(2026, 0, 9, 23))).toBe('10.01.2026')
+  })
+
+  it('formaterer et vanlig dagtidstidsstempel', () => {
+    expect(formatProfixioDate(noonUtc(2026, 2, 28))).toBe('28.03.2026')
+  })
+
+  it('gir tom streng når tidsstempel mangler', () => {
+    expect(formatProfixioDate(0)).toBe('')
+  })
+})
+
 describe('profixioMatchToMatch', () => {
   it('converts a Profixio match without result to Match', () => {
     const raw: ProfixioMatchData = {
       matchId: '32583264',
       matchNumber: '48',
-      date: '28. mar',
+      timestamp: noonUtc(2026, 2, 28),
       time: '08:00',
-      year: 2026,
       homeTeam: 'Fjellhammer IL',
       awayTeam: 'Herkules Håndball',
       homeGoals: '',
@@ -53,9 +85,8 @@ describe('profixioMatchToMatch', () => {
     const raw: ProfixioMatchData = {
       matchId: '32085114',
       matchNumber: '229',
-      date: '12. apr',
+      timestamp: noonUtc(2025, 3, 12),
       time: '15:20',
-      year: 2025,
       homeTeam: 'Fana IL',
       awayTeam: 'Fjellhammer IL',
       homeGoals: '16',
@@ -74,65 +105,49 @@ describe('profixioMatchToMatch', () => {
 })
 
 describe('filterTeamMatches', () => {
+  const base = {
+    time: '10:00',
+    homeGoals: '',
+    awayGoals: '',
+    hasResult: false,
+    venue: 'Runar 1',
+    facility: 'Runarhallen',
+  }
   const allGroupMatches: ProfixioMatchData[] = [
     {
+      ...base,
       matchId: '1',
       matchNumber: '21',
-      date: '27. mar',
-      time: '20:15',
-      year: 2026,
+      timestamp: noonUtc(2026, 2, 27),
       homeTeam: 'Vikhammer HK',
       awayTeam: 'Bjarg, IL',
-      homeGoals: '',
-      awayGoals: '',
-      hasResult: false,
-      venue: 'Fram',
-      facility: 'Framhallen',
       matchUrl: 'https://www.profixio.com/app/pwcup_2026/match/1',
     },
     {
+      ...base,
       matchId: '2',
       matchNumber: '48',
-      date: '28. mar',
-      time: '08:00',
-      year: 2026,
+      timestamp: noonUtc(2026, 2, 28),
       homeTeam: 'Fjellhammer IL',
       awayTeam: 'Herkules Håndball',
-      homeGoals: '',
-      awayGoals: '',
-      hasResult: false,
-      venue: 'Runar 1',
-      facility: 'Runarhallen',
       matchUrl: 'https://www.profixio.com/app/pwcup_2026/match/2',
     },
     {
+      ...base,
       matchId: '3',
       matchNumber: '208',
-      date: '28. mar',
-      time: '13:20',
-      year: 2026,
+      timestamp: noonUtc(2026, 2, 28),
       homeTeam: 'Bjarg, IL',
       awayTeam: 'Fjellhammer IL',
-      homeGoals: '',
-      awayGoals: '',
-      hasResult: false,
-      venue: 'Runar 2',
-      facility: 'Runarhallen',
       matchUrl: 'https://www.profixio.com/app/pwcup_2026/match/3',
     },
     {
+      ...base,
       matchId: '4',
       matchNumber: '127',
-      date: '28. mar',
-      time: '10:40',
-      year: 2026,
+      timestamp: noonUtc(2026, 2, 28),
       homeTeam: 'Bjarg, IL',
       awayTeam: 'Øyestad IF',
-      homeGoals: '',
-      awayGoals: '',
-      hasResult: false,
-      venue: 'Runar 1',
-      facility: 'Runarhallen',
       matchUrl: 'https://www.profixio.com/app/pwcup_2026/match/4',
     },
   ]

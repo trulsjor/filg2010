@@ -4,9 +4,8 @@ import { cupMatchNumber } from './CupMatchNumber.js'
 export interface ProfixioMatchData {
   matchId: string
   matchNumber: string
-  date: string
+  timestamp: number
   time: string
-  year: number
   homeTeam: string
   awayTeam: string
   homeGoals: string
@@ -17,28 +16,20 @@ export interface ProfixioMatchData {
   matchUrl: string
 }
 
-const MONTH_MAP: Record<string, number> = {
-  jan: 1,
-  feb: 2,
-  mar: 3,
-  apr: 4,
-  mai: 5,
-  jun: 6,
-  jul: 7,
-  aug: 8,
-  sep: 9,
-  okt: 10,
-  nov: 11,
-  des: 12,
-}
-
-export function parseProfixioDate(dateStr: string, year: number): string {
-  const match = dateStr.match(/(\d+)\.\s*(\w+)/)
-  if (!match) return ''
-  const day = parseInt(match[1], 10)
-  const month = MONTH_MAP[match[2].toLowerCase()]
-  if (!month) return ''
-  return `${String(day).padStart(2, '0')}.${String(month).padStart(2, '0')}.${year}`
+// Profixios tidsstempel er kampstart som Unix-sekunder (UTC). Datoen skal vises i
+// norsk lokaltid. Bruk Europe/Oslo slik at både sommertid (CEST, +2) og vintertid
+// (CET, +1) håndteres riktig – en fast +1t-offset gjør at midnattskamper lander på
+// dagen før om sommeren.
+export function formatProfixioDate(timestampSeconds: number): string {
+  if (!timestampSeconds) return ''
+  const parts = new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Europe/Oslo',
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric',
+  }).formatToParts(new Date(timestampSeconds * 1000))
+  const get = (type: string): string => parts.find((p) => p.type === type)?.value ?? ''
+  return `${get('day')}.${get('month')}.${get('year')}`
 }
 
 export function filterTeamMatches(
@@ -55,7 +46,7 @@ export function profixioMatchToMatch(raw: ProfixioMatchData, cupConfig: CupConfi
 
   return {
     Lag: cupConfig.teamTag,
-    Dato: parseProfixioDate(raw.date, raw.year),
+    Dato: formatProfixioDate(raw.timestamp),
     Tid: raw.time,
     Kampnr: cupMatchNumber(raw.matchNumber),
     Hjemmelag: raw.homeTeam,
