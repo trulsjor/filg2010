@@ -1,1 +1,94 @@
-[]
+[
+  {
+    "tournamentName": "Skjærgårdslekene Elite - J2010",
+    "tournamentUrl": "https://www.profixio.com/app/skjargardslekene-2026/category/1182563/group/3406936",
+    "rows": [
+      {
+        "position": 1,
+        "team": "Fjellhammer IL",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "goalDifference": 0,
+        "points": 0,
+        "withdrawn": false
+      },
+      {
+        "position": 2,
+        "team": "Teie HK",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "goalDifference": 0,
+        "points": 0,
+        "withdrawn": false
+      },
+      {
+        "position": 3,
+        "team": "Skuru IK Handboll",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "goalDifference": 0,
+        "points": 0,
+        "withdrawn": false
+      }
+    ],
+    "updatedAt": "2026-08-02T17:06:14.633Z"
+  },
+  {
+    "tournamentName": "Skjærgårdslekene Åpen - J2010",
+    "tournamentUrl": "https://www.profixio.com/app/skjargardslekene-2026/category/1182562/group/3406929",
+    "rows": [
+      {
+        "position": 1,
+        "team": "Sandefjord TIF",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "goalDifference": 0,
+        "points": 0,
+        "withdrawn": false
+      },
+      {
+        "position": 2,
+        "team": "Fjellhammer IL",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "goalDifference": 0,
+        "points": 0,
+        "withdrawn": false
+      },
+      {
+        "position": 3,
+        "team": "Pors Håndball",
+        "played": 0,
+        "won": 0,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 0,
+        "goalsAgainst": 0,
+        "goalDifference": 0,
+        "points": 0,
+        "withdrawn": false
+      }
+    ],
+    "updatedAt": "2026-08-02T17:06:16.234Z"
+  }
+]
