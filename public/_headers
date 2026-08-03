@@ -1,0 +1,10 @@
+# Alt (index.html, SPA-ruter, sw.js, manifest) skal alltid revalideres, så nye
+# utgivelser når fram – også i nettlesere som HTTP-cacher shell-en aggressivt
+# (f.eks. Chrome på iOS). "no-cache" tillater caching, men krever revalidering.
+/*
+  Cache-Control: no-cache
+
+# Innholds-hashede assets er immutable (nytt filnavn ved endring) og caches lenge.
+# Mer spesifikk regel vinner, så disse overstyrer no-cache over.
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
