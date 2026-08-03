@@ -12,6 +12,7 @@ import { PlayerStatsAggregator } from '../handball/PlayerStatsAggregator.js'
 import { rebuildPlayerCatalog } from '../handball/player-catalog.js'
 import { sortMatchesByDate } from '../match/match-sorting.js'
 import { isCupMatch } from '../profixio/CupMatchNumber.js'
+import { mergeCupTables } from '../profixio/merge-cup-tables.js'
 
 const SKIP_STATS = process.argv.includes('--no-stats')
 const INCLUDE_ARCHIVE = process.argv.includes('--archive')
@@ -74,9 +75,13 @@ export async function updateSeason(
   const cupMatches = store.loadMatches(squad.id, season.slug).filter(isCupMatch)
   store.saveMatches(squad.id, season.slug, sortMatchesByDate([...ownMatches, ...cupMatches]))
 
-  const tables = await discovery.fetchTables(tournaments)
+  const leagueTables = await discovery.fetchTables(tournaments)
+  const existingTables = store.loadTables(squad.id, season.slug)
+  const tables = mergeCupTables(leagueTables, existingTables, squad.cups)
   store.saveTables(squad.id, season.slug, tables)
-  console.log(`  [tabeller] ${tables.length}`)
+  console.log(
+    `  [tabeller] ${leagueTables.length} serie + ${tables.length - leagueTables.length} cup`
+  )
 
   const collected = SKIP_STATS
     ? store.loadCollectedStats(squad.id, season.slug)
