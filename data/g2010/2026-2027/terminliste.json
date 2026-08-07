@@ -1,6 +1,34 @@
 [
   {
     "Lag": "Fjellhammer G16 1",
+    "Dato": "07.08.2026",
+    "Tid": "17:20",
+    "Kampnr": "pwcup-7",
+    "Hjemmelag": "Bækkelagets SPKL",
+    "Bortelag": "Fjellhammer IL",
+    "H-B": "18-18",
+    "Bane": "",
+    "Arrangør": "Skjærgårdslekene Elite",
+    "Turnering": "Skjærgårdslekene Elite",
+    "Kamp URL": "https://www.profixio.com/app/skjargardslekene-2026/match/32660478",
+    "Turnering URL": "https://www.profixio.com/app/skjargardslekene-2026"
+  },
+  {
+    "Lag": "Fjellhammer G16 2",
+    "Dato": "07.08.2026",
+    "Tid": "20:00",
+    "Kampnr": "pwcup-22",
+    "Hjemmelag": "Bjarg, IL",
+    "Bortelag": "Fjellhammer IL",
+    "H-B": "-",
+    "Bane": "",
+    "Arrangør": "Skjærgårdslekene Åpen",
+    "Turnering": "Skjærgårdslekene Åpen",
+    "Kamp URL": "https://www.profixio.com/app/skjargardslekene-2026/match/32660443",
+    "Turnering URL": "https://www.profixio.com/app/skjargardslekene-2026"
+  },
+  {
+    "Lag": "Fjellhammer G16 1",
     "Dato": "08.08.2026",
     "Tid": "09:00",
     "Kampnr": "pwcup-26",
