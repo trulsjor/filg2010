@@ -17,11 +17,25 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,ico}'],
         // De store statistikk-chunkene endres hver natt (data) og er store; å
         // precache dem ville betydd megabytes ny nedlasting per bruker hver natt.
-        // De hentes fra nett; vite:preloadError-reloaden dekker deploy-bytter.
+        // De precaches ikke, men runtime-caches ved bruk (se runtimeCaching under).
         globIgnores: ['**/player-stats-*.js', '**/player-aggregates-*.js'],
         navigateFallback: '/index.html',
         navigateFallbackDenylist: [/^\/assets\//],
         cleanupOutdatedCaches: true,
+        // Cache hashede assets (inkl. de store data-chunkene som ikke precaches) ved
+        // første bruk, så appen fungerer offline. Filnavnene har innholds-hash, så
+        // CacheFirst er trygt; gamle filnavn ryddes via maxEntries.
+        runtimeCaching: [
+          {
+            urlPattern: /\/assets\/.*\.(?:js|css)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'app-assets',
+              expiration: { maxEntries: 200, maxAgeSeconds: 60 * 60 * 24 * 90 },
+              cacheableResponse: { statuses: [200] },
+            },
+          },
+        ],
       },
     }),
   ],
