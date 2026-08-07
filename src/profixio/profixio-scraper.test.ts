@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { deriveTableFromMatches } from './profixio-scraper'
+import { deriveTableFromMatches, dedupeMatches } from './profixio-scraper'
 import type { ProfixioMatchData } from './profixio-parser'
 
 function makeMatch(overrides: Partial<ProfixioMatchData> = {}): ProfixioMatchData {
@@ -229,5 +229,19 @@ describe('deriveTableFromMatches', () => {
     expect(kjelsas.goalsAgainst).toBe(57)
     expect(kjelsas.goalDifference).toBe(-20)
     expect(kjelsas.points).toBe(0)
+  })
+})
+
+describe('dedupeMatches', () => {
+  it('fjerner duplikater på matchId og foretrekker varianten med resultat', () => {
+    const upcoming = makeMatch({ matchId: '10', hasResult: false })
+    const played = makeMatch({ matchId: '10', hasResult: true, homeGoals: '20', awayGoals: '18' })
+    const other = makeMatch({ matchId: '11', hasResult: false })
+
+    const result = dedupeMatches([upcoming, played, other])
+
+    expect(result).toHaveLength(2)
+    expect(result.find((m) => m.matchId === '10')?.hasResult).toBe(true)
+    expect(result.find((m) => m.matchId === '10')?.homeGoals).toBe('20')
   })
 })

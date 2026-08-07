@@ -84,4 +84,30 @@ describe('mergeCupMatches', () => {
 
     expect(result).toHaveLength(2)
   })
+
+  it('bevarer spilte cup-kamper som er falt ut av skrapet (flyttet til Spilte)', () => {
+    const existing = [
+      makeMatch({ Kampnr: 'pwcup-7', Turnering: 'Skjærgårdslekene Elite', 'H-B': '20-18' }),
+      makeMatch({ Kampnr: 'pwcup-26', Turnering: 'Skjærgårdslekene Elite', 'H-B': '-' }),
+    ]
+    // Nytt skrap har bare den kommende kampen; den spilte er borte fra visningen.
+    const cupMatches = [
+      makeMatch({ Kampnr: 'pwcup-26', Turnering: 'Skjærgårdslekene Elite', 'H-B': '-' }),
+    ]
+
+    const result = mergeCupMatches(existing, cupMatches, 'Skjærgårdslekene Elite')
+
+    expect(result).toHaveLength(2)
+    expect(result.find((m) => m.Kampnr === 'pwcup-7')?.['H-B']).toBe('20-18')
+  })
+
+  it('bevarer ikke ikke-spilte cup-kamper som er falt ut av skrapet', () => {
+    const existing = [
+      makeMatch({ Kampnr: 'pwcup-9', Turnering: 'Skjærgårdslekene Elite', 'H-B': '-' }),
+    ]
+
+    const result = mergeCupMatches(existing, [], 'Skjærgårdslekene Elite')
+
+    expect(result).toHaveLength(0)
+  })
 })
