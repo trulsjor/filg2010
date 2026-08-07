@@ -36,8 +36,6 @@ export interface SeasonChoice {
 const config: Config = configData
 const manifest: DataManifest = requireShape(manifestData, isDataManifest, 'data/index.json')
 
-const seasonFiles = import.meta.glob<{ default: unknown }>('../../data/*/*/*.json')
-
 export const squads: Squad[] = config.squads
 export const defaultSquadId: string = config.squads[0].id
 export const currentSeasonSlug: string = manifest.currentSeasonSlug
@@ -69,13 +67,16 @@ function findSeason(squadId: string, slug: string): SeasonChoice {
   return season
 }
 
+// Data hentes som statiske JSON-filer på stabile URL-er (ikke innholds-hashede
+// JS-chunks). Stabil URL betyr at en utdatert cache ikke gir «manglende chunk»-feil,
+// og gjør caching per sesongtype (statisk fjorår vs. dynamisk inneværende) enkel via
+// service worker.
 async function readFile(squadId: string, slug: string, fileName: string): Promise<unknown> {
-  const loadFile = seasonFiles[`../../data/${squadId}/${slug}/${fileName}`]
-  if (loadFile === undefined) {
+  const response = await fetch(`/data/${squadId}/${slug}/${fileName}`)
+  if (!response.ok) {
     throw new Error(`Fant ikke data/${squadId}/${slug}/${fileName}`)
   }
-  const loaded = await loadFile()
-  return loaded.default
+  return response.json()
 }
 
 export async function loadSeasonData(squadId: string, slug: string): Promise<SeasonData> {
