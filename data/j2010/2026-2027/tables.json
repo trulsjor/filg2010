@@ -6,19 +6,19 @@
       {
         "position": 1,
         "team": "Fjellhammer IL",
-        "played": 0,
-        "won": 0,
+        "played": 1,
+        "won": 1,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "goalDifference": 0,
-        "points": 0,
+        "goalsFor": 34,
+        "goalsAgainst": 15,
+        "goalDifference": 19,
+        "points": 2,
         "withdrawn": false
       },
       {
         "position": 2,
-        "team": "Teie HK",
+        "team": "Skuru IK Handboll Grön",
         "played": 0,
         "won": 0,
         "drawn": 0,
@@ -31,19 +31,19 @@
       },
       {
         "position": 3,
-        "team": "Skuru IK Handboll",
-        "played": 0,
+        "team": "Teie HK",
+        "played": 1,
         "won": 0,
         "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "goalDifference": 0,
+        "lost": 1,
+        "goalsFor": 15,
+        "goalsAgainst": 34,
+        "goalDifference": -19,
         "points": 0,
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-03T18:05:26.280Z"
+    "updatedAt": "2026-08-07T18:11:39.369Z"
   },
   {
     "tournamentName": "Skjærgårdslekene Åpen - J2010",
@@ -51,32 +51,19 @@
     "rows": [
       {
         "position": 1,
-        "team": "Sandefjord TIF",
-        "played": 0,
-        "won": 0,
+        "team": "Fjellhammer IL",
+        "played": 1,
+        "won": 1,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "goalDifference": 0,
-        "points": 0,
+        "goalsFor": 17,
+        "goalsAgainst": 16,
+        "goalDifference": 1,
+        "points": 2,
         "withdrawn": false
       },
       {
         "position": 2,
-        "team": "Fjellhammer IL",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "goalDifference": 0,
-        "points": 0,
-        "withdrawn": false
-      },
-      {
-        "position": 3,
         "team": "Pors Håndball",
         "played": 0,
         "won": 0,
@@ -87,8 +74,21 @@
         "goalDifference": 0,
         "points": 0,
         "withdrawn": false
+      },
+      {
+        "position": 3,
+        "team": "Sandefjord TIF",
+        "played": 1,
+        "won": 0,
+        "drawn": 0,
+        "lost": 1,
+        "goalsFor": 16,
+        "goalsAgainst": 17,
+        "goalDifference": -1,
+        "points": 0,
+        "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-03T18:05:27.869Z"
+    "updatedAt": "2026-08-07T18:11:41.361Z"
   }
 ]
