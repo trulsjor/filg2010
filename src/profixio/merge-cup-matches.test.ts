@@ -110,4 +110,43 @@ describe('mergeCupMatches', () => {
 
     expect(result).toHaveLength(0)
   })
+
+  it('beholder banen fra kommende kamp når den spilte versjonen mangler den', () => {
+    const existing = [
+      makeMatch({
+        Kampnr: 'pwcup-7',
+        Turnering: 'Skjærgårdslekene Elite',
+        'H-B': '-',
+        Bane: 'Labakkenhallen',
+      }),
+    ]
+    // Den spilte versjonen fra «Spilte»-fanen har resultat, men tom bane.
+    const cupMatches = [
+      makeMatch({
+        Kampnr: 'pwcup-7',
+        Turnering: 'Skjærgårdslekene Elite',
+        'H-B': '18-18',
+        Bane: '',
+      }),
+    ]
+
+    const result = mergeCupMatches(existing, cupMatches, 'Skjærgårdslekene Elite')
+    const match = result.find((m) => m.Kampnr === 'pwcup-7')
+
+    expect(match?.['H-B']).toBe('18-18') // resultatet fra skrapet vinner
+    expect(match?.Bane).toBe('Labakkenhallen') // banen bevart
+  })
+
+  it('overskriver ikke en bane som finnes i skrapet', () => {
+    const existing = [
+      makeMatch({ Kampnr: 'pwcup-7', Turnering: 'Skjærgårdslekene Elite', Bane: 'Gammel hall' }),
+    ]
+    const cupMatches = [
+      makeMatch({ Kampnr: 'pwcup-7', Turnering: 'Skjærgårdslekene Elite', Bane: 'Ny hall' }),
+    ]
+
+    const result = mergeCupMatches(existing, cupMatches, 'Skjærgårdslekene Elite')
+
+    expect(result.find((m) => m.Kampnr === 'pwcup-7')?.Bane).toBe('Ny hall')
+  })
 })
