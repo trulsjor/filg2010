@@ -105,6 +105,19 @@ const EXTRACT_TABLE_SCRIPT = `() => {
   return result;
 }`
 
+// Slår sammen kamper fra flere visninger (kommende + spilte) og fjerner duplikater
+// på matchId. Ved duplikat vinner varianten med resultat (den spilte).
+export function dedupeMatches(matches: ProfixioMatchData[]): ProfixioMatchData[] {
+  const byId = new Map<string, ProfixioMatchData>()
+  for (const match of matches) {
+    const existing = byId.get(match.matchId)
+    if (!existing || (match.hasResult && !existing.hasResult)) {
+      byId.set(match.matchId, match)
+    }
+  }
+  return Array.from(byId.values())
+}
+
 export function deriveTableFromMatches(matches: ProfixioMatchData[]): ProfixioTableRow[] {
   const stats = new Map<string, ProfixioTableRow>()
 
@@ -197,6 +210,28 @@ export class ProfixioScraper {
     return page.evaluate(fn)
   }
 
+  // Profixio viser kommende og spilte kamper i hver sin fane. Standardvisningen har
+  // de kommende; de spilte (med resultat) ligger bak «Spilte»-fanen. Vi klikker den
+  // og henter dem også, ellers forsvinner resultatene fra oversikten når kampene er
+  // ferdige. Defensivt: feiler klikket, faller vi tilbake til bare kommende.
+  private async extractPlayedMatches(page: Page): Promise<ProfixioMatchData[]> {
+    try {
+      const tab = page.getByText('Spilte', { exact: true }).first()
+      if ((await tab.count()) === 0) return []
+      await tab.click({ timeout: 5000 })
+      await page.waitForTimeout(1500)
+      return await this.extractMatches(page)
+    } catch {
+      return []
+    }
+  }
+
+  private async extractAllMatches(page: Page): Promise<ProfixioMatchData[]> {
+    const upcoming = await this.extractMatches(page)
+    const played = await this.extractPlayedMatches(page)
+    return dedupeMatches([...upcoming, ...played])
+  }
+
   async scrapeGroupPage(
     cupConfig: CupConfig
   ): Promise<{ matches: ProfixioMatchData[]; table: ProfixioTableRow[] }> {
@@ -208,8 +243,8 @@ export class ProfixioScraper {
     try {
       console.log(`  Henter gruppe: ${url}`)
       await this.navigateAndWait(page, url)
-      const matches = await this.extractMatches(page)
       const domTable = await this.extractTable(page)
+      const matches = await this.extractAllMatches(page)
       const table = domTable.length > 0 ? domTable : deriveTableFromMatches(matches)
       console.log(`  Fant ${matches.length} kamper, ${table.length} lag i tabell`)
       return { matches, table }
@@ -231,7 +266,7 @@ export class ProfixioScraper {
       try {
         console.log(`  Henter sluttspill ${playoffId}: ${url}`)
         await this.navigateAndWait(page, url)
-        const matches = await this.extractMatches(page)
+        const matches = await this.extractAllMatches(page)
         console.log(`  Fant ${matches.length} kamper i sluttspill ${playoffId}`)
         results.push(matches)
       } finally {
