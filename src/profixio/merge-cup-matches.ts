@@ -11,6 +11,21 @@ export function mergeCupMatches(
   cupMatches: Match[],
   cupTournamentName: string
 ): Match[] {
+  const previousByNr = new Map(
+    existing.filter((m) => m.Turnering === cupTournamentName).map((m) => [m.Kampnr, m])
+  )
+
+  // Spilte kamper hentes fra «Spilte»-fanen uten bane/hall. Behold banen fra da
+  // kampen var kommende (samme Kampnr), så «Kart» ikke forsvinner når kampen er
+  // spilt. Banen endrer seg ikke.
+  const enriched = cupMatches.map((match) => {
+    if ((match.Bane ?? '') === '') {
+      const previous = previousByNr.get(match.Kampnr)
+      if (previous?.Bane) return { ...match, Bane: previous.Bane }
+    }
+    return match
+  })
+
   const withoutOldCup = existing.filter((m) => m.Turnering !== cupTournamentName)
 
   // Profixio flytter spilte kamper til «Spilte»-fanen, så en gitt skraping kan
@@ -22,5 +37,5 @@ export function mergeCupMatches(
     (m) => m.Turnering === cupTournamentName && !scrapedNumbers.has(m.Kampnr) && isPlayed(m)
   )
 
-  return sortMatchesByDate([...withoutOldCup, ...playedNotInScrape, ...cupMatches])
+  return sortMatchesByDate([...withoutOldCup, ...playedNotInScrape, ...enriched])
 }
