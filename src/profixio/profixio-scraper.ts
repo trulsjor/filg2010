@@ -258,7 +258,9 @@ export class ProfixioScraper {
   }
 
   // Finner sluttspill-sidene automatisk fra kategori-sida, så playoffIds ikke må
-  // vedlikeholdes manuelt. Plukker ut alle /playoff/<id>-lenker. Defensivt: finner
+  // vedlikeholdes manuelt. Leser /playoff/<id> fra ALLE attributter (href,
+  // wire:navigate, x-data, ...), ikke bare <a href>. Logger grundig debug slik at
+  // CI-loggen viser sidestrukturen hvis selektoren ikke treffer. Defensivt: finner
   // den ingen (eller feiler), returneres tom liste.
   async discoverPlayoffIds(cupConfig: CupConfig): Promise<number[]> {
     const browser = await this.getBrowser()
@@ -269,15 +271,54 @@ export class ProfixioScraper {
     try {
       await page.goto(url, { waitUntil: 'domcontentloaded' })
       await page.waitForSelector('a[href*="/playoff/"]', { timeout: 15000 }).catch(() => {})
-      return await page.evaluate(() => {
-        const found = new Set<number>()
-        document.querySelectorAll('a[href*="/playoff/"]').forEach((anchor) => {
-          const match = (anchor.getAttribute('href') || '').match(/\/playoff\/(\d+)/)
-          if (match) found.add(parseInt(match[1], 10))
+
+      const result = await page.evaluate(() => {
+        const ids = new Set<number>()
+        const hits: string[] = []
+        document.querySelectorAll('*').forEach((el) => {
+          for (const attr of Array.from(el.attributes)) {
+            const match = attr.value.match(/\/playoff\/(\d+)/)
+            if (match) {
+              ids.add(parseInt(match[1], 10))
+              if (hits.length < 8)
+                hits.push(`${el.tagName.toLowerCase()} ${attr.name}="${attr.value}"`)
+            }
+          }
         })
-        return Array.from(found)
+        const anchorPatterns = Array.from(
+          new Set(
+            Array.from(document.querySelectorAll('a'))
+              .map((a) => (a.getAttribute('href') || '').replace(/\d+/g, '#'))
+              .filter(Boolean)
+          )
+        ).slice(0, 25)
+        return {
+          ids: Array.from(ids),
+          hits,
+          anchorCount: document.querySelectorAll('a').length,
+          anchorPatterns,
+          mentionsSluttspill: /sluttspill|playoff/i.test(document.body?.innerText || ''),
+          title: document.title,
+        }
       })
-    } catch {
+
+      console.log(
+        `  [sluttspill-debug] kat=${cupConfig.categoryId} tittel="${result.title}" ` +
+          `lenker=${result.anchorCount} playoff-treff=${result.ids.length} ` +
+          `nevner-sluttspill=${result.mentionsSluttspill}`
+      )
+      if (result.ids.length > 0) {
+        console.log(`  [sluttspill-debug] treff: ${JSON.stringify(result.hits)}`)
+      } else {
+        console.log(`  [sluttspill-debug] lenke-mønstre: ${JSON.stringify(result.anchorPatterns)}`)
+      }
+      return result.ids
+    } catch (error) {
+      console.log(
+        `  [sluttspill-debug] feil for kat=${cupConfig.categoryId}: ${
+          error instanceof Error ? error.message : String(error)
+        }`
+      )
       return []
     } finally {
       await page.close()
