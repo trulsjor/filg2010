@@ -43,7 +43,7 @@
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-07T21:48:37.100Z"
+    "updatedAt": "2026-08-08T10:00:57.229Z"
   },
   {
     "tournamentName": "Skjærgårdslekene Åpen - J2010",
@@ -51,6 +51,19 @@
     "rows": [
       {
         "position": 1,
+        "team": "Pors Håndball",
+        "played": 1,
+        "won": 1,
+        "drawn": 0,
+        "lost": 0,
+        "goalsFor": 19,
+        "goalsAgainst": 13,
+        "goalDifference": 6,
+        "points": 2,
+        "withdrawn": false
+      },
+      {
+        "position": 2,
         "team": "Fjellhammer IL",
         "played": 1,
         "won": 1,
@@ -63,32 +76,19 @@
         "withdrawn": false
       },
       {
-        "position": 2,
-        "team": "Pors Håndball",
-        "played": 0,
-        "won": 0,
-        "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "goalDifference": 0,
-        "points": 0,
-        "withdrawn": false
-      },
-      {
         "position": 3,
         "team": "Sandefjord TIF",
-        "played": 1,
+        "played": 2,
         "won": 0,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 16,
-        "goalsAgainst": 17,
-        "goalDifference": -1,
+        "lost": 2,
+        "goalsFor": 29,
+        "goalsAgainst": 36,
+        "goalDifference": -7,
         "points": 0,
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-07T21:48:40.720Z"
+    "updatedAt": "2026-08-08T10:01:00.259Z"
   }
 ]
