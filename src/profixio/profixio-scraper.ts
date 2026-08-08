@@ -257,11 +257,46 @@ export class ProfixioScraper {
     }
   }
 
+  // Finner sluttspill-sidene automatisk fra kategori-sida, så playoffIds ikke må
+  // vedlikeholdes manuelt. Plukker ut alle /playoff/<id>-lenker. Defensivt: finner
+  // den ingen (eller feiler), returneres tom liste.
+  async discoverPlayoffIds(cupConfig: CupConfig): Promise<number[]> {
+    const browser = await this.getBrowser()
+    const context = await browser.newContext({ locale: 'nb-NO' })
+    const page = await context.newPage()
+    const url = `${BASE_URL}/${cupConfig.tournamentSlug}/category/${cupConfig.categoryId}`
+
+    try {
+      await page.goto(url, { waitUntil: 'domcontentloaded' })
+      await page.waitForSelector('a[href*="/playoff/"]', { timeout: 15000 }).catch(() => {})
+      return await page.evaluate(() => {
+        const found = new Set<number>()
+        document.querySelectorAll('a[href*="/playoff/"]').forEach((anchor) => {
+          const match = (anchor.getAttribute('href') || '').match(/\/playoff\/(\d+)/)
+          if (match) found.add(parseInt(match[1], 10))
+        })
+        return Array.from(found)
+      })
+    } catch {
+      return []
+    } finally {
+      await page.close()
+      await context.close()
+    }
+  }
+
   async scrapePlayoffPages(cupConfig: CupConfig): Promise<ProfixioMatchData[]> {
     const browser = await this.getBrowser()
+    const playoffIds =
+      cupConfig.playoffIds.length > 0
+        ? cupConfig.playoffIds
+        : await this.discoverPlayoffIds(cupConfig)
+    if (cupConfig.playoffIds.length === 0 && playoffIds.length > 0) {
+      console.log(`  Fant ${playoffIds.length} sluttspill automatisk: ${playoffIds.join(', ')}`)
+    }
     const results: ProfixioMatchData[][] = []
 
-    for (const playoffId of cupConfig.playoffIds) {
+    for (const playoffId of playoffIds) {
       const context = await browser.newContext({ locale: 'nb-NO' })
       const page = await context.newPage()
       const url = `${BASE_URL}/${cupConfig.tournamentSlug}/category/${cupConfig.categoryId}/playoff/${playoffId}`
