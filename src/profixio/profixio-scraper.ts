@@ -196,8 +196,11 @@ export class ProfixioScraper {
   }
 
   private async navigateAndWait(page: Page, url: string): Promise<void> {
-    await page.goto(url, { waitUntil: 'networkidle' })
-    await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 10000 }).catch(() => {})
+    // Bruk 'domcontentloaded', ikke 'networkidle': under live-kamper holder Profixio
+    // nettverket aktivt (sanntidsoppdateringer), så 'networkidle' aldri inntreffer og
+    // page.goto timer ut. Vi venter i stedet eksplisitt på at kamplista rendres.
+    await page.goto(url, { waitUntil: 'domcontentloaded' })
+    await page.waitForSelector('li[wire\\:key^="listkamp_"]', { timeout: 15000 }).catch(() => {})
   }
 
   private async extractMatches(page: Page): Promise<ProfixioMatchData[]> {
