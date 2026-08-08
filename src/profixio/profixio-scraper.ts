@@ -287,13 +287,13 @@ export class ProfixioScraper {
 
   async scrapePlayoffPages(cupConfig: CupConfig): Promise<ProfixioMatchData[]> {
     const browser = await this.getBrowser()
-    const playoffIds =
-      cupConfig.playoffIds.length > 0
-        ? cupConfig.playoffIds
-        : await this.discoverPlayoffIds(cupConfig)
-    if (cupConfig.playoffIds.length === 0 && playoffIds.length > 0) {
-      console.log(`  Fant ${playoffIds.length} sluttspill automatisk: ${playoffIds.join(', ')}`)
+    // Union av eksplisitte playoffIds (garantert) og auto-oppdagede fra kategori-
+    // sida, så vi tar med både konfigurerte og nye/ekstra sluttspill.
+    const discovered = await this.discoverPlayoffIds(cupConfig)
+    if (discovered.length > 0) {
+      console.log(`  Fant ${discovered.length} sluttspill automatisk: ${discovered.join(', ')}`)
     }
+    const playoffIds = Array.from(new Set([...cupConfig.playoffIds, ...discovered]))
     const results: ProfixioMatchData[][] = []
 
     for (const playoffId of playoffIds) {
