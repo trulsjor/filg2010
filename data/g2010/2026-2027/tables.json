@@ -6,26 +6,26 @@
       {
         "position": 1,
         "team": "HK Aranäs vit",
-        "played": 1,
-        "won": 1,
+        "played": 2,
+        "won": 2,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 31,
-        "goalsAgainst": 19,
-        "goalDifference": 12,
-        "points": 2,
+        "goalsFor": 56,
+        "goalsAgainst": 41,
+        "goalDifference": 15,
+        "points": 4,
         "withdrawn": false
       },
       {
         "position": 2,
         "team": "Bækkelagets SPKL",
-        "played": 1,
+        "played": 2,
         "won": 0,
         "drawn": 1,
-        "lost": 0,
-        "goalsFor": 18,
-        "goalsAgainst": 18,
-        "goalDifference": 0,
+        "lost": 1,
+        "goalsFor": 40,
+        "goalsAgainst": 43,
+        "goalDifference": -3,
         "points": 1,
         "withdrawn": false
       },
@@ -43,7 +43,7 @@
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-08T10:00:50.716Z"
+    "updatedAt": "2026-08-08T18:24:52.913Z"
   },
   {
     "tournamentName": "Skjærgårdslekene Åpen - G2010",
@@ -51,57 +51,57 @@
     "rows": [
       {
         "position": 1,
-        "team": "Vang håndball",
-        "played": 2,
-        "won": 2,
+        "team": "Fjellhammer IL",
+        "played": 3,
+        "won": 3,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 44,
-        "goalsAgainst": 32,
-        "goalDifference": 12,
-        "points": 4,
+        "goalsFor": 65,
+        "goalsAgainst": 55,
+        "goalDifference": 10,
+        "points": 6,
         "withdrawn": false
       },
       {
         "position": 2,
-        "team": "Fjellhammer IL",
-        "played": 2,
+        "team": "Vang håndball",
+        "played": 3,
         "won": 2,
         "drawn": 0,
-        "lost": 0,
-        "goalsFor": 41,
-        "goalsAgainst": 36,
-        "goalDifference": 5,
+        "lost": 1,
+        "goalsFor": 63,
+        "goalsAgainst": 56,
+        "goalDifference": 7,
         "points": 4,
         "withdrawn": false
       },
       {
         "position": 3,
-        "team": "STIF/Larvik Turn",
-        "played": 2,
-        "won": 0,
+        "team": "Bjarg, IL",
+        "played": 3,
+        "won": 1,
         "drawn": 0,
         "lost": 2,
-        "goalsFor": 35,
-        "goalsAgainst": 43,
+        "goalsFor": 53,
+        "goalsAgainst": 61,
         "goalDifference": -8,
-        "points": 0,
+        "points": 2,
         "withdrawn": false
       },
       {
         "position": 4,
-        "team": "Bjarg, IL",
-        "played": 2,
+        "team": "STIF/Larvik Turn",
+        "played": 3,
         "won": 0,
         "drawn": 0,
-        "lost": 2,
-        "goalsFor": 33,
-        "goalsAgainst": 42,
+        "lost": 3,
+        "goalsFor": 54,
+        "goalsAgainst": 63,
         "goalDifference": -9,
         "points": 0,
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-08T10:00:53.730Z"
+    "updatedAt": "2026-08-08T18:25:20.747Z"
   }
 ]

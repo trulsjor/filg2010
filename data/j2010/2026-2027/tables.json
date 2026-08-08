@@ -6,44 +6,44 @@
       {
         "position": 1,
         "team": "Fjellhammer IL",
-        "played": 1,
-        "won": 1,
+        "played": 2,
+        "won": 2,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 34,
-        "goalsAgainst": 15,
-        "goalDifference": 19,
-        "points": 2,
+        "goalsFor": 65,
+        "goalsAgainst": 31,
+        "goalDifference": 34,
+        "points": 4,
         "withdrawn": false
       },
       {
         "position": 2,
-        "team": "Skuru IK Handboll Grön",
-        "played": 0,
-        "won": 0,
+        "team": "Teie HK",
+        "played": 2,
+        "won": 1,
         "drawn": 0,
-        "lost": 0,
-        "goalsFor": 0,
-        "goalsAgainst": 0,
-        "goalDifference": 0,
-        "points": 0,
+        "lost": 1,
+        "goalsFor": 39,
+        "goalsAgainst": 57,
+        "goalDifference": -18,
+        "points": 2,
         "withdrawn": false
       },
       {
         "position": 3,
-        "team": "Teie HK",
-        "played": 1,
+        "team": "Skuru IK Handboll Grön",
+        "played": 2,
         "won": 0,
         "drawn": 0,
-        "lost": 1,
-        "goalsFor": 15,
-        "goalsAgainst": 34,
-        "goalDifference": -19,
+        "lost": 2,
+        "goalsFor": 39,
+        "goalsAgainst": 55,
+        "goalDifference": -16,
         "points": 0,
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-08T10:00:57.229Z"
+    "updatedAt": "2026-08-08T18:25:46.795Z"
   },
   {
     "tournamentName": "Skjærgårdslekene Åpen - J2010",
@@ -51,27 +51,27 @@
     "rows": [
       {
         "position": 1,
-        "team": "Pors Håndball",
-        "played": 1,
-        "won": 1,
+        "team": "Fjellhammer IL",
+        "played": 2,
+        "won": 2,
         "drawn": 0,
         "lost": 0,
-        "goalsFor": 19,
-        "goalsAgainst": 13,
-        "goalDifference": 6,
-        "points": 2,
+        "goalsFor": 39,
+        "goalsAgainst": 36,
+        "goalDifference": 3,
+        "points": 4,
         "withdrawn": false
       },
       {
         "position": 2,
-        "team": "Fjellhammer IL",
-        "played": 1,
+        "team": "Pors Håndball",
+        "played": 2,
         "won": 1,
         "drawn": 0,
-        "lost": 0,
-        "goalsFor": 17,
-        "goalsAgainst": 16,
-        "goalDifference": 1,
+        "lost": 1,
+        "goalsFor": 39,
+        "goalsAgainst": 35,
+        "goalDifference": 4,
         "points": 2,
         "withdrawn": false
       },
@@ -89,6 +89,6 @@
         "withdrawn": false
       }
     ],
-    "updatedAt": "2026-08-08T10:01:00.259Z"
+    "updatedAt": "2026-08-08T18:26:12.561Z"
   }
 ]
